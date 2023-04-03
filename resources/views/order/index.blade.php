@@ -80,9 +80,10 @@
                                                 <td class="text-right px-3 py-3 w-40">
                                                     @if ($order->status == 'In attesa')
                                                         <div
-                                                            class="p-2 border rounded-lg bg-gray-100 hover:bg-gray-300 text-gray-500 text-center">
+                                                            class="">
                                                             <a href="{{ route('order.completed', $order) }}"
-                                                                class="text-xs uppercase"
+                                                            type="button"
+                                                                class="text-xs uppercase p-3 m-3 border rounded-lg bg-blue-400 hover:underline text-white text-center"
                                                                 title="Clicca qui per indicare che il materiale è arrivato e ubicato in magazzino">
                                                                 Consegnato
                                                             </a>

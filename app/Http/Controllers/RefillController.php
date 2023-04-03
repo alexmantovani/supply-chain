@@ -8,6 +8,7 @@ use App\Models\Refill;
 use App\Models\Product;
 use App\Models\Stock;
 use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RefillController extends Controller
 {
@@ -84,6 +85,7 @@ class RefillController extends Controller
         if ($product->isLow()) return abort(403);
 
         Refill::create([
+            'user_id' => Auth::user()->id,
             'product_id' => $productId,
             'quantity' => $quantity,
         ]);
