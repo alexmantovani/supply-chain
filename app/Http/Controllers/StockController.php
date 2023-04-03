@@ -6,6 +6,7 @@ use App\Http\Requests\StoreStockRequest;
 use App\Http\Requests\UpdateStockRequest;
 use App\Models\Refill;
 use App\Models\Stock;
+use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
@@ -75,6 +76,7 @@ class StockController extends Controller
         if ($stock->status == 'Basso') {
             if ( ! $stock->product->isLow() ) {
                 Refill::create([
+                    'user_id' => Auth::user()->id,
                     'product_id' => $stock->product->id,
                     'quantity' => 5,
                 ]);

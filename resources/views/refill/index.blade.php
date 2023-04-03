@@ -108,6 +108,12 @@
             <div class=" text-lg text-gray-300 font-medium">
                 Il magazzino è perfettamente rifornito
             </div>
+
+            <div class=" text-lg text-gray-300 py-16">
+                Clicca
+                <a href="{{ route('order.index') }}" class=" text-gray-500 font-medium hover:underline">qui</a>
+                per andare a controllare lo stato degli ordini
+            </div>
         </div>
     @endif
 

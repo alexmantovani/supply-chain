@@ -1,8 +1,21 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Storico ordini') }}
-        </h2>
+        <div class="flex justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('Storico ordini') }}
+            </h2>
+            <div>
+                <a href="{{ route('order.index') }}"
+                class="">
+                    In lavorazione
+                </a>
+                 &nbsp; | &nbsp;
+                 <a href="{{ route('order.index', ['all']) }}">
+                    Tutti
+                </a>
+            </div>
+        </div>
+
     </x-slot>
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
@@ -53,12 +66,10 @@
                                                         </a>
 
                                                         @foreach ($order->products as $product)
-                                                            <div class="flex justify-between text-gray-400 text-xs py-1">
+                                                            <div class=" text-gray-400 text-xs py-1">
                                                                 <div>
-                                                                    {{ $product->name }}
-                                                                </div>
-                                                                <div>
-                                                                    {{ $product->pivot->quantity }}
+                                                                    {{ $product->name }} &middot;
+                                                                    {{ $product->pivot->quantity }} articoli
                                                                 </div>
                                                             </div>
                                                         @endforeach
@@ -79,13 +90,12 @@
                                                 </td>
                                                 <td class="text-right px-3 py-3 w-40">
                                                     @if ($order->status == 'In attesa')
-                                                        <div
-                                                            class="">
+                                                        <div class="text-center">
                                                             <a href="{{ route('order.completed', $order) }}"
-                                                            type="button"
+                                                                type="button"
                                                                 class="text-xs uppercase p-3 m-3 border rounded-lg bg-blue-400 hover:underline text-white text-center"
                                                                 title="Clicca qui per indicare che il materiale è arrivato e ubicato in magazzino">
-                                                                Consegnato
+                                                                <i class="fas fa-box"></i>
                                                             </a>
                                                         </div>
                                                     @else

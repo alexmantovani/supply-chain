@@ -15,7 +15,9 @@ class OrderController extends Controller
     public function index()
     {
         // $orders = Order::all()->sortBy('created_at', true);
-        $orders = Order::orderBy('created_at', 'desc')
+        $query = Request()->has('all') ? ['placed', 'processed'] : ['placed'];
+        $orders = Order::whereIn('status', $query)
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
         return view('order.index', compact('orders'));
     }
