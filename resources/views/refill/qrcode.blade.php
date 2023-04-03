@@ -13,9 +13,8 @@
 
     <section class="antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
         <div class="flex justify-center">
-
             <div class="h-full py-20">
-                {!! QrCode::size(200)->generate('refill/ask?product_id='.$product->id.'&quantity=6') !!}
+                {!! QrCode::size(200)->generate(url('refill/ask?product_id='.$product->id.'&quantity=6')) !!}
             </div>
         </div>
         <div class="text-center text-gray-500">
