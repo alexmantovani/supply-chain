@@ -30,6 +30,10 @@ class Refill extends Model
         return "bg-red-300";
     }
 
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
     public function product() {
         return $this->belongsTo(Product::class);
     }

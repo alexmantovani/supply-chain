@@ -39,16 +39,14 @@
                                                 <tr>
                                                     <td class="p-2 whitespace-nowrap">
                                                         <div class=" items-center">
-                                                            {{-- <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img
-                                                        class="rounded-full"
-                                                        src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg"
-                                                        width="40" height="40" alt="Alex Shatov"></div> --}}
+                                                            <div class="font-medium text-gray-800">
+                                                                {{ $refill->name }}
+                                                            </div>
                                                             <div class="font-medium text-gray-800 text-lg">
-                                                                {{ $refill->product->id }}
                                                                 {{ $refill->product->name }}
                                                             </div>
-                                                            <div class="font-medium text-gray-400">
-                                                                {{ $refill->name }}
+                                                            <div class="font-medium text-gray-400 pt-0.5">
+                                                                Segnalato da {{ $refill->user->name }} &middot; {{ $refill->created_at->diffForHumans() }}
                                                             </div>
                                                         </div>
                                                     </td>
@@ -90,7 +88,7 @@
                                     Spunta tra i materiali in esaurimento quelli che intendi ordinare e premi il tasto
                                     qui accanto per avviare l'ordine
                                 </div>
-                                <x-primary-button>{{ __('Ordina materiale') }}</x-primary-button>
+                                <x-primary-button>{{ __('Ordina materiale selezionato') }}</x-primary-button>
                             </div>
                         </div>
                     </div>

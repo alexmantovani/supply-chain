@@ -19,7 +19,7 @@ class Order extends Model
                 return "In attesa";
                 break;
             case 'processed':
-                return "Evaso";
+                return "Completato";
                 break;
 
             default:
