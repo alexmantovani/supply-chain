@@ -39,11 +39,7 @@
                                 {{ $order->created_at }}
                             </div> --}}
                         </div>
-
                     </div>
-
-
-
 
                     <table class="table-auto w-full">
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
@@ -101,10 +97,62 @@
                             </tr>
                         </tbody>
                     </table>
-
                 </div>
             </div>
 
+            <div class="w-full max-w-7xl mx-auto pt-5">
+                <div class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 py-8">
+                    <div class="pb-6 m-5">
+                        <div class="font-semibold text-2xl pt-4">
+                            Log
+                        </div>
+                    </div>
+
+                    <table class="table-auto w-full">
+                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                            <tr>
+                                <th class="p-2 whitespace-nowrap w-20">
+                                    <div class="font-semibold text-center">Data</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap w-20">
+                                    <div class="font-semibold text-center">Ora</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Descrizione</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-right">Utente</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        @foreach ($order->logs as $log)
+                            <tr>
+                                <td class="p-2 whitespace-nowrap text-gray-400 text-xs ">
+                                    <div>
+                                        {{ $log->created_at->format('d.m.Y') }}
+                                    </div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap text-center text-gray-400 text-xs">
+                                    <div>
+                                        {{ $log->created_at->format('H:i') }}
+                                    </div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap text-gray-500 ">
+                                    <div>
+                                        {{ $log->description }}
+                                    </div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap text-gray-500 text-right">
+                                    <div>
+                                        {{ $log->user->name ?? '' }}
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
+
+            </div>
         </div>
     </section>
 

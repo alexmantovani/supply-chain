@@ -37,4 +37,17 @@ class Order extends Model
     {
         return $this->belongsTo(Dealer::class);
     }
+
+    public function logs()
+    {
+        return $this->morphMany(Log::class, 'loggable');
+    }
+
+    public function logga($testo)
+    {
+        $this->logs()->create([
+            'description' => $testo,
+        ]);
+    }
+
 }

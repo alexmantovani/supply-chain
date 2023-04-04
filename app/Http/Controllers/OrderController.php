@@ -6,6 +6,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
 use App\Models\Refill;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -52,6 +53,12 @@ class OrderController extends Controller
             // TODO: Aggiungere la quantità
             // $order->products()->sync($product_ids);
             $order->products()->syncWithPivotValues($product_ids, ['quantity' => 5]);
+
+            $order->logs()->create([
+                'user_id' => Auth::user()->id,
+                'description' => 'Emesso ordine',
+                'type' => 'info',
+            ]);
 
             // Segno questi prodotti come ordinati
             Refill::whereIn('id', $refill_ids)
@@ -112,6 +119,12 @@ class OrderController extends Controller
                 ]);
             }
         }
+
+        $order->logs()->create([
+            'user_id' => Auth::user()->id,
+            'description' => 'Ordine concluso',
+            'type' => 'info',
+        ]);
 
         return redirect()->back();
     }

@@ -46,5 +46,9 @@ class User extends Authenticatable
         return $this->hasMany(Refill::class);
     }
 
+    public function logs() {
+        return $this->hasMany(Log::class);
+    }
+
 
 }

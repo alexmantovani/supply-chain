@@ -5,12 +5,11 @@
                 {{ __('Storico ordini') }}
             </h2>
             <div>
-                <a href="{{ route('order.index') }}"
-                class="">
+                <a href="{{ route('order.index') }}" class="">
                     In lavorazione
                 </a>
-                 &nbsp; | &nbsp;
-                 <a href="{{ route('order.index', ['all']) }}">
+                &nbsp; | &nbsp;
+                <a href="{{ route('order.index', ['all']) }}">
                     Tutti
                 </a>
             </div>
@@ -91,12 +90,17 @@
                                                 <td class="text-right px-3 py-3 w-40">
                                                     @if ($order->status == 'In attesa')
                                                         <div class="text-center">
-                                                            <a href="{{ route('order.completed', $order) }}"
+                                                                <a href="{{ route('order.completed', $order) }}"
+                                                                class='inline-flex w-11 h-10 items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'>
+                                                                    <i class="fas fa-box"></i>
+                                                                </a>
+
+                                                            {{-- <a href="{{ route('order.completed', $order) }}"
                                                                 type="button"
                                                                 class="text-xs uppercase p-3 m-3 border rounded-lg bg-blue-400 hover:underline text-white text-center"
                                                                 title="Clicca qui per indicare che il materiale è arrivato e ubicato in magazzino">
                                                                 <i class="fas fa-box"></i>
-                                                            </a>
+                                                            </a> --}}
                                                         </div>
                                                     @else
                                                     @endif
