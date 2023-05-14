@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDealerRequest;
 use App\Http\Requests\UpdateDealerRequest;
 use App\Models\Dealer;
+use App\Models\Order;
 
 class DealerController extends Controller
 {
@@ -37,7 +38,10 @@ class DealerController extends Controller
      */
     public function show(Dealer $dealer)
     {
-        //
+        $search = '';
+        $orders = $dealer->orders()->paginate(10);
+        $products = $dealer->products()->paginate(10);
+        return view('dealer.show', compact('dealer', 'orders', 'products'));
     }
 
     /**

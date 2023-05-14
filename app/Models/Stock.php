@@ -17,6 +17,11 @@ class Stock extends Model
         return $this->product->orders();
     }
 
+    public function logs()
+    {
+        return $this->morphMany(Log::class, 'loggable');
+    }
+
     public function getStatusAttribute()
     {
         // Per prima cosa guardo se per questo articolo ho ordini pendenti
@@ -37,14 +42,14 @@ class Stock extends Model
         // Per prima cosa guardo se per questo articolo ho ordini pendenti
         $pendingOrder = $this->orders()->firstWhere('status', '=', 'placed');
         if ($pendingOrder) {
-            return "bg-yellow-400 text-yellow-800";
+            return "border border-yellow-400 text-yellow-600 text-xs";
         }
 
         if ($this->quantity < 5) {
-            return " bg-red-400 text-red-800";
+            return " border border-red-400 text-red-800 bg-red-100 text-xs";
         }
 
-        return " bg-green-400 text-green-800";
+        return " border border-green-200 text-green-800 text-xs";
     }
 
 

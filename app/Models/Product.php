@@ -27,6 +27,11 @@ class Product extends Model
         return $this->belongsToMany(Order::class);
     }
 
+    public function logs()
+    {
+        return $this->morphMany(Log::class, 'loggable');
+    }
+
     /**
      * Riporta true nel caso in cui il prodotto sia già nella lista dei prodotti in esaurimento.
      */

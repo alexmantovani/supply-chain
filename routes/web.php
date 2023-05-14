@@ -31,9 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::resource('/dealer', App\Http\Controllers\DealerController::class);
     Route::resource('/stock', App\Http\Controllers\StockController::class);
     Route::resource('/refill', App\Http\Controllers\RefillController::class);
     Route::resource('/order', App\Http\Controllers\OrderController::class);
+    Route::resource('/product', App\Http\Controllers\ProductController::class);
 
     Route::get('/stock/pickup/{stock}', [App\Http\Controllers\StockController::class, 'pickup'])->name('stock.pickup');
 

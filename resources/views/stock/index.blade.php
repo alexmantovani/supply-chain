@@ -49,13 +49,17 @@
                                                 src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg"
                                                 width="40" height="40" alt="Alex Shatov"></div> --}}
                                                 <div class="font-medium text-gray-800 text-lg">
-                                                    {{ $stock->product->name }}
+                                                    <a href="{{ route('product.show', $stock->product) }}" class=" hover:underline">
+                                                        {{ $stock->product->name }}
+                                                    </a>
                                                 </div>
-                                                <div class="font-medium text-gray-400">
-                                                    {{ $stock->product->dealer->name }}
+                                                <div class="f">
+                                                    <a href="{{ route('dealer.show', $stock->product->dealer) }}"
+                                                        class="font-medium text-gray-400 hover:text-gray-800 hover:underline">
+                                                        {{ $stock->product->dealer->name }}
+                                                    </a>
                                                 </div>
                                             </div>
-
 
                                             {{-- <div class="flex items-center">
                                                 <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img
@@ -81,9 +85,9 @@
                                         <td class="p-2">
                                             <div>
                                                 <a href="{{ route('stock.pickup', $stock) }}"
-                                                class="text-xs uppercase p-2 border rounded-lg border-gray-500 text-gray-500">
+                                                    class="text-xs uppercase p-2 border rounded-lg border-gray-500 text-gray-500">
 
-                                                Preleva
+                                                    Preleva
                                                 </a>
                                             </div>
                                         </td>

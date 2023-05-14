@@ -26,7 +26,10 @@ module.exports = {
         {
             pattern: /text-(red|green|blue|yellow)-.+/,
         },
-      ],
+        {
+            pattern: /border-(red|green|blue|yellow)-.+/,
+        },
+          ],
 
     plugins: [require('@tailwindcss/forms')],
 };

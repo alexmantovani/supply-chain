@@ -36,6 +36,9 @@
                                             <th class="p-2 whitespace-nowrap">
                                                 <div class="font-semibold text-center">Data</div>
                                             </th>
+                                            <th class="p-2 whitespace-nowrap">
+                                                <div class="font-semibold text-center">Ora</div>
+                                            </th>
                                             <th class="p-2 w-40">
                                                 <div class="font-semibold">Stato</div>
                                             </th>
@@ -43,6 +46,9 @@
                                                 <div class="font-semibold text-center">
                                                     Azioni
                                                 </div>
+                                            </th>
+                                            <th class="p-2 w-10">
+                                                <div class="font-semibold"></div>
                                             </th>
                                         </tr>
                                     </thead>
@@ -52,14 +58,7 @@
                                             <tr>
                                                 <td class="p-2 whitespace-nowrap">
                                                     <div class=" items-center">
-                                                        {{-- <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img
-                                                        class="rounded-full"
-                                                        src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg"
-                                                        width="40" height="40" alt="Alex Shatov"></div> --}}
-                                                        {{-- <div class="font-medium text-gray-800 text-lg">
-                                                            {{ $order->product->name }}
-                                                        </div> --}}
-                                                        <a href="{{ route('order.show', $order->id) }}"
+                                                        <a href="{{ route('dealer.show', $order->dealer) }}"
                                                             class="font-medium text-gray-800 text-lg hover:underline">
                                                             {{ $order->dealer->name }}
                                                         </a>
@@ -78,7 +77,12 @@
                                                 </td>
                                                 <td class="p-2 whitespace-nowrap">
                                                     <div class="text-center">
-                                                        {{ $order->created_at }}
+                                                        {{ $order->created_at->format('d.m.Y') }}
+                                                    </div>
+                                                </td>
+                                                <td class="p-2 whitespace-nowrap">
+                                                    <div class="text-center">
+                                                        {{ $order->created_at->format('H.i') }}
                                                     </div>
                                                 </td>
                                                 <td class="p-2 ">
@@ -88,12 +92,14 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-right px-3 py-3 w-40">
+
                                                     @if ($order->status == 'In attesa')
                                                         <div class="text-center">
-                                                                <a href="{{ route('order.completed', $order) }}"
+                                                            <a href="{{ route('order.completed', $order) }}"
+                                                                title="Materiale arrivato"
                                                                 class='inline-flex w-11 h-10 items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'>
-                                                                    <i class="fas fa-box"></i>
-                                                                </a>
+                                                                <i class="fas fa-box"></i>
+                                                            </a>
 
                                                             {{-- <a href="{{ route('order.completed', $order) }}"
                                                                 type="button"
@@ -108,6 +114,12 @@
                                                         class=" text-right border text-gray-600 rounded-lg py-2 px-3 text-base uppercase">
                                                         <i class="far fa-ellipsis-v"></i>
                                                     </a> --}}
+                                                </td>
+                                                <td class="text-right px-3 py-3 w-10">
+                                                    <a href="{{ route('order.show', $order->id) }}"
+                                                        class="font-medium text-gray-800 text-lg hover:underline">
+                                                        <i class="fa-solid fa-angle-right"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach

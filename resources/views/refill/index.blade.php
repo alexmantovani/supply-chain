@@ -39,8 +39,10 @@
                                                 <tr>
                                                     <td class="p-2 whitespace-nowrap">
                                                         <div class=" items-center">
-                                                            <div class="font-medium text-gray-800">
-                                                                {{ $refill->name }}
+                                                            <div>
+                                                                <a href="{{ route('dealer.show', $refill->dealer_id) }}" class="font-medium text-gray-400 hover:text-gray-800">
+                                                                    {{ $refill->name }}
+                                                                </a>
                                                             </div>
                                                             <div class="font-medium text-gray-800 text-lg">
                                                                 {{ $refill->product->name }}
