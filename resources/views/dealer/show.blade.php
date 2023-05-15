@@ -39,9 +39,17 @@
 
             <div class="w-full max-w-7xl mx-auto pt-5">
                 <div class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 py-8">
-                    <div class="pb-6 m-5">
+                    <div class="pb-6 m-5 flex justify-between items-center">
                         <div class="font-semibold text-2xl pt-4">
                             Listino
+                        </div>
+                        <div>
+                            <x-secondary-button
+                            title="{{ __('Aggiungi un nuovo prodotto a listino') }}"
+                            >
+                                <i class="fa-sharp fa-solid fa-plus"></i> &nbsp;
+                                {{ __('Aggiungi') }}
+                            </x-secondary-button>
                         </div>
                     </div>
 
@@ -149,7 +157,7 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <div class=" text-gray-600 text-right uppercase">{{ $order->status }}</div>
+                                    <div class=" text-gray-600 text-center w-30 uppercase text-xs p-2 rounded-md border">{{ $order->status }}</div>
                                 </td>
                                 {{-- <td class="p-2 whitespace-nowrap text-gray-500 ">
                                     <div>
