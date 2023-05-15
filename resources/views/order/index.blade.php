@@ -77,12 +77,12 @@
                                                 </td>
                                                 <td class="p-2 whitespace-nowrap">
                                                     <div class="text-center">
-                                                        {{ $order->created_at->format('d.m.Y') }}
+                                                        {{ $order->created_at->translatedFormat('d.m.Y') }}
                                                     </div>
                                                 </td>
                                                 <td class="p-2 whitespace-nowrap">
                                                     <div class="text-center">
-                                                        {{ $order->created_at->format('H.i') }}
+                                                        {{ $order->created_at->translatedFormat('H:i') }}
                                                     </div>
                                                 </td>
                                                 <td class="p-2 ">

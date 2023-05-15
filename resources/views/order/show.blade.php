@@ -129,12 +129,12 @@
                             <tr>
                                 <td class="p-2 whitespace-nowrap text-gray-400 text-xs ">
                                     <div>
-                                        {{ $log->created_at->format('d.m.Y') }}
+                                        {{ $log->created_at->translatedFormat('d.m.Y') }}
                                     </div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap text-center text-gray-400 text-xs">
                                     <div>
-                                        {{ $log->created_at->format('H:i') }}
+                                        {{ $log->created_at->translatedFormat('H:i') }}
                                     </div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap text-gray-500 ">
