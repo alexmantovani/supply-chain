@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/order', App\Http\Controllers\OrderController::class);
     Route::resource('/product', App\Http\Controllers\ProductController::class);
 
+    Route::get('/product/{dealer}/create', [App\Http\Controllers\ProductController::class, 'create'])->name('product.create');
+
     Route::get('/stock/pickup/{stock}', [App\Http\Controllers\StockController::class, 'pickup'])->name('stock.pickup');
 
     Route::get('/order/{order}/completed', [App\Http\Controllers\OrderController::class, 'completed'])->name('order.completed');

@@ -43,14 +43,15 @@
                         <div class="font-semibold text-2xl pt-4">
                             Listino
                         </div>
-                        <div>
-                            <x-secondary-button
-                            title="{{ __('Aggiungi un nuovo prodotto a listino') }}"
-                            >
+                            <a href="{{ route('product.create', $dealer->id) }}">
+
+                                <x-secondary-button
+                                title="{{ __('Aggiungi un nuovo prodotto a listino') }}"
+                                >
                                 <i class="fa-sharp fa-solid fa-plus"></i> &nbsp;
                                 {{ __('Aggiungi') }}
                             </x-secondary-button>
-                        </div>
+                        </a>
                     </div>
 
                     <table class="table-auto w-full ">

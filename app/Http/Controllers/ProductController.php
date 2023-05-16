@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use App\Models\Dealer;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -13,15 +15,21 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $search = Request()->search ?? '';
+
+        $products = Product::where('name', 'like', '%' . $search . '%')
+            // ->orWhere('dealer', 'like', '%' . $search . '%')
+            ->orderBy('name')->paginate(20);
+        return view('product.index', compact('search', 'products'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Dealer $dealer)
     {
         //
+        return view('product.create', compact('dealer'));
     }
 
     /**
@@ -29,7 +37,15 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        Product::create([
+            'name' => $request->name,
+            "description" => $request->description,
+            // "note" => $request->note,
+            'dealer_id' => $request->dealer_id,
+            'uuid' => Str::uuid(),
+        ]);
+
+        return to_route('dealer.show', $request->dealer_id);
     }
 
     /**

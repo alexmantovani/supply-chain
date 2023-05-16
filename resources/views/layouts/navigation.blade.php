@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('stock.index')" :active="request()->routeIs('stock.index')">
                         {{ __('Magazzino') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
+                        {{ __('Listino') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('refill.index')" :active="request()->routeIs('refill.index')">
                         {{ __('In esaurimento') }}
                     </x-nav-link>
