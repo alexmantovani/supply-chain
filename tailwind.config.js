@@ -21,7 +21,7 @@ module.exports = {
         'text-3xl',
         {
             pattern: /bg-(red|green|blue|yellow)-.+/,
-            variants: ['lg', 'hover', 'focus', 'lg:hover'],
+            variants: ['lg', 'hover', 'focus', 'lg:hover', 'dark'],
         },
         {
             pattern: /text-(red|green|blue|yellow)-.+/,

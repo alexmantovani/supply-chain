@@ -17,17 +17,17 @@
 
     </x-slot>
 
-    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
+    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="h-full ">
 
-            <div class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8">
+            <div class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-700 dark:border-gray-800">
 
                 <div class="mx-8">
                     <form method="GET" action="{{ route('product.index') }}">
                         <div class="flex mt-4 rounded-md border border-gray-300 items-center">
                             <div class="w-full">
                                 <input
-                                class="mr-3 border-0 focus:ring-0 focus:ring-slate-300 focus:outline-none appearance-none w-full  text-slate-900 placeholder-slate-400 rounded-md py-2 pl-3 ring-0"
+                                class="mr-3 bg-transparent border-0 focus:ring-0 focus:ring-slate-300 focus:outline-none appearance-none w-full  text-slate-900 placeholder-slate-400 rounded-md py-2 pl-3 ring-0"
                                 type="text" aria-label="Search" placeholder="Cerca..." value="{{ $search ?? '' }}"
                                 name="search" autofocus>
                             </div>
@@ -48,7 +48,7 @@
                 <div class="p-3">
                     <div class="overflow-x-auto">
                         <table class="table-auto w-full ">
-                            <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                            <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-600">
                                 <tr>
                                     <th class="p-2 whitespace-nowrap w-20">
                                         <div class="font-semibold text-center">Id</div>
@@ -62,11 +62,11 @@
                                 </tr>
                             </thead>
 
-                            <tbody class="text-sm divide-y divide-gray-100">
+                            <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
                                 @foreach ($products as $product)
                                     <tr>
                                         <td>
-                                            <div class="text-center">
+                                            <div class="text-center text-gray-300 dark:text-gray-400">
                                                 {{ $product->id }}
                                             </div>
                                         </td>
@@ -76,7 +76,7 @@
                                                 class="rounded-full"
                                                 src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg"
                                                 width="40" height="40" alt="Alex Shatov"></div> --}}
-                                                <div class="font-medium text-gray-800 text-lg">
+                                                <div class="font-medium text-gray-800 text-lg dark:text-gray-300">
                                                     <a href="{{ route('product.show', $product) }}" class=" hover:underline">
                                                         {{ $product->name }}
                                                     </a>

@@ -42,14 +42,14 @@ class Stock extends Model
         // Per prima cosa guardo se per questo articolo ho ordini pendenti
         $pendingOrder = $this->orders()->firstWhere('status', '=', 'placed');
         if ($pendingOrder) {
-            return "border border-yellow-400 text-yellow-600 text-xs";
+            return "border border-yellow-400 text-yellow-600 text-xs dark:text-yellow-200";
         }
 
         if ($this->quantity < 5) {
-            return " border border-red-400 text-red-800 bg-red-100 text-xs";
+            return " border border-red-400 text-red-800 bg-transparent text-xs dark:text-red-400";
         }
 
-        return " border border-green-200 text-green-800 text-xs";
+        return " border border-green-200 text-green-800 text-xs dark:text-green-400";
     }
 
 

@@ -6,18 +6,21 @@
     </x-slot>
 
     @if ($refills->count())
-        <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
+        <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
+
             <div class="h-full ">
                 <!-- Table -->
                 <form method="post" action="{{ route('order.store') }}">
                     @csrf
                     <div class="w-full max-w-7xl mx-auto ">
-                        <div class="bg-white shadow-lg rounded-sm border border-gray-200 px-8">
+                        <div
+                            class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-700 dark:border-gray-800">
 
                             <div class="p-3">
                                 <div class="">
                                     <table class="table-auto w-full ">
-                                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                                        <thead
+                                            class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-600">
                                             <tr>
                                                 <th class="p-2 whitespace-nowrap">
                                                     <div class="font-semibold text-left">Prodotto</div>
@@ -34,21 +37,23 @@
                                             </tr>
                                         </thead>
 
-                                        <tbody class="text-sm divide-y divide-gray-100">
+                                        <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
                                             @foreach ($refills as $refill)
                                                 <tr>
                                                     <td class="p-2 whitespace-nowrap">
                                                         <div class=" items-center">
                                                             <div>
-                                                                <a href="{{ route('dealer.show', $refill->dealer_id) }}" class="font-medium text-gray-400 hover:text-gray-800">
+                                                                <a href="{{ route('dealer.show', $refill->dealer_id) }}"
+                                                                    class="font-medium text-gray-400 hover:text-gray-800">
                                                                     {{ $refill->name }}
                                                                 </a>
                                                             </div>
-                                                            <div class="font-medium text-gray-800 text-lg">
+                                                            <div class="font-medium text-gray-800 text-lg dark:text-gray-300">
                                                                 {{ $refill->product->name }}
                                                             </div>
                                                             <div class="font-medium text-gray-400 pt-0.5">
-                                                                Segnalato da {{ $refill->user->name }} &middot; {{ $refill->created_at->diffForHumans() }}
+                                                                Segnalato da {{ $refill->user->name }} &middot;
+                                                                {{ $refill->created_at->diffForHumans() }}
                                                             </div>
                                                         </div>
                                                     </td>

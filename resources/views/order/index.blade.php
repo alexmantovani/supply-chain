@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Storico ordini') }}
             </h2>
-            <div>
+            <div class="dark:text-gray-400">
                 <a href="{{ route('order.index') }}" class="">
                     In lavorazione
                 </a>
@@ -17,18 +17,18 @@
 
     </x-slot>
 
-    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
+    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="h-full ">
             <!-- Table -->
             <form method="post" action="{{ route('order.store') }}">
                 @csrf
                 <div class="w-full max-w-7xl mx-auto ">
-                    <div class="bg-white shadow-lg rounded-sm border border-gray-200 px-8">
+                    <div class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-700 dark:border-gray-800">
 
                         <div class="p-3">
                             <div class="">
                                 <table class="table-auto w-full ">
-                                    <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                                    <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-600">
                                         <tr>
                                             <th class="p-2 whitespace-nowrap">
                                                 <div class="font-semibold text-left">Fornitore</div>
@@ -53,14 +53,14 @@
                                         </tr>
                                     </thead>
 
-                                    <tbody class="text-sm divide-y divide-gray-100">
+                                    <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
                                         @foreach ($orders as $order)
                                             <tr>
                                                 <td class="p-2 whitespace-nowrap">
                                                     <div class=" items-center">
                                                         <a href="{{ route('dealer.show', $order->dealer) }}"
-                                                            class="font-medium text-gray-800 text-lg hover:underline">
-                                                            {{ $order->dealer->name }}
+                                                            class="font-medium text-gray-800 text-lg dark:text-gray-300 hover:underline">
+                                                                {{ $order->dealer->name }}
                                                         </a>
 
                                                         @foreach ($order->products as $product)
@@ -76,18 +76,18 @@
                                                     </div>
                                                 </td>
                                                 <td class="p-2 whitespace-nowrap">
-                                                    <div class="text-center">
+                                                    <div class="text-center dark:text-gray-300">
                                                         {{ $order->created_at->translatedFormat('d.m.Y') }}
                                                     </div>
                                                 </td>
                                                 <td class="p-2 whitespace-nowrap">
-                                                    <div class="text-center">
+                                                    <div class="text-center dark:text-gray-300">
                                                         {{ $order->created_at->translatedFormat('H:i') }}
                                                     </div>
                                                 </td>
                                                 <td class="p-2 ">
                                                     <div
-                                                        class="text-center font-medium uppercase rounded-lg py-2 px-3 text-xs {!! $order->status_color !!}">
+                                                        class="text-center font-medium uppercase rounded-lg py-2 px-3 text-xs {!! $order->status_color !!}  dark:text-gray-300">
                                                         {!! $order->status !!}
                                                     </div>
                                                 </td>
@@ -117,7 +117,7 @@
                                                 </td>
                                                 <td class="text-right px-3 py-3 w-10">
                                                     <a href="{{ route('order.show', $order->id) }}"
-                                                        class="font-medium text-gray-800 text-lg hover:underline">
+                                                        class="font-medium text-gray-800 text-lg hover:underline dark:text-gray-300">
                                                         <i class="fa-solid fa-angle-right"></i>
                                                     </a>
                                                 </td>
