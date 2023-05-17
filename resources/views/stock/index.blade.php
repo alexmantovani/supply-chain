@@ -8,7 +8,8 @@
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="h-full ">
             <!-- Table -->
-            <div class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800">
+            <div
+                class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800">
 
                 <div class="p-3">
                     <div class="overflow-x-auto">
@@ -48,10 +49,18 @@
                                                 class="rounded"
                                                 src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg"
                                                 width="40" height="40" alt="Alex Shatov"></div> --}}
-                                                <div class="font-medium text-gray-800 text-lg dark:text-gray-300">
-                                                    <a href="{{ route('product.show', $stock->product) }}" class=" hover:underline">
+                                                <div
+                                                    class="flex justify-between items-center font-medium text-gray-800 text-lg dark:text-gray-300">
+                                                    <a href="{{ route('product.show', $stock->product) }}"
+                                                        class=" hover:underline">
                                                         {{ $stock->product->name }}
                                                     </a>
+                                                    @if ($stock->product->isLow())
+                                                        <div
+                                                            class=" text-xs px-2 py-1 align-middle bg-indigo-400 text-white rounded uppercase">
+                                                            in esaurimento
+                                                        </div>
+                                                    @endif
                                                 </div>
                                                 <div class="f">
                                                     <a href="{{ route('dealer.show', $stock->product->dealer) }}"
@@ -83,13 +92,15 @@
                                             </div>
                                         </td>
                                         <td class="p-2">
-                                            <div>
-                                                <a href="{{ route('stock.pickup', $stock) }}"
-                                                    class="text-xs uppercase p-2 border rounded-lg border-gray-500 text-gray-500 dark:text-gray-300">
+                                            @if ($stock->quantity > 0)
+                                                <div>
+                                                    <a href="{{ route('stock.pickup', $stock) }}"
+                                                        class="text-xs uppercase p-2 border rounded-lg border-gray-500 text-gray-500 dark:text-gray-300">
 
-                                                    Preleva
-                                                </a>
-                                            </div>
+                                                        Preleva
+                                                    </a>
+                                                </div>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

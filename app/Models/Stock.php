@@ -30,6 +30,10 @@ class Stock extends Model
             return $pendingOrder->status;
         }
 
+        if ($this->quantity == 0) {
+            return "Esaurito";
+        }
+
         if ($this->quantity < 5) {
             return "Basso";
         }
