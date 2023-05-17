@@ -8,12 +8,12 @@
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="h-full ">
             <!-- Table -->
-            <div class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-700 dark:border-gray-800">
+            <div class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800">
 
                 <div class="p-3">
                     <div class="overflow-x-auto">
                         <table class="table-auto w-full ">
-                            <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-600">
+                            <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
                                 <tr>
                                     <th class="p-2 whitespace-nowrap w-20">
                                         <div class="font-semibold text-center">Id</div>
