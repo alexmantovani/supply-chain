@@ -49,7 +49,9 @@
                                                                 </a>
                                                             </div>
                                                             <div class="font-medium text-gray-800 text-lg dark:text-gray-300">
-                                                                {{ $refill->product->name }}
+                                                                <a href="{{ route('product.show', $refill->product) }}" class=" hover:underline">
+                                                                    {{ $refill->product->name }}
+                                                                </a>
                                                             </div>
                                                             <div class="font-medium text-gray-400 pt-0.5">
                                                                 Segnalato da {{ $refill->user->name }} &middot;

@@ -10,8 +10,6 @@
                     {{ __('Dettaglio prodotto') }} # {{ $product->id }}
                 </h2>
             </div>
-
-
         </div>
     </x-slot>
 
@@ -22,7 +20,8 @@
             <div class="grid grid-cols-2 gap-4">
 
                 <div class="">
-                    <div class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-700">
+                    <div
+                        class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-700">
 
                         <div class="m-5">
                             <div class="pb-6">
@@ -33,10 +32,66 @@
                                     {{ $product->dealer->name }}
                                 </div>
                             </div>
-
                         </div>
 
                     </div>
+
+
+                    <div
+                        class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-700 my-6">
+                        <div class="pt-5 text-xl font-semibold uppercase">
+                            In esaurimento
+                        </div>
+                        <table class="table-auto w-full my-6">
+                            <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
+                                <tr>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-left">Segnalatore</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-left">Data</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap w-20">
+                                        <div class="font-semibold text-center">Quantità</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-left"></div>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            @foreach ($product->refills as $refill)
+                                <tr class="h-12">
+                                    <td>
+                                        <div>
+                                            {{ $refill->user->name }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            {{ $refill->created_at->diffForHumans() }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-center">
+                                            {{ $refill->product->stock->quantity }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-right ">
+                                            <x-danger-button class="">
+                                                <i class="fa-solid fa-trash text-xs"></i>
+                                            </x-danger-button>
+                                            <x-primary-button class="mx-4">
+                                                {{ __('Ordina') }}
+                                            </x-primary-button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+
 
                     <div class="pt-4 flex justify-between">
                         <x-primary-button class="mx-4">
@@ -52,8 +107,9 @@
 
 
                 <div class="">
-                    <div class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 py-8 dark:bg-gray-900 dark:border-gray-700">
-                            <div class="pb-6 mx-5">
+                    <div
+                        class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 py-8 dark:bg-gray-900 dark:border-gray-700">
+                        <div class="pb-6 mx-5">
                             <div class="font-semibold text-2xl dark:text-gray-200">
                                 Ordini
                             </div>
@@ -80,7 +136,8 @@
                                             {{ $order->created_at->translatedFormat('d.m.Y') }}
                                         </div>
                                     </td>
-                                    <td class="p-2 whitespace-nowrap text-center text-gray-400 dark:text-gray-300 text-xs">
+                                    <td
+                                        class="p-2 whitespace-nowrap text-center text-gray-400 dark:text-gray-300 text-xs">
                                         <div>
                                             {{ $order->created_at->translatedFormat('H:i') }}
                                         </div>
