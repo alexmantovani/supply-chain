@@ -11,14 +11,19 @@ class Order extends Model
 
     protected $guarded = [];
 
-
     public function getStatusAttribute()
     {
         switch ($this->attributes['status']) {
-            case 'placed':
+            case 'aborted':
+                return "Annullato";
+                break;
+            case 'waiting':
                 return "In attesa";
                 break;
-            case 'processed':
+            case 'pending':
+                return "Parzialmente completo";
+                break;
+            case 'completed':
                 return "Completato";
                 break;
 
@@ -38,6 +43,11 @@ class Order extends Model
         return $this->belongsTo(Dealer::class);
     }
 
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
+
     public function logs()
     {
         return $this->morphMany(Log::class, 'loggable');
@@ -49,5 +59,4 @@ class Order extends Model
             'description' => $testo,
         ]);
     }
-
 }

@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Refill>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Warehouse>
  */
-class RefillFactory extends Factory
+class WarehouseFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,10 +17,7 @@ class RefillFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => 1,
-            'warehouse_id' => rand(1, 5),
-            'product_id' => rand(1, 10),
-            'quantity' => rand(1, 10),
+            //
         ];
     }
 }

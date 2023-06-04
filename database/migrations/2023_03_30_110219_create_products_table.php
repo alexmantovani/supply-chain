@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->string('note')->nullable();
 
+            $table->string('refill_quantity')->default(0);
+
             $table->timestamps();
         });
     }

@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('refills', function (Blueprint $table) {
+        Schema::create('warehouses', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')->nullable();
-            $table->foreignId('product_id');
-            $table->foreignId('warehouse_id');
+            $table->string('name')->unique();
+            $table->string('description')->nullable();
 
-            $table->unsignedBigInteger('quantity')->default(1);
-            $table->enum('status', ['low', 'urgent', 'ordered', 'completed'])->default('low');
+            $table->string('email')->nullable(); // email di chi gestisce il magazzino
 
             $table->timestamps();
         });
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('refills');
+        Schema::dropIfExists('warehouses');
     }
 };

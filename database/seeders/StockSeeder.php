@@ -16,6 +16,7 @@ class StockSeeder extends Seeder
         for ($i=1; $i < 22; $i++) {
             Stock::create([
                 'product_id' => $i,
+                'warehouse_id' => rand(1, 5),
                 'quantity' => rand(1, 10),
             ]);
         }

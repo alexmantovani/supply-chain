@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dealer extends Model
+class Warehouse extends Model
 {
     use HasFactory;
 
@@ -16,9 +16,14 @@ class Dealer extends Model
         return $this->hasMany(Order::class);
     }
 
-    public function products()
+    public function refills()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Refill::class);
+    }
+
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
     }
 
 }

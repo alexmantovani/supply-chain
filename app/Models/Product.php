@@ -36,7 +36,7 @@ class Product extends Model
      * Riporta true nel caso in cui il prodotto sia già nella lista dei prodotti in esaurimento.
      */
     public function isLow() {
-        return (bool)$this->refills()->where('status', '!=', 'processed')->count();
+        return (bool)$this->refills()->where('status', '!=', 'completed')->count();
     }
 
 

@@ -15,12 +15,14 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('product_id');
+            $table->foreignId('warehouse_id')->default(1);
 
             $table->unsignedBigInteger('quantity')->nullable();
             $table->unsignedBigInteger('receive_quantity')->nullable();
             $table->date('receive_at')->nullable();
             $table->unsignedBigInteger('sold_quantity')->nullable();
             $table->date('sold_at')->nullable();
+
 
             $table->timestamps();
         });

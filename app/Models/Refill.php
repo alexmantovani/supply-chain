@@ -42,5 +42,10 @@ class Refill extends Model
         return $this->product->dealer;
     }
 
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
+
 
 }

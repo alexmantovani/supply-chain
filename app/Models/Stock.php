@@ -9,11 +9,20 @@ class Stock extends Model
 {
     use HasFactory;
 
-    public function product() {
+    protected $guarded = [];
+
+    public function product()
+    {
         return $this->belongsTo(Product::class);
     }
 
-    public function orders() {
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
+
+    public function orders()
+    {
         return $this->product->orders();
     }
 
@@ -24,8 +33,11 @@ class Stock extends Model
 
     public function getStatusAttribute()
     {
+        // TODO: Gestire anche i nuovi stati dell'ordine
+        //
+
         // Per prima cosa guardo se per questo articolo ho ordini pendenti
-        $pendingOrder = $this->orders()->firstWhere('status', '=', 'placed');
+        $pendingOrder = $this->orders()->firstWhere('status', '=', 'waiting');
         if ($pendingOrder) {
             return $pendingOrder->status;
         }
@@ -43,8 +55,11 @@ class Stock extends Model
 
     public function getStatusColorAttribute()
     {
+        // TODO: Gestire anche i nuovi stati dell'ordine
+        //
+
         // Per prima cosa guardo se per questo articolo ho ordini pendenti
-        $pendingOrder = $this->orders()->firstWhere('status', '=', 'placed');
+        $pendingOrder = $this->orders()->firstWhere('status', '=', 'waiting');
         if ($pendingOrder) {
             return "border border-yellow-400 text-yellow-600 text-xs dark:text-yellow-200";
         }
@@ -55,6 +70,4 @@ class Stock extends Model
 
         return " border border-green-200 text-green-800 text-xs dark:text-green-400";
     }
-
-
 }

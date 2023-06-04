@@ -18,6 +18,7 @@ class StockFactory extends Factory
     {
         return [
             'product_id' => rand(1, 10),
+            'warehouse_id' => rand(1, 5),
             'quantity' => rand(1, 100),
         ];
     }

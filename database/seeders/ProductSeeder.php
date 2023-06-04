@@ -43,7 +43,7 @@ class ProductSeeder extends Seeder
             \App\Models\Product::create([
                 'name' => $component,// . ' ' . $suffix[rand(0, 9)],
                 'uuid' => Str::uuid(),
-                'dealer_id' => rand(1, 100),
+                'dealer_id' => rand(1, 3),
             ]);
         }
     }

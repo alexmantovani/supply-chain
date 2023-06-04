@@ -23,7 +23,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/refill/simulate', [App\Http\Controllers\RefillController::class, 'generateTextCode'])->name('refill.simulate');
+    // Route::get('/refill/simulate', [App\Http\Controllers\RefillController::class, 'generateTextCode'])->name('refill.simulate');
     Route::get('/refill/ask', [App\Http\Controllers\RefillController::class, 'ask'])->name('refill.ask');
     Route::get('/refill/done', [App\Http\Controllers\RefillController::class, 'requestDone'])->name('refill.done');
 
@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::resource('/warehouse', App\Http\Controllers\WarehouseController::class);
     Route::resource('/dealer', App\Http\Controllers\DealerController::class);
     Route::resource('/stock', App\Http\Controllers\StockController::class);
     Route::resource('/refill', App\Http\Controllers\RefillController::class);
@@ -41,8 +42,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/stock/pickup/{stock}', [App\Http\Controllers\StockController::class, 'pickup'])->name('stock.pickup');
 
-    Route::get('/order/{order}/completed', [App\Http\Controllers\OrderController::class, 'completed'])->name('order.completed');
 
+    Route::get('/warehouse/{warehouse}/refill/simulate', [App\Http\Controllers\RefillController::class, 'generateTextCode'])->name('warehouse.refill.simulate');
+
+    Route::resource('warehouse.order', App\Http\Controllers\OrderController::class);
+    Route::resource('warehouse.refill', App\Http\Controllers\RefillController::class);
+
+    Route::get('/order/{order}/completed', [App\Http\Controllers\OrderController::class, 'completed'])->name('order.completed');
 
 });
 

@@ -1,5 +1,12 @@
 <x-app-layout>
-    <x-slot name="header">
+    <x-slot name="navbar_title">
+        {{ $warehouse->name }}
+    </x-slot>
+    <x-slot name="warehouse_id">
+        {{ $warehouse->id }}
+    </x-slot>
+
+    {{-- <x-slot name="header">
         <div class="flex items-center">
             <div class="pr-3 text-lg cursor-pointer text-gray-800 dark:text-gray-200">
                 <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
@@ -9,7 +16,7 @@
                 {{ __('Dettaglio ordine') }} # {{ $order->id }}
             </h2>
         </div>
-    </x-slot>
+    </x-slot> --}}
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="h-full ">

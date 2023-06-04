@@ -15,8 +15,14 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('dealer_id');
+            $table->foreignId('warehouse_id');
 
-            $table->enum('status', ['placed', 'processed'])->default('placed');
+            $table->string('uuid')->unique();
+            // aborted: quando l'ordine è stato annullato
+            // waiting: quando l'ordine è stato inviato e si sta aspettando l'arrivo del materiale
+            // pending: quando parte del matriale è rientrato ma ne manca ancora una parte
+            // completed: quando l'ordine è stato completato
+            $table->enum('status', ['aborted', 'waiting', 'pending', 'completed'])->default('waiting');
 
             $table->timestamps();
         });

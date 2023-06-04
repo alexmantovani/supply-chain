@@ -1,4 +1,12 @@
 <x-app-layout>
+    <x-slot name="navbar_title">
+        {{ $product->name }}
+        {{-- {{ $warehouse->name }} --}}
+    </x-slot>
+    {{-- <x-slot name="warehouse_id">
+        {{ $warehouse->id }}
+    </x-slot> --}}
+{{--
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <div class="flex">
@@ -11,7 +19,7 @@
                 </h2>
             </div>
         </div>
-    </x-slot>
+    </x-slot> --}}
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
 
@@ -25,11 +33,14 @@
 
                         <div class="m-5">
                             <div class="pb-6">
-                                <div class="font-semibold text-2xl pt-4 dark:text-gray-200">
-                                    {{ $product->name }}
+                                <div class="font-semibold text-xl pt-4 dark:text-gray-200">
+                                    {{ $product->dealer->name }}
                                 </div>
                                 <div class="mt-1 dark:text-gray-400">
-                                    {{ $product->dealer->name }}
+                                    {{ $product->dealer->address }}
+                                    <p>
+                                    {{ $product->dealer->city }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -124,8 +135,11 @@
                                     <th class="p-2 whitespace-nowrap w-20">
                                         <div class="font-semibold text-center">Ora</div>
                                     </th>
+                                    <th class="p-2 whitespace-nowrap w-20">
+                                        <div class="font-semibold text-center">Magazzino</div>
+                                    </th>
                                     <th class="p-2 whitespace-nowrap">
-                                        <div class="font-semibold text-left">Stato</div>
+                                        <div class="font-semibold text-right">Stato</div>
                                     </th>
                                 </tr>
                             </thead>
@@ -143,6 +157,11 @@
                                         </div>
                                     </td>
                                     <td class="p-2 whitespace-nowrap text-xs text-gray-500 dark:text-gray-300">
+                                        <div>
+                                            {{ $order->warehouse->name }}
+                                        </div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap text-xs text-gray-500 dark:text-gray-300 text-right">
                                         <div>
                                             {{ $order->status }}
                                         </div>

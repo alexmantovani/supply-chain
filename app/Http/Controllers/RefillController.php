@@ -9,22 +9,24 @@ use App\Models\Product;
 use App\Models\Stock;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Warehouse;
 
 class RefillController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Warehouse $warehouse)
     {
-        $refills = Refill::where('status', 'low')
+        $refills = $warehouse->refills()
+            ->where('status', 'low')
             ->join('products', 'products.id', '=', 'refills.product_id')
             ->join('dealers', 'dealers.id', '=', 'dealer_id')
             ->select('refills.*', 'products.dealer_id', 'dealers.name')
             ->orderBy('dealer_id')
             ->get();
         // dd($refills);
-        return view('refill.index', compact(['refills']));
+        return view('refill.index', compact(['refills', 'warehouse']));
     }
 
     /**
@@ -93,12 +95,42 @@ class RefillController extends Controller
         return redirect(route("refill.done"));
     }
 
-    public function generateTextCode()
+    public function askRefill(Warehouse $warehouse, $code)
     {
-        $stock_id = rand(1,10);
+        // TODO: Capire cosa riporta il barcode
+        $product = Product::firstWhere('uuid', $code);
+        // Non ho trovato il prodotto nel DB
+        if (!$product) {
+            // TODO: Lo creo chiedendo al DB di Altena
+            $product = Product::create([
+                'uuid' => $code,
+                'name' => 'Prodotto ' . $code,
+                'dealer_id' => 1,
+                'refill_quantity' => 0,
+            ]);
+        }
+        $present = $warehouse->refills()
+            ->where('product_id', $product->id)
+            ->whereIn('status', ['low', 'urgent'])
+            ->first();
+        if ($present) abort(429); // TODO: Dare un errore più comprensibile tipo refill.ignore
+
+        $warehouse->refills()->create([
+            'user_id' => 1,
+            'warehouse_id' => $warehouse->id,
+            'product_id' => $product->id,
+            'quantity' => $product->refill_quantity,
+        ]);
+
+        return redirect(route("refill.done"));
+    }
+
+    public function generateTextCode(Warehouse $warehouse)
+    {
+        $stock_id = rand(1, 10);
         $product = Stock::find($stock_id)->product;
 
-        return view('refill.qrcode', compact('product'));
+        return view('refill.qrcode', compact('product', 'warehouse'));
     }
 
     public function requestDone()

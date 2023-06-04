@@ -32,6 +32,10 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('qwertyuiop'),
         ]);
 
+        for ($i=1; $i <= 5; $i++) {
+            \App\Models\Warehouse::create(['name'=> 'Magazzino ' . $i, 'description' => fake()->sentence()]);
+        }
+
         \App\Models\User::factory(100)->create();
         \App\Models\Dealer::factory(100)->create();
 

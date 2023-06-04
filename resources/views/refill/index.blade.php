@@ -1,16 +1,23 @@
 <x-app-layout>
-    <x-slot name="header">
+    <x-slot name="navbar_title">
+        {{ $warehouse->name }}
+    </x-slot>
+    <x-slot name="warehouse_id">
+        {{ $warehouse->id }}
+    </x-slot>
+
+    {{-- <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Materiale in esaurimento') }}
         </h2>
-    </x-slot>
+    </x-slot> --}}
 
     @if ($refills->count())
         <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
 
             <div class="h-full ">
                 <!-- Table -->
-                <form method="post" action="{{ route('order.store') }}">
+                <form method="post" action="{{ route('warehouse.order.store', $warehouse) }}">
                     @csrf
                     <div class="w-full max-w-7xl mx-auto ">
                         <div
@@ -48,8 +55,10 @@
                                                                     {{ $refill->name }}
                                                                 </a>
                                                             </div>
-                                                            <div class="font-medium text-gray-800 text-lg dark:text-gray-300">
-                                                                <a href="{{ route('product.show', $refill->product) }}" class=" hover:underline">
+                                                            <div
+                                                                class="font-medium text-gray-800 text-lg dark:text-gray-300">
+                                                                <a href="{{ route('product.show', $refill->product) }}"
+                                                                    class=" hover:underline">
                                                                     {{ $refill->product->name }}
                                                                 </a>
                                                             </div>
@@ -63,7 +72,8 @@
                                                         <div class="text-center">
                                                             <x-text-input id="quantity"
                                                                 class="block mt-1 w-24 text-right " type="text"
-                                                                name="quantity" :value="$refill->quantity" required />
+                                                                name="quantity.{{ $refill->id }}" :value="$refill->quantity"
+                                                                required />
                                                         </div>
                                                     </td>
                                                     <td class="p-2 ">
