@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreDealerRequest;
-use App\Http\Requests\UpdateDealerRequest;
-use App\Models\Dealer;
-use App\Models\Order;
+use App\Http\Requests\StoreProviderRequest;
+use App\Http\Requests\UpdateProviderRequest;
+use App\Models\Provider;
 
-class DealerController extends Controller
+class ProviderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +27,7 @@ class DealerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDealerRequest $request)
+    public function store(StoreProviderRequest $request)
     {
         //
     }
@@ -36,18 +35,15 @@ class DealerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Dealer $dealer)
+    public function show(Provider $provider)
     {
-        $search = '';
-        // $orders = $dealer->orders()->paginate(10);
-        $products = $dealer->products()->paginate(10);
-        return view('dealer.show', compact('dealer', 'products'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Dealer $dealer)
+    public function edit(Provider $provider)
     {
         //
     }
@@ -55,7 +51,7 @@ class DealerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDealerRequest $request, Dealer $dealer)
+    public function update(UpdateProviderRequest $request, Provider $provider)
     {
         //
     }
@@ -63,7 +59,7 @@ class DealerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Dealer $dealer)
+    public function destroy(Provider $provider)
     {
         //
     }

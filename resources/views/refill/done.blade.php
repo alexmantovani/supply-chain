@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">
+    {{-- <x-slot name="header">
         <div class="flex justify-between">
 
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -7,7 +7,7 @@
             </h2>
 
         </div>
-    </x-slot>
+    </x-slot> --}}
 
     <section class="antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
         <div class="flex justify-center py-40 text-4xl">

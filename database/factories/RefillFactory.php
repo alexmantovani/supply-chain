@@ -21,6 +21,7 @@ class RefillFactory extends Factory
             'warehouse_id' => rand(1, 5),
             'product_id' => rand(1, 10),
             'quantity' => rand(1, 10),
+            'status' => 'low',
         ];
     }
 }

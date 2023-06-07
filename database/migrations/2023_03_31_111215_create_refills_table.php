@@ -17,8 +17,9 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable();
             $table->foreignId('product_id');
             $table->foreignId('warehouse_id');
+            $table->foreignId('order_id')->nullable();
 
-            $table->unsignedBigInteger('quantity')->default(1);
+            $table->unsignedBigInteger('quantity')->nullable();
             $table->enum('status', ['low', 'urgent', 'ordered', 'completed'])->default('low');
 
             $table->timestamps();

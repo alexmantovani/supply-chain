@@ -11,7 +11,8 @@ use Auth;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderSubmit;
-use Illuminate\Support\Str;
+use App\Models\Product;
+use Log;
 
 class OrderController extends Controller
 {
@@ -37,63 +38,59 @@ class OrderController extends Controller
         //
     }
 
-    public function uuid($length=12)
-    {
-        $unique = Str::random($length);
-        $check = Order::where('uuid', $unique)->first();
-        if ($check) {
-            return $this->uuid();
-        }
-
-        return $unique;
-    }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreOrderRequest $request, Warehouse $warehouse)
     {
-        // Creo l'ordine con le richieste selezionate
         foreach ($request->all() as $key => $refill_ids) {
-            if (!str_starts_with($key, 'dealer')) continue;
+            if (!str_starts_with($key, 'refill')) continue;
 
-            // Ricavo l'id di tutti i prodotti che dovrò mettere nell'ordine
-            // $product_ids = Refill::whereIn('id', $refill_ids)->pluck('product_id');
+            $providerId = explode("_", $key)[1];
+            $order = Order::create([
+                'provider_id' => $providerId,
+                'warehouse_id' => $warehouse->id,
+                'uuid' => Order::uuid(),
+            ]);
 
-            $dealerId = explode("_", $key)[1];
+            $products = [];
 
-            // Per ogni prodotto genero un ordine (prima erano legati a un ordine con più prodotti per un fornitore)
             foreach ($refill_ids as $refill_id) {
-                $refill = Refill::find($refill_id);
-
-                // Creo il nuovo ordine
-                $quantity = $request['quantity_' . $refill->id];
-
-                // Se di quel prodotto non devo prenderne nessuno allora lo lascio li
-                if ( $quantity==0 ) {
+                $quantity = $request->quantity[$refill_id];
+                if ($quantity == 0) {
+                    Log::error("Ordinato prodotto con quantità =0 refill_id=" . $refill_id);
                     continue;
                 }
 
-                $order = Order::create([
-                    'dealer_id' => $dealerId,
-                    'warehouse_id' => $warehouse->id,
-                    'uuid' => $this->uuid(),
-                ]);
+                $refill = Refill::find($refill_id);
 
-                // Gli assegno il singolo prodotto da acquistare
-                $order->products()->syncWithPivotValues($refill->product_id, ['quantity' => $quantity]);
+                // Verifico se non è impostata per questo prodotto la quantità di refill automatica
+                // ed eventualmente la vado ad impostare
+                if (!$refill->product->refill_quantity) {
+                    $refill->product->update([
+                        'refill_quantity' => $quantity,
+                    ]);
+                }
 
-                Mail::to('a@a.a')->send(new OrderSubmit($order));
-
-                $order->logs()->create([
-                    'user_id' => Auth::user()->id,
-                    'description' => 'Emesso ordine',
-                    'type' => 'info',
-                ]);
+                $products[$refill->product_id] = ['quantity' => $quantity];
+                // Log::debug("Refill " . $refill . '  prod_id:' . $refill->product_id);
 
                 // Segno questi prodotti come ordinati
-                $refill->update(['status' => 'ordered']);
+                $refill->update([
+                    'status' => 'ordered',
+                    'order_id' => $order->id,
+                ]);
             }
+
+            $order->products()->sync($products);
+
+            Mail::to($order->provider->email)->send(new OrderSubmit($order));
+
+            $order->logs()->create([
+                'user_id' => Auth::user()->id,
+                'description' => 'Emesso ordine',
+                'type' => 'info',
+            ]);
         }
 
         return redirect()->back()->with('message_success', 'Prodotti ordinati');
@@ -127,9 +124,19 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Order $order)
+    public function destroy(Warehouse $warehouse, Order $order)
     {
-        //
+        $order->update([
+            'status' => 'aborted',
+        ]);
+
+        $order->logs()->create([
+            'user_id' => Auth::user()->id,
+            'description' => 'Ordine annullato',
+            'type' => 'info',
+        ]);
+
+        return redirect()->back();
     }
 
     public function completed(Order $order)
@@ -138,22 +145,23 @@ class OrderController extends Controller
             'status' => 'completed',
         ]);
 
-        foreach ($order->products as $product) {
-            if ($product->stock) {
-                $product->stock->increment('quantity', $product->pivot->quantity);
-            } else {
-                dd($product);
-            }
-            foreach ($product->refills as $refill) {
-                $refill->update([
-                    'status' => 'completed',
-                ]);
-            }
+        // foreach ($order->products as $product) {
+        // if ($product->stock) {
+        //     $product->stock->increment('quantity', $product->pivot->quantity);
+        // } else {
+        //     dd($product);
+        // }
+        // }
+
+        foreach ($order->refills as $refill) {
+            $refill->update([
+                'status' => 'completed',
+            ]);
         }
 
         $order->logs()->create([
             'user_id' => Auth::user()->id,
-            'description' => 'Ordine concluso',
+            'description' => 'Ordine completato',
             'type' => 'info',
         ]);
 

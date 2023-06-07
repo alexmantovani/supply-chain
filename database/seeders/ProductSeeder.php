@@ -40,10 +40,10 @@ class ProductSeeder extends Seeder
         ];
 
         foreach ($list as $component) {
-            \App\Models\Product::create([
+            \App\Models\Product::factory()->create([
                 'name' => $component,// . ' ' . $suffix[rand(0, 9)],
-                'uuid' => Str::uuid(),
-                'dealer_id' => rand(1, 3),
+                // 'uuid' => Str::uuid(),
+                // 'dealer_id' => rand(1, 3),
             ]);
         }
     }

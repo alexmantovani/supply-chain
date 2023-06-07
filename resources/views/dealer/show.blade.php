@@ -1,15 +1,16 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex items-center">
-            <div class="pr-3 text-lg cursor-pointer text-gray-800 dark:text-gray-200">
-                <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
-            </div>
-
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Dettaglio fornitore
-            </h2>
+    <x-slot name="navbar_title">
+        <div
+            class="
+                sm:-my-px sm:ml-10 sm:flex font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight items-center
+                cursor-pointer">
+            <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
         </div>
+        <x-navbar-title>
+            Informazioni sul produttore
+        </x-navbar-title>
     </x-slot>
+
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="h-full ">
@@ -64,7 +65,8 @@
                                     <div class="font-semibold text-left">Prodotto</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-center">Quantità</div>
+                                    <div class="font-semibold text-center"
+                                        title="Numero di articoli che vengono riordinati di default">Quantità</div>
                                 </th>
 
                                 <th class="p-2 w-20 text-center items-center">
@@ -87,7 +89,7 @@
                                         </div>
                                     </td>
                                     <td class="p-2 whitespace-nowrap dark:text-gray-300">
-                                        <div class="text-center">32</div>
+                                        <div class="text-center">{{ $product->refill_quantity }}</div>
                                     </td>
                                     <td class="p-2 w-20 text-center items-center">
                                         <x-primary-button>
@@ -137,7 +139,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
-
+                            {{--
                             @foreach ($orders as $order)
                                 <tr>
                                     <td class="p-2 whitespace-nowrap text-gray-600 dark:text-gray-300 text-base ">
@@ -165,23 +167,14 @@
                                             class=" text-gray-600 text-center w-30 uppercase text-xs p-2 rounded-md border">
                                             {{ $order->status }}</div>
                                     </td>
-                                    {{-- <td class="p-2 whitespace-nowrap text-gray-500 ">
-                                    <div>
-                                        {{ $log->description }}
-                                    </div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap text-gray-500 text-right">
-                                    <div>
-                                        {{ $log->user->name ?? '' }}
-                                    </div>
-                                </td> --}}
+
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                     </table>
 
                     <div class="w-full max-w-7xl mx-auto pt-6">
-                        <?php echo $orders->appends(['search' => $search ?? ''])->links(); ?>
+                        {{-- <?php echo $orders->appends(['search' => $search ?? ''])->links(); ?> --}}
                     </div>
                 </div>
 

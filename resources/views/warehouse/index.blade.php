@@ -1,6 +1,8 @@
 <x-app-layout>
     <x-slot name="navbar_title">
-        Elenco Magazzini
+        <x-navbar-title >
+            Elenco Magazzini
+        </x-navbar-title>
     </x-slot>
 
     <x-slot name="navbar_buttons">

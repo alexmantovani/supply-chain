@@ -19,11 +19,12 @@ class RefillController extends Controller
     public function index(Warehouse $warehouse)
     {
         $refills = $warehouse->refills()
-            ->where('status', 'low')
+            ->whereIn('status', ['low', 'urgent'])
             ->join('products', 'products.id', '=', 'refills.product_id')
             ->join('dealers', 'dealers.id', '=', 'dealer_id')
-            ->select('refills.*', 'products.dealer_id', 'dealers.name')
-            ->orderBy('dealer_id')
+            ->join('providers', 'providers.id', '=', 'dealers.provider_id')
+            ->select('refills.*', 'products.dealer_id', 'dealers.name', 'providers.id as provider_id')
+            ->orderBy('provider_id')
             ->get();
         // dd($refills);
         return view('refill.index', compact(['refills', 'warehouse']));
@@ -77,16 +78,17 @@ class RefillController extends Controller
         //
     }
 
-    public function ask(Request $request)
+    public function ask(Request $request, Warehouse $warehouse)
     {
         $productId = $request->input('product_id');
         $quantity = $request->input('quantity');
 
         $product = Product::find($productId);
 
-        if ($product->isLow()) return abort(403);
+        if ($product->isLow($warehouse)) return abort(403, 'Questo articolo è già in ordine');
 
         Refill::create([
+            'warehouse_id' => $warehouse->id,
             'user_id' => Auth::user()->id,
             'product_id' => $productId,
             'quantity' => $quantity,
@@ -122,10 +124,10 @@ class RefillController extends Controller
             'quantity' => $product->refill_quantity,
         ]);
 
-        return redirect(route("refill.done"));
+        return redirect(route("refill.done", compact('warehouse')));
     }
 
-    public function generateTextCode(Warehouse $warehouse)
+    public function generateTestCode(Warehouse $warehouse)
     {
         $stock_id = rand(1, 10);
         $product = Stock::find($stock_id)->product;

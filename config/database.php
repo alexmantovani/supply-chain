@@ -43,6 +43,16 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
+        // Per creare il DB di testing
+        // php artisan migrate:fresh --seed --seeder=DatabaseTestingSeeder --database='testing'
+        'testing' => [
+            'driver' => 'sqlite',
+            'url' => env('DATABASE_URL'),
+            'database' => database_path('testing_database.sqlite'),
+            'prefix' => '',
+        ],
+
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),

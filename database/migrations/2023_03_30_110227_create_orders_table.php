@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('dealer_id');
+            // L'ordine lo si invia sempre al fornitore e non al produttore
+            $table->foreignId('provider_id');
             $table->foreignId('warehouse_id');
 
             $table->string('uuid')->unique();
+
             // aborted: quando l'ordine è stato annullato
             // waiting: quando l'ordine è stato inviato e si sta aspettando l'arrivo del materiale
             // pending: quando parte del matriale è rientrato ma ne manca ancora una parte

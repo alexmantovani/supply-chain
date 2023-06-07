@@ -40,7 +40,7 @@ class WarehouseController extends Controller
     public function show(Warehouse $warehouse)
     {
         $refills = $warehouse->refills()
-            ->where('status', 'low')
+            ->whereIn('status', ['low', 'urgent'])
             ->join('products', 'products.id', '=', 'refills.product_id')
             ->join('dealers', 'dealers.id', '=', 'dealer_id')
             ->select('refills.*', 'products.dealer_id', 'dealers.name')

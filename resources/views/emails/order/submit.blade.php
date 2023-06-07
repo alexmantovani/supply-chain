@@ -176,7 +176,7 @@
                 <thead class="small ">
                     <tr>
                         <th style="text-align: left ">
-                            UUID
+                            Codice MG
                         </th>
                         <th style="text-align: left ">
                             Prodotto

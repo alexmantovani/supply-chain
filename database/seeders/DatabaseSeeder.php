@@ -32,12 +32,23 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('qwertyuiop'),
         ]);
 
-        for ($i=1; $i <= 5; $i++) {
-            \App\Models\Warehouse::create(['name'=> 'Magazzino ' . $i, 'description' => fake()->sentence()]);
+        $provider = \App\Models\Provider::create([
+            'name' => 'Marchesini warehouse',
+            'description' => "Magazzino generale Marchesini Group",
+            'email' => 'orders@stika.com',
+        ]);
+
+        for ($i = 1; $i <= 5; $i++) {
+            \App\Models\Warehouse::create([
+                'name' => 'Magazzino ' . $i,
+                'description' => fake()->sentence(),
+            ]);
         }
 
         \App\Models\User::factory(100)->create();
-        \App\Models\Dealer::factory(100)->create();
+        \App\Models\Dealer::factory(100)->create([
+            'provider_id' => $provider->id,
+        ]);
 
         // \App\Models\User::factory(10)->create();
 
@@ -51,7 +62,6 @@ class DatabaseSeeder extends Seeder
             StockSeeder::class,
         ]);
 
-        \App\Models\Refill::factory(7)->create();
-
+        // \App\Models\Refill::factory(7)->create();
     }
 }

@@ -11,24 +11,24 @@ class Refill extends Model
 
     protected $guarded = [];
 
-    public function getStatusAttribute()
-    {
-        if ($this->product->stock) {
-            if ($this->product->stock->quantity == 0) return "esaurito";
-        }
+    // public function getStatusAttribute()
+    // {
+    //     if ($this->product->stock) {
+    //         if ($this->product->stock->quantity == 0) return "esaurito";
+    //     }
 
-        return "in esaurimento";
-    }
+    //     return "in esaurimento";
+    // }
 
-    public function getStatusColorAttribute()
-    {
-        return "text-yellow-600";
-    }
+    // public function getStatusColorAttribute()
+    // {
+    //     return "text-yellow-600";
+    // }
 
-    public function getStatusBackgroundColorAttribute()
-    {
-        return "bg-red-300";
-    }
+    // public function getStatusBackgroundColorAttribute()
+    // {
+    //     return "bg-red-300";
+    // }
 
     public function user() {
         return $this->belongsTo(User::class);
@@ -36,6 +36,10 @@ class Refill extends Model
 
     public function product() {
         return $this->belongsTo(Product::class);
+    }
+
+    public function order() {
+        return $this->belongsTo(Order::class);
     }
 
     public function dealer() {
@@ -46,6 +50,5 @@ class Refill extends Model
     {
         return $this->belongsTo(Warehouse::class);
     }
-
 
 }

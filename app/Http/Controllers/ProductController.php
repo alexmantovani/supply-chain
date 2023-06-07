@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\Dealer;
+use App\Models\Warehouse;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -13,14 +14,14 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Warehouse $warehouse)
     {
         $search = Request()->search ?? '';
 
         $products = Product::where('name', 'like', '%' . $search . '%')
             // ->orWhere('dealer', 'like', '%' . $search . '%')
             ->orderBy('name')->paginate(20);
-        return view('product.index', compact('search', 'products'));
+        return view('product.index', compact('warehouse', 'search', 'products'));
     }
 
     /**
@@ -51,9 +52,9 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Warehouse $warehouse, Product $product)
     {
-        return view('product.show', compact('product'));
+        return view('product.show', compact('warehouse', 'product'));
     }
 
     /**

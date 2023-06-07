@@ -5,25 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dealer extends Model
+class Provider extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function provider()
+    public function dealers()
     {
-        return $this->belongsTo(Provider::class);
+        return $this->hasMany(Dealer::class);
     }
 
     public function orders()
     {
         return $this->hasMany(Order::class);
-    }
-
-    public function products()
-    {
-        return $this->hasMany(Product::class);
     }
 
 }

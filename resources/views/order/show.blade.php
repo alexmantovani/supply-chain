@@ -1,10 +1,24 @@
 <x-app-layout>
     <x-slot name="navbar_title">
-        {{ $warehouse->name }}
+        <div
+            class="
+                sm:-my-px sm:ml-10 sm:flex font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight items-center
+                cursor-pointer">
+            <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
+        </div>
+        <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
+            {{ $warehouse->name }}
+        </x-navbar-title>
     </x-slot>
-    <x-slot name="warehouse_id">
-        {{ $warehouse->id }}
+    <x-slot name="navbar_left_menu">
+        @include('layouts.nav_left_bar')
     </x-slot>
+    <x-slot name="navbar_right_menu">
+        <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
+            {{ __('Simula QR') }}
+        </x-nav-link>
+    </x-slot>
+
 
     {{-- <x-slot name="header">
         <div class="flex items-center">
@@ -28,24 +42,25 @@
                     <div class="flex justify-between m-5">
                         <div class="pb-6">
                             <div class="font-semibold text-2xl pt-4 dark:text-gray-200">
-                                {{ $order->dealer->name }}
+                                Ordine:
+                                {{ $order->uuid }}
                             </div>
-                            <div class="mt-4 dark:text-gray-400">
-                                {{ $order->dealer->address }}
-                                <p>
-                                    {{ $order->dealer->zip }}
-                                    {{ $order->dealer->city }}
-                                </p>
+                            <div class="text-lg text-gray-400 dark:text-gray-200">
+                                effettuato il
+                                {{ $order->created_at->translatedFormat('d.m.Y') }}
+                                alle
+                                {{ $order->created_at->translatedFormat('H.i') }}
+
                             </div>
                         </div>
 
-                        <div class="my-4">
-                            <div class=" text-center bg-red-600 text-white rounded-lg text-xs uppercase py-2 px-3">
-                                {{ $order->status }}
+                        <div class="my-4 flex items-center">
+                            <div class="px-3">
+                                <x-order-status class="rounded-lg text-sm uppercase py-2 px-3 text-center"
+                                    :status="$order->status" />
                             </div>
-                            {{-- <div class=" text-gray-400">
-                                {{ $order->created_at }}
-                            </div> --}}
+                            @include('order.dropdown')
+
                         </div>
                     </div>
 
@@ -53,7 +68,7 @@
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
                             <tr>
                                 <th class="p-2 whitespace-nowrap w-20">
-                                    <div class="font-semibold text-center">Id</div>
+                                    <div class="font-semibold text-left">Codice MG</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left px-3">Articolo</div>
@@ -71,13 +86,15 @@
                             @foreach ($order->products as $product)
                                 <tr>
                                     <td class="p-2 whitespace-nowrap">
-                                        <div class="p-3 text-center dark:text-gray-300">
-                                            {{ $product->id }}
+                                        <div class=" text-left dark:text-gray-300 text-gray-400">
+                                            {{ $product->uuid }}
                                         </div>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
-                                        <div class="p-3 dark:text-gray-300">
-                                            {{ $product->name }}
+                                        <div class="p-3 dark:text-gray-300 text-gray-800 ">
+                                            <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}">
+                                                {{ $product->name }}
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
@@ -110,8 +127,8 @@
 
             <div class="w-full max-w-7xl mx-auto pt-5">
                 <div
-                    class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-700">
-                    <div class="pb-6 m-5">
+                    class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-700 py-5">
+                    <div class=" m-5">
                         <div class="font-semibold text-2xl pt-4">
                             Log
                         </div>
@@ -142,7 +159,8 @@
                                             {{ $log->created_at->translatedFormat('d.m.Y') }}
                                         </div>
                                     </td>
-                                    <td class="p-2 whitespace-nowrap text-center text-gray-400 dark:text-gray-300 text-xs">
+                                    <td
+                                        class="p-2 whitespace-nowrap text-center text-gray-400 dark:text-gray-300 text-xs">
                                         <div>
                                             {{ $log->created_at->translatedFormat('H:i') }}
                                         </div>

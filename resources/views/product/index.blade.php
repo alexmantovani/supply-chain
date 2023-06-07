@@ -1,20 +1,16 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Listino prodotti') }}
-            </h2>
-            {{-- <div>
-                <a href="{{ route('product.index') }}" class="">
-                    A catalogo
-                </a>
-                &nbsp; | &nbsp;
-                <a href="{{ route('product.index', ['all']) }}">
-                    Tutti
-                </a>
-            </div> --}}
-        </div>
-
+    <x-slot name="navbar_title">
+        <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
+            {{ $warehouse->name }}
+        </x-navbar-title>
+    </x-slot>
+    <x-slot name="navbar_left_menu">
+        @include('layouts.nav_left_bar')
+    </x-slot>
+    <x-slot name="navbar_right_menu">
+        <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
+            {{ __('Simula QR') }}
+        </x-nav-link>
     </x-slot>
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
@@ -23,7 +19,7 @@
             <div class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800">
 
                 <div class="mx-8">
-                    <form method="GET" action="{{ route('product.index') }}">
+                    <form method="GET" action="{{ route('warehouse.product.index', $warehouse) }}">
                         <div class="flex mt-4 rounded-md border border-gray-300 items-center">
                             <div class="w-full">
                                 <input
@@ -77,7 +73,7 @@
                                                 src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg"
                                                 width="40" height="40" alt="Alex Shatov"></div> --}}
                                                 <div class="font-medium text-gray-800 text-lg dark:text-gray-300">
-                                                    <a href="{{ route('product.show', $product) }}" class=" hover:underline">
+                                                    <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}" class=" hover:underline">
                                                         {{ $product->name }}
                                                     </a>
                                                 </div>

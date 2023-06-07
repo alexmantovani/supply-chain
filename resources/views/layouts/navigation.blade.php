@@ -10,34 +10,11 @@
                     </a>
                 </div>
 
-                @if (isset($warehouse_id))
-                    @if (isset($navbar_title))
-                        <div
-                            class=" space-x-8 sm:-my-px sm:ml-10 sm:flex font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight items-center">
-                            <a href="{{ route('warehouse.show', $warehouse_id) }}">
-                                {{ $navbar_title }}
-                            </a>
-                        </div>
-                    @endif
-                    <!-- Navigation Links -->
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        {{-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link> --}}
-
-                        {{-- <x-nav-link :href="route('stock.index')" :active="request()->routeIs('stock.index')">
-                            {{ __('Magazzino') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
-                            {{ __('Listino') }}
-                        </x-nav-link> --}}
-                        <x-nav-link :href="route('warehouse.refill.index', $warehouse_id)" :active="request()->routeIs('refill.index')">
-                            {{ __('In esaurimento') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('warehouse.order.index', $warehouse_id)" :active="request()->routeIs('warehouse.order.index')">
-                            {{ __('Ordini') }}
-                        </x-nav-link>
-                    </div>
+                @if (isset($navbar_title))
+                    {{ $navbar_title }}
+                @endif
+                @if (isset($navbar_left_menu))
+                    {{ $navbar_left_menu }}
                 @endif
             </div>
 
@@ -49,10 +26,8 @@
                     </div>
                 @endif
 
-                @if (isset($warehouse_id))
-                    <x-nav-link :href="route('warehouse.refill.simulate', $warehouse_id)" :active="request()->routeIs('warehouse.refill.simulate')">
-                        {{ __('Simula QR') }}
-                    </x-nav-link>
+                @if (isset($navbar_right_menu))
+                    {{ $navbar_right_menu }}
                 @endif
 
                 <x-dropdown align="right" width="48">
