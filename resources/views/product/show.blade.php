@@ -70,7 +70,10 @@
                     <div class="m-5">
                         <div class="pb-6">
                             <div class="font-semibold text-xl pt-4 dark:text-gray-200">
-                                {{ $product->dealer->name }}
+                                <a href="{{ route('dealer.show', $product->dealer->id) }}"
+                                    class=" cursor-pointer hover:underline">
+                                    {{ $product->dealer->name }}
+                                </a>
                             </div>
                             <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
                                 {{ $product->dealer->address }}
@@ -118,79 +121,88 @@
                         </div>
                     </div>
 
-                    <table class="table-auto w-full">
-                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
-                            <tr>
-                                <th class="p-2 whitespace-nowrap w-20">
-                                    <div class="font-semibold text-center">Data</div>
-                                </th>
-                                <th class="p-2 whitespace-nowrap w-20">
-                                    <div class="font-semibold text-center">Ora</div>
-                                </th>
-                                <th class="p-2 whitespace-nowrap w-20">
-                                    <div class="font-semibold text-center">identificativo</div>
-                                </th>
-                                <th class="p-2 whitespace-nowrap w-20">
-                                    <div class="font-semibold text-center">Magazzino</div>
-                                </th>
-                                <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-right">Stato</div>
-                                </th>
-                            </tr>
-                        </thead>
-                        @foreach ($product->orders as $order)
-                            <tr>
-                                <td class="p-2 whitespace-nowrap text-gray-400 dark:text-gray-300 text-xs ">
-                                    <div>
-                                        {{ $order->created_at->translatedFormat('d.m.Y') }}
-                                    </div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap text-center text-gray-400 dark:text-gray-300 text-xs">
-                                    <div>
-                                        {{ $order->created_at->translatedFormat('H:i') }}
-                                    </div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap text-xs text-gray-500 dark:text-gray-300">
-                                    <div>
-                                        <a href="{{ route('warehouse.order.show', [$order->warehouse, $order]) }}">
-                                            {{ $order->uuid }}
-                                        </a>
-                                    </div>
-                                </td>
-                                <td class="p-2 whitespace-nowrap text-xs text-gray-500 dark:text-gray-300">
-                                    <div>
-                                        {{ $order->warehouse->name }}
-                                    </div>
-                                </td>
-                                <td class="p-2 text-xs text-gray-500 dark:text-gray-300 text-right">
-                                    <div class="flex justify-end">
-                                        <x-order-status class="rounded-lg text-xs uppercase py-2 px-3 text-center"
-                                            :status="$order->status" />
-                                    </div>
+                    @if ($product->orders->count())
 
-                                </td>
-                            </tr>
-                        @endforeach
-                    </table>
+                        <table class="table-auto w-full">
+                            <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
+                                <tr>
+                                    <th class="p-2 whitespace-nowrap w-20">
+                                        <div class="font-semibold text-center">Data</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap w-20">
+                                        <div class="font-semibold text-center">Ora</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap w-20">
+                                        <div class="font-semibold text-center">identificativo</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap w-20">
+                                        <div class="font-semibold text-center">Magazzino</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-right">Stato</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            @foreach ($product->orders as $order)
+                                <tr>
+                                    <td class="p-2 whitespace-nowrap text-gray-400 dark:text-gray-300 text-xs ">
+                                        <div>
+                                            {{ $order->created_at->translatedFormat('d.m.Y') }}
+                                        </div>
+                                    </td>
+                                    <td
+                                        class="p-2 whitespace-nowrap text-center text-gray-400 dark:text-gray-300 text-xs">
+                                        <div>
+                                            {{ $order->created_at->translatedFormat('H:i') }}
+                                        </div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap text-xs text-gray-500 dark:text-gray-300">
+                                        <div>
+                                            <a href="{{ route('warehouse.order.show', [$order->warehouse, $order]) }}">
+                                                {{ $order->uuid }}
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap text-xs text-gray-500 dark:text-gray-300">
+                                        <div>
+                                            {{ $order->warehouse->name }}
+                                        </div>
+                                    </td>
+                                    <td class="p-2 text-xs text-gray-500 dark:text-gray-300 text-right">
+                                        <div class="flex justify-end">
+                                            <x-order-status class="rounded-lg text-xs uppercase py-2 px-3 text-center"
+                                                :status="$order->status" />
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    @else
+                        <div class=" text-center text-2xl text-gray-300 pt-6">
+                            Non ci sono ordini relativi a questo prodotto.
+                        </div>
+                    @endif
+
                 </div>
 
 
                 <div
-                    class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 py-8 dark:bg-gray-900 dark:border-gray-700 max-h-min">
+                    class=" bg-yellow-100 shadow-lg rounded-sm border border-gray-200 px-8 py-8 dark:bg-gray-900 dark:border-gray-700 max-h-min">
                     <div class="pb-6 mx-5">
                         <div class="font-semibold text-2xl dark:text-gray-200">
                             Ordina al volo
                         </div>
                     </div>
 
-                    <form method="GET" action="{{ route('warehouse.refill.ask', $warehouse ) }}">
+                    <form method="GET" action="{{ route('warehouse.refill.ask', $warehouse) }}">
                         @csrf
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
 
                         <div class="pb-3">
                             <x-input-label for="quantity" :value="__('Quantity')" />
-                            <x-text-input id="quantity" class="block mt-1 w-full text-right" type="text" name="quantity"
-                                :value="old('quantity')" />
+                            <x-text-input id="quantity" class="block mt-1 w-full text-right bg-yellow-50" type="text"
+                                name="quantity" :value="old('quantity')" />
                             <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
                         </div>
 
@@ -199,15 +211,6 @@
                         </x-primary-button>
                     </form>
                 </div>
-
-            </div>
-
-
-            <div class="pt-4 flex justify-between">
-                <x-primary-button class="mx-4">
-                    {{ __('Elimina da listino') }}
-                </x-primary-button>
-
             </div>
         </div>
     </section>

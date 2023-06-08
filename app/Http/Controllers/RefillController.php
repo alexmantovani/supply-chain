@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Warehouse;
 
+use App\Jobs\ProcessProduct;
+
 class RefillController extends Controller
 {
     /**
@@ -85,7 +87,9 @@ class RefillController extends Controller
 
         $product = Product::find($productId);
 
-        if ($product->isLow($warehouse)) return abort(403, 'Questo articolo è già in ordine');
+        if ($product->isLow($warehouse)) {
+            return abort(403, 'Questo articolo è già in ordine');
+        }
 
         Refill::create([
             'warehouse_id' => $warehouse->id,
@@ -99,17 +103,15 @@ class RefillController extends Controller
 
     public function askRefill(Warehouse $warehouse, $code)
     {
-        // TODO: Capire cosa riporta il barcode
         $product = Product::firstWhere('uuid', $code);
         // Non ho trovato il prodotto nel DB
         if (!$product) {
-            // TODO: Lo creo chiedendo al DB di Altena
             $product = Product::create([
                 'uuid' => $code,
-                'name' => 'Prodotto ' . $code,
-                'dealer_id' => 1,
-                'refill_quantity' => 0,
             ]);
+
+            // Chiedo al DB di Altena le info sul prodotto
+            ProcessProduct::dispatch($product);
         }
         $present = $warehouse->refills()
             ->where('product_id', $product->id)

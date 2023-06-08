@@ -22,6 +22,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/rusco', function () {
+    $product = App\Models\Product::find(5);
+    $product->parseHtml();
+})->name('rusco');
+
+
+
 Route::middleware('auth')->group(function () {
     // Route::get('/refill/simulate', [App\Http\Controllers\RefillController::class, 'generateTestCode'])->name('refill.simulate');
     // Route::get('/refill/ask', [App\Http\Controllers\RefillController::class, 'ask'])->name('refill.ask');

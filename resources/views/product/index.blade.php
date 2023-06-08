@@ -46,14 +46,14 @@
                         <table class="table-auto w-full ">
                             <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
                                 <tr>
-                                    <th class="p-2 whitespace-nowrap w-20">
-                                        <div class="font-semibold text-center">Id</div>
+                                    <th class="p-2 whitespace-nowrap w-30">
+                                        <div class="font-semibold text-left">CODICE</div>
                                     </th>
                                     <th class="p-2 whitespace-nowrap">
                                         <div class="font-semibold text-left">Prodotto</div>
                                     </th>
                                     <th class="p-2 w-30 text-center items-center">
-                                        <div class="font-semibold">Azioni</div>
+                                        <div class="font-semibold"></div>
                                     </th>
                                 </tr>
                             </thead>
@@ -61,9 +61,9 @@
                             <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
                                 @foreach ($products as $product)
                                     <tr>
-                                        <td>
-                                            <div class="text-center text-gray-300 dark:text-gray-400">
-                                                {{ $product->id }}
+                                        <td class="">
+                                            <div class="text-left text-gray-300 dark:text-gray-400">
+                                                {{ $product->uuid }}
                                             </div>
                                         </td>
                                         <td class="p-2 whitespace-nowrap">
@@ -96,13 +96,11 @@
                                             </div> --}}
                                         </td>
 
-                                        <td class="p-2">
-                                            <div class=" text-end pr-5">
-                                                <a href="#"
-                                                    class="text-xs uppercase p-2 rounded-lg text-gray-500 ">
-                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                                 </a>
-                                            </div>
+                                        <td class="text-right px-3 py-3 w-10">
+                                            <a href="{{ route('warehouse.product.show', [$warehouse, $product->id]) }}"
+                                                class="font-medium text-gray-800 text-lg hover:underline dark:text-gray-300">
+                                                <i class="fa-solid fa-angle-right"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

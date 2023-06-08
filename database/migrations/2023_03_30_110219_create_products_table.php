@@ -15,12 +15,14 @@ return new class extends Migration
             $table->id();
 
             // $table->integer('item_category_id');
-            $table->foreignId('dealer_id');
+            $table->foreignId('dealer_id')->nullable();
 
             $table->string('uuid')->unique();
-            $table->string('name')->unique();
+            $table->string('name')->unique()->nullable();
             $table->string('description')->nullable();
             $table->string('image_url')->nullable();
+            $table->unsignedBigInteger('order_code')->nullable();
+            $table->string('model')->nullable();
             $table->string('note')->nullable();
 
             $table->string('refill_quantity')->nullable();

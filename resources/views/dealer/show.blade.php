@@ -46,13 +46,13 @@
                         <div class="font-semibold text-2xl pt-4 dark:text-gray-200">
                             Listino
                         </div>
-                        <a href="{{ route('product.create', $dealer->id) }}">
+                        {{-- <a href="{{ route('product.create', $dealer->id) }}">
 
                             <x-secondary-button title="{{ __('Aggiungi un nuovo prodotto a listino') }}">
                                 <i class="fa-sharp fa-solid fa-plus"></i> &nbsp;
                                 {{ __('Aggiungi') }}
                             </x-secondary-button>
-                        </a>
+                        </a> --}}
                     </div>
 
                     <table class="table-auto w-full ">
@@ -66,7 +66,7 @@
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-center"
-                                        title="Numero di articoli che vengono riordinati di default">Quantità</div>
+                                        title="Numero di articoli che vengono riordinati di default">Default</div>
                                 </th>
 
                                 <th class="p-2 w-20 text-center items-center">
@@ -92,9 +92,9 @@
                                         <div class="text-center">{{ $product->refill_quantity }}</div>
                                     </td>
                                     <td class="p-2 w-20 text-center items-center">
-                                        <x-primary-button>
+                                        {{-- <x-primary-button>
                                             {{ __('Ordina') }}
-                                        </x-primary-button>
+                                        </x-primary-button> --}}
                                     </td>
 
 

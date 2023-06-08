@@ -37,24 +37,48 @@ class ProductTest extends TestCase
      */
     public function test_product_is_low(): void
     {
-        $product = Product::find(5);
-        $warehouse = Warehouse::find(1);
+        $product_a = Product::find(5);
+        $product_b = Product::find(4);
+        $warehouse_a = Warehouse::find(1);
+        $warehouse_b = Warehouse::find(2);
 
         $refill = Refill::factory()->create([
-            'product_id' => $product->id,
-            'warehouse_id' => $warehouse->id,
+            'product_id' => $product_a->id,
+            'warehouse_id' => $warehouse_a->id,
         ]);
 
-        $this->assertTrue($product->isLow($warehouse));
-        $this->assertFalse($product->isLow(Warehouse::find(2)));
+        Refill::factory()->create([
+            'product_id' => $product_b->id,
+            'warehouse_id' => $warehouse_b->id,
+        ]);
+
+        $this->assertTrue($product_a->isLow($warehouse_a));
+        $this->assertFalse($product_a->isLow($warehouse_b));
         $this->assertEquals($refill->status, 'low');
 
-        $refill->update(['status' => 'ordered']);
-        $this->assertTrue($product->isLow($warehouse));
-        $this->assertFalse($product->isLow(Warehouse::find(2)));
+        $this->assertFalse($product_b->isLow($warehouse_a));
+        $this->assertTrue($product_b->isLow($warehouse_b));
 
+        // Passo allo stato "ordinato"
+        $refill->update(['status' => 'ordered']);
+        $this->assertTrue($product_a->isLow($warehouse_a));
+        $this->assertFalse($product_a->isLow($warehouse_b));
+
+        $this->assertFalse($product_b->isLow($warehouse_a));
+        $this->assertTrue($product_b->isLow($warehouse_b));
+
+        // Passo allo stato "completato"
         $refill->update(['status' => 'completed']);
-        $this->assertFalse($product->isLow($warehouse));
-        $this->assertFalse($product->isLow(Warehouse::find(2)));
+        $this->assertFalse($product_a->isLow($warehouse_a));
+        $this->assertFalse($product_a->isLow($warehouse_b));
+
+        $this->assertFalse($product_b->isLow($warehouse_a));
+        $this->assertTrue($product_b->isLow($warehouse_b));
+    }
+
+    public function test_rusco(): void
+    {
+        $product = Product::find(5);
+$product->parseHtml();
     }
 }

@@ -17,9 +17,11 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        $unique = 'E200' . rand(4000, 8000) . 'A' . rand(1000, 9999);
+
         return [
             'name' => fake()->sentence(),
-            'uuid' => Str::uuid(),
+            'uuid' => $unique,
             'dealer_id' => rand(1, 3),
         ];
     }
