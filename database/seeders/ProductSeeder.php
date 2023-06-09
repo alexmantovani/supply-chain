@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use App\Models\Product;
+use App\Models\Dealer;
 
 class ProductSeeder extends Seeder
 {
@@ -12,6 +14,61 @@ class ProductSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
+    {
+        if (($handle = fopen(resource_path('extras/distinta_materiale.csv'), "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                $code = $data[0];
+                if ($code == 'Articolo') continue;
+
+                $name = $data[1];
+                $dealer = $data[5];
+                $vendorCodeNumber = $data[6];
+
+                switch ($data[2]) {
+                    case 'ANN':
+                        $status = 'aborted';
+                        break;
+
+                    case 'ESA':
+                        $status = 'obsolete';
+                        break;
+
+                    default:
+                        $status = 'available';
+                        break;
+                }
+                $dealer = $data[5];
+
+                $dealer = Dealer::updateOrCreate([
+                    'provider_id' => 1,
+                    'name' => $dealer,
+                ], [
+                    'vendor_code_number' => $vendorCodeNumber,
+                ]);
+
+                Product::create([
+                    'uuid' => $code,
+                    'name' => $name,
+                    'dealer_id' => $dealer->id,
+                    'status' => $status,
+
+                    // $table->foreignId('dealer_id')->nullable();
+                    // $table->string('uuid')->unique();
+                    // $table->string('name')->nullable();
+                    // $table->string('description')->nullable();
+                    // $table->string('image_url')->nullable();
+                    // $table->unsignedBigInteger('order_code')->nullable();
+                    // $table->string('model')->nullable();
+                    // $table->string('note')->nullable();
+
+                    // $table->string('refill_quantity')->nullable();
+                ]);
+            }
+            fclose($handle);
+        }
+    }
+
+    public function rusco(): void
     {
         $suffix = ['500 ohm', '1,5 x 3', '50 mt', '100 mt', 'bianco', '8 ohm', '200 metri', '1 x 2,5', 'rosso', 'verde'];
         $list = [
@@ -41,7 +98,7 @@ class ProductSeeder extends Seeder
 
         foreach ($list as $component) {
             \App\Models\Product::factory()->create([
-                'name' => $component,// . ' ' . $suffix[rand(0, 9)],
+                'name' => $component, // . ' ' . $suffix[rand(0, 9)],
                 // 'uuid' => Str::uuid(),
                 // 'dealer_id' => rand(1, 3),
             ]);

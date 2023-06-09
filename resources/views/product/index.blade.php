@@ -52,6 +52,9 @@
                                     <th class="p-2 whitespace-nowrap">
                                         <div class="font-semibold text-left">Prodotto</div>
                                     </th>
+                                    <th class="p-2 whitespace-nowrap w-12">
+                                        <div class="font-semibold text-left">Stato</div>
+                                    </th>
                                     <th class="p-2 w-30 text-center items-center">
                                         <div class="font-semibold"></div>
                                     </th>
@@ -62,7 +65,7 @@
                                 @foreach ($products as $product)
                                     <tr>
                                         <td class="">
-                                            <div class="text-left text-gray-300 dark:text-gray-400">
+                                            <div class="text-left text-gray-400 dark:text-gray-400 pb-5">
                                                 {{ $product->uuid }}
                                             </div>
                                         </td>
@@ -78,9 +81,9 @@
                                                     </a>
                                                 </div>
                                                 <div class="f">
-                                                    <a href="{{ route('dealer.show', $product->dealer) }}"
+                                                    <a href="{{ route('warehouse.dealer.show', [$warehouse, $product->dealer]) }}"
                                                         class="font-medium text-gray-400 hover:text-gray-800 hover:underline">
-                                                        {{ $product->dealer->name }}
+                                                        {{ $product->dealer->name }} &middot; {{ $product->dealer->vendor_code_number }}
                                                     </a>
                                                 </div>
                                             </div>
@@ -95,6 +98,12 @@
                                                 </div>
                                             </div> --}}
                                         </td>
+                                        <td class="p-2 whitespace-nowrap">
+                                            <x-product-status class="rounded-lg text-xs uppercase py-1 px-2 text-center"
+                                            :status="$product->status" />
+
+                                        </td>
+
 
                                         <td class="text-right px-3 py-3 w-10">
                                             <a href="{{ route('warehouse.product.show', [$warehouse, $product->id]) }}"

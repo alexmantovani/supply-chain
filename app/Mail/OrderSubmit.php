@@ -30,8 +30,8 @@ class OrderSubmit extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('noreply@example.com', 'Magazzino 0'),
-            subject: 'Richiesta materiale',
+            from: new Address('noreply@example.com', $this->order->warehouse->name),
+            subject: 'Richiesta materiale (ordine ' . $this->order->uuid. ')...',
         );
     }
 
@@ -53,6 +53,10 @@ class OrderSubmit extends Mailable
     public function attachments(): array
     {
         $filename = storage_path('tempdir') . "/order.csv";
+
+        // TODO: Se il file $filename esiste lo cancello
+        //
+
         $file = fopen($filename, 'w');
         foreach ($this->order->products as $product) {
             $row = [$product->uuid, $product->name, $product->dealer->name, $product->pivot->quantity];
@@ -62,7 +66,7 @@ class OrderSubmit extends Mailable
 
         return [
             Attachment::fromPath($filename)
-                    ->as('order.csv')
+                    ->as('order_' . $this->order->uuid. '.csv')
                     ->withMime('application/csv'),
         ];
     }

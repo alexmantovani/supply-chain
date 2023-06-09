@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->string('vendor_code_number');
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->nullable();
             // $table->string('contact_number_primary');
             // $table->string('contact_number_optional')->nullable();
             $table->string('address')->nullable();

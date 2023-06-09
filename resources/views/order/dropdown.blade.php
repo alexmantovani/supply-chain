@@ -12,11 +12,12 @@
                     class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ordine
                     completato</a>
             </li>
+            {{-- TODO: Gestire anche l'arrivo parziale
             <li>
                 <a href="#"
                     class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Arrivo
                     parziale...</a>
-            </li>
+            </li> --}}
             <li>
                 <form action="{{ route('warehouse.order.destroy', [$warehouse, $order]) }}"
                     class="button block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500" method="POST">

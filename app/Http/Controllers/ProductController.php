@@ -19,8 +19,9 @@ class ProductController extends Controller
         $search = Request()->search ?? '';
 
         $products = Product::where('name', 'like', '%' . $search . '%')
+        ->orWhere('uuid', 'like', $search . '%')
             // ->orWhere('dealer', 'like', '%' . $search . '%')
-            ->orderBy('name')->paginate(20);
+            ->orderBy('name')->paginate(100);
         return view('product.index', compact('warehouse', 'search', 'products'));
     }
 

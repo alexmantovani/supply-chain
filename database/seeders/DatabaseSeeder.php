@@ -46,9 +46,10 @@ class DatabaseSeeder extends Seeder
         }
 
         \App\Models\User::factory(100)->create();
-        \App\Models\Dealer::factory(100)->create([
-            'provider_id' => $provider->id,
-        ]);
+
+        // \App\Models\Dealer::factory(100)->create([
+        //     'provider_id' => $provider->id,
+        // ]);
 
         // \App\Models\User::factory(10)->create();
 
@@ -59,7 +60,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             ProductSeeder::class,
-            StockSeeder::class,
+            // StockSeeder::class,
         ]);
 
         // \App\Models\Refill::factory(7)->create();

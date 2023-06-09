@@ -21,7 +21,7 @@ class RefillController extends Controller
     public function index(Warehouse $warehouse)
     {
         $refills = $warehouse->refills()
-            ->whereIn('status', ['low', 'urgent'])
+            ->whereIn('refills.status', ['low', 'urgent'])
             ->join('products', 'products.id', '=', 'refills.product_id')
             ->join('dealers', 'dealers.id', '=', 'dealer_id')
             ->join('providers', 'providers.id', '=', 'dealers.provider_id')
@@ -80,11 +80,13 @@ class RefillController extends Controller
         //
     }
 
-    public function ask(Request $request, Warehouse $warehouse)
+    public function ask(Request $request)
     {
         $productId = $request->input('product_id');
         $quantity = $request->input('quantity');
+        $warehouseId = $request->input('warehouse_id');
 
+        $warehouse = Warehouse::find($warehouseId);
         $product = Product::find($productId);
 
         if ($product->isLow($warehouse)) {
@@ -92,13 +94,13 @@ class RefillController extends Controller
         }
 
         Refill::create([
-            'warehouse_id' => $warehouse->id,
+            'warehouse_id' => $warehouseId,
             'user_id' => Auth::user()->id,
             'product_id' => $productId,
             'quantity' => $quantity,
         ]);
 
-        return redirect(route("refill.done"));
+        return redirect(route("refill.done", compact('warehouse')));
     }
 
     public function askRefill(Warehouse $warehouse, $code)
@@ -131,14 +133,13 @@ class RefillController extends Controller
 
     public function generateTestCode(Warehouse $warehouse)
     {
-        $stock_id = rand(1, 10);
-        $product = Stock::find($stock_id)->product;
+        $product = Product::find(rand(1, 100));
 
         return view('refill.qrcode', compact('product', 'warehouse'));
     }
 
-    public function requestDone()
+    public function requestDone(Warehouse $warehouse)
     {
-        return view('refill.done');
+        return view('refill.done', compact('warehouse'));
     }
 }

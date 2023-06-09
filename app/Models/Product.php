@@ -44,8 +44,11 @@ class Product extends Model
      */
     public function isLow(Warehouse $warehouse)
     {
-        return 0 < $warehouse
-            ->refills()
+        // dd(Refill::where('warehouse_id', $warehouse->id)
+        // ->whereIn('status', ['low', 'urgent', 'ordered', 'aborted'])
+        // ->where('product_id', $this->id)
+        // ->count());
+        return 0 < Refill::where('warehouse_id', $warehouse->id)
             ->whereIn('status', ['low', 'urgent', 'ordered'])
             ->where('product_id', $this->id)
             ->count();

@@ -6,11 +6,18 @@
                 cursor-pointer">
             <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
         </div>
-        <x-navbar-title>
-            Informazioni sul produttore
+        <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
+            {{ $warehouse->name }}
         </x-navbar-title>
     </x-slot>
-
+    <x-slot name="navbar_left_menu">
+        @include('layouts.nav_left_bar')
+    </x-slot>
+    <x-slot name="navbar_right_menu">
+        <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
+            {{ __('Simula QR') }}
+        </x-nav-link>
+    </x-slot>
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="h-full ">
@@ -46,65 +53,151 @@
                         <div class="font-semibold text-2xl pt-4 dark:text-gray-200">
                             Listino
                         </div>
-                        {{-- <a href="{{ route('product.create', $dealer->id) }}">
+                        <div>
 
-                            <x-secondary-button title="{{ __('Aggiungi un nuovo prodotto a listino') }}">
-                                <i class="fa-sharp fa-solid fa-plus"></i> &nbsp;
-                                {{ __('Aggiungi') }}
-                            </x-secondary-button>
-                        </a> --}}
+
+
+                            <form method="GET" action="{{ route('warehouse.dealer.show', [$warehouse, $dealer]) }}">
+                                <div class="flex items-center">
+
+                                    <div class="w-30 items-right pt-1 pr-5">
+                                        <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
+                                            class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-md h-11 text-sm px-3 py-3 mt-3 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                                            type="button">
+                                            <i class="fa-regular fa-filter"></i> &nbsp;
+                                            Filtra
+                                            <svg class="w-3 h-3 ml-2" aria-hidden="true" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        </button>
+
+                                        <div id="dropdownRadio"
+                                            class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+                                            data-popper-reference-hidden="" data-popper-escaped=""
+                                            data-popper-placement="top"
+                                            style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
+                                            <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200"
+                                                aria-labelledby="dropdownRadioButton">
+                                                <li>
+                                                    <div class="flex items-center p-2">
+                                                        <input {{ in_array('available', $filters) ? 'checked' : '' }}
+                                                            id="default-checkbox-1" type="checkbox" name="filters[]"
+                                                            value="available"
+                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                        <label for="default-checkbox-1"
+                                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Disponibili
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="flex items-center p-2">
+                                                        <input {{ in_array('aborted', $filters) ? 'checked' : '' }}
+                                                            id="checked-checkbox-2" type="checkbox" name="filters[]"
+                                                            value="aborted"
+                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                        <label for="checked-checkbox-2"
+                                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Annullati</label>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="flex items-center p-2">
+                                                        <input {{ in_array('obsolete', $filters) ? 'checked' : '' }}
+                                                            id="checked-checkbox-3" type="checkbox" name="filters[]"
+                                                            value="obsolete"
+                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                        <label for="checked-checkbox-3"
+                                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                                            Obsoleti</label>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="flex mt-4 rounded-md border border-gray-300 items-center">
+                                        <div class="w-full">
+                                            <input
+                                                class="mr-3 bg-transparent border-0 focus:ring-0 focus:ring-slate-300 focus:outline-none appearance-none w-full  text-slate-900 placeholder-slate-400 rounded-md py-2 pl-3 ring-0"
+                                                type="text" aria-label="Search" placeholder="Cerca..."
+                                                value="{{ $search ?? '' }}" name="search" autofocus>
+                                        </div>
+
+                                        <div class="p-1">
+                                            <x-primary-button class="">
+                                                <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                                            </x-primary-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
 
                     <table class="table-auto w-full ">
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
                             <tr>
                                 <th class="p-2 whitespace-nowrap w-20">
-                                    <div class="font-semibold text-center">Id</div>
+                                    <div class="font-semibold text-left">Codice</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Prodotto</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap w-12">
+                                    <div class="font-semibold text-left">Stato</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-center"
                                         title="Numero di articoli che vengono riordinati di default">Default</div>
                                 </th>
 
-                                <th class="p-2 w-20 text-center items-center">
-                                    <div class="font-semibold">Azioni</div>
+                                <th class="p-2 w-8 text-center items-center">
+                                    {{-- <div class="font-semibold">Azioni</div> --}}
                                 </th>
                             </tr>
                         </thead>
 
                         <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
                             @foreach ($products as $product)
-                                <tr class=" h-10">
+                                <tr class="h-10">
                                     <td>
-                                        <div class="text-center dark:text-gray-300">
-                                            {{ $product->id }}
+                                        <div class="text-left dark:text-gray-300">
+                                            {{ $product->uuid }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-left dark:text-gray-300 px-1">
+                                            {{ $product->name }}
                                         </div>
                                     </td>
                                     <td>
                                         <div class="text-left dark:text-gray-300">
-                                            {{ $product->name }}
+                                            <x-product-status class="rounded-lg text-xs uppercase py-1 px-2 text-center"
+                                                :status="$product->status" />
                                         </div>
                                     </td>
                                     <td class="p-2 whitespace-nowrap dark:text-gray-300">
                                         <div class="text-center">{{ $product->refill_quantity }}</div>
                                     </td>
-                                    <td class="p-2 w-20 text-center items-center">
-                                        {{-- <x-primary-button>
-                                            {{ __('Ordina') }}
-                                        </x-primary-button> --}}
+
+                                    <td class="text-right px-3 py-3 w-10">
+                                        <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}"
+                                            class="font-medium text-gray-800 text-lg hover:underline dark:text-gray-300">
+                                            <i class="fa-solid fa-angle-right"></i>
+                                        </a>
                                     </td>
-
-
-
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
 
-                    <div class="w-full max-w-7xl mx-auto pt-6">
+                    <div class="w-full max-w-7xl mx-auto p-6">
                         <?php echo $products->appends(['search' => $search ?? ''])->links(); ?>
                     </div>
 
@@ -112,6 +205,7 @@
             </div>
 
 
+            {{--
             <div class="w-full max-w-7xl mx-auto pt-5">
                 <div
                     class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-700">
@@ -139,7 +233,6 @@
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
-                            {{--
                             @foreach ($orders as $order)
                                 <tr>
                                     <td class="p-2 whitespace-nowrap text-gray-600 dark:text-gray-300 text-base ">
@@ -169,18 +262,18 @@
                                     </td>
 
                                 </tr>
-                            @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
 
                     <div class="w-full max-w-7xl mx-auto pt-6">
-                        {{-- <?php echo $orders->appends(['search' => $search ?? ''])->links(); ?> --}}
+                        <?php echo $orders->appends(['search' => $search ?? ''])->links(); ?>
                     </div>
                 </div>
 
             </div>
 
-
+            --}}
 
         </div>
     </section>

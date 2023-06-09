@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDealerRequest;
 use App\Http\Requests\UpdateDealerRequest;
 use App\Models\Dealer;
-use App\Models\Order;
+use App\Models\Warehouse;
 
 class DealerController extends Controller
 {
@@ -36,12 +36,20 @@ class DealerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Dealer $dealer)
+    public function show(Warehouse $warehouse, Dealer $dealer)
     {
-        $search = '';
-        // $orders = $dealer->orders()->paginate(10);
-        $products = $dealer->products()->paginate(10);
-        return view('dealer.show', compact('dealer', 'products'));
+        $search = Request()->search ?? '';
+        $filters = Request()->filters ?? ['available'];
+
+        $products = $dealer->products()
+            ->where(function ($q) use ($search) {
+                return $q
+                    ->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('uuid', 'like', $search . '%');
+            })
+            ->whereIn('status', $filters)
+            ->paginate(100);
+        return view('dealer.show', compact('warehouse', 'dealer', 'products', 'search', 'filters'));
     }
 
     /**

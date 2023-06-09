@@ -56,7 +56,7 @@
                                                     <td class="p-2 whitespace-nowrap">
                                                         <div class=" items-center">
                                                             <div>
-                                                                <a href="{{ route('dealer.show', $refill->product->dealer->id) }}"
+                                                                <a href="{{ route('warehouse.dealer.show', [$warehouse, $refill->product->dealer->id]) }}"
                                                                     class="font-medium text-gray-400 hover:text-gray-800">
                                                                     {{ $refill->product->dealer->name }}
                                                                 </a>

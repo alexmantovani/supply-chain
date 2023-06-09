@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class ProcessProduct implements ShouldQueue
 {
@@ -30,10 +31,13 @@ class ProcessProduct implements ShouldQueue
     public function handle(): void
     {
         Log::info("ProcessProduct" . $this->product->uuid);
-        sleep(10);
+
+        // TODO: Fare richiesta al server di altena e aggiornare il DB
+        sleep(5);
+
         $this->product->update([
-            'name' => 'aaacode',
-            'dealer_id' => 1,
+            'name' => Str::uuid(),
+            'dealer_id' => rand(1,5),
             'refill_quantity' => 0,
             'order_code' => 0,
             'model' => ''

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('dealer_id')->nullable();
 
             $table->string('uuid')->unique();
-            $table->string('name')->unique()->nullable();
+            $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->string('image_url')->nullable();
             $table->unsignedBigInteger('order_code')->nullable();
@@ -26,6 +26,9 @@ return new class extends Migration
             $table->string('note')->nullable();
 
             $table->string('refill_quantity')->nullable();
+            $table->enum('status', ['unknown', 'available', 'aborted', 'obsolete'])->default('unknown');
+
+            // $table->unique('dealer_id', 'name');
 
             $table->timestamps();
         });
