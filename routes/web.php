@@ -19,13 +19,14 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    return redirect('/warehouse');
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/rusco', function () {
-    $product = App\Models\Product::find(5);
-    $product->parseHtml();
-})->name('rusco');
+// Route::get('/rusco', function () {
+//     $product = App\Models\Product::find(5);
+//     $product->parseHtml();
+// })->name('rusco');
 
 
 
