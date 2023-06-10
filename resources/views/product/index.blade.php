@@ -16,27 +16,36 @@
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="h-full ">
 
-            <div class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800">
+            <div
+                class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800">
 
-                <div class="mx-8">
+                <div class="mx-3">
                     <form method="GET" action="{{ route('warehouse.product.index', $warehouse) }}">
                         <div class="flex mt-4 rounded-md border border-gray-300 items-center">
                             <div class="w-full">
                                 <input
-                                class="mr-3 bg-transparent border-0 focus:ring-0 focus:ring-slate-300 focus:outline-none appearance-none w-full  text-slate-900 placeholder-slate-400 rounded-md py-2 pl-3 ring-0"
-                                type="text" aria-label="Search" placeholder="Cerca..." value="{{ $search ?? '' }}"
-                                name="search" autofocus>
+                                    class="mr-3 bg-transparent border-0 focus:ring-0 focus:ring-slate-300 focus:outline-none appearance-none w-full  text-slate-900 placeholder-slate-400 rounded-md py-2 pl-3 ring-0"
+                                    type="text" aria-label="Search" placeholder="Cerca..." value="{{ $search ?? '' }}"
+                                    name="search" autofocus>
                             </div>
 
                             <div class="p-1">
-                                <x-primary-button class="ml-3 h-12 w-12">
+                                <x-secondary-button class="ml-3 h-12 w-12" title="Filtra ricerca"
+                                    id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio">
+                                    <i class="fas fa-filter"></i>
+                                </x-secondary-button>
+
+                                <x-product-filter-dropdown :filters="$filters" />
+                            </div>
+                            <div class="p-1">
+                                <x-primary-button class="ml-1 h-12 w-12">
                                     <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
                                 </x-primary-button>
                             </div>
 
                         </div>
                         <div class="text-xs text-gray-400 text-right pt-1">
-                            Trovati {{ $products->total() }} risultati
+                            {{-- Trovati {{ $products->total() }} risultati --}}
                         </div>
                     </form>
                 </div>
@@ -71,36 +80,25 @@
                                         </td>
                                         <td class="p-2 whitespace-nowrap">
                                             <div class=" items-center">
-                                                {{-- <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img
-                                                class="rounded-full"
-                                                src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg"
-                                                width="40" height="40" alt="Alex Shatov"></div> --}}
                                                 <div class="font-medium text-gray-800 text-lg dark:text-gray-300">
-                                                    <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}" class=" hover:underline">
+                                                    <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}"
+                                                        class="">
                                                         {{ $product->name }}
                                                     </a>
                                                 </div>
                                                 <div class="f">
                                                     <a href="{{ route('warehouse.dealer.show', [$warehouse, $product->dealer]) }}"
-                                                        class="font-medium text-gray-400 hover:text-gray-800 hover:underline">
-                                                        {{ $product->dealer->name }} &middot; {{ $product->dealer->vendor_code_number }}
+                                                        class="font-medium text-gray-400 hover:text-gray-800">
+                                                        {{ $product->dealer->name }} &middot;
+                                                        {{ $product->dealer->code }} &middot;
+                                                        {{ $product->dealer->model }}
                                                     </a>
                                                 </div>
                                             </div>
-
-                                            {{-- <div class="flex items-center">
-                                                <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img
-                                                        class="rounded-full"
-                                                        src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg"
-                                                        width="40" height="40" alt="Alex Shatov"></div>
-                                                <div class="font-medium text-gray-800">
-                                                    {{ $stock->product->name }}
-                                                </div>
-                                            </div> --}}
                                         </td>
                                         <td class="p-2 whitespace-nowrap">
                                             <x-product-status class="rounded-lg text-xs uppercase py-1 px-2 text-center"
-                                            :status="$product->status" />
+                                                :status="$product->status" />
 
                                         </td>
 
@@ -120,7 +118,7 @@
             </div>
 
             <div class="w-full max-w-7xl mx-auto pt-6">
-                <?php echo $products->appends(['search' => $search ?? ''])->links(); ?>
+                {{-- <?php echo $products->appends(['search' => $search ?? ''])->links(); ?> --}}
             </div>
         </div>
     </section>

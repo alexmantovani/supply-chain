@@ -41,6 +41,9 @@
                                                     <div class="font-semibold text-left">Prodotto</div>
                                                 </th>
                                                 <th class="p-2 w-28">
+                                                    <div class="font-semibold text-center">Stato</div>
+                                                </th>
+                                                <th class="p-2 w-28">
                                                     <div class="font-semibold text-center">Quantità</div>
                                                 </th>
 
@@ -76,6 +79,14 @@
                                                             </div> --}}
                                                         </div>
                                                     </td>
+
+                                                    <td class="p-2 whitespace-nowrap items-right">
+                                                        <x-product-status
+                                                            class=" rounded-lg text-xs uppercase py-1 px-2 text-center"
+                                                            :status="$refill->product->status" />
+                                                    </td>
+
+
                                                     <td class="p-2 whitespace-nowrap items-right">
                                                         <div class="text-center">
                                                             <x-text-input id="quantity"

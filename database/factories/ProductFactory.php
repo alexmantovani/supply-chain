@@ -23,6 +23,7 @@ class ProductFactory extends Factory
             'name' => fake()->sentence(),
             'uuid' => $unique,
             'dealer_id' => rand(1, 3),
+            'status_id' => rand(1, 2),
         ];
     }
 }

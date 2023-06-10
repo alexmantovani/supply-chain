@@ -115,6 +115,8 @@ class RefillController extends Controller
             // Chiedo al DB di Altena le info sul prodotto
             ProcessProduct::dispatch($product);
         }
+        if (!$product->isOrdinable()) abort(403, 'Articolo non più ordinabile');
+
         $present = $warehouse->refills()
             ->where('product_id', $product->id)
             ->whereIn('status', ['low', 'urgent'])

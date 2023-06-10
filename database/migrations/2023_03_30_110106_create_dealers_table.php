@@ -17,9 +17,12 @@ return new class extends Migration
             // Ogni produttore ha UN fornitore al quale fare richiesta di materiale
             $table->foreignId('provider_id');
 
-            $table->string('vendor_code_number');
             $table->string('name');
             $table->string('email')->nullable();
+
+            $table->string('model')->nullable();
+            $table->string('code')->nullable();
+
             // $table->string('contact_number_primary');
             // $table->string('contact_number_optional')->nullable();
             $table->string('address')->nullable();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDealerRequest;
 use App\Http\Requests\UpdateDealerRequest;
 use App\Models\Dealer;
+use App\Models\ProductStatus;
 use App\Models\Warehouse;
 
 class DealerController extends Controller
@@ -39,7 +40,9 @@ class DealerController extends Controller
     public function show(Warehouse $warehouse, Dealer $dealer)
     {
         $search = Request()->search ?? '';
-        $filters = Request()->filters ?? ['available'];
+        $filters = Request()->filters ?? ['Ordinabili'];
+
+        $filter_list = ProductStatus::whereIn('group', $filters)->pluck('id');
 
         $products = $dealer->products()
             ->where(function ($q) use ($search) {
@@ -47,7 +50,7 @@ class DealerController extends Controller
                     ->where('name', 'like', '%' . $search . '%')
                     ->orWhere('uuid', 'like', $search . '%');
             })
-            ->whereIn('status', $filters)
+            ->whereIn('status_id', $filter_list)
             ->paginate(100);
         return view('dealer.show', compact('warehouse', 'dealer', 'products', 'search', 'filters'));
     }

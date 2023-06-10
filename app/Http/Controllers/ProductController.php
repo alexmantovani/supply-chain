@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\Dealer;
+use App\Models\ProductStatus;
 use App\Models\Warehouse;
 use Illuminate\Support\Str;
 
@@ -17,12 +18,22 @@ class ProductController extends Controller
     public function index(Warehouse $warehouse)
     {
         $search = Request()->search ?? '';
+        $filters = Request()->filters ?? ['Ordinabili'];
 
-        $products = Product::where('name', 'like', '%' . $search . '%')
-        ->orWhere('uuid', 'like', $search . '%')
-            // ->orWhere('dealer', 'like', '%' . $search . '%')
-            ->orderBy('name')->paginate(100);
-        return view('product.index', compact('warehouse', 'search', 'products'));
+        $filter_list = ProductStatus::whereIn('group', $filters)->pluck('id');
+
+        $products = Product::join('dealers', 'dealers.id', 'dealer_id')
+            ->select('products.*', 'dealers.name as dealer_name')
+            ->where(function ($q) use ($search) {
+                return $q
+                ->where('products.name', 'like', '%' . $search . '%')
+                ->orWhere('dealers.name', 'like', '%' . $search . '%')
+                ->orWhere('uuid', 'like', $search . '%');
+            })
+            ->whereIn('status_id', $filter_list)
+            ->paginate(100);
+
+        return view('product.index', compact('warehouse', 'search', 'products', 'filters'));
     }
 
     /**

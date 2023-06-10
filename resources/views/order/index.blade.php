@@ -66,7 +66,7 @@
 
                     <div class="p-3">
                         <div class="">
-                            <table class="table-auto w-full ">
+                            <table class="table w-full">
                                 <thead
                                     class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
                                     <tr>
@@ -92,7 +92,7 @@
                                     </tr>
                                 </thead>
 
-                                <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
+                                <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800 ">
                                     @foreach ($orders as $order)
                                         <tr>
                                             <td class="p-2 whitespace-nowrap">
@@ -101,7 +101,7 @@
                                                         {{ $order->uuid }}
                                                     </a>
 
-                                                    {{-- @foreach ($order->products as $product)
+                                                    @foreach ($order->products as $product)
                                                         <div class=" text-gray-400 text-xs py-1 flex justify-between">
                                                             <div>
                                                                 {{ $product->name }}
@@ -110,19 +110,18 @@
                                                                 {{ $product->pivot->quantity }}
                                                             </div>
                                                         </div>
-                                                        @endforeach
- --}}
+                                                    @endforeach
 
                                                 </div>
                                             </td>
-                                            <td class="p-2 whitespace-nowrap">
+                                            <td class="p-2">
                                                 <div class="text-center dark:text-gray-300">
                                                     {{ $order->created_at->translatedFormat('d.m.Y') }}
                                                     &middot;
                                                     {{ $order->created_at->translatedFormat('H:i') }}
                                                 </div>
                                             </td>
-                                            <td class="p-2 ">
+                                            <td class="p-2">
                                                 <x-order-status
                                                     class="rounded-lg text-xs uppercase py-2 px-3 text-center"
                                                     :status="$order->status" />

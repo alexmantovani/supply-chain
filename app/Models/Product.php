@@ -24,6 +24,11 @@ class Product extends Model
         return $this->belongsTo(Dealer::class);
     }
 
+    public function status()
+    {
+        return $this->belongsTo(ProductStatus::class);
+    }
+
     public function refills()
     {
         return $this->hasMany(Refill::class);
@@ -52,6 +57,11 @@ class Product extends Model
             ->whereIn('status', ['low', 'urgent', 'ordered'])
             ->where('product_id', $this->id)
             ->count();
+    }
+
+    public function isOrdinable()
+    {
+        return (bool)$this->status->ordinable;
     }
 
     public function parseHtml()
@@ -99,7 +109,7 @@ class Product extends Model
 
         foreach ($rows as $row) {
             $cols = $row->getElementsByTagName('td');
-            if ($cols->count()>2) {
+            if ($cols->count() > 2) {
                 $uuid = $cols[1]->textContent;
                 $name = $cols[2]->textContent;
                 break;

@@ -1,35 +1,79 @@
 @props(['status'])
 
-@switch($status)
-    @case('aborted')
-        <div {{ $attributes->merge(['class' => 'bg-red-600 text-white ']) }}>
+
+@switch($status->code)
+    @case('ANN')
+        <div {{ $attributes->merge(['class' => 'bg-red-600 text-white ']) }} title='Annullato'>
             {{-- <i class="fa-solid fa-ban"></i>
-            &nbsp; --}}
+        &nbsp; --}}
             Annullato
         </div>
     @break
-
-    @case('obsolete')
-        <div
-            {{ $attributes->merge([
-                'class' => 'bg-transparent text-yellow-600 border-yellow-400 border',
-            ]) }}>
-            {{-- <i class="fa-regular fa-triangle-exclamation"></i>
-            &nbsp; --}}
-            Obsoleto
+    @case('ANR')
+        <div {{ $attributes->merge(['class' => 'bg-red-600 text-white ']) }} title='Annullato ricambi'>
+            Annullato
+        </div>
+    @break
+    @case('ANPV')
+        <div {{ $attributes->merge(['class' => 'bg-red-600 text-white ']) }} title='Annullato post vendita'>
+            Annullato
+        </div>
+    @break
+    @case('NOO')
+        <div {{ $attributes->merge(['class' => 'bg-red-600 text-white ']) }} title='Non ordinabile'>
+            Non ordinabile
         </div>
     @break
 
-    {{-- @case('available')
+    @case('ESA')
         <div {{ $attributes->merge([
-            'class' => 'bg-green-500 text-white ',
-        ]) }}>
-            <i class="fa-solid fa-check"></i>
-            &nbsp;
-            Disponibile
+            'class' => 'bg-transparent text-yellow-600 border-yellow-400 border',
+        ]) }}
+            title='In esaurimento'>
+            In esaurimento
         </div>
-    @break --}}
+    @break
+    @case('ESR')
+        <div {{ $attributes->merge([
+            'class' => 'bg-transparent text-yellow-600 border-yellow-400 border',
+        ]) }}
+            title='In esaurimento ricambi'>
+            In esaurimento
+        </div>
+    @break
+    @case('ESPV')
+        <div {{ $attributes->merge([
+            'class' => 'bg-transparent text-yellow-600 border-yellow-400 border',
+        ]) }}
+            title='In esaurimento post vendita'>
+            In esaurimento
+        </div>
+    @break
+    @case('PHO')
+        <div {{ $attributes->merge([
+            'class' => 'bg-transparent text-yellow-600 border-yellow-400 border',
+        ]) }}
+            title='Eliminare gradualmente'>
+            Phase out
+        </div>
+    @break
+    @case('PFO')
+        <div {{ $attributes->merge([
+            'class' => 'bg-transparent text-yellow-600 border-yellow-400 border',
+        ]) }}
+            title='Problemi di fornitura'>
+            Fornitura
+        </div>
+    @break
+
+    @case('TST')
+        <div {{ $attributes->merge([
+            'class' => 'bg-transparent text-yellow-600 border-yellow-400 border',
+        ]) }}
+            title='In test'>
+            In test
+        </div>
+    @break
 
     @default
-
 @endswitch

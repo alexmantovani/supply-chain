@@ -54,9 +54,6 @@
                             Listino
                         </div>
                         <div>
-
-
-
                             <form method="GET" action="{{ route('warehouse.dealer.show', [$warehouse, $dealer]) }}">
                                 <div class="flex items-center">
 
@@ -74,51 +71,8 @@
                                             </svg>
                                         </button>
 
-                                        <div id="dropdownRadio"
-                                            class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
-                                            data-popper-reference-hidden="" data-popper-escaped=""
-                                            data-popper-placement="top"
-                                            style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
-                                            <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="dropdownRadioButton">
-                                                <li>
-                                                    <div class="flex items-center p-2">
-                                                        <input {{ in_array('available', $filters) ? 'checked' : '' }}
-                                                            id="default-checkbox-1" type="checkbox" name="filters[]"
-                                                            value="available"
-                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                        <label for="default-checkbox-1"
-                                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Disponibili
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="flex items-center p-2">
-                                                        <input {{ in_array('aborted', $filters) ? 'checked' : '' }}
-                                                            id="checked-checkbox-2" type="checkbox" name="filters[]"
-                                                            value="aborted"
-                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                        <label for="checked-checkbox-2"
-                                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Annullati</label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="flex items-center p-2">
-                                                        <input {{ in_array('obsolete', $filters) ? 'checked' : '' }}
-                                                            id="checked-checkbox-3" type="checkbox" name="filters[]"
-                                                            value="obsolete"
-                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                        <label for="checked-checkbox-3"
-                                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                                            Obsoleti</label>
-                                                    </div>
-                                                </li>
-
-                                            </ul>
-                                        </div>
+                                        <x-product-filter-dropdown :filters="$filters" />
                                     </div>
-
-
 
 
                                     <div class="flex mt-4 rounded-md border border-gray-300 items-center">
@@ -149,8 +103,8 @@
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Prodotto</div>
                                 </th>
-                                <th class="p-2 whitespace-nowrap w-12">
-                                    <div class="font-semibold text-left">Stato</div>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-center">Stato</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-center"
@@ -167,7 +121,7 @@
                             @foreach ($products as $product)
                                 <tr class="h-10">
                                     <td>
-                                        <div class="text-left dark:text-gray-300">
+                                        <div class="text-left text-gray-400 dark:text-gray-400 pr-1">
                                             {{ $product->uuid }}
                                         </div>
                                     </td>
@@ -177,7 +131,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="text-left dark:text-gray-300">
+                                        <div class="text-center dark:text-gray-300 min-w-min">
                                             <x-product-status class="rounded-lg text-xs uppercase py-1 px-2 text-center"
                                                 :status="$product->status" />
                                         </div>

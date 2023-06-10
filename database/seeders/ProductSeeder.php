@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use App\Models\Product;
 use App\Models\Dealer;
+use App\Models\ProductStatus;
 
 class ProductSeeder extends Seeder
 {
@@ -20,37 +21,32 @@ class ProductSeeder extends Seeder
                 $code = $data[0];
                 if ($code == 'Articolo') continue;
 
+                // Dati relativi al prodotto
                 $name = $data[1];
                 $dealer = $data[5];
-                $vendorCodeNumber = $data[6];
+                $status = $data[2];
+                if ($status == '') $status = 'OK';
 
-                switch ($data[2]) {
-                    case 'ANN':
-                        $status = 'aborted';
-                        break;
+                $productStatus = ProductStatus::firstWhere('code', $status);
 
-                    case 'ESA':
-                        $status = 'obsolete';
-                        break;
-
-                    default:
-                        $status = 'available';
-                        break;
-                }
+                // Dati relativi al produttore
                 $dealer = $data[5];
+                $dealer_model = $data[6];
+                $dealer_code = $data[7];
 
                 $dealer = Dealer::updateOrCreate([
-                    'provider_id' => 1,
+                    'provider_id' => 1, // TODO: Per ora lo forso sempre al Magazzino centrale MG
                     'name' => $dealer,
                 ], [
-                    'vendor_code_number' => $vendorCodeNumber,
+                    'model' => $dealer_model,
+                    'code' => $dealer_code,
                 ]);
 
                 Product::create([
                     'uuid' => $code,
                     'name' => $name,
                     'dealer_id' => $dealer->id,
-                    'status' => $status,
+                    'status_id' => $productStatus->id,
 
                     // $table->foreignId('dealer_id')->nullable();
                     // $table->string('uuid')->unique();
@@ -65,43 +61,6 @@ class ProductSeeder extends Seeder
                 ]);
             }
             fclose($handle);
-        }
-    }
-
-    public function rusco(): void
-    {
-        $suffix = ['500 ohm', '1,5 x 3', '50 mt', '100 mt', 'bianco', '8 ohm', '200 metri', '1 x 2,5', 'rosso', 'verde'];
-        $list = [
-            "Cavo sensore/attuatore Omron M12 / Senza terminazione",
-            "Cavo Ethernet Schneider Electric",
-            "Cavo sensore/attuatore binder 3 cond. M9 Femmina / Senza terminazione, Ø 5.3mm, L. 2m",
-            "Prolunga RS PRO, tipo K, -75 → + 260 °C, in PFA, 5m",
-            "DC-DC Converter 80-175V IN, 13.8V OUT, 450W",
-            "Inverter 24V DC IN, 230V AC OUT, 150W/300W Peak",
-            "DC-DC Converter 80-175V IN, 26V OUT, 450W",
-            "Inverter 24V DC IN, 230V AC OUT, 1500W/3000W Peak",
-            "DC-DC Converter 36-48V IN, 24V OUT, 300W",
-            "INTERRUTTORE D'EMERGENZA ED125-B1",
-            "INTERRUTTORE D'EMERGENZA SD150A-1 24V CO",
-            "Rullo 85x105 LM110 F12 VULKOLLAN",
-            "Rullo VK 85x75 LM80 F.25",
-            "Ruota trazione 330x135 7 fori",
-            "PEDALE ACCELERATORE COMESYS DOPPIO",
-            "PEDALE ACCELERATORE COMESYS MOD.3",
-            "Clacson elettronico 72V/80V (96V max)",
-            "Clacson 24V",
-            "Batterie stazionarie / Serie EA: 12V / 20-45-100 Ah",
-            "Sistemi modulari litio / Serie EM: Soluzioni da 24V a 820V / da 60 Ah a 300 Ah",
-            "Pistola rabboccatore P/1 Economy",
-            "Indicatore di flusso NEW + 2 CLAMP",
-        ];
-
-        foreach ($list as $component) {
-            \App\Models\Product::factory()->create([
-                'name' => $component, // . ' ' . $suffix[rand(0, 9)],
-                // 'uuid' => Str::uuid(),
-                // 'dealer_id' => rand(1, 3),
-            ]);
         }
     }
 }

@@ -30,11 +30,19 @@
         <div
             class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800 p-8">
 
-            <div class=" text-gray-900 text-xl font-semibold text-center">
-                {{ $product->name }}
+            <div class=" text-gray-900 text-xl font-semibold text-center items-center">
+                <div>
+                    {{ $product->name }}
+                </div>
                 <p class="text-gray-500 text-lg font-normal">
                     {{ $product->dealer->name }}
                 </p>
+                <div class="flex justify-center py-2">
+                    <div>
+                        <x-product-status class=" rounded-lg text-xs uppercase py-1 px-2 text-center"
+                            :status="$product->status" />
+                    </div>
+                </div>
             </div>
 
             <div class="flex justify-center">

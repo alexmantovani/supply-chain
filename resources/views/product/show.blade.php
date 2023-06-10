@@ -32,7 +32,7 @@
                         </div>
                         <div class="font-semibold text-2xl dark:text-gray-200">
                             <x-product-status class="rounded-lg text-sm uppercase py-2 px-3 text-center"
-                            :status="$product->status" />
+                                :status="$product->status" />
                         </div>
                     </div>
                     @if ($product->description)
@@ -75,14 +75,31 @@
 
                     <div class="m-5">
                         <div class="pb-6">
-                            <div class="font-semibold text-xl pt-4 dark:text-gray-200">
+                            <div class="font-semibold text-xl py-4 dark:text-gray-200">
                                 <a href="{{ route('warehouse.dealer.show', [$warehouse, $product->dealer->id]) }}"
                                     class=" cursor-pointer hover:underline">
                                     {{ $product->dealer->name }}
                                 </a>
                             </div>
                             <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
-                                {{ $product->vendor_code_number }}
+                                <div class="flex justify-between">
+                                    <div>
+                                        Codice produttore:
+                                    </div>
+                                    <span class=" text-gray-800 font-semibold">
+                                        {{ $product->dealer->code }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
+                                <div class="flex justify-between">
+                                    <div>
+                                        Modello produttore:
+                                    </div>
+                                    <span class=" text-gray-800 font-semibold">
+                                        {{ $product->dealer->model }}
+                                    </span>
+                                </div>
                                 {{ $product->dealer->address }}
                                 <p>
                                     {{ $product->dealer->city }}
@@ -121,7 +138,7 @@
 
 
                 <div
-                    class="flex-1 mr-4 bg-white shadow-lg rounded-sm border border-gray-200 px-8 py-8 dark:bg-gray-900 dark:border-gray-700">
+                    class="flex-1 bg-white shadow-lg rounded-sm border border-gray-200 px-8 py-8 dark:bg-gray-900 dark:border-gray-700">
                     <div class="pb-6 mx-5">
                         <div class="font-semibold text-2xl dark:text-gray-200">
                             Ordini
@@ -186,50 +203,52 @@
                             @endforeach
                         </table>
                     @else
-                        <div class=" text-center text-2xl text-gray-300 pt-6">
+                        <div class=" text-center text-2xl text-gray-300 pt-16">
                             Non ci sono ordini relativi a questo prodotto.
                         </div>
                     @endif
 
                 </div>
 
-
-                <div
-                    class=" bg-yellow-100 shadow-lg rounded-sm border border-gray-200 px-8 py-8 dark:bg-gray-900 dark:border-gray-700 max-h-min">
-                    <div class="pb-4 mx-5">
-                        <div class="font-semibold text-2xl dark:text-gray-200">
-                            Ordina al volo
+                @if ($product->isOrdinable())
+                    <div
+                        class=" bg-yellow-100 shadow-lg ml-4 rounded-sm border border-gray-200 px-8 py-8 dark:bg-gray-900 dark:border-gray-700 max-h-min">
+                        <div class="pb-4 mx-5">
+                            <div class="font-semibold text-2xl dark:text-gray-200">
+                                Ordina al volo
+                            </div>
                         </div>
+
+                        <form method="GET" action="{{ route('warehouse.refill.ask', $warehouse) }}">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                            <div class="pb-3">
+                                <x-input-label for="warehouse_id" :value="__('Magazzino')" />
+                                <select name="warehouse_id" class="form-control w-full rounded bg-yellow-50 mt-1"
+                                    required>
+                                    @foreach (App\Models\Warehouse::all() as $warehouse_item)
+                                        <option value="{{ $warehouse_item->id }}"
+                                            {{ $warehouse_item->id == $warehouse->id ? 'selected' : '' }}>
+                                            {{ $warehouse_item->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="pb-3">
+                                <x-input-label for="quantity" :value="__('Quantity')" />
+                                <x-text-input id="quantity" class="block mt-1 w-full text-right bg-yellow-50"
+                                    type="text" name="quantity" :value="old('quantity')" />
+                                <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
+                            </div>
+
+                            <x-primary-button class="w-full justify-center">
+                                {{ __('Ordina') }}
+                            </x-primary-button>
+                        </form>
                     </div>
-
-                    <form method="GET" action="{{ route('warehouse.refill.ask', $warehouse) }}">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-
-                        <div class="pb-3">
-                            <x-input-label for="warehouse_id" :value="__('Magazzino')" />
-                            <select name="warehouse_id" class="form-control w-full rounded bg-yellow-50 mt-1" required>
-                                @foreach (App\Models\Warehouse::all() as $warehouse_item)
-                                    <option value="{{ $warehouse_item->id }}"
-                                        {{ $warehouse_item->id == $warehouse->id ? 'selected' : '' }}>
-                                        {{ $warehouse_item->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="pb-3">
-                            <x-input-label for="quantity" :value="__('Quantity')" />
-                            <x-text-input id="quantity" class="block mt-1 w-full text-right bg-yellow-50"
-                                type="text" name="quantity" :value="old('quantity')" />
-                            <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
-                        </div>
-
-                        <x-primary-button class="w-full justify-center">
-                            {{ __('Ordina') }}
-                        </x-primary-button>
-                    </form>
-                </div>
+                @endif
             </div>
         </div>
     </section>

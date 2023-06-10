@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +17,7 @@ return new class extends Migration
 
             // $table->integer('item_category_id');
             $table->foreignId('dealer_id')->nullable();
+            $table->foreignId('status_id');
 
             $table->string('uuid')->unique();
             $table->string('name')->nullable();
@@ -26,8 +28,8 @@ return new class extends Migration
             $table->string('note')->nullable();
 
             $table->string('refill_quantity')->nullable();
-            $table->enum('status', ['unknown', 'available', 'aborted', 'obsolete'])->default('unknown');
-
+            // $table->enum('status', ['unknown', 'available', 'aborted', 'obsolete'])->default('unknown');
+            // $table->enum('status', ['OK', 'TST', 'NDT', 'ESA', 'ESR', 'ESPV', 'ANN', 'ANR', 'ANPV', 'PHO', 'PFO', 'NOO'])->default('ok');
             // $table->unique('dealer_id', 'name');
 
             $table->timestamps();

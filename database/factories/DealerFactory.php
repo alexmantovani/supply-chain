@@ -17,7 +17,8 @@ class DealerFactory extends Factory
     public function definition(): array
     {
         return [
-            'vendor_code_number' => fake()->uuid(),
+            'code' => fake()->uuid(),
+            'model' => fake()->uuid(),
             'name' => fake()->company(),
             'email' => fake()->companyEmail(),
 

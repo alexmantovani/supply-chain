@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Dealer;
 use App\Models\Product;
+use App\Models\ProductStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Refill;
@@ -76,9 +77,38 @@ class ProductTest extends TestCase
         $this->assertTrue($product_b->isLow($warehouse_b));
     }
 
+    public function test_product_is_ordinable_true(): void
+    {
+        $product_status = ProductStatus::create([
+            'code' => 'ok',
+            'ordinable' => true,
+        ]);
+        $product = Product::factory()->create([
+            'dealer_id' => 1,
+            'status_id' => $product_status->id,
+        ]);
+
+        $this->assertTrue($product->isOrdinable());
+    }
+
+    public function test_product_is_ordinable_false(): void
+    {
+        $product_status = ProductStatus::create([
+            'code' => 'ok',
+            'ordinable' => false,
+        ]);
+        $product = Product::factory()->create([
+            'dealer_id' => 1,
+            'status_id' => $product_status->id,
+        ]);
+
+        $this->assertFalse($product->isOrdinable());
+    }
+
+
     public function test_rusco(): void
     {
         $product = Product::find(5);
-$product->parseHtml();
+        $product->parseHtml();
     }
 }

@@ -27,7 +27,7 @@ class OrderController extends Controller
         $orders = $warehouse->orders()
             ->whereIn('status', $query)
             ->orderBy('created_at', 'desc')
-            ->paginate(100);
+            ->paginate(1);
         return view('order.index', compact('warehouse', 'orders'));
     }
 
