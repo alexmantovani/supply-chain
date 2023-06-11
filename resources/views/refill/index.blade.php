@@ -25,7 +25,11 @@
                             <div class=" text-gray-900 text-xl p-3 font-semibold">
                                 Materiale in esaurimento
                             </div>
-
+                            <a href="{{ route('warehouse.refill.create', $warehouse) }}"
+                                class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                                <i class="fa-solid fa-plus" title="Aggiungi tra i materiali in esaurimento"></i>&nbsp;
+                                {{ __('Aggiungi') }}
+                            </a>
                         </div>
 
                         <div
@@ -60,18 +64,25 @@
                                             @foreach ($refills as $refill)
                                                 <tr>
                                                     <td class="p-2 whitespace-nowrap">
-                                                        <x-product-uuid-cell :href="route('warehouse.product.show', [$warehouse, $refill->product])">
+                                                        <x-product-uuid-cell :href="route('warehouse.product.show', [
+                                                            $warehouse,
+                                                            $refill->product,
+                                                        ])">
                                                             {{ $refill->product->uuid }}
                                                         </x-product-uuid-cell>
                                                     </td>
                                                     <td class="p-2 whitespace-nowrap">
-                                                        <x-product-name-cell class="" :href="route('warehouse.product.show', [$warehouse, $refill->product])">
+                                                        <x-product-name-cell class="" :href="route('warehouse.product.show', [
+                                                            $warehouse,
+                                                            $refill->product,
+                                                        ])">
                                                             {{ $refill->product->name }}
                                                         </x-product-name-cell>
                                                     </td>
                                                     <td class="p-2 whitespace-nowrap">
                                                         <div class="text-center dark:text-gray-300 min-w-min">
-                                                            <x-product-status class="rounded-md text-xs uppercase py-1 px-2 text-center"
+                                                            <x-product-status
+                                                                class="rounded-md text-xs uppercase py-1 px-2 text-center"
                                                                 :status="$refill->product->status" />
                                                         </div>
                                                     </td>
@@ -134,6 +145,13 @@
                 <a href="{{ route('warehouse.order.index', $warehouse) }}"
                     class=" text-gray-500 font-medium hover:underline">qui</a>
                 per andare a controllare lo stato degli ordini
+            </div>
+            <div>
+                <a href="{{ route('warehouse.refill.create', $warehouse) }}"
+                    class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                    <i class="fa-solid fa-plus" title="Aggiungi tra i materiali in esaurimento"></i>&nbsp;
+                    {{ __('Aggiungi materiale in via di esaurimento') }}
+                </a>
             </div>
         </div>
     @endif

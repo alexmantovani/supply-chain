@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,6 +54,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/warehouse/{warehouse}/refill/simulate', [App\Http\Controllers\RefillController::class, 'generateTestCode'])->name('warehouse.refill.simulate');
     Route::get('/warehouse/{warehouse}/refill/ask', [App\Http\Controllers\RefillController::class, 'ask'])->name('warehouse.refill.ask');
     Route::get('/warehouse/{warehouse}/refill/done', [App\Http\Controllers\RefillController::class, 'requestDone'])->name('refill.done');
+    Route::get('/warehouse/{warehouse}/refill/error', [App\Http\Controllers\RefillController::class, 'requestError'])->name('refill.error');
+
+    Route::get('/warehouse/{warehouse}/refill/request/{code}', [App\Http\Controllers\RefillController::class, 'askRefill'])->name('refill.request');
+
+// Route::get('/warehouse/{warehouse}/refill/add', function () {
+// dd(Request());
+// })->name('warehouse.refill.add');
 
     Route::resource('warehouse.dealer', App\Http\Controllers\DealerController::class);
     Route::resource('warehouse.product', App\Http\Controllers\ProductController::class);

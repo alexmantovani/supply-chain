@@ -19,5 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('warehouse/{warehouse}/refill/{code}', [RefillController::class, 'askRefill']);
-
+// Route::get('warehouse/{warehouse}/refill/{code}', [RefillController::class, 'askRefill']);
