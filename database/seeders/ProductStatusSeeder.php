@@ -104,6 +104,7 @@ class ProductStatusSeeder extends Seeder
                 'name' => $status['name'],
                 'description' => $status['description'],
                 'group' => $status['group'],
+                'ordinable' => $status['ordinable'],
             ]);
         }
     }
