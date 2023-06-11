@@ -99,13 +99,7 @@ class ProductStatusSeeder extends Seeder
             ],
         ];
         foreach ($list as $status) {
-            \App\Models\ProductStatus::factory()->create([
-                'code' => $status['code'],
-                'name' => $status['name'],
-                'description' => $status['description'],
-                'group' => $status['group'],
-                'ordinable' => $status['ordinable'],
-            ]);
+            \App\Models\ProductStatus::factory()->create($status);
         }
     }
 }
