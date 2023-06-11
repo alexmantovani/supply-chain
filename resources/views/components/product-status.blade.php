@@ -3,7 +3,7 @@
 
 @switch($status->code)
     @case('ANN')
-        <div {{ $attributes->merge(['class' => 'bg-red-600 text-white ']) }} title='Annullato'>
+        <div {{ $attributes->merge(['class' => 'bg-red-600 text-white']) }} title='Annullato 1'>
             {{-- <i class="fa-solid fa-ban"></i>
         &nbsp; --}}
             Annullato

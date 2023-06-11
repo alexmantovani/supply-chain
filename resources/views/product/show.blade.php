@@ -169,25 +169,25 @@
                             </thead>
                             @foreach ($product->orders as $order)
                                 <tr>
-                                    <td class="p-2 whitespace-nowrap text-gray-400 dark:text-gray-300 text-xs ">
+                                    <td class="p-2 whitespace-nowrap text-gray-400 dark:text-gray-300  ">
                                         <div>
                                             {{ $order->created_at->translatedFormat('d.m.Y') }}
                                         </div>
                                     </td>
                                     <td
-                                        class="p-2 whitespace-nowrap text-center text-gray-400 dark:text-gray-300 text-xs">
+                                        class="p-2 whitespace-nowrap text-center text-gray-400 dark:text-gray-300 ">
                                         <div>
                                             {{ $order->created_at->translatedFormat('H:i') }}
                                         </div>
                                     </td>
-                                    <td class="p-2 whitespace-nowrap text-xs text-gray-500 dark:text-gray-300">
+                                    <td class="p-2 font-medium whitespace-nowrap  text-gray-600 dark:text-gray-300">
                                         <div>
                                             <a href="{{ route('warehouse.order.show', [$order->warehouse, $order]) }}">
                                                 {{ $order->uuid }}
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="p-2 whitespace-nowrap text-xs text-gray-500 dark:text-gray-300">
+                                    <td class="p-2 whitespace-nowrap  text-gray-600 dark:text-gray-300">
                                         <div>
                                             {{ $order->warehouse->name }}
                                         </div>

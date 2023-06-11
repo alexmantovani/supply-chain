@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Mail\OrderSubmit;
+use App\Mail\OrderAborted;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -13,7 +13,7 @@ use Illuminate\Queue\SerializesModels;
 
 use Illuminate\Support\Facades\Mail;
 
-class SendEmailJob implements ShouldQueue
+class SendAbortOrderEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -32,6 +32,6 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->order->provider->email)->send(new OrderSubmit($this->order));
+        Mail::to($this->order->provider->email)->send(new OrderAborted($this->order));
     }
 }

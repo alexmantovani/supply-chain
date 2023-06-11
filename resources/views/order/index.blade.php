@@ -105,7 +105,8 @@
                                                                 {{ $order->uuid }}
                                                             </span>
                                                         </div>
-                                                        <div title="{{ $order->created_at->translatedFormat('d.m.Y H:i') }}">
+                                                        <div
+                                                            title="{{ $order->created_at->translatedFormat('d.m.Y H:i') }}">
                                                             creato:
                                                             <span class="font-medium text-gray-800">
                                                                 {{ $order->created_at->diffForHumans() }}
@@ -113,22 +114,34 @@
                                                         </div>
                                                     </div>
 
-                                                    @foreach ($order->products as $product)
-                                                        <div class="flex items-center">
-                                                            <x-product-uuid-cell>
-                                                                <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}"
-                                                                    class=" hover:underline">
-                                                                    {{ $product->uuid }}
-                                                                </a>
-                                                            </x-product-uuid-cell>
-                                                            <x-product-name-cell class="flex-1">
-                                                                {{ $product->name }}
-                                                            </x-product-name-cell>
-                                                            <div class=" text-gray-400 text-sm py-1">
-                                                                qty: {{ $product->pivot->quantity }}
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
+                                                    <table class="table w-full ">
+                                                        @foreach ($order->products as $product)
+                                                            <tr>
+                                                                <td class="p-2 whitespace-nowrap w-32">
+                                                                    <x-product-uuid-cell class=""
+                                                                        :href="route('warehouse.product.show', [
+                                                                            $warehouse,
+                                                                            $product,
+                                                                        ])">
+                                                                        {{ $product->uuid }}
+                                                                    </x-product-uuid-cell>
+                                                                </td>
+                                                                <td class="p-2 whitespace-nowrap text-left">
+                                                                    <x-product-name-cell :href="route('warehouse.product.show', [
+                                                                        $warehouse,
+                                                                        $product,
+                                                                    ])">
+                                                                        {{ $product->name }}
+                                                                    </x-product-name-cell>
+                                                                </td>
+                                                                <td class="p-2 whitespace-nowrap text-right">
+                                                                    <div class=" text-gray-400 text-sm py-1">
+                                                                        qty: {{ $product->pivot->quantity }}
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </table>
 
                                                 </div>
                                             </td>

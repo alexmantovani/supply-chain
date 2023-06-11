@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\SendEmailJob;
+use App\Jobs\SendNewOrderEmailJob;
 use App\Models\Order;
 use App\Models\Warehouse;
 use App\Models\Refill;
@@ -70,7 +70,7 @@ class SubmitOrders extends Command
                 $order->products()->sync($products);
 
                 // Mail::to($order->provider->email)->send(new OrderSubmit($order));
-                SendEmailJob::dispatch($order);
+                SendNewOrderEmailJob::dispatch($order);
 
                 $order->logs()->create([
                     'description' => 'Emesso ordine',

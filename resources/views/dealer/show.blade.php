@@ -107,12 +107,7 @@
                                     <div class="font-semibold text-center">Stato</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-center"
-                                        title="Numero di articoli che vengono riordinati di default">Default</div>
-                                </th>
-
-                                <th class="p-2 w-8 text-center items-center">
-                                    {{-- <div class="font-semibold">Azioni</div> --}}
+                                    <div class="font-semibold text-left">Produttore</div>
                                 </th>
                             </tr>
                         </thead>
@@ -120,37 +115,26 @@
                         <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
                             @foreach ($products as $product)
                                 <tr class="h-10">
-                                    <td>
-                                        <x-product-uuid-cell>
-                                            <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}">
-                                                {{ $product->uuid }}
-                                            </a>
-                                        </x-product-uuid-cell>
-
-                                        {{-- <div class="text-left text-gray-400 dark:text-gray-400 pr-1">
+                                    <td class="p-2 whitespace-nowrap">
+                                        <x-product-uuid-cell :href="route('warehouse.product.show', [$warehouse, $product])">
                                             {{ $product->uuid }}
-                                        </div> --}}
+                                        </x-product-uuid-cell>
                                     </td>
-                                    <td>
-                                        <x-product-name-cell class="">
+                                    <td class="p-2 whitespace-nowrap">
+                                        <x-product-name-cell class="" :href="route('warehouse.product.show', [$warehouse, $product])">
                                             {{ $product->name }}
                                         </x-product-name-cell>
                                     </td>
-                                    <td>
+                                    <td class="p-2 whitespace-nowrap">
                                         <div class="text-center dark:text-gray-300 min-w-min">
-                                            <x-product-status class="rounded-lg text-xs uppercase py-1 px-2 text-center"
+                                            <x-product-status class="rounded-md text-xs uppercase py-1 px-2 text-center"
                                                 :status="$product->status" />
                                         </div>
                                     </td>
-                                    <td class="p-2 whitespace-nowrap dark:text-gray-300">
-                                        <div class="text-center">{{ $product->refill_quantity }}</div>
-                                    </td>
-
-                                    <td class="text-right px-3 py-3 w-10">
-                                        <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}"
-                                            class="font-medium text-gray-800 text-lg hover:underline dark:text-gray-300">
-                                            <i class="fa-solid fa-angle-right"></i>
-                                        </a>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <x-product-dealer-cell class="">
+                                            {{ $product->dealer->name }}
+                                        </x-product-dealer-cell>
                                     </td>
                                 </tr>
                             @endforeach

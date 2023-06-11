@@ -85,23 +85,25 @@
                             @endphp
                             @foreach ($order->products as $product)
                                 <tr>
-                                    <td class="p-2 whitespace-nowrap">
-                                        <x-product-uuid-cell>
-                                            <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}"
-                                                class=" hover:underline">
-                                                {{ $product->uuid }}
-                                            </a>
+                                    <td class="p-2 whitespace-nowrap w-32">
+                                        <x-product-uuid-cell class=""
+                                            :href="route('warehouse.product.show', [
+                                                $warehouse,
+                                                $product,
+                                            ])">
+                                            {{ $product->uuid }}
                                         </x-product-uuid-cell>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
-                                        <x-product-name-cell>
-                                            <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}">
-                                                {{ $product->name }}
-                                            </a>
+                                        <x-product-name-cell :href="route('warehouse.product.show', [
+                                            $warehouse,
+                                            $product,
+                                        ])">
+                                            {{ $product->name }}
                                         </x-product-name-cell>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
-                                        <div class="text-center dark:text-gray-300">
+                                        <div class="text-center dark:text-gray-300 text-lg">
                                             {{ $product->pivot->quantity }}
                                             @php
                                                 $total += $product->pivot->quantity;
@@ -112,13 +114,13 @@
                             @endforeach
                             <tr class=" font-semibold text-gray-800 dark:text-gray-300">
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="">
+                                    <div class="text-lg">
                                         Totale
                                     </div>
                                 </td>
                                 <td></td>
                                 <td class=" whitespace-nowrap ">
-                                    <div class="text-center">
+                                    <div class="text-center text-lg">
                                         {{ $total }}
                                     </div>
                                 </td>

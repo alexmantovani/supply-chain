@@ -59,13 +59,13 @@
                                         <div class="font-semibold text-left">CODICE</div>
                                     </th>
                                     <th class="p-2 whitespace-nowrap">
-                                        <div class="font-semibold text-left">Prodotto</div>
+                                        <div class="font-semibold text-left">Articolo</div>
                                     </th>
-                                    <th class="p-2 whitespace-nowrap w-12">
+                                    <th class="p-2 whitespace-nowrap">
                                         <div class="font-semibold text-left">Stato</div>
                                     </th>
-                                    <th class="p-2 w-30 text-center items-center">
-                                        <div class="font-semibold"></div>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-left">Produttore</div>
                                     </th>
                                 </tr>
                             </thead>
@@ -74,40 +74,23 @@
                                 @foreach ($products as $product)
                                     <tr>
                                         <td class="">
-                                            <div class="text-left text-gray-400 dark:text-gray-400 pb-5">
+                                            <x-product-uuid-cell class="" :href="route('warehouse.product.show', [$warehouse, $product])">
                                                 {{ $product->uuid }}
-                                            </div>
+                                            </x-product-uuid-cell>
                                         </td>
                                         <td class="p-2 whitespace-nowrap">
-                                            <div class=" items-center">
-                                                <div class="font-medium text-gray-800 text-lg dark:text-gray-300">
-                                                    <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}"
-                                                        class="">
-                                                        {{ $product->name }}
-                                                    </a>
-                                                </div>
-                                                <div class="f">
-                                                    <a href="{{ route('warehouse.dealer.show', [$warehouse, $product->dealer]) }}"
-                                                        class="font-medium text-gray-400 hover:text-gray-800">
-                                                        {{ $product->dealer->name }} &middot;
-                                                        {{ $product->dealer->code }} &middot;
-                                                        {{ $product->dealer->model }}
-                                                    </a>
-                                                </div>
-                                            </div>
+                                            <x-product-name-cell class="" :href="route('warehouse.product.show', [$warehouse, $product])">
+                                                {{ $product->name }}
+                                            </x-product-name-cell>
                                         </td>
                                         <td class="p-2 whitespace-nowrap">
-                                            <x-product-status class="rounded-lg text-xs uppercase py-1 px-2 text-center"
+                                            <x-product-status class="rounded-md text-xs uppercase py-1 px-2 text-center"
                                                 :status="$product->status" />
-
                                         </td>
-
-
-                                        <td class="text-right px-3 py-3 w-10">
-                                            <a href="{{ route('warehouse.product.show', [$warehouse, $product->id]) }}"
-                                                class="font-medium text-gray-800 text-lg hover:underline dark:text-gray-300">
-                                                <i class="fa-solid fa-angle-right"></i>
-                                            </a>
+                                        <td class="p-2 whitespace-nowrap">
+                                            <x-product-dealer-cell class="" :href="route('warehouse.dealer.show', [$warehouse, $product->dealer])">
+                                                {{ $product->dealer->name }}
+                                            </x-product-dealer-cell>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -118,7 +101,7 @@
             </div>
 
             <div class="w-full max-w-7xl mx-auto pt-6">
-                {{-- <?php echo $products->appends(['search' => $search ?? ''])->links(); ?> --}}
+                <?php echo $products->appends(['search' => $search ?? '', 'filters' => $filters])->links(); ?>
             </div>
         </div>
     </section>

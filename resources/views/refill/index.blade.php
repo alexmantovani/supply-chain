@@ -60,29 +60,21 @@
                                             @foreach ($refills as $refill)
                                                 <tr>
                                                     <td class="p-2 whitespace-nowrap">
-                                                        <x-product-uuid-cell>
-                                                            <a href="{{ route('warehouse.product.show', [$warehouse, $refill->product]) }}"
-                                                                class=" hover:underline">
-                                                                {{ $refill->product->uuid }}
-                                                            </a>
+                                                        <x-product-uuid-cell :href="route('warehouse.product.show', [$warehouse, $refill->product])">
+                                                            {{ $refill->product->uuid }}
                                                         </x-product-uuid-cell>
                                                     </td>
                                                     <td class="p-2 whitespace-nowrap">
-                                                        <x-product-name-cell>
-                                                            <a
-                                                                href="{{ route('warehouse.product.show', [$warehouse, $refill->product]) }}">
-                                                                {{ $refill->product->name }}
-                                                            </a>
+                                                        <x-product-name-cell class="" :href="route('warehouse.product.show', [$warehouse, $refill->product])">
+                                                            {{ $refill->product->name }}
                                                         </x-product-name-cell>
                                                     </td>
-
-                                                    <td class="p-2 whitespace-nowrap items-right">
-                                                        <x-product-status
-                                                            class=" rounded-lg text-xs uppercase py-1 px-2 text-center"
-                                                            :status="$refill->product->status" />
+                                                    <td class="p-2 whitespace-nowrap">
+                                                        <div class="text-center dark:text-gray-300 min-w-min">
+                                                            <x-product-status class="rounded-md text-xs uppercase py-1 px-2 text-center"
+                                                                :status="$refill->product->status" />
+                                                        </div>
                                                     </td>
-
-
                                                     <td class="p-2 whitespace-nowrap items-right">
                                                         <div class="text-center">
                                                             <x-text-input id="quantity"
@@ -91,7 +83,6 @@
                                                                 :value="$refill->quantity" />
                                                         </div>
                                                     </td>
-
                                                     <td class="p-4 w-4">
                                                         <div class="flex items-center">
                                                             <input id="checkbox-table-1" type="checkbox"

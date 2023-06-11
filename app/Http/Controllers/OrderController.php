@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderSubmit;
 use App\Models\Product;
 use Log;
-use App\Jobs\SendEmailJob;
+use App\Jobs\SendNewOrderEmailJob;
+use App\Jobs\SendAbortOrderEmailJob;
 use GuzzleHttp\Psr7\Request;
 
 class OrderController extends Controller
@@ -90,7 +91,7 @@ class OrderController extends Controller
             $order->products()->sync($products);
 
             // Mail::to($order->provider->email)->send(new OrderSubmit($order));
-            SendEmailJob::dispatch($order);
+            SendNewOrderEmailJob::dispatch($order);
 
             $order->logs()->create([
                 'user_id' => Auth::user()->id,
@@ -142,8 +143,8 @@ class OrderController extends Controller
             'type' => 'info',
         ]);
 
-        // TODO: Se l'ordine era già stato fatto occorrerà inviare mail per segnalare l'annullamento
-        //
+        // Se l'ordine era già stato fatto occorrerà inviare mail per segnalare l'annullamento
+        SendAbortOrderEmailJob::dispatch($order);
 
         return redirect()->back();
     }
