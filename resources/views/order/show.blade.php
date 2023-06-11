@@ -64,14 +64,14 @@
                         </div>
                     </div>
 
-                    <table class="table-auto w-full">
+                    <table class="table-auto w-full mb-5">
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
                             <tr>
                                 <th class="p-2 whitespace-nowrap w-20">
-                                    <div class="font-semibold text-left">Codice MG</div>
+                                    <div class="font-semibold text-left">Codice</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-left px-3">Articolo</div>
+                                    <div class="font-semibold text-left px-3">Prodotto</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-center">Quantità</div>
@@ -86,16 +86,19 @@
                             @foreach ($order->products as $product)
                                 <tr>
                                     <td class="p-2 whitespace-nowrap">
-                                        <div class=" text-left dark:text-gray-300 text-gray-400">
-                                            {{ $product->uuid }}
-                                        </div>
+                                        <x-product-uuid-cell>
+                                            <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}"
+                                                class=" hover:underline">
+                                                {{ $product->uuid }}
+                                            </a>
+                                        </x-product-uuid-cell>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
-                                        <div class="p-3 dark:text-gray-300 text-gray-800 ">
+                                        <x-product-name-cell>
                                             <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}">
                                                 {{ $product->name }}
                                             </a>
-                                        </div>
+                                        </x-product-name-cell>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
                                         <div class="text-center dark:text-gray-300">
@@ -109,12 +112,12 @@
                             @endforeach
                             <tr class=" font-semibold text-gray-800 dark:text-gray-300">
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="p-3">
+                                    <div class="">
                                         Totale
                                     </div>
                                 </td>
                                 <td></td>
-                                <td class="p-2 whitespace-nowrap ">
+                                <td class=" whitespace-nowrap ">
                                     <div class="text-center">
                                         {{ $total }}
                                     </div>

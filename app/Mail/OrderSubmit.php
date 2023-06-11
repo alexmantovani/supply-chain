@@ -31,7 +31,7 @@ class OrderSubmit extends Mailable
     {
         return new Envelope(
             from: new Address('noreply@example.com', $this->order->warehouse->name),
-            subject: 'Richiesta materiale (ordine ' . $this->order->uuid. ')...',
+            subject: 'Richiesta materiale - Nuovo ordine ' . $this->order->uuid,
         );
     }
 

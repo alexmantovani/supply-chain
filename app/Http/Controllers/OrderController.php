@@ -14,6 +14,7 @@ use App\Mail\OrderSubmit;
 use App\Models\Product;
 use Log;
 use App\Jobs\SendEmailJob;
+use GuzzleHttp\Psr7\Request;
 
 class OrderController extends Controller
 {
@@ -22,13 +23,16 @@ class OrderController extends Controller
      */
     public function index(Warehouse $warehouse)
     {
-        // $orders = Order::all()->sortBy('created_at', true);
-        $query = Request()->has('all') ? ['aborted', 'waiting', 'pending', 'completed'] : ['waiting'];
+        $show = Request()->show ?? 'pending';
+
+        // $query = Request()->has('all') ? ['aborted', 'waiting', 'pending', 'completed'] : ['waiting'];
+        $query = ($show==='all') ? ['aborted', 'waiting', 'pending', 'completed'] : ['waiting'];
+
         $orders = $warehouse->orders()
             ->whereIn('status', $query)
             ->orderBy('created_at', 'desc')
-            ->paginate(1);
-        return view('order.index', compact('warehouse', 'orders'));
+            ->paginate(10);
+        return view('order.index', compact('warehouse', 'orders', 'show'));
     }
 
     /**

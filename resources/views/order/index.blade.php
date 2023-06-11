@@ -45,17 +45,17 @@
                         Elenco ordini
                     </div>
                     <div class="font-semibold ">
-                        <a href="{{ route('warehouse.order.index', $warehouse) }}"
+                        <a href="{{ route('warehouse.order.index', [$warehouse, 'show' => 'pending']) }}"
                             class="py-1
-                        @if (!Request()->has('all')) text-indigo-500 border-b border-indigo-400 @endif
+                        @if ($show === 'pending') text-indigo-500 border-b border-indigo-400 @endif
                         ">
 
                             In corso
                         </a>
                         &nbsp; | &nbsp;
-                        <a href="{{ route('warehouse.order.index', [$warehouse, 'all']) }}"
+                        <a href="{{ route('warehouse.order.index', [$warehouse, 'show' => 'all']) }}"
                             class="py-1
-                        @if (Request()->has('all')) text-indigo-500 border-b border-indigo-400 @endif
+                        @if ($show === 'all') text-indigo-500 border-b border-indigo-400 @endif
                         ">
                             Tutti
 
@@ -67,7 +67,7 @@
                     <div class="p-3">
                         <div class="">
                             <table class="table w-full">
-                                <thead
+                                {{-- <thead
                                     class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
                                     <tr>
                                         <th class="p-2 whitespace-nowrap">
@@ -90,37 +90,55 @@
                                             <div class="font-semibold"></div>
                                         </th>
                                     </tr>
-                                </thead>
+                                </thead> --}}
 
                                 <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800 ">
                                     @foreach ($orders as $order)
-                                        <tr>
-                                            <td class="p-2 whitespace-nowrap">
-                                                <div class=" items-center">
-                                                    <a href="{{ route('warehouse.order.show', [$warehouse, $order]) }}">
-                                                        {{ $order->uuid }}
-                                                    </a>
+                                        <tr class="">
+                                            <td class="p-2 whitespace-nowrap py-3">
+                                                <div class="text-gray-300 items-center">
+                                                    <div
+                                                        class="flex justify-between text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800 py-1 px-2 border-l-4 border-indigo-500">
+                                                        <div>
+                                                            Ordine:
+                                                            <span class="font-medium text-gray-800">
+                                                                {{ $order->uuid }}
+                                                            </span>
+                                                        </div>
+                                                        <div title="{{ $order->created_at->translatedFormat('d.m.Y H:i') }}">
+                                                            creato:
+                                                            <span class="font-medium text-gray-800">
+                                                                {{ $order->created_at->diffForHumans() }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
 
                                                     @foreach ($order->products as $product)
-                                                        <div class=" text-gray-400 text-xs py-1 flex justify-between">
-                                                            <div>
+                                                        <div class="flex items-center">
+                                                            <x-product-uuid-cell>
+                                                                <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}"
+                                                                    class=" hover:underline">
+                                                                    {{ $product->uuid }}
+                                                                </a>
+                                                            </x-product-uuid-cell>
+                                                            <x-product-name-cell class="flex-1">
                                                                 {{ $product->name }}
-                                                            </div>
-                                                            <div class="text-right">
-                                                                {{ $product->pivot->quantity }}
+                                                            </x-product-name-cell>
+                                                            <div class=" text-gray-400 text-sm py-1">
+                                                                qty: {{ $product->pivot->quantity }}
                                                             </div>
                                                         </div>
                                                     @endforeach
 
                                                 </div>
                                             </td>
-                                            <td class="p-2">
+                                            {{-- <td class="p-2">
                                                 <div class="text-center dark:text-gray-300">
                                                     {{ $order->created_at->translatedFormat('d.m.Y') }}
                                                     &middot;
                                                     {{ $order->created_at->translatedFormat('H:i') }}
                                                 </div>
-                                            </td>
+                                            </td> --}}
                                             <td class="p-2">
                                                 <x-order-status
                                                     class="rounded-lg text-xs uppercase py-2 px-3 text-center"
@@ -145,7 +163,7 @@
             </div>
 
             <div class="w-full max-w-7xl mx-auto pt-6">
-                <?php echo $orders->appends(['search' => $search ?? ''])->links(); ?>
+                <?php echo $orders->appends(['search' => $search ?? '', 'show' => $show])->links(); ?>
             </div>
         </div>
     </section>

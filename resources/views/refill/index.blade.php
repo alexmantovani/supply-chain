@@ -38,10 +38,13 @@
                                             class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
                                             <tr>
                                                 <th class="p-2 whitespace-nowrap">
+                                                    <div class="font-semibold text-left">Codice</div>
+                                                </th>
+                                                <th class="p-2 whitespace-nowrap">
                                                     <div class="font-semibold text-left">Prodotto</div>
                                                 </th>
                                                 <th class="p-2 w-28">
-                                                    <div class="font-semibold text-center">Stato</div>
+                                                    <div class="font-semibold text-center"></div>
                                                 </th>
                                                 <th class="p-2 w-28">
                                                     <div class="font-semibold text-center">Quantità</div>
@@ -57,27 +60,20 @@
                                             @foreach ($refills as $refill)
                                                 <tr>
                                                     <td class="p-2 whitespace-nowrap">
-                                                        <div class=" items-center">
-                                                            <div>
-                                                                <a href="{{ route('warehouse.dealer.show', [$warehouse, $refill->product->dealer->id]) }}"
-                                                                    class="font-medium text-gray-400 hover:text-gray-800">
-                                                                    {{ $refill->product->dealer->name }}
-                                                                </a>
-                                                                rifornito da
-                                                                {{ $refill->product->dealer->provider->name }}
-                                                            </div>
-                                                            <div
-                                                                class="font-medium text-gray-800 text-lg dark:text-gray-300">
-                                                                <a href="{{ route('warehouse.product.show', [$warehouse, $refill->product]) }}"
-                                                                    class=" hover:underline">
-                                                                    {{ $refill->product->name }}
-                                                                </a>
-                                                            </div>
-                                                            {{-- <div class="font-medium text-gray-400 pt-0.5">
-                                                                Segnalato da {{ $refill->user->name }} &middot;
-                                                                {{ $refill->created_at->diffForHumans() }}
-                                                            </div> --}}
-                                                        </div>
+                                                        <x-product-uuid-cell>
+                                                            <a href="{{ route('warehouse.product.show', [$warehouse, $refill->product]) }}"
+                                                                class=" hover:underline">
+                                                                {{ $refill->product->uuid }}
+                                                            </a>
+                                                        </x-product-uuid-cell>
+                                                    </td>
+                                                    <td class="p-2 whitespace-nowrap">
+                                                        <x-product-name-cell>
+                                                            <a
+                                                                href="{{ route('warehouse.product.show', [$warehouse, $refill->product]) }}">
+                                                                {{ $refill->product->name }}
+                                                            </a>
+                                                        </x-product-name-cell>
                                                     </td>
 
                                                     <td class="p-2 whitespace-nowrap items-right">
@@ -119,7 +115,7 @@
                             <div class="flex items-center justify-between gap-4">
                                 <div class=" text-sm text-gray-500">
                                     Spunta tra i materiali in esaurimento quelli che intendi ordinare e premi il tasto
-                                    qui accanto per avviare l'ordine
+                                    qui accanto per avviare l'ordine manualmente
                                 </div>
                                 <x-primary-button>{{ __('Ordina materiale selezionato') }}</x-primary-button>
                             </div>

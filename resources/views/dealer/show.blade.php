@@ -121,14 +121,20 @@
                             @foreach ($products as $product)
                                 <tr class="h-10">
                                     <td>
-                                        <div class="text-left text-gray-400 dark:text-gray-400 pr-1">
+                                        <x-product-uuid-cell>
+                                            <a href="{{ route('warehouse.product.show', [$warehouse, $product]) }}">
+                                                {{ $product->uuid }}
+                                            </a>
+                                        </x-product-uuid-cell>
+
+                                        {{-- <div class="text-left text-gray-400 dark:text-gray-400 pr-1">
                                             {{ $product->uuid }}
-                                        </div>
+                                        </div> --}}
                                     </td>
                                     <td>
-                                        <div class="text-left dark:text-gray-300 px-1">
+                                        <x-product-name-cell class="">
                                             {{ $product->name }}
-                                        </div>
+                                        </x-product-name-cell>
                                     </td>
                                     <td>
                                         <div class="text-center dark:text-gray-300 min-w-min">
