@@ -15,31 +15,31 @@
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="h-full ">
-            @if ($orders->count())
-                <div class="w-full max-w-7xl mx-auto">
-                    <div class="flex justify-between items-baseline">
-                        <div class=" text-gray-900 text-xl p-3 font-semibold">
-                            Elenco ordini
-                        </div>
-                        <div class="font-semibold ">
-                            <a href="{{ route('warehouse.order.index', [$warehouse, 'show' => 'pending']) }}"
-                                class="py-1
-                        @if ($show === 'pending') text-indigo-500 border-b border-indigo-400 @endif
-                        ">
-
-                                In corso
-                            </a>
-                            &nbsp; | &nbsp;
-                            <a href="{{ route('warehouse.order.index', [$warehouse, 'show' => 'all']) }}"
-                                class="py-1
-                        @if ($show === 'all') text-indigo-500 border-b border-indigo-400 @endif
-                        ">
-                                Tutti
-
-                            </a>
-                        </div>
+            <div class="w-full max-w-7xl mx-auto">
+                <div class="flex justify-between items-baseline">
+                    <div class=" text-gray-900 text-xl p-3 font-semibold">
+                        Elenco ordini
                     </div>
+                    <div class="font-semibold uppercase">
+                        <a href="{{ route('warehouse.order.index', [$warehouse, 'show' => 'pending']) }}"
+                            class="py-1
+                    @if ($show === 'pending') text-indigo-500 border-b border-indigo-400 @endif
+                    ">
 
+                            In corso
+                        </a>
+                        &nbsp; | &nbsp;
+                        <a href="{{ route('warehouse.order.index', [$warehouse, 'show' => 'all']) }}"
+                            class="py-1
+                    @if ($show === 'all') text-indigo-500 border-b border-indigo-400 @endif
+                    ">
+                            Tutti
+
+                        </a>
+                    </div>
+                </div>
+
+                @if ($orders->count())
                     <div
                         class="bg-white shadow-lg rounded-sm border border-gray-200 dark:bg-gray-900 dark:border-gray-800">
                         <div class="p-3">
@@ -126,29 +126,27 @@
                             </div>
                         </div>
                     </div>
+                @else
+                    <div
+                        class="max-w-7xl mx-auto sm:px-6 lg:px-8 items-center text-center text-4xl py-16 text-gray-500 font-medium">
+                        <div class=" text-4xl text-gray-200 font-medium py-10" style="font-size: 90px">
+                            <i class="fa-regular fa-circle-exclamation"></i>
+                        </div>
+                        <div class=" p-2">
+                            Non sono presenti ordini
+                        </div>
+                        <div class=" text-lg text-gray-300 font-medium">
+                            In questo magazzino non è stato mai emesso alcun ordine
+                        </div>
 
-                </div>
-
-                <div class="w-full max-w-7xl mx-auto pt-6">
-                    <?php echo $orders->appends(['search' => $search ?? '', 'show' => $show])->links(); ?>
-                </div>
-            @else
-                <div
-                    class="max-w-7xl mx-auto sm:px-6 lg:px-8 items-center text-center text-4xl py-16 text-gray-500 font-medium">
-                    <div class=" text-4xl text-gray-200 font-medium py-10" style="font-size: 90px">
-                        <i class="fa-regular fa-circle-exclamation"></i>
                     </div>
-                    <div class=" p-2">
-                        Non sono presenti ordini
-                    </div>
-                    <div class=" text-lg text-gray-300 font-medium">
-                        In questo magazzino non è stato mai emesso alcun ordine
-                    </div>
+                @endif
 
-                </div>
+            </div>
 
-
-            @endif
+            <div class="w-full max-w-7xl mx-auto pt-6">
+                <?php echo $orders->appends(['search' => $search ?? '', 'show' => $show])->links(); ?>
+            </div>
         </div>
     </section>
 
