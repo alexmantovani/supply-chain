@@ -14,20 +14,26 @@
         @include('layouts.nav_left_bar')
     </x-slot>
     <x-slot name="navbar_right_menu">
-        <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
+        {{-- <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
             {{ __('Simula QR') }}
-        </x-nav-link>
+        </x-nav-link> --}}
     </x-slot>
 
     <section class="antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
         <div class="py-20">
-            <div class="text-center text-4xl text-green-500 font-medium py-10" style="font-size: 90px">
-                <i class="fa-regular fa-check"></i>
+            <div class="flex justify-center text-4xl text-red-500 font-medium py-10" style="font-size: 90px">
+                <i class="fa-regular fa-triangle-exclamation"></i>
             </div>
 
             <div class="flex justify-center text-4xl">
-                La tua richiesta è stata inserita
+                La tua richiesta è stata rifiutata
             </div>
+
+            @if (session('message'))
+            <div class="flex justify-center text-2xl text-gray-400 uppercase py-5">
+                {{ session('message') }}
+            </div>
+            @endif
         </div>
 
         <div class="text-center">
@@ -37,7 +43,6 @@
                 {{ __('Segnala altro matriale') }}
             </a>
         </div>
-
     </section>
 
 </x-app-layout>

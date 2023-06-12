@@ -47,4 +47,11 @@ class RefillTest extends TestCase
         $this->assertEquals($refill->dealer()->provider->name, $provider->name);
         $this->assertNull($refill->order_id);
     }
+
+    public function test_ask_refill(): void
+    {
+        $response = $this->get('warehouse/1/refill/1');
+        $response->assertStatus(200);
+    }
+
 }

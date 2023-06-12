@@ -35,17 +35,18 @@ class RefillController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Warehouse $warehouse)
     {
         //
+        return view('refill.create', compact('warehouse'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRefillRequest $request)
+    public function store(Warehouse $warehouse, StoreRefillRequest $request)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -108,20 +109,24 @@ class RefillController extends Controller
         $product = Product::firstWhere('uuid', $code);
         // Non ho trovato il prodotto nel DB
         if (!$product) {
-            $product = Product::create([
-                'uuid' => $code,
-            ]);
+            // TODO: Non lo devo creare ma devo chiedere ad Altena se esiste
+            // $product = Product::create([
+            //     'uuid' => $code,
+            //     'status_id' => 1,
+            // ]);
 
-            // Chiedo al DB di Altena le info sul prodotto
-            ProcessProduct::dispatch($product);
+            // // Chiedo al DB di Altena le info sul prodotto
+            // ProcessProduct::dispatch($product);
+
+            return redirect()->route("refill.error", compact('warehouse'))->with('message', 'Codice articolo non valido');
         }
-        if (!$product->isOrdinable()) abort(403, 'Articolo non più ordinabile');
+        if (!$product->isOrdinable()) return redirect(route("refill.error", compact('warehouse')))->with('message', 'Articolo non più ordinabile');
 
         $present = $warehouse->refills()
             ->where('product_id', $product->id)
             ->whereIn('status', ['low', 'urgent'])
             ->first();
-        if ($present) abort(429); // TODO: Dare un errore più comprensibile tipo refill.ignore
+        if ($present) return redirect()->route("refill.error", compact('warehouse'))->with('message', 'Articolo già presente nella lista dei materiali in esaurimento');
 
         $warehouse->refills()->create([
             'user_id' => 1,
@@ -130,7 +135,7 @@ class RefillController extends Controller
             'quantity' => $product->refill_quantity,
         ]);
 
-        return redirect(route("refill.done", compact('warehouse')));
+        return redirect()->route("refill.done", compact('warehouse'));
     }
 
     public function generateTestCode(Warehouse $warehouse)
@@ -143,5 +148,10 @@ class RefillController extends Controller
     public function requestDone(Warehouse $warehouse)
     {
         return view('refill.done', compact('warehouse'));
+    }
+
+    public function requestError(Warehouse $warehouse)
+    {
+        return view('refill.error', compact('warehouse'))->with('Errore!!!');
     }
 }
