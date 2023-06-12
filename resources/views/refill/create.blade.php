@@ -102,22 +102,26 @@
                 </div>
             </div>
 
-{{--
+
             <div
                 class="mt-4 w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800 p-8">
+                <form method="post" action="{{ route('warehouse.refill.store', $warehouse) }}" class="p-6">
+                    @csrf
 
-                <div class="flex items-center">
-                    <div class="flex-0">
-                        {{ __('Codice prodotto') }}
+                    <div class="flex items-center">
+                        <div class="flex-0">
+                            {{ __('Codice prodotto') }}
+                        </div>
+
+                        <x-text-input id="code_text" class="block mx-3 flex-1" type="text" name="code_text" />
+
+                        <x-input-error :messages="$errors->get('code_text')" class="" />
+                        <x-primary-button>
+                            Richiedi
+                        </x-primary-button>
                     </div>
+                </form>
 
-                    <x-text-input id="code_text" class="block mx-3 flex-1" type="text" name="code_text" />
-
-                    <x-input-error :messages="$errors->get('code_text')" class="" />
-                    <x-primary-button>
-                        Richiedi
-                    </x-primary-button>
-                </div>
             </div>
 
             <div class="p-4">
@@ -127,7 +131,7 @@
                     </div>
                 </div>
             </div>
- --}}
+
         </div>
 
 

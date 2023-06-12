@@ -37,7 +37,6 @@ class RefillController extends Controller
      */
     public function create(Warehouse $warehouse)
     {
-        //
         return view('refill.create', compact('warehouse'));
     }
 
@@ -46,7 +45,8 @@ class RefillController extends Controller
      */
     public function store(Warehouse $warehouse, StoreRefillRequest $request)
     {
-        dd($request);
+        $code = $request['code_text'];
+        return $this->askRefill($warehouse, $code);
     }
 
     /**
@@ -118,7 +118,7 @@ class RefillController extends Controller
             // // Chiedo al DB di Altena le info sul prodotto
             // ProcessProduct::dispatch($product);
 
-            return redirect()->route("refill.error", compact('warehouse'))->with('message', 'Codice articolo ' . $code . ' non valido');
+            return redirect()->route("refill.error", compact('warehouse'))->with('message', 'Codice articolo "' . $code . '" non valido');
         }
         if (!$product->isOrdinable()) return redirect(route("refill.error", compact('warehouse')))->with('message', 'Articolo non più ordinabile');
 
