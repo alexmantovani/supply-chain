@@ -51,7 +51,7 @@
 
                         <div class="mt-5 flex justify-between items-baseline">
                             <div class=" text-gray-900 text-xl p-3 font-semibold">
-                                Materiale in esaurimento pendente
+                                Materiale in esaurimento da verificare
                             </div>
                         </div>
 
@@ -87,9 +87,71 @@
                         </div>
                         <div class="text-sm text-center text-gray-500 py-2 px-3">
                             I prodotti qui sopra al momento non possono essere ordinati perchè manca la quantità di
-                            default di materiale da ordinare. <br>Tutti i futuri ordini verranno inviati automaticamente
+                            default da ordinare. <br>Tutti gli ordini futuri verranno inviati automaticamente
                             utilizzando la quantità che immetterai ora.
                         </div>
+                    @endif
+
+                    @if ($orders->count())
+
+                        <div class="mt-5 flex justify-between items-baseline">
+                            <div class=" text-gray-900 text-xl p-3 font-semibold">
+                                Ordini in ritardo
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800">
+                            <table class="table-auto w-full mt-2">
+                                <thead
+                                    class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
+                                    <tr>
+                                        <th class="p-2 whitespace-nowrap">
+                                            <div class="font-semibold text-left">Data</div>
+                                        </th>
+                                        <th class="p-2 whitespace-nowrap">
+                                            <div class="font-semibold text-left">Ordine</div>
+                                        </th>
+                                        <th class="p-2 w-36">
+                                            <div class="font-semibold text-center">Stato</div>
+                                        </th>
+
+                                        <th class="p-2 whitespace-nowrap">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
+                                    @foreach ($orders as $order)
+                                        <tr>
+                                            <td>
+                                                {{ $order->created_at->translatedFormat('d.m.Y') }}
+                                                ({{ $order->created_at->diffForHumans() }})
+                                            </td>
+                                            <td>
+                                                <x-product-name-cell class="" :href="route('warehouse.order.show', [$warehouse, $order])">
+                                                    {{ $order->uuid }}
+                                                </x-product-name-cell>
+
+                                                {{-- <a href="{{ route('warehouse.order.show', [$warehouse, $order]) }}">
+                                                    <div class="font-semibold text-gray-800 pl-1">
+                                                        {{ $order->uuid }}
+                                                    </div>
+                                                </a> --}}
+                                            </td>
+                                            <td class="p-2 w-36">
+                                                <x-order-status
+                                                    class="rounded-lg text-xs uppercase py-2 px-3 text-center"
+                                                    :status="$order->status" />
+                                            </td>
+                                            <td class="p-2 w-12">
+                                                @include('order.dropdown')
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
                     @endif
 
                 </div>

@@ -11,25 +11,6 @@ class Refill extends Model
 
     protected $guarded = [];
 
-    // public function getStatusAttribute()
-    // {
-    //     if ($this->product->stock) {
-    //         if ($this->product->stock->quantity == 0) return "esaurito";
-    //     }
-
-    //     return "in esaurimento";
-    // }
-
-    // public function getStatusColorAttribute()
-    // {
-    //     return "text-yellow-600";
-    // }
-
-    // public function getStatusBackgroundColorAttribute()
-    // {
-    //     return "bg-red-300";
-    // }
-
     public function user() {
         return $this->belongsTo(User::class);
     }

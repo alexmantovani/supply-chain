@@ -49,7 +49,10 @@ class WarehouseController extends Controller
             ->orderBy('provider_id')
             ->get();
 
-        return view('warehouse.show', compact('warehouse', 'refills'));
+        $orders = $warehouse->orders
+            ->whereIn('status', ['waiting', 'pending']);
+
+        return view('warehouse.show', compact('warehouse', 'refills', 'orders'));
     }
 
     /**

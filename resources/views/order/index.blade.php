@@ -52,11 +52,11 @@
                                                     <div class="text-gray-300 items-center">
                                                         <div
                                                             class="flex justify-between text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800 py-1 px-2 border-l-4 border-indigo-500">
-                                                            <div>
+                                                            <div class="flex">
                                                                 Ordine:
-                                                                <span class="font-medium text-gray-800">
+                                                                <div class="font-semibold text-gray-800 pl-1">
                                                                     {{ $order->uuid }}
-                                                                </span>
+                                                                </div>
                                                             </div>
                                                             <div
                                                                 title="{{ $order->created_at->translatedFormat('d.m.Y H:i') }}">
