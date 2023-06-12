@@ -131,7 +131,7 @@
         <div
             class="max-w-7xl mx-auto sm:px-6 lg:px-8 items-center text-center text-4xl py-16 text-gray-500 font-medium">
             <div class=" text-4xl text-gray-200 font-medium py-10" style="font-size: 90px">
-                <i class="fa-regular fa-thumbs-up"></i>
+                <i class="fa-regular fa-circle-exclamation"></i>
             </div>
             <div class=" p-2">
                 Non sono presenti materiali in esaurimento

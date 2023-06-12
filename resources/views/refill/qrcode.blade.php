@@ -47,12 +47,12 @@
 
             <div class="flex justify-center">
                 <div class="h-full p-10 m-10 dark:bg-gray-100 rounded-xl">
-                    {!! QrCode::size(200)->generate(url('api/warehouse/' . $warehouse->id . '/refill/' . $product->uuid)) !!}
+                    {!! QrCode::size(200)->generate(url('warehouse/' . $warehouse->id . '/refill/request/' . $product->uuid)) !!}
                 </div>
             </div>
             <div class="text-center text-gray-500 dark:text-gray-400">
-                Inquadra il QR qui sopra per richiedere questo prodotto oppure premi
-                <a href="{{ url('api/warehouse/' . $warehouse->id . '/refill/' . $product->uuid) }}"
+                Inquadra il QR code qui sopra per richiedere questo prodotto oppure premi
+                <a href="{{ url('warehouse/' . $warehouse->id . '/refill/request/' . $product->uuid) }}"
                     class="font-semibold text-gray-900 dark:text-gray-200 hover:underline">qui
                 </a>
             </div>

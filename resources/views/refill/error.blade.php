@@ -20,18 +20,28 @@
     </x-slot>
 
     <section class="antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
-        <div class="flex justify-center pt-40 text-4xl">
-            La tua richiesta è stata rifiutata
-        </div>
+        <div class="py-20">
+            <div class="flex justify-center text-4xl text-red-500 font-medium py-10" style="font-size: 90px">
+                <i class="fa-regular fa-triangle-exclamation"></i>
+            </div>
 
-        @if (session('message'))
-            <div class="flex justify-center text-xl text-gray-400 uppercase py-2">
+            <div class="flex justify-center text-4xl">
+                La tua richiesta è stata rifiutata
+            </div>
+
+            @if (session('message'))
+            <div class="flex justify-center text-2xl text-gray-400 uppercase py-5">
                 {{ session('message') }}
             </div>
-        @endif
+            @endif
+        </div>
 
-        <div class="text-center text-gray-500 pt-40">
-            Grazie per la collaborazione
+        <div class="text-center">
+            <a onclick="window.history.back();"
+                class="cursor-pointer inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                <i class="fa-solid fa-plus" title="Aggiungi tra i materiali in esaurimento"></i>&nbsp;
+                {{ __('Segnala altro matriale') }}
+            </a>
         </div>
     </section>
 
