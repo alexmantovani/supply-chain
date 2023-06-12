@@ -102,7 +102,7 @@
                 </div>
             </div>
 
-
+{{--
             <div
                 class="mt-4 w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800 p-8">
 
@@ -127,7 +127,7 @@
                     </div>
                 </div>
             </div>
-
+ --}}
         </div>
 
 

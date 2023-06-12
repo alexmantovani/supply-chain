@@ -118,7 +118,7 @@ class RefillController extends Controller
             // // Chiedo al DB di Altena le info sul prodotto
             // ProcessProduct::dispatch($product);
 
-            return redirect()->route("refill.error", compact('warehouse'))->with('message', 'Codice articolo non valido');
+            return redirect()->route("refill.error", compact('warehouse'))->with('message', 'Codice articolo ' . $code . ' non valido');
         }
         if (!$product->isOrdinable()) return redirect(route("refill.error", compact('warehouse')))->with('message', 'Articolo non più ordinabile');
 
