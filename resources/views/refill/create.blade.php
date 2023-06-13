@@ -43,54 +43,8 @@
                     </div>
                 </div>
 
-                <div id="reader-container">
-                    <div id="qr-reader" style="position: relative; padding: 0px;">
-                        {{-- <div style="text-align: left; margin: 0px;">
-                            <div id="reader__header_message"
-                                style="display: none; text-align: center; font-size: 14px; padding: 2px 10px; margin: 4px; border-top-width: 1px; border-top-style: solid; border-top-color: rgb(246, 246, 246); background-color: rgba(0, 0, 0, 0); color: rgb(17, 17, 17);">
-                                Richiedi permessi per utilizzare fotocamera...</div>
-                        </div> --}}
-
-                        {{-- <div id="reader__dashboard" style="width: 100%;">
-                            <div id="reader__dashboard_section"
-                                style="width: 100%; padding: 10px 0px; text-align: left;"> --}}
-                        {{-- <div>
-                                    <div id="reader__dashboard_section_csr"
-                                        style="display: block; margin-bottom: 20px; text-align: center;">
-                                        <div style="display: none; padding: 5px 10px; text-align: center;"><input
-                                                id="html5-qrcode-input-range-zoom" class="html5-qrcode-element"
-                                                type="range" min="1" max="5" step="0.1"
-                                                style="display: inline-block; width: 50%; height: 5px; background-color: rgb(211, 211, 211); outline: none; opacity: 0.7;"><span
-                                                style="margin-right: 10px;">1x zoom</span></div><span
-                                            style="margin-right: 10px; display: none;"><select
-                                                id="html5-qrcode-select-camera" class="html5-qrcode-element">
-                                                <option value="63F300FC6FAA8BEDE35BDF710A9E91D932290302">Fotocamera HD
-                                                    FaceTime</option>
-                                            </select></span><span><button id="html5-qrcode-button-camera-start"
-                                                class="html5-qrcode-element" type="button"
-                                                style="opacity: 1; display: inline-block;">Start
-                                                Scanning</button><button id="html5-qrcode-button-camera-stop"
-                                                class="html5-qrcode-element" type="button" disabled=""
-                                                style="display: none;">Stop
-                                                Scanning</button></span>
-                                    </div>
-                                    <div
-                                        style="text-align: center; margin: auto auto 10px; width: 80%; max-width: 600px; border: 6px dashed rgb(235, 235, 235); padding: 10px; display: none;">
-                                        <label for="html5-qrcode-private-filescan-input"
-                                            style="display: inline-block;"><button
-                                                id="html5-qrcode-button-file-selection" class="html5-qrcode-element"
-                                                type="button">Choose Image - No image
-                                                choosen</button><input id="html5-qrcode-private-filescan-input"
-                                                class="html5-qrcode-element" type="file" accept="image/*"
-                                                style="display: none;"></label>
-                                        <div style="font-weight: 400;">Or drop an image to scan</div>
-                                    </div>
-                                </div> --}}
-                        {{-- <div style="text-align: center;"><span id="html5-qrcode-anchor-scan-type-change"
-                                        class="html5-qrcode-element"
-                                        style="text-decoration: underline; cursor: pointer; display: inline-block;">Scan
-                                        an
-                                        Image File</span></div> --}}
+                <div id="reader-container" class=" w-1/2">
+                    <div id="qr-reader" class="">
                     </div>
                 </div>
             </div>
@@ -131,26 +85,38 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
-
         <script>
-            let ware = document.getElementById('warehouse_select');
+            const html5QrCode = new Html5Qrcode("qr-reader", {
+                formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE,
+                    Html5QrcodeSupportedFormats.CODE_39,
+                    Html5QrcodeSupportedFormats.CODE_128,
+                    Html5QrcodeSupportedFormats.EAN_13,
+                    Html5QrcodeSupportedFormats.EAN_8
+                ]
+            });
+            const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+                // console.log(`Scan result: ${decodedText}`, decodedResult);
+                // html5QrcodeScanner.clear();
 
-            function onScanSuccess(decodedText, decodedResult) {
-                // console.log('Warehouse= ' + ware.value + '  ' + ware.text);
-                // console.log(`Code scanned aaa= ${decodedText} ${warehouse_select}.val()`, ware );
                 window.location.href = '{{ url('warehouse/' . $warehouse->id . '/refill/request') }}/' + decodedText;
-            }
-            var html5QrcodeScanner = new Html5QrcodeScanner(
-                "qr-reader", {
-                    fps: 10,
-                    qrbox: 250,
-                    rememberLastUsedCamera: true
-                });
-            html5QrcodeScanner.render(onScanSuccess);
-        </script>
-    </section>
+            };
 
+            let config = {
+                fps: 10,
+                qrbox: {
+                    width: 400,
+                    height: 300
+                },
+            };
+
+            html5QrCode.start({
+                facingMode: {
+                    exact: "environment"
+                }
+            }, config, qrCodeSuccessCallback);
+        </script>
+
+    </section>
 </x-app-layout>

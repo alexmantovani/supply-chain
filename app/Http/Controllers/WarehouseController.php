@@ -50,7 +50,8 @@ class WarehouseController extends Controller
             ->get();
 
         $orders = $warehouse->orders
-            ->whereIn('status', ['waiting', 'pending']);
+            ->whereIn('status', ['waiting', 'pending'])
+            ->where('created_at', '<=', now()->subDays(7));
 
         return view('warehouse.show', compact('warehouse', 'refills', 'orders'));
     }
