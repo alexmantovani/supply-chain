@@ -43,7 +43,7 @@
                     </div>
                 </div>
 
-                <div id="reader-container" class=" w-1/2">
+                <div id="reader-container" class=" ">
                     <div id="qr-reader" class="">
                     </div>
                 </div>
@@ -67,9 +67,9 @@
                             {{ __('Codice prodotto') }}
                         </div>
 
-                        <x-text-input id="code_text" class="block mx-3 flex-1" type="text" name="code_text" />
+                        <x-text-input id="codes" class="block mx-3 flex-1" type="text" name="codes" />
 
-                        <x-input-error :messages="$errors->get('code_text')" class="" />
+                        <x-input-error :messages="$errors->get('codes')" class="" />
                         <x-primary-button>
                             Richiedi
                         </x-primary-button>
@@ -99,14 +99,14 @@
                 // console.log(`Scan result: ${decodedText}`, decodedResult);
                 // html5QrcodeScanner.clear();
 
-                window.location.href = '{{ url('warehouse/' . $warehouse->id . '/refill/request') }}/' + decodedText;
+                window.location.href = '{{ url('warehouse/' . $warehouse->id . '/refill/request') }}?code=' + decodedText;
             };
 
             let config = {
                 fps: 10,
                 qrbox: {
-                    width: 400,
-                    height: 300
+                    width: 800,
+                    height: 200
                 },
             };
 

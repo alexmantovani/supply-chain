@@ -45,8 +45,28 @@ class RefillController extends Controller
      */
     public function store(Warehouse $warehouse, StoreRefillRequest $request)
     {
-        $code = $request['code_text'];
-        return $this->askRefill($warehouse, $code);
+        $codes = explode(" ", $request['codes']);
+        $errors = [];
+        foreach ($codes as $code) {
+            $result = $this->putInList($warehouse, $code);
+
+            switch ($result) {
+                case 1:
+                    array_push($errors, ['code' => $code, 'error' => 'L\'articolo "' . $code . '" è già presente nella lista dei materiali in esaurimento']);
+                    break;
+                case 2:
+                    array_push($errors, ['code' => $code, 'error' => 'L\'articolo "' . $code . '" è già presente nella lista dei materiali ordinati']);
+                    break;
+                case 3:
+                    array_push($errors, ['code' => $code, 'error' => 'L\'articolo "' . $code . '" non è più ordinabile']);
+                    break;
+                case 4:
+                    array_push($errors, ['code' => $code, 'error' => 'Articolo "' . $code . '" non trovato']);
+                    break;
+            }
+        }
+
+        return view("refill.done", compact('warehouse', 'errors', 'codes'));
     }
 
     /**
@@ -104,41 +124,30 @@ class RefillController extends Controller
         return redirect(route("refill.done", compact('warehouse')));
     }
 
-    public function askRefill(Warehouse $warehouse, $code)
+    public function request(Warehouse $warehouse)
     {
-        $product = Product::firstWhere('uuid', $code);
-        // Non ho trovato il prodotto nel DB
-        if (!$product) {
-            // TODO: Non lo devo creare ma devo chiedere ad Altena se esiste
-            // $product = Product::create([
-            //     'uuid' => $code,
-            //     'status_id' => 1,
-            // ]);
+        $code = Request()->code;
 
-            // // Chiedo al DB di Altena le info sul prodotto
-            // ProcessProduct::dispatch($product);
+        $errors = [];
 
-            abort(403, 'Articolo non trovato');
-            // return redirect()->route("refill.error", compact('warehouse', 'product'))->with('message', 'Codice articolo "' . $code . '" non valido');
+        $result = $this->putInList($warehouse, $code);
+        switch ($result) {
+            case 1:
+                array_push($errors, ['code' => $code, 'error' => 'L\'articolo "' . $code . '" è già presente nella lista dei materiali in esaurimento']);
+                break;
+            case 2:
+                array_push($errors, ['code' => $code, 'error' => 'L\'articolo "' . $code . '" è già presente nella lista dei materiali ordinati']);
+                break;
+            case 3:
+                array_push($errors, ['code' => $code, 'error' => 'L\'articolo "' . $code . '" non è più ordinabile']);
+                break;
+            case 4:
+                array_push($errors, ['code' => $code, 'error' => 'Articolo "' . $code . '" non trovato']);
+                break;
         }
-        if (!$product->isOrdinable()) return redirect(route("refill.error", compact('warehouse', 'product')))->with('message', 'L\'articolo non è più ordinabile');
 
-        $present = $warehouse->refills()
-            ->where('product_id', $product->id)
-            ->whereIn('status', ['low', 'urgent', 'ordered'])
-            ->first();
-        if ($present) {
-            $suffix = $present->status == 'ordered' ? 'ordinati' : 'in esaurimento';
-            return redirect()->route("refill.error", compact('warehouse', 'product'))->with('message', 'L\'articolo è già presente nella lista dei materiali ' . $suffix);
-        }
-        $warehouse->refills()->create([
-            'user_id' => 1,
-            'warehouse_id' => $warehouse->id,
-            'product_id' => $product->id,
-            'quantity' => $product->refill_quantity,
-        ]);
-
-        return redirect()->route("refill.done", compact('warehouse', 'product'));
+        $codes = [$code];
+        return view("refill.done", compact('warehouse', 'errors', 'codes'));
     }
 
     public function generateTestCode(Warehouse $warehouse)
@@ -156,5 +165,43 @@ class RefillController extends Controller
     public function requestError(Warehouse $warehouse, Product $product)
     {
         return view('refill.error', compact('warehouse', 'product'))->with('message', 'Errore!!!');
+    }
+
+    public function putInList(Warehouse $warehouse, $code)
+    {
+        $product = Product::firstWhere('uuid', $code);
+        // Non ho trovato il prodotto nel DB
+        if (!$product) {
+            // TODO: Non lo devo creare ma devo chiedere ad Altena se esiste
+            // $product = Product::create([
+            //     'uuid' => $code,
+            //     'status_id' => 1,
+            // ]);
+
+            // // Chiedo al DB di Altena le info sul prodotto
+            // ProcessProduct::dispatch($product);
+
+            return 4; // Non trovato
+        }
+        if (!$product->isOrdinable()) return 3;
+
+        $present = $warehouse->refills()
+            ->where('product_id', $product->id)
+            ->whereIn('status', ['low', 'urgent', 'ordered'])
+            ->first();
+        if ($present) {
+            if ($present->status == 'ordered') return 2;
+
+            return 1;
+        }
+        $warehouse->refills()->create([
+            'user_id' => 1,
+            'warehouse_id' => $warehouse->id,
+            'product_id' => $product->id,
+            'quantity' => $product->refill_quantity,
+        ]);
+
+        return 0; // Done
+
     }
 }

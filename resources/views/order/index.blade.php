@@ -71,11 +71,7 @@
                                                             @foreach ($order->products as $product)
                                                                 <tr>
                                                                     <td class="p-2 whitespace-nowrap w-32">
-                                                                        <x-product-uuid-cell class=""
-                                                                            :href="route('warehouse.product.show', [
-                                                                                $warehouse,
-                                                                                $product,
-                                                                            ])">
+                                                                        <x-product-uuid-cell>
                                                                             {{ $product->uuid }}
                                                                         </x-product-uuid-cell>
                                                                     </td>

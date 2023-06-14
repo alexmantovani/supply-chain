@@ -64,10 +64,7 @@
                                             @foreach ($refills as $refill)
                                                 <tr>
                                                     <td class="p-2 whitespace-nowrap">
-                                                        <x-product-uuid-cell :href="route('warehouse.product.show', [
-                                                            $warehouse,
-                                                            $refill->product,
-                                                        ])">
+                                                        <x-product-uuid-cell>
                                                             {{ $refill->product->uuid }}
                                                         </x-product-uuid-cell>
                                                     </td>

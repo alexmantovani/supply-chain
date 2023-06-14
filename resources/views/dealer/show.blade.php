@@ -116,7 +116,7 @@
                             @foreach ($products as $product)
                                 <tr class="h-10">
                                     <td class="p-2 whitespace-nowrap">
-                                        <x-product-uuid-cell :href="route('warehouse.product.show', [$warehouse, $product])">
+                                        <x-product-uuid-cell>
                                             {{ $product->uuid }}
                                         </x-product-uuid-cell>
                                     </td>

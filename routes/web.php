@@ -53,10 +53,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/warehouse/{warehouse}/refill/simulate', [App\Http\Controllers\RefillController::class, 'generateTestCode'])->name('warehouse.refill.simulate');
     Route::get('/warehouse/{warehouse}/refill/ask', [App\Http\Controllers\RefillController::class, 'ask'])->name('warehouse.refill.ask');
-    Route::get('/warehouse/{warehouse}/refill/{product}/done', [App\Http\Controllers\RefillController::class, 'requestDone'])->name('refill.done');
-    Route::get('/warehouse/{warehouse}/refill/{product}/error', [App\Http\Controllers\RefillController::class, 'requestError'])->name('refill.error');
+    Route::get('/warehouse/{warehouse}/refill/done', [App\Http\Controllers\RefillController::class, 'requestDone'])->name('refill.done');
+    Route::get('/warehouse/{warehouse}/refill/error', [App\Http\Controllers\RefillController::class, 'requestError'])->name('refill.error');
 
-    Route::get('/warehouse/{warehouse}/refill/{code}/request', [App\Http\Controllers\RefillController::class, 'askRefill'])->name('refill.request');
+    Route::get('/warehouse/{warehouse}/refill/request', [App\Http\Controllers\RefillController::class, 'request'])->name('refill.request');
 
 // Route::get('/warehouse/{warehouse}/refill/add', function () {
 // dd(Request());

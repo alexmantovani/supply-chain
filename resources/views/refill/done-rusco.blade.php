@@ -21,31 +21,24 @@
 
     <section class="antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
         <div class="py-20">
-            @if (count($errors))
-                <div class="flex justify-center text-4xl text-red-500 font-medium py-10" style="font-size: 90px">
-                    <i class="fa-regular fa-triangle-exclamation"></i>
-                </div>
+            <div class="text-center text-4xl text-green-500 font-medium py-10" style="font-size: 90px">
+                <i class="fa-regular fa-check"></i>
+            </div>
 
-                <div class="flex justify-center text-4xl">
-                    La tua richiesta è stata rifiutata
-                </div>
-
-                <div class="text-center text-lg text-gray-400 uppercase py-5 font-semibold">
-                    @foreach ($errors as $error)
-                        <div>
-                            {{ $error['error'] }}
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <div class="text-center text-4xl text-green-500 font-medium py-10" style="font-size: 90px">
-                    <i class="fa-regular fa-check"></i>
-                </div>
-
-                <div class="text-center text-4xl pt-10">
-                    La tua richiesta è stata inserita
+            @if (isset($product))
+                <div class=" text-center text-lg py-4 text-gray-400">
+                    <div class=" font-semibold">
+                        {{ $product->uuid ?? '???' }}
+                    </div>
+                    <div class=" text-base">
+                        {{ $product->name ?? '???' }}
+                    </div>
                 </div>
             @endif
+
+            <div class="text-center text-4xl pt-10">
+                La tua richiesta è stata inserita
+            </div>
         </div>
 
         <div class="text-center">
