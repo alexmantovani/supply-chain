@@ -118,16 +118,19 @@ class RefillController extends Controller
             // // Chiedo al DB di Altena le info sul prodotto
             // ProcessProduct::dispatch($product);
 
-            return redirect()->route("refill.error", compact('warehouse'))->with('message', 'Codice articolo "' . $code . '" non valido');
+            abort(403, 'Articolo non trovato');
+            // return redirect()->route("refill.error", compact('warehouse', 'product'))->with('message', 'Codice articolo "' . $code . '" non valido');
         }
-        if (!$product->isOrdinable()) return redirect(route("refill.error", compact('warehouse')))->with('message', 'Articolo non più ordinabile');
+        if (!$product->isOrdinable()) return redirect(route("refill.error", compact('warehouse', 'product')))->with('message', 'L\'articolo non è più ordinabile');
 
         $present = $warehouse->refills()
             ->where('product_id', $product->id)
-            ->whereIn('status', ['low', 'urgent'])
+            ->whereIn('status', ['low', 'urgent', 'ordered'])
             ->first();
-        if ($present) return redirect()->route("refill.error", compact('warehouse'))->with('message', 'Articolo già presente nella lista dei materiali in esaurimento');
-
+        if ($present) {
+            $suffix = $present->status == 'ordered' ? 'ordinati' : 'in esaurimento';
+            return redirect()->route("refill.error", compact('warehouse', 'product'))->with('message', 'L\'articolo è già presente nella lista dei materiali ' . $suffix);
+        }
         $warehouse->refills()->create([
             'user_id' => 1,
             'warehouse_id' => $warehouse->id,
@@ -135,7 +138,7 @@ class RefillController extends Controller
             'quantity' => $product->refill_quantity,
         ]);
 
-        return redirect()->route("refill.done", compact('warehouse'));
+        return redirect()->route("refill.done", compact('warehouse', 'product'));
     }
 
     public function generateTestCode(Warehouse $warehouse)
@@ -145,13 +148,13 @@ class RefillController extends Controller
         return view('refill.qrcode', compact('product', 'warehouse'));
     }
 
-    public function requestDone(Warehouse $warehouse)
+    public function requestDone(Warehouse $warehouse, Product $product)
     {
-        return view('refill.done', compact('warehouse'));
+        return view('refill.done', compact('warehouse', 'product'));
     }
 
-    public function requestError(Warehouse $warehouse)
+    public function requestError(Warehouse $warehouse, Product $product)
     {
-        return view('refill.error', compact('warehouse'))->with('Errore!!!');
+        return view('refill.error', compact('warehouse', 'product'))->with('message', 'Errore!!!');
     }
 }

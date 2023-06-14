@@ -25,7 +25,18 @@
                 <i class="fa-regular fa-check"></i>
             </div>
 
-            <div class="flex justify-center text-4xl">
+            @if (isset($product))
+                <div class=" text-center text-lg py-4 text-gray-400">
+                    <div class=" font-semibold">
+                        {{ $product->uuid ?? '???' }}
+                    </div>
+                    <div class=" text-base">
+                        {{ $product->name ?? '???' }}
+                    </div>
+                </div>
+            @endif
+
+            <div class="text-center text-4xl pt-10">
                 La tua richiesta è stata inserita
             </div>
         </div>

@@ -75,7 +75,6 @@
                         </x-primary-button>
                     </div>
                 </form>
-
             </div>
 
             <div class="p-4">

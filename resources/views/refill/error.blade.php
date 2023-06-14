@@ -25,14 +25,25 @@
                 <i class="fa-regular fa-triangle-exclamation"></i>
             </div>
 
+            @if (isset($product))
+                <div class=" text-center text-lg py-4 text-gray-400">
+                    <div class=" font-semibold">
+                        {{ $product->uuid ?? '???'}}
+                    </div>
+                    <div class=" text-base">
+                        {{ $product->name ?? '???'}}
+                    </div>
+                </div>
+            @endif
+
             <div class="flex justify-center text-4xl">
                 La tua richiesta è stata rifiutata
             </div>
 
             @if (session('message'))
-            <div class="flex justify-center text-2xl text-gray-400 uppercase py-5">
-                {{ session('message') }}
-            </div>
+                <div class="text-center text-lg text-gray-400 uppercase py-5 font-semibold">
+                    {{ session('message') }}
+                </div>
             @endif
         </div>
 
