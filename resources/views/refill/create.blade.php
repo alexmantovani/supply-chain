@@ -80,7 +80,7 @@
             <div class="p-4">
                 <div class="flex items-center justify-between gap-4">
                     <div class=" text-sm text-gray-500">
-                        Oppure inserisci manualmente il codice del prodotto da inserire tra i materiali in esaurimento.
+                        Oppure inserisci manualmente uno o più codici del prodotto da inserire tra i materiali in esaurimento.
                     </div>
                 </div>
             </div>
@@ -105,8 +105,8 @@
             let config = {
                 fps: 10,
                 qrbox: {
-                    width: 800,
-                    height: 200
+                    width: 200,
+                    height: 100
                 },
             };
 
