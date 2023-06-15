@@ -43,10 +43,8 @@
                     </div>
                 </div>
 
-                <div id="reader-container" class=" ">
                     <div id="qr-reader" class="">
                     </div>
-                </div>
             </div>
             <div class="p-4">
                 <div class="flex items-center justify-between gap-4">
@@ -103,11 +101,8 @@
             };
 
             let config = {
-                fps: 10,
-                qrbox: {
-                    width: 200,
-                    height: 100
-                },
+                fps: 5,
+
             };
 
             html5QrCode.start({
