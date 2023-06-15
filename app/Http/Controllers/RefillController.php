@@ -46,9 +46,11 @@ class RefillController extends Controller
     public function store(Warehouse $warehouse, StoreRefillRequest $request)
     {
         $codes = explode(" ", $request['codes']);
+        $quantity = $request['quantity'] ?? null;
+
         $errors = [];
         foreach ($codes as $code) {
-            $result = $this->putInList($warehouse, $code);
+            $result = $this->putInList($warehouse, $code, $quantity);
 
             switch ($result) {
                 case 1:
@@ -167,7 +169,7 @@ class RefillController extends Controller
         return view('refill.error', compact('warehouse', 'product'))->with('message', 'Errore!!!');
     }
 
-    public function putInList(Warehouse $warehouse, $code)
+    public function putInList(Warehouse $warehouse, $code, $quantity = null)
     {
         $product = Product::firstWhere('uuid', $code);
         // Non ho trovato il prodotto nel DB
@@ -198,7 +200,7 @@ class RefillController extends Controller
             'user_id' => 1,
             'warehouse_id' => $warehouse->id,
             'product_id' => $product->id,
-            'quantity' => $product->refill_quantity,
+            'quantity' => $quantity ?? $product->refill_quantity,
         ]);
 
         return 0; // Done

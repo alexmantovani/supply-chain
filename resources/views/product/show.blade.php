@@ -156,13 +156,16 @@
                                     <th class="p-2 whitespace-nowrap w-20">
                                         <div class="font-semibold text-center">Ora</div>
                                     </th>
-                                    <th class="p-2 whitespace-nowrap w-20">
+                                    <th class="p-2">
                                         <div class="font-semibold text-center">identificativo</div>
                                     </th>
-                                    <th class="p-2 whitespace-nowrap w-20">
-                                        <div class="font-semibold text-center">Magazzino</div>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-left">Magazzino</div>
                                     </th>
                                     <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-right">Quantità</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap min-w-max">
                                         <div class="font-semibold text-right">Stato</div>
                                     </th>
                                 </tr>
@@ -174,13 +177,12 @@
                                             {{ $order->created_at->translatedFormat('d.m.Y') }}
                                         </div>
                                     </td>
-                                    <td
-                                        class="p-2 whitespace-nowrap text-center text-gray-400 dark:text-gray-300 ">
+                                    <td class="p-2 whitespace-nowrap text-center text-gray-400 dark:text-gray-300 ">
                                         <div>
                                             {{ $order->created_at->translatedFormat('H:i') }}
                                         </div>
                                     </td>
-                                    <td class="p-2 font-medium whitespace-nowrap  text-gray-600 dark:text-gray-300">
+                                    <td class="p-2 font-medium whitespace-nowrap text-center text-gray-600 dark:text-gray-300">
                                         <div>
                                             <a href="{{ route('warehouse.order.show', [$order->warehouse, $order]) }}">
                                                 {{ $order->uuid }}
@@ -192,12 +194,16 @@
                                             {{ $order->warehouse->name }}
                                         </div>
                                     </td>
+                                    <td class="p-2 text-xs text-gray-500 dark:text-gray-300">
+                                        <div class="flex justify-end">
+                                            {{ $order->pivot->quantity }}
+                                        </div>
+                                    </td>
                                     <td class="p-2 text-xs text-gray-500 dark:text-gray-300 text-right">
                                         <div class="flex justify-end">
                                             <x-order-status class="rounded-lg text-xs uppercase py-2 px-3 text-center"
                                                 :status="$order->status" />
                                         </div>
-
                                     </td>
                                 </tr>
                             @endforeach
@@ -221,7 +227,7 @@
 
                         <form method="POST" action="{{ route('warehouse.refill.store', $warehouse) }}">
                             @csrf
-                            <input type="hidden" name="codes" value="{{ $product->id }}">
+                            <input type="hidden" name="codes" value="{{ $product->uuid }}">
 
                             <div class="pb-3">
                                 <x-input-label for="warehouse_id" :value="__('Magazzino')" />
