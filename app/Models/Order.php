@@ -12,27 +12,6 @@ class Order extends Model
 
     protected $guarded = [];
 
-    // public function getStatusAttribute()
-    // {
-    //     switch ($this->attributes['status']) {
-    //         case 'aborted':
-    //             return "Annullato";
-    //             break;
-    //         case 'waiting':
-    //             return "In attesa";
-    //             break;
-    //         case 'pending':
-    //             return "Parzialmente completo";
-    //             break;
-    //         case 'completed':
-    //             return "Completato";
-    //             break;
-
-    //         default:
-    //             return "??" . $this->attributes['status'];
-    //     }
-    // }
-
     public function products()
     {
         return $this->belongsToMany(Product::class)

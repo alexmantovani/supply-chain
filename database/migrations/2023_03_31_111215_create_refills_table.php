@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('order_id')->nullable();
 
             $table->unsignedBigInteger('quantity')->nullable();
-            $table->enum('status', ['low', 'urgent', 'ordered', 'completed'])->default('low');
+            $table->enum('status', ['low', 'urgent', 'ordered', 'completed', 'aborted'])->default('low');
 
             $table->timestamps();
         });

@@ -219,9 +219,9 @@
                             </div>
                         </div>
 
-                        <form method="GET" action="{{ route('warehouse.refill.ask', $warehouse) }}">
+                        <form method="POST" action="{{ route('warehouse.refill.store', $warehouse) }}">
                             @csrf
-                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" name="codes" value="{{ $product->id }}">
 
                             <div class="pb-3">
                                 <x-input-label for="warehouse_id" :value="__('Magazzino')" />

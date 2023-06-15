@@ -101,7 +101,7 @@ class RefillController extends Controller
         //
     }
 
-    public function ask(Request $request)
+    public function ask(Request $request, Warehouse $warehouse)
     {
         $productId = $request->input('product_id');
         $quantity = $request->input('quantity');

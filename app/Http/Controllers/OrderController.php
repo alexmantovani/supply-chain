@@ -137,6 +137,12 @@ class OrderController extends Controller
             'status' => 'aborted',
         ]);
 
+        foreach ($order->refills as $refill) {
+            $refill->update([
+                'status' => 'aborted',
+            ]);
+        }
+
         $order->logs()->create([
             'user_id' => Auth::user()->id,
             'description' => 'Ordine annullato',
