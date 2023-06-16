@@ -1,11 +1,12 @@
 <x-app-layout>
     <x-slot name="navbar_title">
-        <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
-            {{ $warehouse->name }}
-        </x-navbar-title>
-    </x-slot>
-    <x-slot name="navbar_left_menu">
-        @include('layouts.nav_left_bar')
+        <div class="flex ml-5 items-center space-x-5">
+            <div>
+                <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
+                    {{ $warehouse->name }}
+                </x-navbar-title>
+            </div>
+        </div>
     </x-slot>
     <x-slot name="navbar_right_menu">
         <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
@@ -131,10 +132,10 @@
                 <i class="fa-regular fa-circle-exclamation"></i>
             </div>
             <div class=" p-2">
-                Non sono presenti materiali in esaurimento
+                Non sono presenti materiali da ordinare
             </div>
             <div class=" text-lg text-gray-300 font-medium">
-                Il magazzino è perfettamente rifornito
+                Non è stata fatta alcuna richiesta di materiale da ordinare
             </div>
 
             <div class=" text-lg text-gray-300 py-16">

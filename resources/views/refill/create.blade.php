@@ -1,11 +1,18 @@
 <x-app-layout>
     <x-slot name="navbar_title">
-        <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
-            {{ $warehouse->name }}
-        </x-navbar-title>
-    </x-slot>
-    <x-slot name="navbar_left_menu">
-        @include('layouts.nav_left_bar')
+        <div class="flex ml-5 items-center space-x-5">
+            <div
+                class="
+              font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight
+            cursor-pointer">
+                <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
+            </div>
+            <div>
+                <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
+                    {{ $warehouse->name }}
+                </x-navbar-title>
+            </div>
+        </div>
     </x-slot>
     <x-slot name="navbar_right_menu">
         <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
@@ -43,8 +50,8 @@
                     </div>
                 </div>
 
-                    <div id="qr-reader" class="">
-                    </div>
+                <div id="qr-reader" class="">
+                </div>
             </div>
             <div class="p-4">
                 <div class="flex items-center justify-between gap-4">
@@ -57,7 +64,7 @@
 
             <div
                 class="mt-4 w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800 p-8">
-                <form method="post" action="{{ route('warehouse.refill.store', $warehouse) }}" class="p-6">
+                <form method="post" action="{{ route('warehouse.refill.store', $warehouse) }}" class="">
                     @csrf
 
                     <div class="flex items-center">
@@ -78,7 +85,8 @@
             <div class="p-4">
                 <div class="flex items-center justify-between gap-4">
                     <div class=" text-sm text-gray-500">
-                        Oppure inserisci manualmente uno o più codici del prodotto da inserire tra i materiali in esaurimento.
+                        Oppure inserisci manualmente uno o più codici del prodotto da inserire tra i materiali in
+                        esaurimento.
                     </div>
                 </div>
             </div>

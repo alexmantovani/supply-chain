@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,8 +20,11 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    if (Auth::user()->profile->warehouse_id) {
+        return redirect(route('warehouse.show', Auth::user()->profile->warehouse_id));
+    }
     return redirect('/warehouse');
-    return view('dashboard');
+
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::get('/rusco', function () {

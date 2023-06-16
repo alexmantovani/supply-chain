@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreWarehouseRequest;
 use App\Http\Requests\UpdateWarehouseRequest;
 use App\Models\Warehouse;
+use Illuminate\Support\Facades\Auth;
 
 class WarehouseController extends Controller
 {
@@ -39,6 +40,10 @@ class WarehouseController extends Controller
      */
     public function show(Warehouse $warehouse)
     {
+        Auth::user()->profile->update([
+            'warehouse_id' => $warehouse->id,
+        ]);
+
         $refills = $warehouse->refills()
             ->whereIn('refills.status', ['low', 'urgent'])
             ->whereNull('quantity')

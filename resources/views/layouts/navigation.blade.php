@@ -13,9 +13,9 @@
                 @if (isset($navbar_title))
                     {{ $navbar_title }}
                 @endif
-                @if (isset($navbar_left_menu))
-                    {{ $navbar_left_menu }}
-                @endif
+
+                @include('layouts.nav_left_bar', ['warehouse' => Auth::user()->profile->warehouse])
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -102,8 +102,16 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                @include('layouts.responsive_nav_left_bar', [
+                    'warehouse' => Auth::user()->profile->warehouse,
+                ])
+
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('warehouse.index')">
+                    {{ __('Cambia magazzino') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->

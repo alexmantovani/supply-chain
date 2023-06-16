@@ -1,8 +1,12 @@
 <x-app-layout>
     <x-slot name="navbar_title">
-        <x-navbar-title >
-            Elenco Magazzini
-        </x-navbar-title>
+        <div class="flex ml-5 items-center space-x-5">
+            <div>
+                <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
+                    Elenco Magazzini
+                </x-navbar-title>
+            </div>
+        </div>
     </x-slot>
 
     <x-slot name="navbar_buttons">
@@ -82,7 +86,6 @@
                                                 <x-primary-button class="ml-3">
                                                     {{ __('Entra') }}
                                                 </x-primary-button>
-
                                             </a>
                                         </td>
 

@@ -1,17 +1,18 @@
 <x-app-layout>
     <x-slot name="navbar_title">
-        <div
-            class="
-                sm:-my-px sm:ml-10 sm:flex font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight items-center
-                cursor-pointer">
-            <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
+        <div class="flex ml-5 items-center space-x-5">
+            <div
+                class="
+              font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight
+            cursor-pointer">
+                <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
+            </div>
+            <div>
+                <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
+                    {{ $warehouse->name }}
+                </x-navbar-title>
+            </div>
         </div>
-        <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
-            {{ $warehouse->name }}
-        </x-navbar-title>
-    </x-slot>
-    <x-slot name="navbar_left_menu">
-        @include('layouts.nav_left_bar')
     </x-slot>
     <x-slot name="navbar_right_menu">
         {{-- <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">

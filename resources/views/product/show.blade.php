@@ -1,17 +1,18 @@
 <x-app-layout>
     <x-slot name="navbar_title">
-        <div
-            class="
-                sm:-my-px sm:ml-10 sm:flex font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight items-center
-                cursor-pointer">
-            <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
+        <div class="flex ml-5 items-center space-x-5">
+            <div
+                class="
+              font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight
+            cursor-pointer">
+                <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
+            </div>
+            <div>
+                <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
+                    {{ $warehouse->name }}
+                </x-navbar-title>
+            </div>
         </div>
-        <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
-            {{ $warehouse->name }}
-        </x-navbar-title>
-    </x-slot>
-    <x-slot name="navbar_left_menu">
-        @include('layouts.nav_left_bar')
     </x-slot>
     <x-slot name="navbar_right_menu">
         <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
@@ -55,90 +56,83 @@
 
             </div>
 
-            <div class="grid grid-cols-2 gap-4 h-full">
-                <div class="flex justify-between items-baseline pt-3 px-5">
-                    <div class=" text-gray-900 text-xl p-3 font-semibold">
-                        Produttore
-                    </div>
-                </div>
+            <div class="md:grid md:grid-cols-2 md:gap-4 h-full pt-8">
+                <div>
+                    <div class="px-5">
+                        <div class=" text-gray-400 text-xl font-semibold">
+                            Produttore
+                        </div>
 
-                <div class="flex justify-between items-baseline pt-3 px-5">
-                    <div class=" text-gray-900 text-xl p-3 font-semibold">
-                        Fornitore
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4 h-full mb-5">
-                <div
-                    class="bg-white  shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-700">
-
-                    <div class="m-5">
-                        <div class="pb-6">
-                            <div class="font-semibold text-xl py-4 dark:text-gray-200">
-                                <a href="{{ route('warehouse.dealer.show', [$warehouse, $product->dealer->id]) }}"
-                                    class=" cursor-pointer hover:underline">
-                                    {{ $product->dealer->name }}
-                                </a>
-                            </div>
-                            <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
-                                <div class="flex justify-between">
-                                    <div>
-                                        Codice produttore:
-                                    </div>
-                                    <span class=" text-gray-800 font-semibold">
-                                        {{ $product->dealer->code }}
-                                    </span>
+                        <div class=" ">
+                            <div class="pb-6">
+                                <div class="font-semibold text-lg py-4 dark:text-gray-200">
+                                    <a href="{{ route('warehouse.dealer.show', [$warehouse, $product->dealer->id]) }}"
+                                        class=" cursor-pointer hover:underline">
+                                        {{ $product->dealer->name }}
+                                    </a>
                                 </div>
-                            </div>
-                            <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
-                                <div class="flex justify-between">
-                                    <div>
-                                        Modello produttore:
+                                <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
+                                    <div class="flex justify-between">
+                                        <div>
+                                            Codice produttore:
+                                        </div>
+                                        <span class=" text-gray-800 font-semibold">
+                                            {{ $product->dealer->code }}
+                                        </span>
                                     </div>
-                                    <span class=" text-gray-800 font-semibold">
-                                        {{ $product->dealer->model }}
-                                    </span>
                                 </div>
-                                {{ $product->dealer->address }}
-                                <p>
-                                    {{ $product->dealer->city }}
-                                </p>
+                                <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
+                                    <div class="flex justify-between">
+                                        <div>
+                                            Modello produttore:
+                                        </div>
+                                        <span class=" text-gray-800 font-semibold">
+                                            {{ $product->dealer->model }}
+                                        </span>
+                                    </div>
+                                    {{ $product->dealer->address }}
+                                    <p>
+                                        {{ $product->dealer->city }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
+                <div class="md:border-l-2 md:border-gray-200 border-dotted">
+                    <div class="px-5">
+                        <div class=" text-gray-400 text-xl font-semibold">
+                            Fornitore
+                        </div>
 
-                <div
-                    class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-700">
-                    <div class="m-5">
-                        <div class="pb-6">
+                        <div class="">
+                            <div class="pb-6">
 
-                            <div class="font-semibold text-xl pt-4 dark:text-gray-200">
-                                {{ $product->dealer->provider->name }}
+                                <div class="font-semibold text-xl pt-4 dark:text-gray-200">
+                                    {{ $product->dealer->provider->name }}
+                                </div>
+                                <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
+                                    <a href="mailto:{{ $product->dealer->provider->email }}">
+                                        <i class="fa-regular fa-envelope"></i>
+                                        <span>
+                                            {{ $product->dealer->provider->email }}
+                                        </span>
+                                    </a>
+                                </div>
+
                             </div>
-                            <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
-                                <a href="mailto:{{ $product->dealer->provider->email }}">
-                                    <i class="fa-regular fa-envelope"></i>
-                                    <span>
-                                        {{ $product->dealer->provider->email }}
-                                    </span>
-                                </a>
-                            </div>
-
                         </div>
                     </div>
                 </div>
             </div>
 
 
-            <div class="flex">
+            <div class="md:flex mt-5">
 
 
                 <div
-                    class="flex-1 bg-white shadow-lg rounded-sm border border-gray-200 px-8 py-8 dark:bg-gray-900 dark:border-gray-700">
+                    class="flex-1 bg-gray-50 shadow-lg rounded-sm border border-gray-200 px-8 py-8 dark:bg-gray-900 dark:border-gray-700">
                     <div class="pb-6 mx-5">
                         <div class="font-semibold text-2xl dark:text-gray-200">
                             Ordini
@@ -163,9 +157,9 @@
                                         <div class="font-semibold text-left">Magazzino</div>
                                     </th>
                                     <th class="p-2 whitespace-nowrap">
-                                        <div class="font-semibold text-right">Quantità</div>
+                                        <div class="font-semibold text-center">Quantità</div>
                                     </th>
-                                    <th class="p-2 whitespace-nowrap min-w-max">
+                                    <th class="p-2 whitespace-nowrap w-30">
                                         <div class="font-semibold text-right">Stato</div>
                                     </th>
                                 </tr>
@@ -182,7 +176,8 @@
                                             {{ $order->created_at->translatedFormat('H:i') }}
                                         </div>
                                     </td>
-                                    <td class="p-2 font-medium whitespace-nowrap text-center text-gray-600 dark:text-gray-300">
+                                    <td
+                                        class="p-2 font-medium whitespace-nowrap text-center text-gray-600 dark:text-gray-300">
                                         <div>
                                             <a href="{{ route('warehouse.order.show', [$order->warehouse, $order]) }}">
                                                 {{ $order->uuid }}
@@ -195,15 +190,13 @@
                                         </div>
                                     </td>
                                     <td class="p-2 text-xs text-gray-500 dark:text-gray-300">
-                                        <div class="flex justify-end">
+                                        <div class=" text-center">
                                             {{ $order->pivot->quantity }}
                                         </div>
                                     </td>
-                                    <td class="p-2 text-xs text-gray-500 dark:text-gray-300 text-right">
-                                        <div class="flex justify-end">
-                                            <x-order-status class="rounded-lg text-xs uppercase py-2 px-3 text-center"
-                                                :status="$order->status" />
-                                        </div>
+                                    <td class="p-2 text-xs text-gray-500 dark:text-gray-300 text-right w-30">
+                                        <x-order-status class="rounded-lg text-xs uppercase py-2 px-3 text-center"
+                                            :status="$order->status" />
                                     </td>
                                 </tr>
                             @endforeach

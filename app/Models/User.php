@@ -50,5 +50,18 @@ class User extends Authenticatable
         return $this->hasMany(Log::class);
     }
 
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            Profile::create([
+                'user_id' => $user->id,
+            ]);
+        });
+    }
 
 }

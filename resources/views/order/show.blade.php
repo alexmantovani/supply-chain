@@ -10,9 +10,6 @@
             {{ $warehouse->name }}
         </x-navbar-title>
     </x-slot>
-    <x-slot name="navbar_left_menu">
-        @include('layouts.nav_left_bar')
-    </x-slot>
     <x-slot name="navbar_right_menu">
         <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
             {{ __('Simula QR') }}
