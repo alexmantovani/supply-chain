@@ -1,27 +1,12 @@
 <x-app-layout>
     <x-slot name="navbar_title">
         <div class="flex ml-5 items-center space-x-5">
-            <div
-                class="
-              font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight
-            cursor-pointer">
-                <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
-            </div>
             <div>
                 <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
                     {{ $warehouse->name }}
                 </x-navbar-title>
             </div>
         </div>
-        <div
-            class="
-                sm:-my-px sm:ml-10 sm:flex font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight items-center
-                cursor-pointer">
-            <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
-        </div>
-        <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
-            {{ $warehouse->name }}
-        </x-navbar-title>
     </x-slot>
     <x-slot name="navbar_right_menu">
         <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
@@ -62,7 +47,7 @@
             <a href="{{ route('warehouse.refill.create', $warehouse) }}"
                 class="cursor-pointer inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                 <i class="fa-solid fa-plus" title="Aggiungi tra i materiali in esaurimento"></i>&nbsp;
-                {{ __('Segnala altro matriale') }}
+                {{ __('Richiedi altro matriale') }}
             </a>
         </div>
 

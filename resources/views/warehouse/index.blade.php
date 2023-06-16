@@ -2,9 +2,7 @@
     <x-slot name="navbar_title">
         <div class="flex ml-5 items-center space-x-5">
             <div>
-                <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
-                    Elenco Magazzini
-                </x-navbar-title>
+                Elenco Magazzini
             </div>
         </div>
     </x-slot>
