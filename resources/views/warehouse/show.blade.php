@@ -8,19 +8,24 @@
             </div>
         </div>
     </x-slot>
+    <x-slot name="navbar_left_menu">
+        @include('layouts.nav_left_bar', ['warehouse' => $warehouse])
+    </x-slot>
     <x-slot name="navbar_right_menu">
-        <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
-            {{ __('Simula QR') }}
-        </x-nav-link>
+        <a href="{{ route('warehouse.refill.create', $warehouse) }}">
+            <x-secondary-button class="">
+                <i class="fa-solid fa-plus"></i> &nbsp; Aggiungi
+            </x-secondary-button>
+        </a>
     </x-slot>
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="h-full ">
-            <div class="w-full max-w-7xl mx-auto flex">
+            <div class="w-full max-w-7xl mx-auto md:flex">
 
                 <div class="flex-1 ">
                     <div class="flex justify-between items-baseline">
-                        <div class=" text-gray-900 text-xl p-3 font-semibold">
+                        <div class=" text-gray-900 dark:text-gray-300 text-xl p-3 font-semibold">
                             Ricerca materiale
                         </div>
                     </div>
@@ -28,7 +33,7 @@
                     <div
                         class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800">
 
-                        <div class="mx-3">
+                        <div class="">
                             <form method="GET" action="{{ route('warehouse.product.index', $warehouse) }}">
                                 <div class="flex my-4 rounded-md border border-gray-300 items-center">
                                     <div class="w-full">
@@ -49,7 +54,6 @@
                     </div>
 
                     @if ($refills->count())
-
                         <div class="mt-5 flex justify-between items-baseline">
                             <div class=" text-gray-900 text-xl p-3 font-semibold">
                                 Materiale in esaurimento da verificare
@@ -157,16 +161,16 @@
 
                 </div>
 
-                <div class="flex-0">
+                <div class="md:flex-0">
                     <div
-                        class="ml-5 bg-white shadow-lg rounded-sm border border-gray-200 p-4 dark:bg-gray-900 dark:border-gray-800">
-                        <div class="justify-center">
-                            <div class="p-4">
+                        class="mt-5 md:mt-0 md:ml-5 bg-white shadow-lg rounded-sm border border-gray-200 p-3 dark:bg-gray-900 dark:border-gray-800">
+                        <div class="text-center p-3">
+                            <div class="p-3 flex justify-center bg-white">
                                 <a href="{{ url('warehouse/' . $warehouse->id . '/refill/create') }}">
                                     {!! QrCode::size(150)->generate(url('warehouse/' . $warehouse->id . '/refill/create')) !!}
                                 </a>
                             </div>
-                            <div class="text-sm min-w-fit">
+                            <div class="text-sm min-w-fit pt-2">
                                 Inquadra col tuo smartphone <br> il QRCode qui sopra per poter <br> aggiungere nuove
                                 richieste di <br> materiale.
                             </div>

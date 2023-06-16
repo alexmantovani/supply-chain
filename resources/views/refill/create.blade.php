@@ -14,16 +14,21 @@
             </div>
         </div>
     </x-slot>
+    <x-slot name="navbar_left_menu">
+        @include('layouts.nav_left_bar', ['warehouse' => $warehouse])
+    </x-slot>
     <x-slot name="navbar_right_menu">
-        <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
-            {{ __('Simula QR') }}
-        </x-nav-link>
+        <a href="{{ route('warehouse.refill.create', $warehouse) }}">
+            <x-secondary-button class="">
+                <i class="fa-solid fa-plus"></i> &nbsp; Aggiungi
+            </x-secondary-button>
+        </a>
     </x-slot>
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="w-full max-w-7xl mx-auto ">
             <div>
-                <div class=" text-gray-900 text-xl p-3 font-semibold">
+                <div class=" text-gray-900 dark:text-gray-300 text-xl p-3 font-semibold">
                     Aggiungi al materiale in esaurimento
                 </div>
             </div>

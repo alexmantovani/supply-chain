@@ -1,3 +1,3 @@
-<a {{ $attributes->merge(['class' => 'p-2 text-gray-400 text-md dark:text-gray-300']) }}>
+<a {{ $attributes->merge(['class' => 'text-xs md:text-md text-gray-400 dark:text-gray-300']) }}>
     {{ $slot }}
 </a>

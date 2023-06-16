@@ -1,40 +1,36 @@
 <x-app-layout>
     <x-slot name="navbar_title">
-        <div
-            class="
-                sm:-my-px sm:ml-10 sm:flex font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight items-center
-                cursor-pointer">
-            <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
-        </div>
-        <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
-            {{ $warehouse->name }}
-        </x-navbar-title>
-    </x-slot>
-    <x-slot name="navbar_right_menu">
-        <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
-            {{ __('Simula QR') }}
-        </x-nav-link>
-    </x-slot>
-
-
-    {{-- <x-slot name="header">
-        <div class="flex items-center">
-            <div class="pr-3 text-lg cursor-pointer text-gray-800 dark:text-gray-200">
+        <div class="flex ml-5 items-center space-x-5">
+            <div
+                class="
+              font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight
+            cursor-pointer">
                 <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
             </div>
-
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Dettaglio ordine') }} # {{ $order->id }}
-            </h2>
+            <div>
+                <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
+                    {{ $warehouse->name }}
+                </x-navbar-title>
+            </div>
         </div>
-    </x-slot> --}}
+    </x-slot>
+    <x-slot name="navbar_left_menu">
+        @include('layouts.nav_left_bar', ['warehouse' => $warehouse])
+    </x-slot>
+    <x-slot name="navbar_right_menu">
+        <a href="{{ route('warehouse.refill.create', $warehouse) }}">
+            <x-secondary-button class="">
+                <i class="fa-solid fa-plus"></i> &nbsp; Aggiungi
+            </x-secondary-button>
+        </a>
+    </x-slot>
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="h-full ">
             <!-- Table -->
             <div class="w-full max-w-7xl mx-auto ">
                 <div
-                    class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-700">
+                    class="bg-white shadow-lg rounded-sm border border-gray-200 md:px-8 dark:bg-gray-900 dark:border-gray-700">
 
                     <div class="flex justify-between m-5">
                         <div class="pb-6">
@@ -82,12 +78,12 @@
                             @endphp
                             @foreach ($order->products as $product)
                                 <tr>
-                                    <td class="p-2 whitespace-nowrap w-32">
+                                    <td class="p-2 w-32">
                                         <x-product-uuid-cell>
                                             {{ $product->uuid }}
                                         </x-product-uuid-cell>
                                     </td>
-                                    <td class="p-2 whitespace-nowrap">
+                                    <td class="p-2 ">
                                         <x-product-name-cell :href="route('warehouse.product.show', [
                                             $warehouse,
                                             $product,
@@ -96,7 +92,7 @@
                                         </x-product-name-cell>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
-                                        <div class="text-center dark:text-gray-300 text-lg">
+                                        <div class="text-center dark:text-gray-300 text-sm md:text-base">
                                             {{ $product->pivot->quantity }}
                                             @php
                                                 $total += $product->pivot->quantity;
@@ -105,15 +101,15 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            <tr class=" font-semibold text-gray-800 dark:text-gray-300">
+                            <tr class="  text-gray-700 dark:text-gray-300">
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="text-lg">
+                                    <div class="text-md">
                                         Totale
                                     </div>
                                 </td>
                                 <td></td>
                                 <td class=" whitespace-nowrap ">
-                                    <div class="text-center text-lg">
+                                    <div class="text-center text-sm md:text-base">
                                         {{ $total }}
                                     </div>
                                 </td>

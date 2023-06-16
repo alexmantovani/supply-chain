@@ -8,12 +8,16 @@
             </div>
         </div>
     </x-slot>
-    <x-slot name="navbar_right_menu">
-        <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
-            {{ __('Simula QR') }}
-        </x-nav-link>
+    <x-slot name="navbar_left_menu">
+        @include('layouts.nav_left_bar', ['warehouse' => $warehouse])
     </x-slot>
-
+    <x-slot name="navbar_right_menu">
+        <a href="{{ route('warehouse.refill.create', $warehouse) }}">
+            <x-secondary-button class="">
+                <i class="fa-solid fa-plus"></i> &nbsp; Aggiungi
+            </x-secondary-button>
+        </a>
+    </x-slot>
 
     @if ($refills->count())
         <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
@@ -26,11 +30,6 @@
                             <div class=" text-gray-900 text-xl p-3 font-semibold">
                                 Materiale in esaurimento
                             </div>
-                            <a href="{{ route('warehouse.refill.create', $warehouse) }}"
-                                class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
-                                <i class="fa-solid fa-plus" title="Aggiungi tra i materiali in esaurimento"></i>&nbsp;
-                                {{ __('Aggiungi') }}
-                            </a>
                         </div>
 
                         <div
@@ -45,17 +44,16 @@
                                                 <th class="p-2 whitespace-nowrap">
                                                     <div class="font-semibold text-left">Codice</div>
                                                 </th>
-                                                <th class="p-2 whitespace-nowrap">
+                                                <th class="p-2 ">
                                                     <div class="font-semibold text-left">Prodotto</div>
                                                 </th>
-                                                <th class="p-2 w-28">
+                                                <th class="p-2 w-28 hidden md:table-cell">
                                                     <div class="font-semibold text-center"></div>
                                                 </th>
-                                                <th class="p-2 w-28">
+                                                <th class="p-2 w-28 whitespace-nowrap">
                                                     <div class="font-semibold text-center">Quantità</div>
                                                 </th>
-
-                                                <th class="p-2 whitespace-nowrap">
+                                                <th class="p-2">
                                                     <div class="font-semibold text-left"></div>
                                                 </th>
                                             </tr>
@@ -69,7 +67,7 @@
                                                             {{ $refill->product->uuid }}
                                                         </x-product-uuid-cell>
                                                     </td>
-                                                    <td class="p-2 whitespace-nowrap">
+                                                    <td class="p-2">
                                                         <x-product-name-cell class="" :href="route('warehouse.product.show', [
                                                             $warehouse,
                                                             $refill->product,
@@ -77,7 +75,7 @@
                                                             {{ $refill->product->name }}
                                                         </x-product-name-cell>
                                                     </td>
-                                                    <td class="p-2 whitespace-nowrap">
+                                                    <td class="p-2  hidden md:table-cell">
                                                         <div class="text-center dark:text-gray-300 min-w-min">
                                                             <x-product-status
                                                                 class="rounded-md text-xs uppercase py-1 px-2 text-center"
@@ -127,21 +125,21 @@
         </section>
     @else
         <div
-            class="max-w-7xl mx-auto sm:px-6 lg:px-8 items-center text-center text-4xl py-16 text-gray-500 font-medium">
-            <div class=" text-4xl text-gray-200 font-medium py-10" style="font-size: 90px">
+            class="max-w-7xl mx-auto sm:px-6 lg:px-8 items-center text-center text-4xl py-16 text-gray-200 dark:text-gray-700 font-medium">
+            <div class="text-4xl text-gray-200 dark:text-gray-800 font-medium py-10" style="font-size: 90px">
                 <i class="fa-regular fa-circle-exclamation"></i>
             </div>
-            <div class=" p-2">
+            <div class="p-2 text-gray-600 dark:text-gray-300">
                 Non sono presenti materiali da ordinare
             </div>
-            <div class=" text-lg text-gray-300 font-medium">
+            <div class="text-gray-400 dark:text-gray-500 text-lg font-medium">
                 Non è stata fatta alcuna richiesta di materiale da ordinare
             </div>
 
-            <div class=" text-lg text-gray-300 py-16">
+            <div class="text-lg text-gray-400 dark:text-gray-500 py-16">
                 Clicca
                 <a href="{{ route('warehouse.order.index', $warehouse) }}"
-                    class=" text-gray-500 font-medium hover:underline">qui</a>
+                    class=" text-gray-500 dark:text-gray-300 font-medium hover:underline">qui</a>
                 per andare a controllare lo stato degli ordini
             </div>
             <div>

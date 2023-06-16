@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="navbar_title">
         <div class="flex ml-5 items-center space-x-5">
-            <div>
+            <div class="text-gray-900 dark:text-gray-100">
                 Elenco Magazzini
             </div>
         </div>
@@ -24,37 +24,14 @@
         <div class="h-full ">
             <!-- Table -->
             <div
-                class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800">
+                class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px1 md:px-8 dark:bg-gray-900 dark:border-gray-800">
 
                 <div class="p-3">
                     <div class="overflow-x-auto">
                         <table class="table-auto w-full ">
-                            <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
-                                <tr>
-                                    <th class="p-2 whitespace-nowrap w-20">
-                                        <div class="font-semibold text-center">Id</div>
-                                    </th>
-                                    <th class="p-2 whitespace-nowrap">
-                                        <div class="font-semibold text-left">Prodotto</div>
-                                    </th>
-                                    <th class="p-2 w-40">
-                                        <div class="font-semibold">Stato</div>
-                                    </th>
-
-                                    <th class="p-2 w-20 text-center items-center">
-                                        <div class="font-semibold">Azioni</div>
-                                    </th>
-                                </tr>
-                            </thead>
-
                             <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
                                 @foreach ($warehouses as $warehouse)
                                     <tr>
-                                        <td>
-                                            <div class="text-center text-gray-300 dark:text-gray-400">
-                                                {{ $warehouse->id }}
-                                            </div>
-                                        </td>
                                         <td class="p-2 whitespace-nowrap">
                                             <div class=" items-center">
                                                 {{-- <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img
@@ -74,10 +51,6 @@
                                             </div>
                                         </td>
 
-                                        <td>
-
-                                        </td>
-
                                         <td class="p-2 w-20 text-center items-center">
                                             <a href="{{ route('warehouse.show', $warehouse->id) }}"
                                                 class="font-medium text-gray-400 hover:text-gray-800 hover:underline">
@@ -86,7 +59,6 @@
                                                 </x-primary-button>
                                             </a>
                                         </td>
-
                                     </tr>
                                 @endforeach
                             </tbody>

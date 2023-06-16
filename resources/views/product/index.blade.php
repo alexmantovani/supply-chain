@@ -8,17 +8,22 @@
             </div>
         </div>
     </x-slot>
+    <x-slot name="navbar_left_menu">
+        @include('layouts.nav_left_bar', ['warehouse' => $warehouse])
+    </x-slot>
     <x-slot name="navbar_right_menu">
-        <x-nav-link :href="route('warehouse.refill.simulate', $warehouse->id)" :active="request()->routeIs('warehouse.refill.simulate')">
-            {{ __('Simula QR') }}
-        </x-nav-link>
+        <a href="{{ route('warehouse.refill.create', $warehouse) }}">
+            <x-secondary-button class="">
+                <i class="fa-solid fa-plus"></i> &nbsp; Aggiungi
+            </x-secondary-button>
+        </a>
     </x-slot>
 
-    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
+    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen md:px-4 py-4 dark:bg-gray-800">
         <div class="h-full ">
 
             <div
-                class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800">
+                class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-2 md:px-8 dark:bg-gray-900 dark:border-gray-800">
 
                 <div class="mx-3">
                     <form method="GET" action="{{ route('warehouse.product.index', $warehouse) }}">
@@ -26,8 +31,8 @@
                             <div class="w-full">
                                 <input
                                     class="mr-3 bg-transparent border-0 focus:ring-0 focus:ring-slate-300 focus:outline-none appearance-none w-full  text-slate-900 placeholder-slate-400 rounded-md py-2 pl-3 ring-0"
-                                    type="text" aria-label="Search" placeholder="Cerca..." value="{{ $search ?? '' }}"
-                                    name="search" autofocus>
+                                    type="text" aria-label="Search" placeholder="Cerca..."
+                                    value="{{ $search ?? '' }}" name="search" autofocus>
                             </div>
 
                             <div class="p-1">
@@ -51,7 +56,7 @@
                     </form>
                 </div>
 
-                <div class="p-3">
+                <div class="md:p-3">
                     <div class="overflow-x-auto">
                         <table class="table-auto w-full ">
                             <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
@@ -59,13 +64,13 @@
                                     <th class="p-2 whitespace-nowrap w-30">
                                         <div class="font-semibold text-left">CODICE</div>
                                     </th>
-                                    <th class="p-2 whitespace-nowrap">
+                                    <th class="p-2 w-2">
+                                        <div class="font-semibold text-left"></div>
+                                    </th>
+                                    <th class="p-2 ">
                                         <div class="font-semibold text-left">Articolo</div>
                                     </th>
-                                    <th class="p-2 whitespace-nowrap">
-                                        <div class="font-semibold text-left">Stato</div>
-                                    </th>
-                                    <th class="p-2 whitespace-nowrap">
+                                    <th class="p-2 hidden md:table-cell">
                                         <div class="font-semibold text-left">Produttore</div>
                                     </th>
                                 </tr>
@@ -79,16 +84,17 @@
                                                 {{ $product->uuid }}
                                             </x-product-uuid-cell>
                                         </td>
-                                        <td class="p-2 whitespace-nowrap">
+                                        <td class="p-1 md:p-2 w-2">
+                                            <x-product-status-ball
+                                                class="text-clip rounded-md text-3xl uppercase py-1 px-2 text-center"
+                                                :status="$product->status" />
+                                        </td>
+                                        <td class="p-1 md:p-2">
                                             <x-product-name-cell class="" :href="route('warehouse.product.show', [$warehouse, $product])">
                                                 {{ $product->name }}
                                             </x-product-name-cell>
                                         </td>
-                                        <td class="p-2 whitespace-nowrap">
-                                            <x-product-status class="rounded-md text-xs uppercase py-1 px-2 text-center"
-                                                :status="$product->status" />
-                                        </td>
-                                        <td class="p-2 whitespace-nowrap">
+                                        <td class="md:p-2 hidden md:table-cell">
                                             <x-product-dealer-cell class="" :href="route('warehouse.dealer.show', [$warehouse, $product->dealer])">
                                                 {{ $product->dealer->name }}
                                             </x-product-dealer-cell>

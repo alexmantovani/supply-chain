@@ -4,7 +4,7 @@
         {{ __('Listino') }}
     </x-nav-link>
     <x-nav-link :href="route('warehouse.refill.index', $warehouse->id)" :active="request()->routeIs('warehouse.refill.index')">
-        {{ __('Da ordinare') }}
+        {{ __('In esaurimento') }}
     </x-nav-link>
     <x-nav-link :href="route('warehouse.order.index', $warehouse->id)" :active="request()->routeIs('warehouse.order.index')">
         {{ __('Ordini') }}
