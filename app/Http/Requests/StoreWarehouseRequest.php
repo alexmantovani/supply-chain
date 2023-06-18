@@ -11,7 +11,7 @@ class StoreWarehouseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,26 @@ class StoreWarehouseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|unique:warehouses|max:255',
+            'description' => 'max:255',
+            'email_array.*' => 'email:rfc',
         ];
     }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'email_array' => array_map('trim', explode(',', $this->emails)),
+        ]);
+    }
+
+    // public function messages(): array
+    // {
+    //     return [
+    //         'emails.*' => 'Inserisci una o più mail valide separate dal carattere \',\'',
+    //     ];
+    // }
 }

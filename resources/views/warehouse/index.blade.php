@@ -2,23 +2,16 @@
     <x-slot name="navbar_title">
         <div class="flex ml-5 items-center space-x-5">
             <div class="text-gray-900 dark:text-gray-100">
-                Elenco Magazzini
+                Elenco magazzini
             </div>
         </div>
     </x-slot>
 
     <x-slot name="navbar_buttons">
-        <x-nav-link :href="route('warehouse.refill.index', 1)" :active="request()->routeIs('refill.index')">
+        <x-nav-link :href="route('warehouse.create')" :active="request()->routeIs('warehouse.create')">
             {{ __('Nuovo Magazzino') }}
         </x-nav-link>
-
     </x-slot>
-
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Situazione magazzini') }}
-        </h2>
-    </x-slot> --}}
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="h-full ">

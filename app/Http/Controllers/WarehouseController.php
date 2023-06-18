@@ -24,7 +24,7 @@ class WarehouseController extends Controller
      */
     public function create()
     {
-        //
+        return view('warehouse.create');
     }
 
     /**
@@ -32,7 +32,13 @@ class WarehouseController extends Controller
      */
     public function store(StoreWarehouseRequest $request)
     {
-        //
+        Warehouse::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'emails' => $request->emails,
+        ]);
+
+        return to_route('warehouse.index');
     }
 
     /**

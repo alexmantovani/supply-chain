@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('description')->nullable();
 
-            $table->string('email')->nullable(); // email di chi gestisce il magazzino
+            $table->string('emails')->nullable(); // emails (una o più separate da ',') di chi gestisce il magazzino
 
             $table->timestamps();
         });
