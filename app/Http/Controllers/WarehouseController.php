@@ -46,7 +46,14 @@ class WarehouseController extends Controller
      */
     public function show(Warehouse $warehouse)
     {
-        Auth::user()->profile->update([
+        $user = Auth::user();
+        if (!$user->hasPermissionTo('change warehouse')) {
+            if ($warehouse->id != $user->profile->warehouse_id) {
+                abort(403);
+            }
+        }
+
+        $user->profile->update([
             'warehouse_id' => $warehouse->id,
         ]);
 
@@ -72,7 +79,7 @@ class WarehouseController extends Controller
      */
     public function edit(Warehouse $warehouse)
     {
-        //
+        return view('warehouse.edit', compact('warehouse'));
     }
 
     /**
@@ -80,7 +87,13 @@ class WarehouseController extends Controller
      */
     public function update(UpdateWarehouseRequest $request, Warehouse $warehouse)
     {
-        //
+        $warehouse->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'emails' => $request->emails,
+        ]);
+
+        return to_route('warehouse.index');
     }
 
     /**
@@ -88,6 +101,8 @@ class WarehouseController extends Controller
      */
     public function destroy(Warehouse $warehouse)
     {
-        //
+        $warehouse->delete();
+
+        return to_route('warehouse.index');
     }
 }

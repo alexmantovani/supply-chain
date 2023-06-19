@@ -22,8 +22,7 @@ class SendNewOrderEmailJob implements ShouldQueue
      */
     public function __construct(
         public Order $order,
-    )
-    {
+    ) {
         //
     }
 
@@ -32,6 +31,10 @@ class SendNewOrderEmailJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->order->provider->email)->send(new OrderSubmit($this->order));
+        $moreUsers = array_map('trim', explode(',', $this->order->warehouse->emails));
+
+        Mail::to($this->order->provider->email)
+            ->cc($moreUsers)
+            ->send(new OrderSubmit($this->order));
     }
 }

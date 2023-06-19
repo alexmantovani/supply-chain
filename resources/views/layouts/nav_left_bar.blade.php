@@ -3,10 +3,10 @@
     <x-nav-link :href="route('warehouse.product.index', $warehouse->id)" :active="request()->routeIs('warehouse.product.*')">
         {{ __('Listino') }}
     </x-nav-link>
-    <x-nav-link :href="route('warehouse.refill.index', $warehouse->id)" :active="request()->routeIs('warehouse.refill.index')">
+    <x-nav-link :href="route('warehouse.refill.index', $warehouse->id)" :active="request()->routeIs('warehouse.refill.*')">
         {{ __('In esaurimento') }}
     </x-nav-link>
-    <x-nav-link :href="route('warehouse.order.index', $warehouse->id)" :active="request()->routeIs('warehouse.order.index')">
+    <x-nav-link :href="route('warehouse.order.index', $warehouse->id)" :active="request()->routeIs('warehouse.order.*')">
         {{ __('Ordini') }}
     </x-nav-link>
 </div>

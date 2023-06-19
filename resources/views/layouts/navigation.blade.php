@@ -58,9 +58,11 @@
                                 {{ __('Profilo') }}
                             </x-dropdown-link>
 
-                            <x-dropdown-link :href="route('warehouse.index')">
-                                {{ __('Cambia magazzino') }}
-                            </x-dropdown-link>
+                            @can('change warehouse')
+                                <x-dropdown-link :href="route('warehouse.index')">
+                                    {{ __('Cambia magazzino') }}
+                                </x-dropdown-link>
+                            @endcan
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
@@ -118,9 +120,11 @@
                     {{ __('Profilo') }}
                 </x-responsive-nav-link>
 
-                <x-responsive-nav-link :href="route('warehouse.index')">
-                    {{ __('Cambia magazzino') }}
-                </x-responsive-nav-link>
+                @can('edit warehouse', 'change warehouse')
+                    <x-responsive-nav-link :href="route('warehouse.index')">
+                        {{ __('Cambia magazzino') }}
+                    </x-responsive-nav-link>
+                @endcan
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

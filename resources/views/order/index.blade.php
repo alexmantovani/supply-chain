@@ -60,14 +60,18 @@
                                                             class="flex justify-between text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800 py-1 px-2 border-l-4 border-indigo-500">
                                                             <div class="flex">
                                                                 Ordine:
-                                                                <div class="font-semibold text-gray-800 dark:text-gray-200 pl-1">
-                                                                    {{ $order->uuid }}
-                                                                </div>
+                                                                <a href="{{ route('warehouse.order.show', [$warehouse, $order->id]) }}">
+                                                                    <div
+                                                                        class="font-semibold text-gray-800 dark:text-gray-200 pl-1">
+                                                                        {{ $order->uuid }}
+                                                                    </div>
+                                                                </a>
                                                             </div>
                                                             <div
                                                                 title="{{ $order->created_at->translatedFormat('d.m.Y H:i') }}">
                                                                 creato:
-                                                                <span class="font-medium text-gray-800 dark:text-gray-200">
+                                                                <span
+                                                                    class="font-medium text-gray-800 dark:text-gray-200">
                                                                     {{ $order->created_at->diffForHumans() }}
                                                                 </span>
                                                             </div>
@@ -131,12 +135,15 @@
                 @else
                     <div
                         class="max-w-7xl mx-auto sm:px-6 lg:px-8 items-center text-center text-4xl py-16 text-gray-500 font-medium">
-                        <div class="text-4xl text-gray-200 dark:text-gray-800 font-medium py-10" style="font-size: 90px">
+                        <div class="text-4xl text-gray-200 dark:text-gray-800 font-medium py-10"
+                            style="font-size: 90px">
                             <i class="fa-regular fa-circle-exclamation"></i>
                         </div>
                         <div class="p-2 text-gray-600 dark:text-gray-300">
                             Non sono presenti ordini
-                            @if ($show != 'all') pendenti @endif
+                            @if ($show != 'all')
+                                pendenti
+                            @endif
                         </div>
 
                     </div>

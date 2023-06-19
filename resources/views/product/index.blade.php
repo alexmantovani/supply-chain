@@ -85,9 +85,12 @@
                                             </x-product-uuid-cell>
                                         </td>
                                         <td class="p-1 md:p-2 w-2">
-                                            <x-product-status-ball
-                                                class="text-clip rounded-md text-3xl uppercase py-1 px-2 text-center"
-                                                :status="$product->status" />
+                                            <div>
+                                                <x-product-status-ball
+                                                    class="text-clip rounded-md text-3xl uppercase py-1 px-2 text-center"
+                                                    :status="$product->status"
+                                                    title="{{ $product->status->description }}" />
+                                            </div>
                                         </td>
                                         <td class="p-1 md:p-2">
                                             <x-product-name-cell class="" :href="route('warehouse.product.show', [$warehouse, $product])">

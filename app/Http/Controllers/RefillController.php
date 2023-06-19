@@ -98,33 +98,33 @@ class RefillController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Refill $refill)
+    public function destroy(Warehouse $warehouse, Refill $refill)
     {
-        //
+        dd($refill);
     }
 
-    public function ask(Request $request, Warehouse $warehouse)
-    {
-        $productId = $request->input('product_id');
-        $quantity = $request->input('quantity');
-        $warehouseId = $request->input('warehouse_id');
+    // public function ask(Request $request, Warehouse $warehouse)
+    // {
+    //     $productId = $request->input('product_id');
+    //     $quantity = $request->input('quantity');
+    //     $warehouseId = $request->input('warehouse_id');
 
-        $warehouse = Warehouse::find($warehouseId);
-        $product = Product::find($productId);
+    //     $warehouse = Warehouse::find($warehouseId);
+    //     $product = Product::find($productId);
 
-        if ($product->isLow($warehouse)) {
-            return abort(403, 'Questo articolo è già in ordine');
-        }
+    //     if ($product->isLow($warehouse)) {
+    //         return abort(403, 'Questo articolo è già in ordine');
+    //     }
 
-        Refill::create([
-            'warehouse_id' => $warehouseId,
-            'user_id' => Auth::user()->id,
-            'product_id' => $productId,
-            'quantity' => $quantity,
-        ]);
+    //     Refill::create([
+    //         'warehouse_id' => $warehouseId,
+    //         'user_id' => Auth::user()->id,
+    //         'product_id' => $productId,
+    //         'quantity' => $quantity,
+    //     ]);
 
-        return redirect(route("refill.done", compact('warehouse')));
-    }
+    //     return redirect(route("refill.done", compact('warehouse')));
+    // }
 
     public function request(Warehouse $warehouse)
     {

@@ -32,6 +32,10 @@ class SendAbortOrderEmailJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->order->provider->email)->send(new OrderAborted($this->order));
+        $moreUsers = array_map('trim', explode(',', $this->order->warehouse->emails));
+
+        Mail::to($this->order->provider->email)
+            ->cc($moreUsers)
+            ->send(new OrderAborted($this->order));
     }
 }

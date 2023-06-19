@@ -6,6 +6,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,12 +16,38 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Ruolo amministratore e relativi permessi
+        $role = Role::create(['name' => 'super-admin']);
+        $role->syncPermissions([
+            Permission::create([
+                'name' => 'edit warehouse',
+            ]),
+            Permission::create([
+                'name' => 'create warehouse',
+            ]),
+            Permission::create([
+                'name' => 'delete warehouse',
+            ]),
+            Permission::create([
+                'name' => 'change warehouse',
+            ]),
+            Permission::create([
+                'name' => 'handle order',
+            ]),
+        ]);
+
+        $role = Role::create(['name' => 'admin']);
+        $role->syncPermissions([
+            Permission::firstWhere('name', 'change warehouse'),
+            Permission::firstWhere('name', 'handle order'),
+        ]);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Mario Pompeo',
             'email' => 'a@a.a',
             'password' => Hash::make('12345678'),
         ]);
+        $user->assignRole(['super-admin', 'admin']);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Vincenzo Rossi',
@@ -31,6 +60,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'luca@luca.com',
             'password' => Hash::make('qwertyuiop'),
         ]);
+        $user->assignRole('admin');
 
         $provider = \App\Models\Provider::create([
             'name' => 'Marchesini warehouse',

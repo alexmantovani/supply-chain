@@ -50,6 +50,9 @@
                                                 <th class="p-2 w-28 hidden md:table-cell">
                                                     <div class="font-semibold text-center"></div>
                                                 </th>
+                                                <th class="p-2 w-8 hidden md:table-cell">
+                                                    <div class="font-semibold text-right"></div>
+                                                </th>
                                                 <th class="p-2 w-28 whitespace-nowrap">
                                                     <div class="font-semibold text-center">Quantità</div>
                                                 </th>
@@ -81,6 +84,21 @@
                                                                 class="rounded-md text-xs uppercase py-1 px-2 text-center"
                                                                 :status="$refill->product->status" />
                                                         </div>
+                                                    </td>
+                                                    <td class="p-2 hidden md:table-cell">
+                                                        <div onclick='handleClick(this);' id="delete_{{ $refill->id }}" data-id="{{ $refill->id }}" class="hover:text-red-500 cursor-pointer">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </div>
+                                                        {{-- <form
+                                                            action="{{ route('warehouse.refill.destroy', [$warehouse, $refill]) }}"
+                                                            class="button block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500"
+                                                            method="POST">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button type="submit">
+                                                                <i class="fa-solid fa-trash-can"></i>
+                                                            </button>
+                                                        </form> --}}
                                                     </td>
                                                     <td class="p-2 whitespace-nowrap items-right">
                                                         <div class="text-center">
@@ -166,6 +184,19 @@
             }
             list.classList.toggle("hidden");
         }
+
+        function handleClick(element) {
+            var id = $(element).attr('data-id');
+            var dati = $('#delete_' + id + ' :input').serialize();
+            console.log(id);
+            // $.ajax({
+            //     url: "{ route('price_list.update.analisys') }?" + dati,
+            //        type: 'DELETE'
+            // }).done(function(data) {
+            //     document.getElementById('commission_' + id).value = data['commission'];
+            // });
+        }
+
     </script>
 
 </x-app-layout>
