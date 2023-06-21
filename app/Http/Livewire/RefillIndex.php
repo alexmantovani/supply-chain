@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\Refill;
 use App\Jobs\SendNewOrderEmailJob;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class RefillIndex extends Component
 {
@@ -97,6 +98,8 @@ class RefillIndex extends Component
                             'status' => 'ordered',
                             'order_id' => $order->id,
                         ]);
+                    } else {
+                        Log::warning("Selezionato prodotto con quantità =0 " .$refill->product->name );
                     }
                 }
             }
@@ -112,8 +115,6 @@ class RefillIndex extends Component
                     'description' => 'Emesso ordine',
                     'type' => 'info',
                 ]);
-            } else {
-                Log::warning("Ordine non generato a causa di errori");
             }
         }
 
