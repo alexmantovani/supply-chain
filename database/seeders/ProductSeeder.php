@@ -47,17 +47,6 @@ class ProductSeeder extends Seeder
                     'name' => $name,
                     'dealer_id' => $dealer->id,
                     'status_id' => $productStatus->id,
-
-                    // $table->foreignId('dealer_id')->nullable();
-                    // $table->string('uuid')->unique();
-                    // $table->string('name')->nullable();
-                    // $table->string('description')->nullable();
-                    // $table->string('image_url')->nullable();
-                    // $table->unsignedBigInteger('order_code')->nullable();
-                    // $table->string('model')->nullable();
-                    // $table->string('note')->nullable();
-
-                    // $table->string('refill_quantity')->nullable();
                 ]);
             }
             fclose($handle);

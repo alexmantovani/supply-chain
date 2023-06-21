@@ -24,7 +24,6 @@ Route::get('/dashboard', function () {
         return redirect(route('warehouse.show', Auth::user()->profile->warehouse_id));
     }
     return redirect('/warehouse');
-
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::get('/rusco', function () {
@@ -62,14 +61,12 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('warehouse.dealer', App\Http\Controllers\DealerController::class);
     Route::resource('warehouse.product', App\Http\Controllers\ProductController::class);
-    Route::resource('warehouse.order', App\Http\Controllers\OrderController::class)->middleware(['permission:handle order']);
+    Route::resource('warehouse.order', App\Http\Controllers\OrderController::class)->only([
+        'index', 'show', 'destroy'
+    ])->middleware(['permission:handle order']);
     Route::resource('warehouse.refill', App\Http\Controllers\RefillController::class);
 
     Route::get('/order/{order}/completed', [App\Http\Controllers\OrderController::class, 'completed'])->name('order.completed');
-
-
-
-
 });
 
 

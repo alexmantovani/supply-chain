@@ -61,7 +61,7 @@
                         </div>
 
                         <div
-                            class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800">
+                            class="bg-white shadow-lg rounded-sm border border-gray-200 px-1 md:px-8 dark:bg-gray-900 dark:border-gray-800">
                             <table class="table-auto w-full mt-2">
                                 <thead
                                     class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
@@ -69,18 +69,13 @@
                                         <th class="p-2 whitespace-nowrap">
                                             <div class="font-semibold text-left">Codice</div>
                                         </th>
-                                        <th class="p-2 whitespace-nowrap">
+                                        <th class="p-2 ">
                                             <div class="font-semibold text-left">Prodotto</div>
                                         </th>
                                         <th class="p-2 w-20">
                                             <div class="font-semibold text-center">Default</div>
                                         </th>
-
-                                        <th class="p-2 whitespace-nowrap">
-                                            <div class="font-semibold text-center">
-                                                <i class="fa-solid fa-check"></i>
-                                            </div>
-                                        </th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
@@ -98,7 +93,6 @@
                     @endif
 
                     @if ($orders->count())
-
                         <div class="mt-5 flex justify-between items-baseline">
                             <div class=" text-gray-900 text-xl p-3 font-semibold">
                                 Ordini in ritardo
@@ -114,14 +108,11 @@
                                         <th class="p-2 whitespace-nowrap">
                                             <div class="font-semibold text-left">Data</div>
                                         </th>
-                                        <th class="p-2 whitespace-nowrap">
+                                        <th class="p-2 ">
                                             <div class="font-semibold text-left">Ordine</div>
                                         </th>
                                         <th class="p-2 w-36">
                                             <div class="font-semibold text-center">Stato</div>
-                                        </th>
-
-                                        <th class="p-2 whitespace-nowrap">
                                         </th>
                                     </tr>
                                 </thead>

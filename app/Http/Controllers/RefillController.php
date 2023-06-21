@@ -25,7 +25,7 @@ class RefillController extends Controller
             ->join('products', 'products.id', '=', 'refills.product_id')
             ->join('dealers', 'dealers.id', '=', 'dealer_id')
             ->join('providers', 'providers.id', '=', 'dealers.provider_id')
-            ->select('refills.*', 'products.dealer_id', 'dealers.name', 'providers.id as provider_id')
+            ->select('refills.*', 'products.name as product_name', 'products.uuid as product_uuid', 'products.dealer_id', 'dealers.name as dealer_name', 'providers.id as provider_id')
             ->orderBy('provider_id')
             ->get();
         // dd($refills);

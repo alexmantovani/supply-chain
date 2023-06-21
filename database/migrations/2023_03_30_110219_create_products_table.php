@@ -15,7 +15,6 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
 
-            // $table->integer('item_category_id');
             $table->foreignId('dealer_id')->nullable();
             $table->foreignId('status_id');
 
@@ -27,10 +26,7 @@ return new class extends Migration
             $table->string('model')->nullable();
             $table->string('note')->nullable();
 
-            $table->string('refill_quantity')->nullable();
-            // $table->enum('status', ['unknown', 'available', 'aborted', 'obsolete'])->default('unknown');
-            // $table->enum('status', ['OK', 'TST', 'NDT', 'ESA', 'ESR', 'ESPV', 'ANN', 'ANR', 'ANPV', 'PHO', 'PFO', 'NOO'])->default('ok');
-            // $table->unique('dealer_id', 'name');
+            $table->string('refill_quantity')->default(0);
 
             $table->timestamps();
         });

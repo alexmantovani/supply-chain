@@ -32,9 +32,7 @@ class ProcessProduct implements ShouldQueue
     {
         Log::info("ProcessProduct" . $this->product->uuid);
 
-        // TODO: Fare richiesta al server di altena e aggiornare il DB
-        sleep(5);
-
+        // TODO: Sistemare
         $this->product->update([
             'name' => Str::uuid(),
             'dealer_id' => rand(1,5),

@@ -49,58 +49,6 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request, Warehouse $warehouse)
     {
-        foreach ($request->all() as $key => $refill_ids) {
-            if (!str_starts_with($key, 'refill')) continue;
-
-            $providerId = explode("_", $key)[1];
-            $order = Order::create([
-                'provider_id' => $providerId,
-                'warehouse_id' => $warehouse->id,
-                'uuid' => Order::uuid(),
-            ]);
-
-            $products = [];
-
-            foreach ($refill_ids as $refill_id) {
-                $quantity = $request->quantity[$refill_id];
-                if ($quantity == 0) {
-                    Log::error("Ordinato prodotto con quantità =0 refill_id=" . $refill_id);
-                    continue;
-                }
-
-                $refill = Refill::find($refill_id);
-
-                // Verifico se non è impostata per questo prodotto la quantità di refill automatica
-                // ed eventualmente la vado ad impostare
-                if (!$refill->product->refill_quantity) {
-                    $refill->product->update([
-                        'refill_quantity' => $quantity,
-                    ]);
-                }
-
-                $products[$refill->product_id] = ['quantity' => $quantity];
-                // Log::debug("Refill " . $refill . '  prod_id:' . $refill->product_id);
-
-                // Segno questi prodotti come ordinati
-                $refill->update([
-                    'status' => 'ordered',
-                    'order_id' => $order->id,
-                ]);
-            }
-
-            $order->products()->sync($products);
-
-            // Mail::to($order->provider->email)->send(new OrderSubmit($order));
-            SendNewOrderEmailJob::dispatch($order);
-
-            $order->logs()->create([
-                'user_id' => Auth::user()->id,
-                'description' => 'Emesso ordine',
-                'type' => 'info',
-            ]);
-        }
-
-        return redirect()->back()->with('message_success', 'Prodotti ordinati');
     }
 
 
@@ -160,14 +108,6 @@ class OrderController extends Controller
         $order->update([
             'status' => 'completed',
         ]);
-
-        // foreach ($order->products as $product) {
-        // if ($product->stock) {
-        //     $product->stock->increment('quantity', $product->pivot->quantity);
-        // } else {
-        //     dd($product);
-        // }
-        // }
 
         foreach ($order->refills as $refill) {
             $refill->update([
