@@ -26,8 +26,7 @@ class OrderController extends Controller
     {
         $show = Request()->show ?? 'pending';
 
-        // $query = Request()->has('all') ? ['aborted', 'waiting', 'pending', 'completed'] : ['waiting'];
-        $query = ($show==='all') ? ['aborted', 'waiting', 'pending', 'completed'] : ['waiting', 'pending'];
+        $query = ($show === 'all') ? ['aborted', 'waiting', 'pending', 'completed', 'closed'] : ['waiting', 'pending'];
 
         $orders = $warehouse->orders()
             ->whereIn('status', $query)
@@ -125,6 +124,26 @@ class OrderController extends Controller
         $order->logs()->create([
             'user_id' => Auth::user()->id,
             'description' => 'Ordine completato',
+            'type' => 'info',
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function closed(Order $order)
+    {
+        $order->update([
+            'status' => 'closed',
+        ]);
+
+        $order->refills()->whereIn('status', ['low', 'urgent', 'ordered'])
+            ->update([
+                'status' => 'aborted',
+            ]);
+
+        $order->logs()->create([
+            'user_id' => Auth::user()->id,
+            'description' => 'Ordine chiuso con materiale mancante',
             'type' => 'info',
         ]);
 

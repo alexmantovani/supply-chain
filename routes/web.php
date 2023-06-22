@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('warehouse.refill', App\Http\Controllers\RefillController::class);
 
     Route::get('/order/{order}/completed', [App\Http\Controllers\OrderController::class, 'completed'])->name('order.completed');
+    Route::get('/order/{order}/closed', [App\Http\Controllers\OrderController::class, 'closed'])->name('order.closed');
 });
 
 

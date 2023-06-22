@@ -10,7 +10,7 @@
                 <div class="flex items-center p-2">
                     <input {{ in_array($group, $filters) ? 'checked' : '' }} id="default-checkbox-{{ $loop->index }}"
                         type="checkbox" name="filters[]" value="{{ $group }}"
-                        class="w-4 h-4 text-indigo-400 bg-gray-100 border-gray-300 rounded focus:ring-indigo-400 dark:focus:ring-indigo-400 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        class="w-4 h-4 text-red-400 bg-gray-100 border-gray-300 rounded focus:ring-red-400 dark:focus:ring-red-400 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     <label for="default-checkbox-{{ $loop->index }}"
                         class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $group }}
                     </label>

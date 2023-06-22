@@ -29,18 +29,16 @@
                     <div class="font-semibold uppercase pr-3">
                         <a href="{{ route('warehouse.order.index', [$warehouse, 'show' => 'pending']) }}"
                             class="py-1
-                    @if ($show === 'pending') text-indigo-500 border-b border-indigo-400 dark:text-indigo-600 @endif
+                    @if ($show === 'pending') text-red-500 border-b border-red-400 dark:text-red-600 @endif
                     ">
-
                             In corso
                         </a>
                         &nbsp; | &nbsp;
                         <a href="{{ route('warehouse.order.index', [$warehouse, 'show' => 'all']) }}"
                             class="py-1
-                    @if ($show === 'all') text-indigo-500 border-b border-indigo-400 dark:text-indigo-600 @endif
+                    @if ($show === 'all') text-red-500 border-b border-red-400 dark:text-red-600 @endif
                     ">
                             Tutti
-
                         </a>
                     </div>
                 </div>
@@ -51,16 +49,17 @@
                         <div class="md:p-3">
                             <div class="">
                                 <table class="table w-full">
-                                    <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800 ">
+                                    <tbody class="text-sm divide-y divide-red-100 dark:divide-red-800 ">
                                         @foreach ($orders as $order)
                                             <tr class="">
-                                                <td class="p-2 py-3">
+                                                <td class="py-3">
                                                     <div class="text-gray-300 items-center">
                                                         <div
-                                                            class="flex justify-between text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800 py-1 px-2 border-l-4 border-indigo-500">
+                                                            class="flex justify-between text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800 py-1 px-2 border-l-4 border-red-500">
                                                             <div class="flex">
                                                                 Ordine:
-                                                                <a href="{{ route('warehouse.order.show', [$warehouse, $order->id]) }}">
+                                                                <a
+                                                                    href="{{ route('warehouse.order.show', [$warehouse, $order->id]) }}">
                                                                     <div
                                                                         class="font-semibold text-gray-800 dark:text-gray-200 pl-1">
                                                                         {{ $order->uuid }}
@@ -69,7 +68,7 @@
                                                             </div>
                                                             <div
                                                                 title="{{ $order->created_at->translatedFormat('d.m.Y H:i') }}">
-                                                                creato:
+                                                                creato
                                                                 <span
                                                                     class="font-medium text-gray-800 dark:text-gray-200">
                                                                     {{ $order->created_at->diffForHumans() }}
@@ -80,12 +79,12 @@
                                                         <table class="table w-full ">
                                                             @foreach ($order->products as $product)
                                                                 <tr>
-                                                                    <td class="p-2 md:w-32">
-                                                                        <x-product-uuid-cell>
+                                                                    <td class="px-1 w-28">
+                                                                        <x-product-uuid-cell class="w-28">
                                                                             {{ $product->uuid }}
                                                                         </x-product-uuid-cell>
                                                                     </td>
-                                                                    <td class="p-2 text-left">
+                                                                    <td class="px-1 text-left">
                                                                         <x-product-name-cell :href="route('warehouse.product.show', [
                                                                             $warehouse,
                                                                             $product,
@@ -93,13 +92,15 @@
                                                                             {{ $product->name }}
                                                                         </x-product-name-cell>
                                                                     </td>
-                                                                    <td class="p-1 text-right">
+                                                                    <td class="px-1 text-right">
                                                                         <div class=" text-gray-400 text-sm py-1">
                                                                             {{ $product->pivot->quantity }}
                                                                         </div>
                                                                     </td>
                                                                     <td class="pr-1 w-4 text-left">
-                                                                            <x-product-arrived :arrived="$product->isArrived()" :status="$product->status" class="text-xs"/>
+                                                                        <x-product-arrived :arrived="$product->isArrived()"
+                                                                            status="{{ $order->status }}"
+                                                                            class="text-xs" />
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -107,27 +108,22 @@
 
                                                     </div>
                                                 </td>
-                                                {{-- <td class="p-2">
-                                                <div class="text-center dark:text-gray-300">
-                                                    {{ $order->created_at->translatedFormat('d.m.Y') }}
-                                                    &middot;
-                                                    {{ $order->created_at->translatedFormat('H:i') }}
-                                                </div>
-                                            </td> --}}
-                                                <td class="p-2">
+                                                <td class="align-top py-3 pl-3 md:w-40 whitespace-nowrap">
                                                     <x-order-status
-                                                        class="rounded-lg text-xs uppercase py-2 px-3 text-center"
+                                                        class="text-xs font-semibold uppercase py-1 border-r-4 text-gray-700 text-right px-2"
                                                         :status="$order->status" />
+
+                                                    <div class="flex justify-end text-right">
+                                                        @include('order.dropdown')
+                                                    </div>
                                                 </td>
-                                                <td class="px-1 md:px-3 py-3 md:w-8">
-                                                    @include('order.dropdown')
-                                                </td>
-                                                <td class="text-right px-3 py-3 md:w-10">
+
+                                                {{-- <td class="text-right px-3 py-3 md:w-10">
                                                     <a href="{{ route('warehouse.order.show', [$warehouse, $order->id]) }}"
                                                         class="font-medium text-gray-800 text-lg hover:underline dark:text-gray-300">
                                                         <i class="fa-solid fa-angle-right"></i>
                                                     </a>
-                                                </td>
+                                                </td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>

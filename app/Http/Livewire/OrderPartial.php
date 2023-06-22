@@ -19,7 +19,7 @@ class OrderPartial extends Component
 
     public function store()
     {
-        if ( ! $this->selected ) {
+        if (!$this->selected) {
             session()->flash('message', 'Non hai selezionato nessun prodotto.');
 
             return;
@@ -32,25 +32,27 @@ class OrderPartial extends Component
                     'received_quantity' => $product->pivot->quantity,
                 ]);
 
-                $refill = $$this->order->refills()->firstWhere('product_id', $product_id);
+                $refill = $this->order->refills()->firstWhere('product_id', $product_id);
                 $refill->update([
                     'status' => 'completed',
                 ]);
 
                 $this->order->logs()->create([
                     'user_id' => Auth::user()->id,
-                    'description' => 'Consegnato: ' . $product->name . ' quantità ricevuta: ' . $product->pivot->received_quantity,
+                    'description' => 'Consegnato: ' . $product->name . ' ' .
+                        trans_choice('messages.ordered', $product->pivot->quantity) . ' ' .
+                        trans_choice('messages.received', $product->pivot->received_quantity),
                     'type' => 'info',
                 ]);
             }
         }
 
-        // $isCompleted = $this->order->updateStatus();
+        // Faccio il find() per ricaricare i dati che ho cambiato qui sopra nelle tabelle pivot
         $isCompleted = Order::find($this->order->id)->updateStatus();
 
         $this->order->logs()->create([
             'user_id' => Auth::user()->id,
-            'description' => $isCompleted ? 'Ordine completato' :'Ordine arrivato parzialmente',
+            'description' => $isCompleted ? 'Ordine completato' : 'Ordine arrivato parzialmente',
             'type' => 'info',
         ]);
 

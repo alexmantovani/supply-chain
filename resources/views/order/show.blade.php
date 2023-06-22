@@ -32,24 +32,30 @@
                 <div
                     class="bg-white shadow-lg rounded-sm border border-gray-200 md:px-8 dark:bg-gray-900 dark:border-gray-700">
 
-                    <div class="flex justify-between m-5">
+                    <div class="flex justify-between my-2 md:my-4">
                         <div class="pb-6">
-                            <div class="font-semibold text-2xl pt-4 dark:text-gray-200">
-                                Ordine:
-                                {{ $order->uuid }}
+                            <div class="text-2xl font-light pt-4 text-gray-400 dark:text-gray-300">
+                                Ordine
+                                <span class="font-semibold text-gray-700 dark:text-gray-100">
+                                    {{ $order->uuid }}
+                                </span>
                             </div>
-                            <div class="text-lg text-gray-400 dark:text-gray-200">
+                            <div class="text-base text-gray-400">
                                 effettuato il
-                                {{ $order->created_at->translatedFormat('d.m.Y') }}
+                                <span class="text-gray-600 dark:text-gray-200 font-semibold">
+                                    {{ $order->created_at->translatedFormat('d M Y') }}
+                                </span>
                                 alle
-                                {{ $order->created_at->translatedFormat('H.i') }}
-
+                                <span class="text-gray-600 dark:text-gray-200 font-semibold">
+                                    {{ $order->created_at->translatedFormat('H.i') }}
+                                </span>
                             </div>
                         </div>
 
                         <div class="my-4 flex items-center">
-                            <div class="px-3">
-                                <x-order-status class="rounded-lg text-sm uppercase py-2 px-3 text-center"
+                            <div class="w-40">
+                                <x-order-status
+                                    class="text-xs font-semibold uppercase py-1 border-r-4 text-gray-700 text-right px-2"
                                     :status="$order->status" />
                             </div>
                             @include('order.dropdown')
@@ -100,7 +106,7 @@
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
                                         <div class="text-center dark:text-gray-300 text-sm md:text-base">
-                                            <x-product-arrived :arrived="$product->isArrived()"/>
+                                            <x-product-arrived :arrived="$product->isArrived()" :status="$order->status" class="text-xs" />
                                             @php
                                                 $total_received += $product->pivot->received_quantity;
                                             @endphp
@@ -124,9 +130,9 @@
                                 </td>
                                 <td class="p-2 ">
                                     <div class="text-center text-xs text-gray-400">
-                                        {{ round(100 * $total_received / $total, 1) }}%
-                                     </div>
-{{--
+                                        {{ round((100 * $total_received) / $total, 1) }}%
+                                    </div>
+                                    {{--
                                     <div class="text-center text-sm md:text-base">
                                         {{ $total_received }}
                                     </div> --}}

@@ -1,7 +1,7 @@
-<div class="w-8 text-center">
+<div class="w-8 ">
     @if (in_array($order->status, ['waiting', 'pending']))
         <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-            class="text-gray-500 border-gray-200 text-center hover:border-gray-500 border focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
+            class="text-gray-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm pl-5 py-2.5 text-center inline-flex items-center"
             type="button">
             <i class="fa-regular fa-ellipsis-vertical"></i>
         </button>
@@ -11,25 +11,36 @@
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                 <li>
                     <a href="{{ route('order.completed', $order) }}"
-                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ordine
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        title="Tutto il materiale ordinato è stato ricevuto">Ordine
                         completato</a>
                 </li>
                 <li>
                     <a href="{{ route('warehouse.order.edit', [$warehouse, $order]) }}"
-                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Arrivo
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        title="E' arrivata solo una parte del materiale ordinato">Arrivo
                         parziale...</a>
                 </li>
-                <li>
-                    <form action="{{ route('warehouse.order.destroy', [$warehouse, $order]) }}"
-                        class="button block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500"
-                        method="POST">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit">
-                            Annulla ordine
-                        </button>
-                    </form>
-                </li>
+                @if (in_array($order->status, ['pending']))
+                    <li>
+                        <a href="{{ route('order.closed', $order) }}"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            title="Dichiara concluso l'ordine anche se del materiale non è stato consegnato">Chiudi
+                            ordine</a>
+                    </li>
+                @else
+                    <li>
+                        <form action="{{ route('warehouse.order.destroy', [$warehouse, $order]) }}"
+                            class="button block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500"
+                            method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" title="L'ordine verrà annullato">
+                                Annulla ordine
+                            </button>
+                        </form>
+                    </li>
+                @endif
             </ul>
         </div>
     @endif

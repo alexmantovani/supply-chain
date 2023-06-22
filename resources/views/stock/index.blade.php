@@ -57,7 +57,7 @@
                                                     </a>
                                                     @if ($stock->product->isLow())
                                                         <div
-                                                            class=" text-xs px-2 py-1 align-middle bg-indigo-400 text-white rounded uppercase">
+                                                            class=" text-xs px-2 py-1 align-middle bg-red-400 text-white rounded uppercase">
                                                             in esaurimento
                                                         </div>
                                                     @endif

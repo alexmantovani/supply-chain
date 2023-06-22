@@ -32,34 +32,50 @@
                 <div
                     class="bg-white shadow-lg rounded-sm border border-gray-200 md:px-8 dark:bg-gray-900 dark:border-gray-700">
 
-                    <div class="flex justify-between m-5">
+                    <div class="flex justify-between my-2 md:my-4">
                         <div class="pb-6">
-                            <div class="font-semibold text-2xl pt-4 dark:text-gray-200">
-                                Ordine:
-                                <a href="{{ route('warehouse.order.show', [$warehouse, $order]) }}">{{ $order->uuid }}</a>
-
+                            <div class="text-2xl font-light pt-4 text-gray-400 dark:text-gray-300">
+                                Ordine
+                                <a href="{{ route('warehouse.order.show', [$warehouse, $order]) }}">
+                                    <span class="font-semibold text-gray-700 dark:text-gray-100">
+                                        {{ $order->uuid }}
+                                    </span>
+                                </a>
                             </div>
-                            <div class="text-lg text-gray-400 dark:text-gray-200">
+                            <div class="text-base text-gray-400">
                                 effettuato il
-                                {{ $order->created_at->translatedFormat('d.m.Y') }}
+                                <span class="text-gray-600 dark:text-gray-200 font-semibold">
+                                    {{ $order->created_at->translatedFormat('d M Y') }}
+                                </span>
                                 alle
-                                {{ $order->created_at->translatedFormat('H.i') }}
-
+                                <span class="text-gray-600 dark:text-gray-200 font-semibold">
+                                    {{ $order->created_at->translatedFormat('H.i') }}
+                                </span>
                             </div>
                         </div>
 
-                        <div class="my-4 flex items-center">
-                            <div class="px-3">
-                                <x-order-status class="rounded-lg text-sm uppercase py-2 px-3 text-center"
+                        <div class="my-4 flex items-top">
+                            <div class="w-40">
+                                <x-order-status
+                                    class="text-xs font-semibold uppercase py-1 border-r-4 text-gray-700 text-right px-2"
                                     :status="$order->status" />
                             </div>
-                            @include('order.dropdown')
+                            {{-- @include('order.dropdown') --}}
                         </div>
                     </div>
 
                     @livewire('order-partial', ['warehouse' => $warehouse, 'order' => $order])
-
                 </div>
+
+                @if ($order->status == 'pending' || $order->status == 'waiting')
+                    <div class="p-3 text-gray-600 dark:text-gray-400 text-sm">
+                        In alternativa puoi chiudere l'ordine malgrado non sia arrivato tutto il materiale cliccando
+                        <a href="{{ route('order.closed', $order) }}"
+                            class="font-semibold hover:underline text-gray-800 dark:text-gray-200">
+                            qui
+                        </a>
+                    </div>
+                @endif
             </div>
 
         </div>
