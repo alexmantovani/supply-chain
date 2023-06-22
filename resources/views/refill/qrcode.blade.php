@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="navbar_title">
-        <div class="flex ml-5 items-center space-x-5">
+        <div class="flex md:ml-5 items-center space-x-2 md:space-x-5">
             <div
                 class="
               font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight

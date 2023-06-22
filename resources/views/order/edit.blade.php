@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="navbar_title">
-        <div class="flex ml-5 items-center space-x-5">
+        <div class="flex md:ml-5 items-center space-x-2 md:space-x-5">
             <div
                 class="
               font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight
@@ -25,12 +25,12 @@
         </a>
     </x-slot>
 
-    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
+    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-1 md:p-4 dark:bg-gray-800">
         <div class="h-full ">
             <!-- Table -->
             <div class="w-full max-w-7xl mx-auto ">
                 <div
-                    class="bg-white shadow-lg rounded-sm border border-gray-200 md:px-8 dark:bg-gray-900 dark:border-gray-700">
+                    class="md:bg-white md:shadow-lg rounded-sm md:border border-gray-200 md:px-8 dark:bg-gray-900 dark:border-gray-700">
 
                     <div class="flex justify-between my-2 md:my-4">
                         <div class="pb-6">
@@ -55,7 +55,7 @@
                         </div>
 
                         <div class="my-4 flex items-top">
-                            <div class="w-40">
+                            <div class="md:w-40 mt-1">
                                 <x-order-status
                                     class="text-xs font-semibold uppercase py-1 border-r-4 text-gray-700 text-right px-2"
                                     :status="$order->status" />

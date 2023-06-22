@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="navbar_title">
-        <div class="flex ml-5 items-center space-x-5">
+        <div class="flex md:ml-5 items-center space-x-2 md:space-x-5">
             <div>
                 <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
                     {{ $warehouse->name }}
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="flex justify-center text-4xl">
-                    La tua richiesta è stata rifiutata
+                    La tua richiesta contiene errori:
                 </div>
 
                 <div class="text-center text-lg text-gray-400 uppercase py-5 font-semibold">

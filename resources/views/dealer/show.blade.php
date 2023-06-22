@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="navbar_title">
-        <div class="flex ml-5 items-center space-x-5">
+        <div class="flex md:ml-5 items-center space-x-2 md:space-x-5">
             <div
                 class="
               font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight
@@ -63,24 +63,6 @@
                             <form method="GET" action="{{ route('warehouse.dealer.show', [$warehouse, $dealer]) }}">
                                 <div class="flex items-center">
 
-                                    <div class="w-30 items-right pt-1 pr-5">
-                                        <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
-                                            class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-md h-11 text-sm px-3 py-3 mt-3 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                                            type="button">
-                                            <i class="fa-regular fa-filter"></i> &nbsp;
-                                            Filtra
-                                            <svg class="w-3 h-3 ml-2" aria-hidden="true" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 9l-7 7-7-7"></path>
-                                            </svg>
-                                        </button>
-
-                                        <x-product-filter-dropdown :filters="$filters" />
-                                    </div>
-
-
                                     <div class="flex mt-4 rounded-md border border-gray-300 items-center">
                                         <div class="w-full">
                                             <input
@@ -90,7 +72,16 @@
                                         </div>
 
                                         <div class="p-1">
-                                            <x-primary-button class="">
+                                            <x-secondary-button class="ml-3 h-12 w-12" title="Filtra ricerca"
+                                                id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio">
+                                                <i class="fas fa-filter"></i>
+                                            </x-secondary-button>
+
+                                            <x-product-filter-dropdown :filters="$filters" />
+                                        </div>
+
+                                        <div class="p-1">
+                                            <x-primary-button class="h-12 w-12">
                                                 <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
                                             </x-primary-button>
                                         </div>
@@ -106,42 +97,33 @@
                                 <th class="p-2 whitespace-nowrap w-20">
                                     <div class="font-semibold text-left">Codice</div>
                                 </th>
+                                <th class="p-2 w-2">
+                                    <div class="font-semibold text-left"></div>
+                                </th>
                                 <th class="p-2 ">
                                     <div class="font-semibold text-left">Prodotto</div>
-                                </th>
-                                <th class="p-2 ">
-                                    <div class="font-semibold text-center">Stato</div>
-                                </th>
-                                <th class="p-2 ">
-                                    <div class="font-semibold text-left">Produttore</div>
                                 </th>
                             </tr>
                         </thead>
 
                         <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
                             @foreach ($products as $product)
-                                <tr class="h-10">
-                                    <td class="p-2 whitespace-nowrap">
+                                <tr class="align-middle h-8">
+                                    <td class="p-1 whitespace-nowrap">
                                         <x-product-uuid-cell>
                                             {{ $product->uuid }}
                                         </x-product-uuid-cell>
                                     </td>
-                                    <td class="p-2">
-                                        <x-product-name-cell class="" :href="route('warehouse.product.show', [$warehouse, $product])">
-                                            {{ $product->name }}
-                                        </x-product-name-cell>
-                                    </td>
-                                    <td class="p-2">
-                                        <div class="text-center dark:text-gray-300 min-w-min">
-                                            <x-product-status
-                                                class="text-clip rounded-md text-xs uppercase py-1 px-2 text-center"
-                                                :status="$product->status" />
+                                    <td class="p-1 md:p-2 w-2">
+                                        <div>
+                                            <x-product-status-ball class="w-2 h-2"
+                                                :status="$product->status" title="{{ $product->status->description }}" />
                                         </div>
                                     </td>
-                                    <td class="p-2">
-                                        <x-product-dealer-cell class="">
-                                            {{ $product->dealer->name }}
-                                        </x-product-dealer-cell>
+                                    <td class="p-1">
+                                        <x-product-name-cell :href="route('warehouse.product.show', [$warehouse, $product])">
+                                            {{ $product->name }}
+                                        </x-product-name-cell>
                                     </td>
                                 </tr>
                             @endforeach

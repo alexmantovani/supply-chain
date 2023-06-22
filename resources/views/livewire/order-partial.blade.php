@@ -6,7 +6,7 @@
                     <th class="p-2 whitespace-nowrap w-20">
                         <div class="font-semibold text-left">Codice</div>
                     </th>
-                    <th class="p-2 whitespace-nowrap">
+                    <th class="p-2 whitespace-nowrap hidden md:table-cell">
                         <div class="font-semibold text-left px-3">Prodotto</div>
                     </th>
                     <th class="p-2 whitespace-nowrap">
@@ -30,7 +30,7 @@
                                 {{ $product->uuid }}
                             </x-product-uuid-cell>
                         </td>
-                        <td class="p-2 ">
+                        <td class="p-2 hidden md:table-cell">
                             <x-product-name-cell :href="route('warehouse.product.show', [$warehouse, $product])">
                                 {{ $product->name }}
                             </x-product-name-cell>

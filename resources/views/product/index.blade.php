@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="navbar_title">
-        <div class="flex ml-5 items-center space-x-5">
+        <div class="flex md:ml-5 items-center space-x-2 md:space-x-5">
             <div>
                 <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
                     {{ $warehouse->name }}
@@ -87,7 +87,7 @@
                                         <td class="p-1 md:p-2 w-2">
                                             <div>
                                                 <x-product-status-ball
-                                                    class="text-clip rounded-md text-3xl uppercase py-1 px-2 text-center"
+                                                    class="w-2 h-2"
                                                     :status="$product->status"
                                                     title="{{ $product->status->description }}" />
                                             </div>
