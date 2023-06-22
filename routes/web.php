@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('warehouse.dealer', App\Http\Controllers\DealerController::class);
     Route::resource('warehouse.product', App\Http\Controllers\ProductController::class);
     Route::resource('warehouse.order', App\Http\Controllers\OrderController::class)->only([
-        'index', 'show', 'destroy'
+        'index', 'show', 'destroy', 'edit'
     ])->middleware(['permission:handle order']);
     Route::resource('warehouse.refill', App\Http\Controllers\RefillController::class);
 

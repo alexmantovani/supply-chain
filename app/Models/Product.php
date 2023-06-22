@@ -37,7 +37,10 @@ class Product extends Model
     public function orders()
     {
         return $this->belongsToMany(Order::class)
-            ->withPivot('quantity');
+            ->withPivot([
+                'quantity',
+                'received_quantity',
+            ]);
     }
 
     public function logs()
@@ -59,6 +62,16 @@ class Product extends Model
     public function isOrdinable()
     {
         return (bool)$this->status->ordinable;
+    }
+
+    // Riporta true se il prodotto è stato consegnato
+    public function isArrived()
+    {
+        if ($this->pivot->received_quantity == $this->pivot->quantity) {
+            return true;
+        }
+
+        return false;
     }
 
     public function parseHtml()

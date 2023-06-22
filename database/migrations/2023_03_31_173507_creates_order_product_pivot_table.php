@@ -19,6 +19,8 @@ return new class extends Migration
 
             $table->unsignedBigInteger('quantity')->default(1);
 
+            $table->unsignedBigInteger('received_quantity')->default(0);
+
             $table->timestamps();
         });
     }

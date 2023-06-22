@@ -80,7 +80,7 @@
                                                         <table class="table w-full ">
                                                             @foreach ($order->products as $product)
                                                                 <tr>
-                                                                    <td class="p-2 w-32">
+                                                                    <td class="p-2 md:w-32">
                                                                         <x-product-uuid-cell>
                                                                             {{ $product->uuid }}
                                                                         </x-product-uuid-cell>
@@ -93,10 +93,13 @@
                                                                             {{ $product->name }}
                                                                         </x-product-name-cell>
                                                                     </td>
-                                                                    <td class="p-2 text-right">
+                                                                    <td class="p-1 text-right">
                                                                         <div class=" text-gray-400 text-sm py-1">
                                                                             {{ $product->pivot->quantity }}
                                                                         </div>
+                                                                    </td>
+                                                                    <td class="pr-1 w-4 text-left">
+                                                                            <x-product-arrived :arrived="$product->isArrived()" :status="$product->status" class="text-xs"/>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach

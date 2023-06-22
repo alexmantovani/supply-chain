@@ -67,14 +67,16 @@
                                     <div class="font-semibold text-left px-3">Prodotto</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-center">Quantità</div>
+                                    <div class="font-semibold text-right">Quantità</div>
                                 </th>
+                                <th></th>
                             </tr>
                         </thead>
 
                         <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
                             @php
                                 $total = 0;
+                                $total_received = 0;
                             @endphp
                             @foreach ($order->products as $product)
                                 <tr>
@@ -84,34 +86,50 @@
                                         </x-product-uuid-cell>
                                     </td>
                                     <td class="p-2 ">
-                                        <x-product-name-cell :href="route('warehouse.product.show', [
-                                            $warehouse,
-                                            $product,
-                                        ])">
+                                        <x-product-name-cell :href="route('warehouse.product.show', [$warehouse, $product])">
                                             {{ $product->name }}
                                         </x-product-name-cell>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
-                                        <div class="text-center dark:text-gray-300 text-sm md:text-base">
+                                        <div class="text-right dark:text-gray-300 text-sm md:text-base">
                                             {{ $product->pivot->quantity }}
                                             @php
                                                 $total += $product->pivot->quantity;
                                             @endphp
                                         </div>
                                     </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="text-center dark:text-gray-300 text-sm md:text-base">
+                                            <x-product-arrived :arrived="$product->isArrived()"/>
+                                            @php
+                                                $total_received += $product->pivot->received_quantity;
+                                            @endphp
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
+
                             <tr class="  text-gray-700 dark:text-gray-300">
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-md">
                                         Totale
                                     </div>
                                 </td>
-                                <td></td>
-                                <td class=" whitespace-nowrap ">
-                                    <div class="text-center text-sm md:text-base">
+                                <td>
+                                </td>
+                                <td class=" p-2 ">
+                                    <div class="text-right text-sm md:text-base">
                                         {{ $total }}
                                     </div>
+                                </td>
+                                <td class="p-2 ">
+                                    <div class="text-center text-xs text-gray-400">
+                                        {{ round(100 * $total_received / $total, 1) }}%
+                                     </div>
+{{--
+                                    <div class="text-center text-sm md:text-base">
+                                        {{ $total_received }}
+                                    </div> --}}
                                 </td>
                             </tr>
                         </tbody>

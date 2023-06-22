@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
             Permission::firstWhere('name', 'handle order'),
         ]);
 
+
         $user = \App\Models\User::factory()->create([
             'name' => 'Mario Pompeo',
             'email' => 'a@a.a',
@@ -62,6 +63,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $user->assignRole('admin');
 
+
         $provider = \App\Models\Provider::create([
             'name' => 'Marchesini warehouse',
             'description' => "Magazzino generale Marchesini Group",
@@ -77,23 +79,9 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory(100)->create();
 
-        // \App\Models\Dealer::factory(100)->create([
-        //     'provider_id' => $provider->id,
-        // ]);
-
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
         $this->call([
             ProductStatusSeeder::class,
             ProductSeeder::class,
-            // StockSeeder::class,
         ]);
-
-        // \App\Models\Refill::factory(7)->create();
     }
 }

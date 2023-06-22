@@ -41,10 +41,7 @@
                 </div>
 
                 <div class="flex justify-end mt-3">
-
-                    <x-primary-button class="">
-                        {{ __('Salva') }}
-                    </x-primary-button>
+                    <x-primary-button class="">{{ __('Salva') }}</x-primary-button>
                 </div>
             </form>
 

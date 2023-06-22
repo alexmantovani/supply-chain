@@ -27,7 +27,7 @@ class OrderController extends Controller
         $show = Request()->show ?? 'pending';
 
         // $query = Request()->has('all') ? ['aborted', 'waiting', 'pending', 'completed'] : ['waiting'];
-        $query = ($show==='all') ? ['aborted', 'waiting', 'pending', 'completed'] : ['waiting'];
+        $query = ($show==='all') ? ['aborted', 'waiting', 'pending', 'completed'] : ['waiting', 'pending'];
 
         $orders = $warehouse->orders()
             ->whereIn('status', $query)
@@ -63,9 +63,9 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Order $order)
+    public function edit(Warehouse $warehouse, Order $order)
     {
-        //
+        return view('order.edit', compact('order', 'warehouse'));
     }
 
     /**
@@ -112,6 +112,13 @@ class OrderController extends Controller
         foreach ($order->refills as $refill) {
             $refill->update([
                 'status' => 'completed',
+            ]);
+        }
+
+        // Segno tutti i prodotti all'interno dell'ordine come arrivati
+        foreach ($order->products as $product) {
+            $product->pivot->update([
+                'received_quantity' => $product->pivot->quantity,
             ]);
         }
 

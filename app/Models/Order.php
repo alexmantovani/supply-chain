@@ -15,7 +15,10 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class)
-            ->withPivot('quantity');
+            ->withPivot([
+                'quantity',
+                'received_quantity',
+            ]);
     }
 
     public function provider()
@@ -56,4 +59,30 @@ class Order extends Model
         return $unique;
     }
 
+    // In base ai prodotti ricevuti imposta lo status
+    // Riporta True nel caso in cui l'ordine sia stato completato
+    public function updateStatus()
+    {
+        $isCompleted = true;
+
+        foreach ($this->products as $product) {
+            if ($product->pivot->received_quantity != $product->pivot->quantity) {
+                // Log::info('DIVERSI ' . $product->pivot->received_quantity . '!=' . $product->pivot->quantity );
+                $isCompleted = false;
+                break;
+            }
+        }
+
+        if ($isCompleted) {
+            $this->update([
+                'status' => 'completed',
+            ]);
+        } else {
+            $this->update([
+                'status' => 'pending',
+            ]);
+        }
+
+        return $isCompleted;
+    }
 }

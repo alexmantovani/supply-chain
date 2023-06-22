@@ -22,7 +22,7 @@
     @break
 
     @case('pending')
-        <div {{ $attributes->merge(['class' => 'bg-yellow-600 text-white ']) }}>
+        <div {{ $attributes->merge(['class' => 'bg-yellow-400 text-white ']) }}>
             Parziale
         </div>
     @break
