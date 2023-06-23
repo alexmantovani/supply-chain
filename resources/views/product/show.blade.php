@@ -154,7 +154,7 @@
                                         <div class="font-semibold text-left">Magazzino</div>
                                     </th>
                                     <th class="p-2 whitespace-nowrap hidden md:table-cell">
-                                        <div class="font-semibold text-center">Quantità</div>
+                                        <div class="font-semibold text-right">Quantità</div>
                                     </th>
                                     <th class="p-2 w-30 hidden md:table-cell">
                                         <div class="font-semibold text-right">Stato</div>
@@ -187,7 +187,7 @@
                                         </div>
                                     </td>
                                     <td class="p-1 font-sm md:text-md  whitespace-nowrap text-gray-500 dark:text-gray-300 hidden md:table-cell">
-                                        <div class=" text-center">
+                                        <div class=" text-right">
                                             {{ $order->pivot->quantity }}
                                         </div>
                                     </td>

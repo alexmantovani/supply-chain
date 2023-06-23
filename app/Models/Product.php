@@ -14,13 +14,15 @@ class Product extends Model
 
     protected $guarded = [];
 
-    public function getReceivedAttribute() {
+    public function getReceivedAttribute()
+    {
         $quantity = $this->orders->sum('pivot.received_quantity');
 
         return $quantity;
     }
 
-    public function getOrderedAttribute() {
+    public function getOrderedAttribute()
+    {
         $quantity = $this->orders->sum('pivot.quantity');
 
         return $quantity;
@@ -53,6 +55,15 @@ class Product extends Model
                 'quantity',
                 'received_quantity',
             ]);
+    }
+
+    public function refillQuantity($warehouse_id)
+    {
+        $default = ProductDefault::where('warehouse_id', $warehouse_id)
+            ->where('product_id', $this->id)
+            ->first();
+
+        return $default->refill_quantity ?? 0;
     }
 
     public function logs()

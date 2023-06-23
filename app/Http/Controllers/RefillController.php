@@ -200,7 +200,7 @@ class RefillController extends Controller
             'user_id' => 1,
             'warehouse_id' => $warehouse->id,
             'product_id' => $product->id,
-            'quantity' => $quantity ?? $product->refill_quantity,
+            'quantity' => $quantity ?? $product->refillQuantity($warehouse->id),
         ]);
 
         return 0; // Done

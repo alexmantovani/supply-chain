@@ -36,7 +36,7 @@ class ProcessProduct implements ShouldQueue
         $this->product->update([
             'name' => Str::uuid(),
             'dealer_id' => rand(1,5),
-            'refill_quantity' => 0,
+            // 'refill_quantity' => 0,
             'order_code' => 0,
             'model' => ''
         ]);
