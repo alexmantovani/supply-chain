@@ -12,11 +12,7 @@
         @include('layouts.nav_left_bar', ['warehouse' => $warehouse])
     </x-slot>
     <x-slot name="navbar_right_menu">
-        <a href="{{ route('warehouse.refill.create', $warehouse) }}">
-            <x-secondary-button class="">
-                <i class="fa-solid fa-plus"></i> &nbsp; Aggiungi
-            </x-secondary-button>
-        </a>
+        @include('layouts.nav_right_bar', ['warehouse' => $warehouse])
     </x-slot>
 
     <section class="antialiased bg-gray-100 text-gray-600 min-h-screen p-4">

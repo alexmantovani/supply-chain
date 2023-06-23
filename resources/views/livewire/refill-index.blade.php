@@ -111,14 +111,14 @@
         </section>
     @else
         <div
-            class="max-w-7xl mx-auto sm:px-6 lg:px-8 items-center text-center text-4xl py-16 text-gray-200 dark:text-gray-700 font-medium">
+            class="max-w-7xl mx-auto sm:px-6 px-2 lg:px-8 items-center text-center text-4xl py-8 lg-py-16 text-gray-200 dark:text-gray-700 font-medium">
             <div class="text-4xl text-gray-200 dark:text-gray-800 font-medium py-10" style="font-size: 90px">
                 <i class="fa-regular fa-circle-exclamation"></i>
             </div>
             <div class="p-2 text-gray-600 dark:text-gray-300">
                 Non sono presenti materiali da ordinare
             </div>
-            <div class="text-gray-400 dark:text-gray-500 text-lg font-medium">
+            <div class=" text-gray-400 dark:text-gray-500 text-lg font-medium">
                 Non è stata fatta alcuna richiesta di materiale da ordinare
             </div>
 

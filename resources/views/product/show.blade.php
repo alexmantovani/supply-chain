@@ -18,25 +18,20 @@
         @include('layouts.nav_left_bar', ['warehouse' => $warehouse])
     </x-slot>
     <x-slot name="navbar_right_menu">
-        <a href="{{ route('warehouse.refill.create', $warehouse) }}">
-            <x-secondary-button class="">
-                <i class="fa-solid fa-plus"></i> &nbsp; Aggiungi
-            </x-secondary-button>
-        </a>
+        @include('layouts.nav_right_bar', ['warehouse' => $warehouse])
     </x-slot>
 
-
-    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
+    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen md:p-4 dark:bg-gray-800">
 
         <div class="w-full max-w-7xl mx-auto ">
             <div
-                class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 py-8 dark:bg-gray-900 dark:border-gray-700">
-                <div class="mx-5">
+            class="bg-white shadow-lg rounded-sm border border-gray-200 md:px-8 dark:bg-gray-900 dark:border-gray-700">
+            <div class="m-5">
                     <div class="flex justify-between">
-                        <div class="font-semibold text-2xl dark:text-gray-200">
+                        <div class="font-semibold text-xl md:text-2xl dark:text-gray-200">
                             {{ $product->name }}
                         </div>
-                        <div class="font-semibold text-2xl dark:text-gray-200">
+                        <div class="font-semibold text-xl md:text-2xl dark:text-gray-200">
                             <x-product-status class="rounded-lg text-sm uppercase py-2 px-3 text-center"
                                 :status="$product->status" />
                         </div>
@@ -61,7 +56,7 @@
 
             </div>
 
-            <div class="md:grid md:grid-cols-2 md:gap-4 h-full pt-8">
+            <div class="md:grid md:grid-cols-2 md:gap-4 h-full pt-8 mx-2">
                 <div>
                     <div class="md:px-5">
                         <div class=" text-gray-400 text-xl font-semibold">
@@ -133,7 +128,7 @@
             </div>
 
 
-            <div class="md:flex mt-5">
+            <div class="md:flex mt-5 mx-2">
                 <div
                     class="flex-1 md:bg-white md:shadow-lg md:rounded-sm md:border border-gray-200 md:px-8 py-8 dark:bg-gray-900 dark:border-gray-700">
                     <div class="pb-6 md:mx-5">

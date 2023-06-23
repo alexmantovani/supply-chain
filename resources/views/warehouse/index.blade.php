@@ -7,13 +7,14 @@
         </div>
     </x-slot>
 
-    <x-slot name="navbar_buttons">
+    <x-slot name="navbar_right_menu">
         @can('create warehouse')
-            <x-nav-link :href="route('warehouse.create')" :active="request()->routeIs('warehouse.create')">
-                {{ __('Nuovo Magazzino') }}
-            </x-nav-link>
+            <a href="{{ route('warehouse.create') }}">
+                <x-secondary-button class="">
+                    <i class="fa-solid fa-plus"></i> &nbsp; Magazzino
+                </x-secondary-button>
+            </a>
         @endcan
-
     </x-slot>
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
@@ -28,7 +29,7 @@
                             <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
                                 @foreach ($warehouses as $warehouse)
                                     <tr>
-                                        <td class="p-2 whitespace-nowrap">
+                                        <td class="p-2 ">
                                             <div class=" items-center">
                                                 {{-- <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img
                                                 class="rounded"
