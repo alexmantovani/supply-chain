@@ -52,7 +52,7 @@ class DealerController extends Controller
             })
             ->whereIn('status_id', $filter_list)
             ->paginate(100);
-        return view('dealer.show', compact('warehouse', 'dealer', 'products', 'search', 'filters'));
+            return view('dealer.show', compact('warehouse', 'dealer', 'products', 'search', 'filters'));
     }
 
     /**

@@ -69,6 +69,12 @@
                                     <th class="p-2 hidden md:table-cell">
                                         <div class="font-semibold text-left">Produttore</div>
                                     </th>
+                                    <th class=" hidden md:table-cell">
+                                        <div class="font-semibold text-right">Ordinati</div>
+                                    </th>
+                                    <th class=" hidden md:table-cell">
+                                        <div class="font-semibold text-right">Ricevuti</div>
+                                    </th>
                                 </tr>
                             </thead>
 
@@ -97,6 +103,18 @@
                                             <x-product-dealer-cell class="" :href="route('warehouse.dealer.show', [$warehouse, $product->dealer])">
                                                 {{ $product->dealer->name }}
                                             </x-product-dealer-cell>
+                                        </td>
+                                        <td class="p-1 text-right hidden md:table-cell">
+                                            <div>
+                                                <x-product-quantity-cell class="w-2 h-2"
+                                                    :quantity="$product->ordered"  />
+                                            </div>
+                                        </td>
+                                        <td class="p-1 text-right hidden md:table-cell">
+                                            <div>
+                                                <x-product-quantity-cell class="w-2 h-2"
+                                                    :quantity="$product->received"  />
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

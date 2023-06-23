@@ -181,7 +181,7 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="p-1 font-sm md:text-md  text-gray-600 dark:text-gray-300 whitespace-nowrap ">
+                                    <td class="p-1 font-sm md:text-md  text-gray-600 dark:text-gray-300 whitespace-nowrap hidden md:table-cell">
                                         <div>
                                             {{ $order->warehouse->name }}
                                         </div>
@@ -191,7 +191,7 @@
                                             {{ $order->pivot->quantity }}
                                         </div>
                                     </td>
-                                    <td class="p-1 whitespace-nowrap text-xs text-gray-500 dark:text-gray-300 text-right md:w-40 hidden md:table-cell">
+                                    <td class="p-1 whitespace-nowrap text-xs text-gray-500 dark:text-gray-300 text-right md:w-40 ">
                                         <div class="mt-1">
                                             <x-order-status
                                                 class="text-xs font-semibold uppercase py-1 border-r-4 text-gray-700 text-right px-2"

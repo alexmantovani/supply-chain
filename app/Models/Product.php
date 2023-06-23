@@ -14,6 +14,18 @@ class Product extends Model
 
     protected $guarded = [];
 
+    public function getReceivedAttribute() {
+        $quantity = $this->orders->sum('pivot.received_quantity');
+
+        return $quantity;
+    }
+
+    public function getOrderedAttribute() {
+        $quantity = $this->orders->sum('pivot.quantity');
+
+        return $quantity;
+    }
+
     public function stock()
     {
         return $this->hasOne(Stock::class);
@@ -73,6 +85,11 @@ class Product extends Model
 
         return false;
     }
+
+    // public function received()
+    // {
+    //     return $this->orders->sum('pivot.received_quantity');
+    // }
 
     public function parseHtml()
     {
