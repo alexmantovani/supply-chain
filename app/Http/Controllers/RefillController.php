@@ -47,10 +47,11 @@ class RefillController extends Controller
     {
         $codes = explode(" ", $request['codes']);
         $quantity = $request['quantity'] ?? null;
+        $warehouse_id = $request['warehouse_id'] ?? $warehouse->id;
 
         $errors = [];
         foreach ($codes as $code) {
-            $result = $this->putInList($warehouse, $code, $quantity);
+            $result = $this->putInList(Warehouse::find($warehouse_id), $code, $quantity);
 
             switch ($result) {
                 case 1:
