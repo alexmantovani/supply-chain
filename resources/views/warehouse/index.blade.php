@@ -31,16 +31,14 @@
                                     <tr>
                                         <td class="p-2 ">
                                             <div class=" items-center">
-                                                {{-- <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img
-                                                class="rounded"
-                                                src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg"
-                                                width="40" height="40" alt="Alex Shatov"></div> --}}
-                                                <div
-                                                    class="flex justify-between items-center font-medium text-gray-800 text-lg dark:text-gray-300">
-                                                    {{-- <a href="{{ route('product.show', $stock->product) }}"
+                                                <a href="{{ route('warehouse.show', $warehouse->id) }}">
+                                                    <div
+                                                        class="flex justify-between items-center font-medium text-gray-800 text-lg dark:text-gray-300">
+                                                        {{-- <a href="{{ route('product.show', $stock->product) }}"
                                                         class=" hover:underline"> --}}
-                                                    {{ $warehouse->name }}
-                                                </div>
+                                                        {{ $warehouse->name }}
+                                                    </div>
+                                                </a>
                                                 <div class=" text-sm text-gray-400">
                                                     {{ $warehouse->description }}
                                                 </div>

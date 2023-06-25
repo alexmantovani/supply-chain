@@ -16,14 +16,18 @@ class Product extends Model
 
     public function getReceivedAttribute()
     {
-        $quantity = $this->orders->sum('pivot.received_quantity');
+        $quantity = $this->orders
+            ->whereNotIn('status', ['aborted'])
+            ->sum('pivot.received_quantity');
 
         return $quantity;
     }
 
     public function getOrderedAttribute()
     {
-        $quantity = $this->orders->sum('pivot.quantity');
+        $quantity = $this->orders
+            ->whereNotIn('status', ['aborted'])
+            ->sum('pivot.quantity');
 
         return $quantity;
     }
@@ -153,9 +157,6 @@ class Product extends Model
                 break;
             }
         }
-
-
-
 
         print($uuid . ' ' . $name);
     }

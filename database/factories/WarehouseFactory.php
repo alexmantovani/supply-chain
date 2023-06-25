@@ -19,7 +19,7 @@ class WarehouseFactory extends Factory
         return [
             'name' => fake()->unique()->company(),
             'description' => fake()->sentence(),
-            'email' => fake()->email(),
+            'emails' => fake()->optional()->email(),
         ];
     }
 }

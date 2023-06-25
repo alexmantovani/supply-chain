@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/warehouse/{warehouse}/refill/error', [App\Http\Controllers\RefillController::class, 'requestError'])->name('refill.error');
     Route::get('/warehouse/{warehouse}/refill/request', [App\Http\Controllers\RefillController::class, 'request'])->name('refill.request');
 
-    Route::resource('warehouse.dealer', App\Http\Controllers\DealerController::class);
+    Route::resource('warehouse.dealer', App\Http\Controllers\DealerController::class)->only(['show']);
     Route::resource('warehouse.product', App\Http\Controllers\ProductController::class);
     Route::resource('warehouse.order', App\Http\Controllers\OrderController::class)->only([
         'index', 'show', 'destroy', 'edit'
@@ -68,6 +68,19 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/order/{order}/completed', [App\Http\Controllers\OrderController::class, 'completed'])->name('order.completed');
     Route::get('/order/{order}/closed', [App\Http\Controllers\OrderController::class, 'closed'])->name('order.closed');
+
+    Route::get('/admin', function () {
+        return view('admin.welcome');
+    })->middleware(['permission:admin site'])->name('admin');
+
+    Route::prefix('admin')->group(function () {
+        Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('admin.users');
+        // Route::get('/providers', [App\Http\Controllers\ProviderController::class, 'index'])->middleware(['permission:admin site'])->name('admin.providers');
+        Route::resource('provider', App\Http\Controllers\ProviderController::class)->except([
+            'destroy'
+        ]);
+        Route::resource('dealer', App\Http\Controllers\DealerController::class)->only(['index']);
+    })->middleware(['auth', 'permission:admin site']);
 });
 
 

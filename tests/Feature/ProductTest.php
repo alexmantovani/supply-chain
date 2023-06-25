@@ -106,9 +106,9 @@ class ProductTest extends TestCase
     }
 
 
-    public function test_rusco(): void
-    {
-        $product = Product::find(5);
-        $product->parseHtml();
-    }
+    // public function test_rusco(): void
+    // {
+    //     $product = Product::find(5);
+    //     $product->parseHtml();
+    // }
 }

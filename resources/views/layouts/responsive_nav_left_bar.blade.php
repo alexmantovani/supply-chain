@@ -5,7 +5,9 @@
     <x-responsive-nav-link :href="route('warehouse.refill.index', $warehouse->id)">
         {{ __('In esaurimento') }}
     </x-responsive-nav-link>
-    <x-responsive-nav-link :href="route('warehouse.order.index', $warehouse->id)">
-        {{ __('Ordini') }}
-    </x-responsive-nav-link>
+    @can('handle order')
+        <x-responsive-nav-link :href="route('warehouse.order.index', $warehouse->id)">
+            {{ __('Ordini') }}
+        </x-responsive-nav-link>
+    @endcan
 </div>

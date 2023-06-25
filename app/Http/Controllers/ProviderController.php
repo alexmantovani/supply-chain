@@ -13,7 +13,9 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        //
+        $providers = Provider::all();
+
+        return view('provider.index', compact('providers'));
     }
 
     /**
@@ -21,7 +23,7 @@ class ProviderController extends Controller
      */
     public function create()
     {
-        //
+        return view('provider.create');
     }
 
     /**
@@ -29,7 +31,13 @@ class ProviderController extends Controller
      */
     public function store(StoreProviderRequest $request)
     {
-        //
+        Provider::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'email' => $request->email,
+        ]);
+
+        return to_route('provider.index');
     }
 
     /**
@@ -45,7 +53,7 @@ class ProviderController extends Controller
      */
     public function edit(Provider $provider)
     {
-        //
+        return view('provider.edit', compact('provider'));
     }
 
     /**
@@ -53,7 +61,13 @@ class ProviderController extends Controller
      */
     public function update(UpdateProviderRequest $request, Provider $provider)
     {
-        //
+        $provider->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'email' => $request->email,
+        ]);
+
+        return to_route('provider.index');
     }
 
     /**

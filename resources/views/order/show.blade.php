@@ -30,13 +30,13 @@
 
                     <div class="flex justify-between my-2 md:my-4">
                         <div class="pb-6">
-                            <div class="text-2xl font-light pt-4 text-gray-400 dark:text-gray-300">
+                            <div class="text-xl md:text-2xl font-light pt-4 text-gray-400 dark:text-gray-300">
                                 Ordine
                                 <span class="font-semibold text-gray-700 dark:text-gray-100">
                                     {{ $order->uuid }}
                                 </span>
                             </div>
-                            <div class="text-base text-gray-400">
+                            <div class="text-sm md:text-base text-gray-400">
                                 effettuato il
                                 <span class="text-gray-600 dark:text-gray-200 font-semibold">
                                     {{ $order->created_at->translatedFormat('d M Y') }}
@@ -68,7 +68,10 @@
                                     <div class="font-semibold text-left">Codice</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-left px-3">Prodotto</div>
+                                    <div class="font-semibold text-left">Articolo</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Produttore</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-right">Quantità</div>
@@ -92,6 +95,11 @@
                                     <td class="p-2 ">
                                         <x-product-name-cell :href="route('warehouse.product.show', [$warehouse, $product])">
                                             {{ $product->name }}
+                                        </x-product-name-cell>
+                                    </td>
+                                    <td class="p-2  hidden md:table-cell">
+                                        <x-product-name-cell :href="route('warehouse.dealer.show', [$warehouse, $product->dealer])">
+                                            {{ $product->dealer->name }}
                                         </x-product-name-cell>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
@@ -120,6 +128,8 @@
                                     </div>
                                 </td>
                                 <td>
+                                </td>
+                                <td class=" hidden md:table-cell">
                                 </td>
                                 <td class=" p-2 ">
                                     <div class="text-right text-sm md:text-base">

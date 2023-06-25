@@ -11,6 +11,9 @@ use App\Models\User;
 use App\Models\Provider;
 use App\Models\Warehouse;
 
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 class WarehouseControllerTest extends TestCase
 {
     use RefreshDatabase;
@@ -48,6 +51,8 @@ class WarehouseControllerTest extends TestCase
 
     public function test_warehouse_show_can_be_rendered(): void
     {
+        Permission::create(['name' => 'change warehouse']);
+
         $response = $this->get('/warehouse/show');
         $response->assertStatus(302);
 

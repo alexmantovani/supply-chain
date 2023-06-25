@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdateProviderRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class UpdateProviderRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,16 @@ class UpdateProviderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => [
+                'required',
+                Rule::unique('providers')->ignore($this->name, 'name'),
+            ],
+            'description' => [
+                'max:255'
+            ],
+            'email' => [
+                'email:rfc'
+            ],
         ];
     }
 }

@@ -6,7 +6,15 @@
     <x-nav-link :href="route('warehouse.refill.index', $warehouse->id)" :active="request()->routeIs('warehouse.refill.*')">
         {{ __('In esaurimento') }}
     </x-nav-link>
-    <x-nav-link :href="route('warehouse.order.index', $warehouse->id)" :active="request()->routeIs('warehouse.order.*')">
-        {{ __('Ordini') }}
-    </x-nav-link>
+    @can('handle order')
+        <x-nav-link :href="route('warehouse.order.index', $warehouse->id)" :active="request()->routeIs('warehouse.order.*')">
+            {{ __('Ordini') }}
+        </x-nav-link>
+    @endcan
+    @can('admin site')
+        <x-nav-link :href="route('admin', $warehouse->id)" :active="request()->routeIs('admin.*')">
+            {{ __('Admin') }}
+        </x-nav-link>
+    @endcan
+
 </div>

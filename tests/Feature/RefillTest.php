@@ -10,6 +10,7 @@ use App\Models\Refill;
 use App\Models\User;
 use App\Models\Provider;
 use App\Models\Warehouse;
+use App\Models\Profile;
 
 class RefillTest extends TestCase
 {
@@ -50,8 +51,11 @@ class RefillTest extends TestCase
 
     public function test_ask_refill(): void
     {
-        $response = $this->get('warehouse/1/refill/1');
+        $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->get('warehouse/1/refill');
         $response->assertStatus(200);
     }
-
 }
