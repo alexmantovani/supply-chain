@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('email')->nullable(); // email a cui spedire gli ordini
 
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

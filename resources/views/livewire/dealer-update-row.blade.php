@@ -9,9 +9,11 @@
         <div class="">
             <select wire:model="providerId"
                 class="form-control w-full rounded bg-gray-50 dark:bg-gray-800 mt-1 dark:text-white">
+                <option value="0">
+                    Seleziona il fornitore...
+                </option>
                 @foreach ($providers as $provider)
-                    <option value="{{ $provider->id }}"
-                        {{ $providerId == $provider->id ? 'selected' : '' }}>
+                    <option value="{{ $provider->id }}" {{ $providerId == $provider->id ? 'selected' : '' }}>
                         {{ $provider->name }}
                     </option>
                 @endforeach

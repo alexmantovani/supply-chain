@@ -18,7 +18,7 @@ class Order extends Model
             ->withPivot([
                 'quantity',
                 'received_quantity',
-            ]);
+            ])->withTimestamps();
     }
 
     public function provider()

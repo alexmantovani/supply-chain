@@ -12,7 +12,7 @@ class DealerUpdateRow extends Component
 
     public function mount()
     {
-        $this->providerId = $this->dealer->provider->id;
+        $this->providerId = $this->dealer->provider->id ?? 0;
     }
 
     public function render()
@@ -22,9 +22,11 @@ class DealerUpdateRow extends Component
 
     public function updatedProviderId()
     {
+        // Se non ho selezionato nulla non salvo
+        if ($this->providerId == 0) return;
+
         $this->dealer->update([
             'provider_id' => $this->providerId,
         ]);
     }
-
 }

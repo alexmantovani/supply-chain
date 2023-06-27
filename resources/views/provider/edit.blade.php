@@ -27,8 +27,7 @@
                     </span>
                 </div>
 
-                {{-- @include('provider.partials.delete-provider-button') --}}
-
+                @include('provider.partials.delete-button')
             </div>
 
             <form method="post" action="{{ route('provider.update', $provider) }}" class="">

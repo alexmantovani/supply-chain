@@ -26,14 +26,14 @@ class ProductController extends Controller
             ->select('products.*', 'dealers.name as dealer_name')
             ->where(function ($q) use ($search) {
                 return $q
-                ->where('products.name', 'like', '%' . $search . '%')
-                ->orWhere('dealers.name', 'like', '%' . $search . '%')
-                ->orWhere('uuid', 'like', $search . '%');
+                    ->where('products.name', 'like', '%' . $search . '%')
+                    ->orWhere('dealers.name', 'like', '%' . $search . '%')
+                    ->orWhere('uuid', 'like', $search . '%');
             })
             ->whereIn('status_id', $filter_list)
             ->paginate(100);
 
-        return view('product.index', compact('warehouse', 'search', 'products', 'filters'));
+            return view('product.index', compact('warehouse', 'search', 'products', 'filters'));
     }
 
     /**

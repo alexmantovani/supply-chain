@@ -18,35 +18,62 @@
     </x-slot>
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
-        <div class="h-full space-y-4">
-            <div
-                class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px1 md:p-8 dark:bg-gray-900 dark:border-gray-800">
-                <div class="text-xl">
-                    <a href="{{ url('admin/users') }}">
-                        Gestione utenti
-                    </a>
+        <div class="grid grid-cols-4 gap-4 h-full">
+
+            <a href="{{ url('admin/users') }}">
+                <div
+                    class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px1 md:p-8 dark:bg-gray-900 dark:border-gray-800">
+                    <div class="flex justify-between">
+                        <div class=" text-4xl">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xl font-medium">
+                                Gestione utenti
+                            </div>
+                            <div class=" text-red-400 text-md">
+                                Totale utenti: {{ App\Models\User::all()->count() }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div
-                class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px1 md:p-8 dark:bg-gray-900 dark:border-gray-800">
-
-                <div class="text-xl">
-                    <a href="{{ url('/admin/provider') }}">
-                        Gestione fornitori
-                    </a>
+            </a>
+            <a href="{{ url('/admin/provider') }}">
+                <div
+                    class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px1 md:p-8 dark:bg-gray-900 dark:border-gray-800">
+                    <div class="flex justify-between">
+                        <div class=" text-4xl">
+                            <i class="fa-solid fa-warehouse"></i>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xl font-medium">
+                                Gestione fornitori
+                            </div>
+                            <div class=" text-red-400 text-md">
+                                Totale fornitori: {{ App\Models\Provider::all()->count() }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-            </div>
-            <div
-            class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px1 md:p-8 dark:bg-gray-900 dark:border-gray-800">
-
-            <div class="text-xl">
-                <a href="{{ url('/admin/dealer') }}">
-                    Gestione produttori
-                </a>
-            </div>
-
-        </div>
+            </a>
+            <a href="{{ url('/admin/dealer') }}">
+                <div
+                    class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px1 md:p-8 dark:bg-gray-900 dark:border-gray-800">
+                    <div class="flex justify-between">
+                        <div class=" text-4xl">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xl font-medium">
+                                Gestione produttori
+                            </div>
+                            <div class=" text-red-400 text-md">
+                                Totale produttori: {{ App\Models\Dealer::all()->count() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
     </section>
 

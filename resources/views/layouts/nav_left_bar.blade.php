@@ -12,7 +12,7 @@
         </x-nav-link>
     @endcan
     @can('admin site')
-        <x-nav-link :href="route('admin', $warehouse->id)" :active="request()->routeIs('admin.*')">
+        <x-nav-link :href="route('admin')" :active="request()->routeIs('admin.*')">
             {{ __('Admin') }}
         </x-nav-link>
     @endcan

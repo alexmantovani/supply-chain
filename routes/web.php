@@ -76,10 +76,10 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('admin.users');
         // Route::get('/providers', [App\Http\Controllers\ProviderController::class, 'index'])->middleware(['permission:admin site'])->name('admin.providers');
-        Route::resource('provider', App\Http\Controllers\ProviderController::class)->except([
-            'destroy'
+        Route::resource('provider', App\Http\Controllers\ProviderController::class);
+        Route::resource('dealer', App\Http\Controllers\DealerController::class)->only([
+            'index'
         ]);
-        Route::resource('dealer', App\Http\Controllers\DealerController::class)->only(['index']);
     })->middleware(['auth', 'permission:admin site']);
 });
 

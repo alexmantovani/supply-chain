@@ -75,6 +75,8 @@ class ProviderController extends Controller
      */
     public function destroy(Provider $provider)
     {
-        //
+        $provider->delete();
+
+        return to_route('provider.index');
     }
 }

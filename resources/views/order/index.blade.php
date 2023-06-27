@@ -138,11 +138,15 @@
                     </div>
                 @else
                     <div
-                    class="max-w-7xl mx-auto sm:px-6 px-2 lg:px-8 items-center text-center text-4xl py-8 lg-py-16 text-gray-200 dark:text-gray-700 font-medium">
-                    <div class="text-4xl text-gray-200 dark:text-gray-800 font-medium py-10"
-                            style="font-size: 90px">
-                            <i class="fa-regular fa-circle-exclamation"></i>
+                        class="max-w-7xl mx-auto sm:px-6 px-2 lg:px-8 items-center text-center text-4xl py-8 lg-py-16 text-gray-200 dark:text-gray-700 font-medium">
+                        <div class="flex justify-center py-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-28 h-28">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                            </svg>
                         </div>
+
                         <div class="p-2 text-gray-600 dark:text-gray-300">
                             Non sono presenti ordini
                             @if ($show != 'all')

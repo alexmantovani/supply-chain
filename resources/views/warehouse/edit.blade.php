@@ -28,7 +28,7 @@
                 </div>
 
                 @can('delete warehouse')
-                @include('warehouse.partials.delete-warehouse-button')
+                    @include('warehouse.partials.delete-warehouse-button')
                 @endcan
 
             </div>

@@ -58,7 +58,8 @@ class Product extends Model
             ->withPivot([
                 'quantity',
                 'received_quantity',
-            ]);
+            ])
+            ->withTimestamps();
     }
 
     public function refillQuantity($warehouse_id)

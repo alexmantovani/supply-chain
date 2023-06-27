@@ -3,7 +3,14 @@
         <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
             class="w-full h-full text-gray-500 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm"
             type="button">
-            <i class="fa-regular fa-ellipsis-vertical"></i>
+
+            <svg height="32" xmlns="http://www.w3.org/2000/svg">
+                <g transform="scale(0.35)">
+                    <path stroke="null" id="svg_1"
+                        d="m20,32a4,4 0 1 1 -4,-4a4.00458,4.00458 0 0 1 4,4zm0,16a4,4 0 1 1 -4,-4a4.00458,4.00458 0 0 1 4,4zm0,-32a4,4 0 1 1 -4,-4a4.00458,4.00458 0 0 1 4,4z" />
+                </g>
+            </svg>
+
         </button>
         <!-- Dropdown menu -->
         <div id="dropdown"
