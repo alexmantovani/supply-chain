@@ -15,18 +15,18 @@
         @include('layouts.nav_right_bar', ['warehouse' => $warehouse])
     </x-slot>
 
-    <section class="antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
+    <section class="antialiased bg-gray-100 dark:bg-gray-900 dark:text-gray-400 text-gray-600 min-h-screen p-4">
         <div class="py-20">
             @if (count($errors))
                 <div class="flex justify-center text-4xl text-red-500 font-medium py-10" style="font-size: 90px">
                     <i class="fa-regular fa-triangle-exclamation"></i>
                 </div>
 
-                <div class="flex justify-center text-4xl">
+                <div class="flex justify-center text-4xl dark:text-gray-200">
                     La tua richiesta contiene errori:
                 </div>
 
-                <div class="text-center text-lg text-gray-400 uppercase py-5 font-semibold">
+                <div class="text-center text-lg text-gray-400 dark:text-gray-500 uppercase py-5 font-semibold">
                     @foreach ($errors as $error)
                         <div>
                             {{ $error['error'] }}

@@ -31,10 +31,8 @@
                         <div class="font-semibold text-xl md:text-2xl dark:text-gray-200">
                             {{ $product->name }}
                         </div>
-                        <div class="font-semibold text-xl md:text-2xl dark:text-gray-200">
-                            <x-product-status class="rounded-lg text-sm uppercase py-2 px-3 text-center"
-                                :status="$product->status" />
-                        </div>
+                        <x-product-status class=" border-r-4 text-xs uppercase py-2 px-3 w-40 text-right"
+                            :status="$product->status" />
                     </div>
                     @if ($product->description)
                         <div class="text-lg text-gray-500 dark:text-gray-200">
@@ -245,7 +243,7 @@
                             <div class="pb-3">
                                 <x-input-label for="quantity" :value="__('Quantity')" />
                                 <x-text-input id="quantity" class="block mt-1 w-full text-right bg-yellow-50"
-                                    type="text" name="quantity" :value="old('quantity')" />
+                                    type="number" name="quantity" :value="old('quantity')" required />
                                 <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
                             </div>
 

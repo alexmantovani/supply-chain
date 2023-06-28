@@ -3,7 +3,7 @@
 @switch($status)
     @case('aborted')
         <div {{ $attributes->merge([
-                'class' => 'bg-red-50 border-red-500',
+                'class' => 'bg-red-50 border-red-500 dark:bg-red-900 dark:text-white',
             ]) }}>
             {{-- <i class="fa-solid fa-ban"></i>
             &nbsp; --}}
@@ -14,7 +14,7 @@
     @case('waiting')
         <div
             {{ $attributes->merge([
-                'class' => 'bg-cyan-50 border-cyan-500',
+                'class' => 'bg-cyan-50 border-cyan-500 dark:bg-cyan-900 dark:text-white',
                 'title' => 'L\'ordine è stato spedito e si attende il rientro del materiale',
             ]) }}>
             {{-- <i class="fa-solid fa-hourglass"></i>
@@ -25,7 +25,7 @@
 
     @case('pending')
         <div {{ $attributes->merge([
-            'class' => 'bg-yellow-50 border-yellow-500',
+            'class' => 'bg-yellow-50 border-yellow-500 dark:bg-yellow-900 dark:text-white',
         ]) }}>
             Parziale
         </div>
@@ -34,7 +34,7 @@
     @case('completed')
         <div
             {{ $attributes->merge([
-                'class' => 'bg-green-50 border-green-500',
+                'class' => 'bg-green-50 border-green-500 dark:bg-green-900 dark:text-white',
                 'title' => 'L\'ordine è stato completato',
             ]) }}>
             {{-- <i class="fa-solid fa-check"></i>
@@ -46,7 +46,7 @@
     @case('closed')
         <div
             {{ $attributes->merge([
-                'class' => 'bg-green-50 border-green-500',
+                'class' => 'bg-green-50 border-green-500 dark:bg-green-900 dark:text-white',
                 'title' => 'L\'ordine è stato chiuso con materiale non consegnato',
             ]) }}>
             Chiuso
