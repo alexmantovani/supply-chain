@@ -65,6 +65,8 @@ class RefillIndex extends Component
     {
         $grouped = $this->refills->groupBy('provider_id');
 
+        $ugualeZero = false;
+
         // Spazzolo i refills in base ai fornitori
         foreach ($grouped as $providerId => $refills) {
             $products = [];
@@ -103,6 +105,7 @@ class RefillIndex extends Component
                             'order_id' => $order->id,
                         ]);
                     } else {
+                        $ugualeZero = true;
                         Log::warning("Selezionato prodotto con quantità =0 " .$refill->product->name );
                     }
                 }
@@ -120,6 +123,12 @@ class RefillIndex extends Component
                     'type' => 'info',
                 ]);
             }
+        }
+
+        if ($ugualeZero) {
+            session()->flash('message', 'Uno o più prodotti selezionati hanno quantità uguale a zero.');
+
+            return;
         }
 
         return redirect()->to('/warehouse/' . $this->warehouse->id . '/refill');

@@ -106,6 +106,17 @@
                         </div>
                     </div>
 
+                    <div>
+                        @if (session()->has('message'))
+                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 my-3 rounded relative"
+                                role="alert">
+                                <span class="block sm:inline">
+                                    {{ session('message') }}
+                                </span>
+                            </div>
+                        @endif
+                    </div>
+
                 </div>
             </div>
         </section>

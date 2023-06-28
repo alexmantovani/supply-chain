@@ -20,9 +20,21 @@
     </x-slot>
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
-        <div class="h-full ">
+        <div class="h-full w-full max-w-7xl mx-auto ">
+            <div class="flex justify-between items-center">
+                <div class=" text-gray-900 dark:text-gray-300 text-xl py-3 font-semibold">
+                    Elenco utenti
+                </div>
+                <div class="">
+                    <x-secondary-button>
+                        Nuovo utente
+                    </x-secondary-button>
+                </div>
+            </div>
+
+
             <div
-                class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px1 md:p-8 dark:bg-gray-900 dark:border-gray-800">
+                class="bg-white shadow-lg rounded-sm border border-gray-200 px1 md:p-8 dark:bg-gray-900 dark:border-gray-800">
 
                 <div class="p-3">
                     <div class="overflow-x-auto">
