@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('providers', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignId('company_id');
+
             $table->string('name')->unique();
             $table->string('description')->nullable();
             $table->string('email')->nullable(); // email a cui spedire gli ordini

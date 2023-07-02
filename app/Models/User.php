@@ -48,6 +48,10 @@ class User extends Authenticatable
         return $this->hasMany(Refill::class);
     }
 
+    public function companies() {
+        return $this->belongsToMany(Company::class);
+    }
+
     public function logs() {
         return $this->hasMany(Log::class);
     }
@@ -55,6 +59,13 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function canBeDeleted()
+    {
+        # TODO: Gestire
+
+        return true;
     }
 
     protected static function booted()

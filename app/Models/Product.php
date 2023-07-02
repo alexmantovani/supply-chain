@@ -14,6 +14,11 @@ class Product extends Model
 
     protected $guarded = [];
 
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     public function getReceivedAttribute()
     {
         $quantity = $this->orders

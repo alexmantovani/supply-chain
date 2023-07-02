@@ -45,12 +45,19 @@
                                         <div class="font-semibold text-left">Utente</div>
                                     </th>
                                     @foreach ($roles as $role)
+                                        @if ($role->name == 'super-admin')
+                                            @continue
+                                        @endif
+
                                         <th class="p-2 ">
                                             <div class="font-semibold text-center">{{ $role->name }}</div>
                                         </th>
                                     @endforeach
                                     <th class="p-2 ">
                                         <div class="font-semibold text-left">Magazzino di riferimento</div>
+                                    </th>
+                                    <th>
+
                                     </th>
                                 </tr>
                             </thead>

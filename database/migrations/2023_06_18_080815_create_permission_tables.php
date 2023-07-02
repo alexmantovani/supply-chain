@@ -172,6 +172,14 @@ class CreatePermissionTables extends Migration
 
         $role = Role::create(['name' => 'admin']);
         $role->givePermissionTo('change warehouse');
+        $role->givePermissionTo('edit warehouse');
+        $role->givePermissionTo('create warehouse');
+        $role->givePermissionTo('delete warehouse');
+        $role->givePermissionTo('handle order');
+        $role->givePermissionTo('admin site');
+
+        $role = Role::create(['name' => 'supervisor']);
+        $role->givePermissionTo('change warehouse');
         $role->givePermissionTo('handle order');
     }
 }

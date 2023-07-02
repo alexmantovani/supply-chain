@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('warehouses', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignId('company_id');
+
             $table->string('name')->unique();
             $table->string('description')->nullable();
 

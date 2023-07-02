@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('invites', function (Blueprint $table) {
             $table->id();
+
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('token')->unique();
+            $table->foreignId('company_id')->nullable();
+
             $table->timestamps();
         });
     }

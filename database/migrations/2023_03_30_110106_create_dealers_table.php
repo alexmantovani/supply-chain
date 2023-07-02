@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('dealers', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignId('company_id');
+
             // Ogni produttore ha UN fornitore al quale fare richiesta di materiale
             $table->foreignId('provider_id');
 

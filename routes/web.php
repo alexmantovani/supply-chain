@@ -74,7 +74,9 @@ Route::middleware('auth')->group(function () {
     })->middleware(['permission:admin site'])->name('admin');
 
     Route::prefix('admin')->group(function () {
-        Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('admin.users');
+        Route::resource('user', App\Http\Controllers\UserController::class)->only([
+            'index', 'destroy'
+        ]);
         // Route::get('/providers', [App\Http\Controllers\ProviderController::class, 'index'])->middleware(['permission:admin site'])->name('admin.providers');
         Route::resource('provider', App\Http\Controllers\ProviderController::class);
         Route::resource('dealer', App\Http\Controllers\DealerController::class)->only([

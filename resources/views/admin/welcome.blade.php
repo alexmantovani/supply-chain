@@ -20,7 +20,7 @@
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="grid grid-cols-4 gap-4 h-full mx-28">
 
-            <a href="{{ url('admin/users') }}">
+            <a href="{{ url('admin/user') }}">
                 <div
                     class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px1 md:p-8 dark:bg-gray-900 dark:border-gray-800">
                     <div class="flex justify-between">

@@ -12,6 +12,13 @@ class UserController extends Controller
         $users = User::all();
         $roles = \Spatie\Permission\Models\Role::all();
 
-        return view('admin.users', compact(['users', 'roles']));
+        return view('user.index', compact(['users', 'roles']));
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return to_route('admin.user.index');
     }
 }

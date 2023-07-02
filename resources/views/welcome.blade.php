@@ -169,9 +169,13 @@
                     Registra la tua azienda e inizia subito a gestire le scorte e i rifornimenti del tuo magazzino in
                     modo semplice e veloce.
                 </p>
-                <x-primary-button class="">
-                    {{ __('Registrati ora') }}
-                </x-primary-button>
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}">
+                        <x-secondary-button class="">
+                            {{ __('Registrati ora') }}
+                        </x-secondary-button>
+                    </a>
+                @endif
             </div>
 
             <div class="flex flex-col w-full md:w-3/5 justify-end items-end text-right md:text-right rounded shadow-xl">
