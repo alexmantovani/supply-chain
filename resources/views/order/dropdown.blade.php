@@ -1,6 +1,6 @@
 <div class="w-3 md:w-6 h-full">
     @if (in_array($order->status, ['waiting', 'pending']))
-        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+        <button id="dropdownDefaultButton_{{ $order->id }}" data-dropdown-toggle="dropdown_{{ $order->id }}"
             class="w-full h-full text-gray-500 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm"
             type="button">
 
@@ -13,7 +13,7 @@
 
         </button>
         <!-- Dropdown menu -->
-        <div id="dropdown"
+        <div id="dropdown_{{ $order->id }}"
             class=" text-left z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                 <li>
