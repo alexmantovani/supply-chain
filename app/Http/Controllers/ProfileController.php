@@ -57,4 +57,16 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function companyUpdate(ProfileUpdateRequest $request): RedirectResponse
+    {
+        // Spazzolo tutte le compagnie e attivo SOLO quella selezionata
+        foreach ($request->user()->companies as $company) {
+            $request->user()->companies()->updateExistingPivot($company->id, [
+                'is_active' => ($company->id == $request->companyId),
+            ]);
+        }
+
+        return Redirect::route('profile.edit')->with('status', 'profile-company-updated');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProviderRequest;
 use App\Http\Requests\UpdateProviderRequest;
 use App\Models\Provider;
+use Illuminate\Support\Facades\Auth;
 
 class ProviderController extends Controller
 {
@@ -13,7 +14,7 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        $providers = Provider::all();
+        $providers = Auth::user()->activeCompany->providers;
 
         return view('provider.index', compact('providers'));
     }

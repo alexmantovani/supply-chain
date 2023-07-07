@@ -9,6 +9,7 @@ use App\Models\Dealer;
 use App\Models\ProductStatus;
 use App\Models\Warehouse;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -22,7 +23,7 @@ class ProductController extends Controller
 
         $filter_list = ProductStatus::whereIn('group', $filters)->pluck('id');
 
-        $products = Product::join('dealers', 'dealers.id', 'dealer_id')
+        $products = Auth::user()->activeCompany->products()->join('dealers', 'dealers.id', 'dealer_id')
             ->select('products.*', 'dealers.name as dealer_name')
             ->where(function ($q) use ($search) {
                 return $q

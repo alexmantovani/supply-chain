@@ -20,17 +20,23 @@ class Company extends Model
     }
 
     public function orders() {
-        return $this->hasMany(Order::class);
+        return $this->hasManyThrough(Order::class, Warehouse::class);
     }
 
     public function refills() {
-        return $this->hasMany(Refill::class);
+        return $this->hasManyThrough(Refill::class, Warehouse::class);
     }
 
     public function warehouses() {
         return $this->hasMany(Warehouse::class);
     }
 
+    public function dealers() {
+        return $this->hasMany(Dealer::class);
+    }
 
+    public function providers() {
+        return $this->hasMany(Provider::class);
+    }
 
 }

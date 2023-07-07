@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('company_id');
+            // $table->foreignId('company_id');
 
             // L'ordine lo si invia sempre al fornitore e non al produttore
             $table->foreignId('provider_id');

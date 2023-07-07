@@ -8,6 +8,7 @@ use App\Models\Dealer;
 use App\Models\ProductStatus;
 use App\Models\Warehouse;
 use App\Models\Provider;
+use Illuminate\Support\Facades\Auth;
 
 class DealerController extends Controller
 {
@@ -16,8 +17,8 @@ class DealerController extends Controller
      */
     public function index()
     {
-        $dealers = Dealer::all()->sortBy('name');
-        $providers = Provider::all();
+        $dealers = Auth::user()->activeCompany->dealers->sortBy('name');
+        $providers = Auth::user()->activeCompany->providers;
 
         return view('dealer.index', compact('dealers', 'providers'));
     }

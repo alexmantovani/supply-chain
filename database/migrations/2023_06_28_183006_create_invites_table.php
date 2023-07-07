@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('token')->unique();
             $table->foreignId('company_id')->nullable();
+            $table->foreignId('warehouse_id')->nullable();
 
             $table->timestamps();
         });

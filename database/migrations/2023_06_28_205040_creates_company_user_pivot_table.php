@@ -17,6 +17,12 @@ return new class extends Migration
             $table->foreignId('company_id');
             $table->foreignId('user_id');
 
+            // Indica il magazzino su cui sta operando
+            $table->foreignId('warehouse_id')->nullable();
+
+            // Indica se l'utente ha attivato questa compagnia
+            $table->boolean('is_active')->nullable();
+
             $table->timestamps();
         });
     }

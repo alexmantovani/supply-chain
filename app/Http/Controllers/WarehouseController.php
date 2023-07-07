@@ -14,7 +14,8 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        $warehouses = Warehouse::all();
+        // $warehouses = Warehouse::all();
+        $warehouses = Auth::user()->activeCompany->warehouses;
 
         return view('warehouse.index', compact('warehouses'));
     }
@@ -32,7 +33,8 @@ class WarehouseController extends Controller
      */
     public function store(StoreWarehouseRequest $request)
     {
-        Warehouse::create([
+
+        Auth::user()->activeCompany->warehouses()->create([
             'name' => $request->name,
             'description' => $request->description,
             'emails' => $request->emails,
@@ -53,9 +55,11 @@ class WarehouseController extends Controller
             }
         }
 
-        $user->profile->update([
-            'warehouse_id' => $warehouse->id,
-        ]);
+        // $user->profile->update([
+        //     'warehouse_id' => $warehouse->id,
+        // ]);
+
+        $user->enableWarehouse($warehouse);
 
         $refills = $warehouse->refills()
             ->whereIn('refills.status', ['low', 'urgent'])

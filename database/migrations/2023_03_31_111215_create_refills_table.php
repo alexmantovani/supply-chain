@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('refills', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('company_id');
+            // $table->foreignId('company_id');
             $table->foreignId('user_id')->nullable();
             $table->foreignId('product_id');
             $table->foreignId('warehouse_id');

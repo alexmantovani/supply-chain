@@ -1,19 +1,4 @@
 <x-app-layout>
-    <x-slot name="navbar_title">
-        <div class="flex md:ml-5 items-center space-x-2 md:space-x-5">
-            <div class="
-      font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight
-    cursor-pointer">
-                <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
-            </div>
-            <div>
-                <div class="text-gray-900 dark:text-gray-100">
-                    Pannello di amministrazione
-                </div>
-            </div>
-        </div>
-    </x-slot>
-
     <x-slot name="navbar_right_menu">
     </x-slot>
 
@@ -36,7 +21,7 @@
                                 Utenti
                             </div>
                             <div class=" text-red-400 text-md">
-                                {{ App\Models\User::all()->count() }} utenti
+                                {{ $totalUsers }} utenti
                             </div>
                         </div>
                     </div>
@@ -56,7 +41,7 @@
                                 Fornitori
                             </div>
                             <div class=" text-red-400 text-md">
-                                {{ App\Models\Provider::all()->count() }} fornitori
+                                {{ $totalProviders }} fornitori
                             </div>
                         </div>
                     </div>
@@ -76,7 +61,7 @@
                                 Produttori
                             </div>
                             <div class=" text-red-400 text-md">
-                                {{ App\Models\Dealer::all()->count() }} produttori
+                                {{ $totalDealers }} produttori
                             </div>
                         </div>
                     </div>

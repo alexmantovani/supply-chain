@@ -2,14 +2,19 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Warehouse;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class UserUpdateRow extends Component
 {
     public $user;
     public $roles;
     public $warehouseId;
+    public $company;
     public $userRoles;
+    public $warehouses;
+    public $hideRow = false;
 
     protected $rules = [
         'userRoles' => 'required',
@@ -17,7 +22,7 @@ class UserUpdateRow extends Component
 
     public function mount()
     {
-        $this->warehouseId = $this->user->profile->warehouse_id;
+        $this->warehouseId = $this->user->activeWarehouse->id;
         $this->userRoles = $this->user->roles->pluck('name');
     }
 
@@ -28,13 +33,19 @@ class UserUpdateRow extends Component
 
     public function updatedWarehouseId()
     {
-        $this->user->profile->update([
-            'warehouse_id' => $this->warehouseId,
+        $this->user->companies()->updateExistingPivot($this->company->id, [
+            'warehouse_id' => $this->warehouseId
         ]);
     }
 
     public function updatedUserRoles()
     {
         $this->user->syncRoles($this->userRoles);
+    }
+
+    function deleteUser() {
+        $this->user->delete();
+
+        $this->hideRow = true;
     }
 }

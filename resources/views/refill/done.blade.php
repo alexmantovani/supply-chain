@@ -1,16 +1,5 @@
 <x-app-layout>
-    <x-slot name="navbar_title">
-        <div class="flex md:ml-5 items-center space-x-2 md:space-x-5">
-            <div>
-                <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
-                    {{ $warehouse->name }}
-                </x-navbar-title>
-            </div>
-        </div>
-    </x-slot>
-    <x-slot name="navbar_left_menu">
-        @include('layouts.nav_left_bar', ['warehouse' => $warehouse])
-    </x-slot>
+
     <x-slot name="navbar_right_menu">
         @include('layouts.nav_right_bar', ['warehouse' => $warehouse])
     </x-slot>
@@ -18,9 +7,15 @@
     <section class="antialiased bg-gray-100 dark:bg-gray-900 dark:text-gray-400 text-gray-600 min-h-screen p-4">
         <div class="py-20">
             @if (count($errors))
-                <div class="flex justify-center text-4xl text-red-500 font-medium py-10" style="font-size: 90px">
-                    <i class="fa-regular fa-triangle-exclamation"></i>
+                <div class="flex justify-center text-yellow-400 py-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-40 h-40">
+                        <path fill-rule="evenodd"
+                            d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                            clip-rule="evenodd" />
+                    </svg>
+
                 </div>
+
 
                 <div class="flex justify-center text-4xl dark:text-gray-200">
                     La tua richiesta contiene errori:
@@ -34,8 +29,12 @@
                     @endforeach
                 </div>
             @else
-                <div class="text-center text-4xl text-green-500 font-medium py-10" style="font-size: 90px">
-                    <i class="fa-regular fa-check"></i>
+                <div class="flex justify-center text-green-500 py-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-40 h-40">
+                        <path fill-rule="evenodd"
+                            d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                            clip-rule="evenodd" />
+                    </svg>
                 </div>
 
                 <div class="text-center text-4xl pt-10">

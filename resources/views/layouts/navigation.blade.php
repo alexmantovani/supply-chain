@@ -12,11 +12,20 @@
 
                 @if (isset($navbar_title))
                     {{ $navbar_title }}
+                @else
+                    <div class="flex md:ml-5 items-center space-x-2 md:space-x-5">
+                        <x-navbar-title :href="route('warehouse.show', Auth::user()->activeWarehouse)">
+                            {{ Auth::user()->activeWarehouse->name }}
+                        </x-navbar-title>
+                    </div>
                 @endif
 
                 @if (isset($navbar_left_menu))
                     {{ $navbar_left_menu }}
+                @else
+                    @include('layouts.nav_left_bar', ['warehouse' => Auth::user()->activeWarehouse])
                 @endif
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -40,8 +49,12 @@
                         <x-slot name="trigger">
                             <button
                                 class="inline-flex items-center px-3 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                                <div>{{ Auth::user()->name }}</div>
-                                <div>{{ Auth::user()->profile->company->name }}</div>
+                                <div class=" text-right">
+                                    <div class="font-semibold">{{ Auth::user()->name }}</div>
+                                    @if (Auth::user()->activeCompany)
+                                        <div class="text-xs text-gray-400">{{ Auth::user()->activeCompany->name }}</div>
+                                    @endif
+                                </div>
 
 
                                 <div class="ml-1">
@@ -59,6 +72,18 @@
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profilo') }}
                             </x-dropdown-link>
+
+                            @if (Auth::user()->companies->count() > 1)
+                                @foreach (Auth::user()->companies as $company)
+                                    <x-dropdown-link :href="route('warehouse.index')">
+                                        @if ($company->id == Auth::user()->activeCompany->id)
+                                        XXX
+
+                                        @endif
+                                        {{ $company->name }}
+                                    </x-dropdown-link>
+                                @endforeach
+                            @endif
 
                             @can('change warehouse')
                                 <x-dropdown-link :href="route('warehouse.index')">
@@ -115,7 +140,7 @@
 
             <div class="mt-3 space-y-1">
                 @include('layouts.responsive_nav_left_bar', [
-                    'warehouse' => Auth::user()->profile->warehouse,
+                    'warehouse' => Auth::user()->activeWarehouse,
                 ])
 
                 <x-responsive-nav-link :href="route('profile.edit')">

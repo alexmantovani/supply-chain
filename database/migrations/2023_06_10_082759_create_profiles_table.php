@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('user_id');
-            $table->foreignId('warehouse_id')->default(1);
-            $table->foreignId('company_id')->nullable();
+            // $table->foreignId('warehouse_id')->default(1);
+            // $table->foreignId('company_id')->nullable();
 
             $table->timestamps();
         });

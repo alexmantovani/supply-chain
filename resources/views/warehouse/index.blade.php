@@ -1,10 +1,5 @@
 <x-app-layout>
-    <x-slot name="navbar_title">
-        <div class="flex md:ml-5 items-center space-x-2 md:space-x-5">
-            <div class="text-gray-900 dark:text-gray-100">
-                Elenco magazzini
-            </div>
-        </div>
+    <x-slot name="navbar_left_menu">
     </x-slot>
 
     <x-slot name="navbar_right_menu">

@@ -29,10 +29,11 @@ class DatabaseSeeder extends Seeder
         // $role->givePermissionTo('change warehouse');
         // $role->givePermissionTo('handle order');
 
+        // Prima azienda
         $company = \App\Models\Company::factory()
             ->has(\App\Models\User::factory()->count(30))
+            ->has(\App\Models\Warehouse::factory()->count(1))
             ->create();
-
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Mario Pompeo',
@@ -77,6 +78,7 @@ class DatabaseSeeder extends Seeder
         // Seconda azienda
         $company = \App\Models\Company::factory()
             ->has(\App\Models\User::factory()->count(30))
+            ->has(\App\Models\Warehouse::factory()->count(5))
             ->create();
 
         $user = \App\Models\User::factory()->create([
@@ -89,9 +91,20 @@ class DatabaseSeeder extends Seeder
 
         // \App\Models\User::factory(100)->create();
 
-        // $this->call([
-        //     ProductStatusSeeder::class,
-        //     ProductSeeder::class,
-        // ]);
+        // Utente 3 che è associato ad entrambe le compagnie
+        $user = \App\Models\User::factory()->create([
+            'name' => 'Utente a 2 aziende',
+            'email' => '3@3.3',
+            'password' => Hash::make('12345678'),
+        ]);
+        $user->companies()->attach(1, ['is_active' => true]);
+        $user->companies()->attach(2);
+
+        $user->assignRole(['admin']);
+
+        $this->call([
+            ProductStatusSeeder::class,
+            ProductSeeder::class,
+        ]);
     }
 }

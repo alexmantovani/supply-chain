@@ -32,13 +32,14 @@ Route::get('/dashboard', function () {
 // })->name('rusco');
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'has_warehouse')->group(function () {
     // Route::get('/refill/simulate', [App\Http\Controllers\RefillController::class, 'generateTestCode'])->name('refill.simulate');
     // Route::get('/refill/ask', [App\Http\Controllers\RefillController::class, 'ask'])->name('refill.ask');
     // Route::get('/refill/done', [App\Http\Controllers\RefillController::class, 'requestDone'])->name('refill.done');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/company', [ProfileController::class, 'companyUpdate'])->name('profile.company.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/product/{dealer}/create', [App\Http\Controllers\ProductController::class, 'create'])->name('product.create');
@@ -69,10 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/{order}/completed', [App\Http\Controllers\OrderController::class, 'completed'])->name('order.completed');
     Route::get('/order/{order}/closed', [App\Http\Controllers\OrderController::class, 'closed'])->name('order.closed');
 
-    Route::get('/admin', function () {
-        return view('admin.welcome');
-    })->middleware(['permission:admin site'])->name('admin');
-
+    Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware(['permission:admin site'])->name('admin');
     Route::prefix('admin')->group(function () {
         Route::resource('user', App\Http\Controllers\UserController::class)->only([
             'index', 'destroy'

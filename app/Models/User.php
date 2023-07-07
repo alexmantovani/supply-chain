@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -44,15 +45,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function refills() {
+    public function refills()
+    {
         return $this->hasMany(Refill::class);
     }
 
-    public function companies() {
-        return $this->belongsToMany(Company::class);
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class)
+            ->withPivot([
+                'warehouse_id',
+                'is_active',
+            ])->withTimestamps();
     }
 
-    public function logs() {
+    public function logs()
+    {
         return $this->hasMany(Log::class);
     }
 
@@ -77,4 +85,38 @@ class User extends Authenticatable
         });
     }
 
+    public function getActiveCompanyAttribute()
+    {
+        $company = $this->companies()->firstWhere('is_active', true);
+
+        // Se non ho una compagnia attiva allora vado io ad assegarne una
+        if (!$company) {
+            $company = $this->companies()->first();
+        }
+
+        return $company;
+    }
+
+    // A seconda della compagnia attiva, riporta il "warehouse" attivo
+    public function getActiveWarehouseAttribute()
+    {
+        $warehouse = Warehouse::find($this->activeCompany->pivot->warehouse_id);
+
+        // Se non ho una compagnia attiva allora vado io ad assegarne una
+        if (!$warehouse) {
+            //TODO: Redirect a creare o scegliere un magazzino
+            $company = $this->companies()->firstWhere('company_id', $this->activeCompany->id);
+            $warehouse = $company->warehouses->first();
+        }
+
+        return $warehouse;
+    }
+
+    // Abilita per questo utente il warehouse passatomi
+    function enableWarehouse(Warehouse $warehouse)
+    {
+        $this->companies()->updateExistingPivot($warehouse->company_id, [
+            'warehouse_id' => $warehouse->id,
+        ]);
+    }
 }
