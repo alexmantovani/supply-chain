@@ -165,16 +165,17 @@
                 <h1 class="my-4 text-4xl font-bold leading-tight">
                     ReFiller è la soluzione che fa per te!
                 </h1>
-                <p class="leading-normal text-xl mb-8">
+                <div class="leading-normal text-xl mb-8">
                     Registra la tua azienda e inizia subito a gestire le scorte e i rifornimenti del tuo magazzino in
                     modo semplice e veloce.
-                </p>
+                </div>
+
                 @if (Route::has('register'))
-                    <a href="{{ route('register') }}">
-                        <x-secondary-button class="">
+                    <x-secondary-button class="">
+                        <a href="{{ route('register') }}" class="">
                             {{ __('Registrati ora') }}
-                        </x-secondary-button>
-                    </a>
+                        </a>
+                    </x-secondary-button>
                 @endif
             </div>
 
@@ -237,11 +238,12 @@
             <div class="flex flex-wrap">
                 <div class="w-5/6 sm:w-1/2 p-6">
                     <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-                        Trasforma il tuo smatphone in un barcode scanner
+                        Materiale di consumo
                     </h3>
                     <p class="text-gray-600 mb-8">
-                        Potrai fare richiesta di materiale direttamente dal tuo smartphone.
-
+                        Anche la gestione del materiale di consumo nel tuo studio può essere gestito da Refiller.
+                        Chiunque postà segnalare l'esaurimento di un determinato prodotto di consumo senza il bisogno
+                        di avere qualcuno che periodicamente va a controllare ciò che manca.
                     </p>
                 </div>
 
@@ -295,7 +297,9 @@
                         <div class="w-full pt-6 text-3xl text-gray-600 font-bold text-center">Gratis</div>
                         <div class="flex items-center justify-center">
                             <x-secondary-button class="my-6 py-4 px-8 shadow-lg">
-                                Registrati
+                                <a href="{{ route('register') }}" class="">
+                                    Registrati
+                                </a>
                             </x-secondary-button>
                         </div>
                     </div>
@@ -319,7 +323,9 @@
                                 mese</span></div>
                         <div class="flex items-center justify-center">
                             <x-secondary-button class="my-6 py-4 px-8 shadow-lg">
-                                Registrati
+                                <a href="{{ route('register') }}" class="">
+                                    Registrati
+                                </a>
                             </x-secondary-button>
                         </div>
                     </div>
@@ -341,7 +347,9 @@
                                 class="text-base">/ al mese</span></div>
                         <div class="flex items-center justify-center">
                             <x-secondary-button class="my-6 py-4 px-8 shadow-lg">
-                                Registrati
+                                <a href="{{ route('register') }}" class="">
+                                    Registrati
+                                </a>
                             </x-secondary-button>
                         </div>
                     </div>

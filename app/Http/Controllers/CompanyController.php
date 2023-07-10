@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Models\Company;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
@@ -21,7 +23,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        // return view('company.create');
     }
 
     /**
@@ -62,5 +64,12 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         //
+    }
+
+    public function activate($companyId)
+    {
+        Auth::user()->enableCompanyWithId($companyId);
+
+        return to_route('warehouse.show', Auth::user()->activeWarehouse);
     }
 }

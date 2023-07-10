@@ -17,6 +17,11 @@ class WarehouseIsSelected
     public function handle(Request $request, Closure $next): Response
     {
         if (! Auth::user()->activeWarehouse) {
+            Auth::logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
             abort(403, 'Impossibile accedere al portale senza avere un magazzino di riferimento assegnato');
         }
         return $next($request);

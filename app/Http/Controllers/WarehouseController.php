@@ -49,9 +49,10 @@ class WarehouseController extends Controller
     public function show(Warehouse $warehouse)
     {
         $user = Auth::user();
+        // dd($user->profile->warehouse_id);
         if (!$user->hasPermissionTo('change warehouse')) {
             if ($warehouse->id != $user->profile->warehouse_id) {
-                abort(403);
+                // abort(403, 'Non hai sufficienti permessi per cambiare magazzino');
             }
         }
 

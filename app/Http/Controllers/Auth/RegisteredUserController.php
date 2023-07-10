@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Company;
+use App\Models\Warehouse;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -48,13 +49,26 @@ class RegisteredUserController extends Controller
 
         $company = Company::create([
             'name' => $request->companyName,
+            'owner_id' => $user->id,
         ]);
 
-        $user->companies()->attach($company->id);
+        // Creo un magazzino vuoto di riferimento
+        $warehouse = Warehouse::create([
+            'name' => 'Magazzino',
+            'company_id' => $company->id,
+        ]);
+
+        $user->companies()->attach($company->id, [
+            'is_active' => true,
+            'roles' => 'admin,supervisor',
+            'warehouse_id' => $warehouse->id,
+        ]);
 
         event(new Registered($user));
 
         Auth::login($user);
+
+        $user->assignRolesForCompanyWithId($company->id);
 
         return redirect(RouteServiceProvider::HOME);
     }

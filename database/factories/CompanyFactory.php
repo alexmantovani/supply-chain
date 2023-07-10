@@ -18,6 +18,7 @@ class CompanyFactory extends Factory
     {
         return [
             'name' => fake()->company(),
+            'owner_id' => rand(1, 10),
 
             // 'email' => fake()->companyEmail(),
             // 'address'  => fake()->streetAddress(),

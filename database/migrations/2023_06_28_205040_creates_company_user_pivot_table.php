@@ -23,6 +23,9 @@ return new class extends Migration
             // Indica se l'utente ha attivato questa compagnia
             $table->boolean('is_active')->nullable();
 
+            // Ruoli dell'utente che ha in questa compagnia (separati da ,)
+            $table->string('roles')->nullable();
+
             $table->timestamps();
         });
     }

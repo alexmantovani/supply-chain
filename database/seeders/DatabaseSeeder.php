@@ -97,7 +97,7 @@ class DatabaseSeeder extends Seeder
             'email' => '3@3.3',
             'password' => Hash::make('12345678'),
         ]);
-        $user->companies()->attach(1, ['is_active' => true]);
+        $user->companies()->attach(1, ['is_active' => true, 'roles' => 'admin']);
         $user->companies()->attach(2);
 
         $user->assignRole(['admin']);

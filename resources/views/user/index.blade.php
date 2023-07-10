@@ -9,9 +9,11 @@
                     Elenco utenti
                 </div>
                 <div class="">
-                    <x-secondary-button>
-                        Nuovo utente
-                    </x-secondary-button>
+                    <a href="{{ route('invite.create') }}">
+                        <x-secondary-button title="Potrai invitare altri tuoi colleghi ad utilizzare ReFiller">
+                            Invita utente
+                        </x-secondary-button>
+                    </a>
                 </div>
             </div>
 

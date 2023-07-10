@@ -158,25 +158,17 @@
 <body>
     <div class="grey pt-2">
         <center>
-            <img src="{{ url('/images/logo_mg.png') }}" alt="Marchesini Group" height=170>
+            <div class="grey pt-2">
+                <img src="{{ url('/images/logo_mg.png') }}" alt="Marchesini Group" height=170>
+
+                <div>Ciao <strong>{{ $invite->name }}</strong></div>
+                <div>Sei stato a far parte dell'azienda {{ $invite->company->name }}.</div>
+                <div>ReFiller è la nuova piattaforma per la gestione del magazzino.</div>
+                <p>
+                    <a href="{{ route('invite.accept', $invite->token) }}"
+                        class="btn btn-default">&nbsp;&nbsp;&nbsp;Accetta&nbsp;&nbsp;&nbsp;</a>
+                </p>
+            </div>
         </center>
-        <p>
-        <div>
-            Buongiorno,
-        </div>
-        <div>
-            Con la presente si intende annullare l'ordine
-            <strong>
-                {{ $order->uuid }}
-            </strong>
-            effettuato in data
-            {{ $order->created_at->translatedFormat('d.m.Y') }} da
-            <strong>
-                {{ $order->warehouse->name }}.
-            </strong>
-        </div>
-        <div>
-            Cordiali saluti<br>
-        </div>
     </div>
 </body>

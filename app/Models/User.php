@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Auth;
 
-class User extends Authenticatable
+class User extends Authenticatable // implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
@@ -56,6 +56,7 @@ class User extends Authenticatable
             ->withPivot([
                 'warehouse_id',
                 'is_active',
+                'roles',
             ])->withTimestamps();
     }
 
@@ -71,7 +72,10 @@ class User extends Authenticatable
 
     public function canBeDeleted()
     {
-        # TODO: Gestire
+        // TODO: Gestire altri casi
+
+        // Non posso cancellare me stesso
+        if ($this->id == Auth::user()->id) return false;
 
         return true;
     }
@@ -83,6 +87,20 @@ class User extends Authenticatable
                 'user_id' => $user->id,
             ]);
         });
+    }
+
+    // Attiva la compagnia di cui passo l'id
+    function enableCompanyWithId($companyId)
+    {
+        // Spazzolo tutte le compagnie e attivo SOLO quella selezionata
+        foreach ($this->companies as $company) {
+            $this->companies()->updateExistingPivot($company->id, [
+                'is_active' => ($company->id == $companyId),
+            ]);
+        }
+
+        // Assegno all'utente i tuoli dovuti
+        $this->assignRolesForCompanyWithId($companyId);
     }
 
     public function getActiveCompanyAttribute()
@@ -118,5 +136,17 @@ class User extends Authenticatable
         $this->companies()->updateExistingPivot($warehouse->company_id, [
             'warehouse_id' => $warehouse->id,
         ]);
+    }
+
+    function assignRolesForCompanyWithId($companyId)
+    {
+        $roles = array_filter(explode(',', $this->companies()->firstWhere('company_id', $companyId)->pivot->roles));
+        // dd($this->companies()->firstWhere('company_id', $company->id)->pivot->roles);
+
+        // Tolgo tutti i ruoli all'utente
+        $this->roles()->detach();
+
+        // Gli do solo quelli a cui è abilitato
+        $this->assignRole($roles);
     }
 }

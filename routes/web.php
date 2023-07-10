@@ -20,6 +20,10 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    // if (!Auth::user()->companies->count()) {
+    //     return redirect(route('company.create'));
+    // }
+
     if (Auth::user()->profile->warehouse_id) {
         return redirect(route('warehouse.show', Auth::user()->profile->warehouse_id));
     }
@@ -31,11 +35,15 @@ Route::get('/dashboard', function () {
 //     $product->parseHtml();
 // })->name('rusco');
 
+Route::get('/invite/{invite:token}/accept', [App\Http\Controllers\InviteController::class, 'accept'])->name('invite.accept');
+Route::post('/invite/{invite:token}/completed', [App\Http\Controllers\InviteController::class, 'completed'])->name('invite.completed');
 
 Route::middleware('auth', 'has_warehouse')->group(function () {
     // Route::get('/refill/simulate', [App\Http\Controllers\RefillController::class, 'generateTestCode'])->name('refill.simulate');
     // Route::get('/refill/ask', [App\Http\Controllers\RefillController::class, 'ask'])->name('refill.ask');
     // Route::get('/refill/done', [App\Http\Controllers\RefillController::class, 'requestDone'])->name('refill.done');
+
+    Route::get('/company/activate/{id}', [App\Http\Controllers\CompanyController::class, 'activate'])->name('company.activate');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -75,6 +83,10 @@ Route::middleware('auth', 'has_warehouse')->group(function () {
         Route::resource('user', App\Http\Controllers\UserController::class)->only([
             'index', 'destroy'
         ]);
+        Route::resource('invite', App\Http\Controllers\InviteController::class)->only([
+            'create', 'store'
+        ]);
+
         // Route::get('/providers', [App\Http\Controllers\ProviderController::class, 'index'])->middleware(['permission:admin site'])->name('admin.providers');
         Route::resource('provider', App\Http\Controllers\ProviderController::class);
         Route::resource('dealer', App\Http\Controllers\DealerController::class)->only([
