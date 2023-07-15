@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Log;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -30,7 +31,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        Log::debug("Utente loggato " . Auth::user()->name);
+        $user =  Auth::user();
+
+        Log::debug("Utente loggato " . $user->name);
+
+        // Imposto compagnia di default e ruoli
+        $company = $user->active_company;
+        $user->assignRolesForCompanyWithId($company->id);
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

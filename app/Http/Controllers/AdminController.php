@@ -10,8 +10,10 @@ class AdminController extends Controller
     function index()
     {
         $totalUsers = Auth::user()->activeCompany->users->count();
+        $totalProducts = Auth::user()->activeCompany->products->count();
         $totalProviders = Auth::user()->activeCompany->providers->count();
         $totalDealers = Auth::user()->activeCompany->dealers->count();
-        return view('admin.welcome', compact('totalUsers', 'totalProviders', 'totalDealers'));
+        $warehouse = Auth::user()->activeWarehouse;
+        return view('admin.welcome', compact('totalUsers', 'totalProviders', 'totalDealers', 'totalProducts', 'warehouse'));
     }
 }

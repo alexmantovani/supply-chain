@@ -1,7 +1,7 @@
 <tr class="">
     <td class="p-2">
-        <x-product-name-cell class="text-lg">
-            {{ $dealer->name }}
+        <x-product-name-cell class="text-lg" :href="route('warehouse.dealer.show', [Auth::user()->activeWarehouse, $dealer])">
+                {{ $dealer->name }}
         </x-product-name-cell>
     </td>
 

@@ -10,7 +10,7 @@
                 <div
                     class="bg-white shadow-lg rounded-sm border border-gray-200 md:px-8 dark:bg-gray-900 dark:border-gray-700">
 
-                    <div class="flex justify-between m-5">
+                    <div class="flex justify-between m-5 items-center">
                         <div class="pb-6 grid md:grid-cols-2 w-full">
                             <div class="font-semibold text-xl md:text-2xl pt-4 dark:text-gray-200">
                                 {{ $dealer->name }}
@@ -23,7 +23,11 @@
                                 </p>
                             </div>
                         </div>
-
+                        <div>
+                            {{-- @can('delete dealer') --}}
+                                @include('dealer.partials.delete-dealer-button')
+                            {{-- @endcan --}}
+                        </div>
                     </div>
 
                 </div>
@@ -100,8 +104,8 @@
                                     </td>
                                     <td class="p-1 md:p-2 w-2">
                                         <div>
-                                            <x-product-status-ball class="w-2 h-2"
-                                                :status="$product->status" title="{{ $product->status->description }}" />
+                                            <x-product-status-ball class="w-2 h-2" :status="$product->status"
+                                                title="{{ $product->status->description }}" />
                                         </div>
                                     </td>
                                     <td class="p-1">
@@ -111,14 +115,12 @@
                                     </td>
                                     <td class="p-1 text-right hidden md:table-cell">
                                         <div>
-                                            <x-product-quantity-cell class="w-2 h-2"
-                                                :quantity="$product->ordered"  />
+                                            <x-product-quantity-cell class="w-2 h-2" :quantity="$product->ordered" />
                                         </div>
                                     </td>
                                     <td class="p-1 text-right hidden md:table-cell">
                                         <div>
-                                            <x-product-quantity-cell class="w-2 h-2"
-                                                :quantity="$product->received"  />
+                                            <x-product-quantity-cell class="w-2 h-2" :quantity="$product->received" />
                                         </div>
                                     </td>
                                 </tr>

@@ -1,4 +1,15 @@
 <x-app-layout>
+    <x-slot name="navbar_title">
+        <div class="flex md:ml-5 items-center space-x-2 md:space-x-5">
+            <x-navbar-title>
+                {{ Auth::user()->activeCompany->name }}
+                <span class="pl-2 text-gray-400 font-normal">
+                     | &nbsp;Elenco magazzini
+                </span>
+            </x-navbar-title>
+        </div>
+    </x-slot>
+
     <x-slot name="navbar_left_menu">
     </x-slot>
 

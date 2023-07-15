@@ -159,6 +159,8 @@ class CreatePermissionTables extends Migration
             'delete warehouse',
             'change warehouse',
 
+            'delete dealer',
+
             'handle order',
 
             'admin site',
@@ -175,6 +177,7 @@ class CreatePermissionTables extends Migration
         $role->givePermissionTo('edit warehouse');
         $role->givePermissionTo('create warehouse');
         $role->givePermissionTo('delete warehouse');
+        $role->givePermissionTo('delete dealer');
         $role->givePermissionTo('handle order');
         $role->givePermissionTo('admin site');
 

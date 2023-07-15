@@ -6,6 +6,23 @@
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen md:px-4 py-4 dark:bg-gray-800">
         <div class="h-full ">
 
+            @if (Request::is('admin/*'))
+                <div class="w-full max-w-7xl mx-auto flex justify-between my-3">
+                    <div class=" text-xl font-semibold">
+                        Elenco articoli
+                    </div>
+                    <div class="space-x-2">
+                        <x-secondary-button title="Potrai importare i tuoi prodotti direttamente da un file CSV">
+                            Importa da CSV
+                        </x-secondary-button>
+
+                        <x-secondary-button :href="route('product.create')">
+                            Nuovo
+                        </x-secondary-button>
+                    </div>
+                </div>
+            @endif
+
             <div
                 class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-2 md:px-8 dark:bg-gray-900 dark:border-gray-800">
 
@@ -15,8 +32,8 @@
                             <div class="w-full">
                                 <input
                                     class="mr-3 bg-transparent border-0 focus:ring-0 focus:ring-slate-300 focus:outline-none appearance-none w-full  text-slate-900 placeholder-slate-400 rounded-md py-2 pl-3 ring-0"
-                                    type="text" aria-label="Search" placeholder="Cerca..."
-                                    value="{{ $search ?? '' }}" name="search" autofocus>
+                                    type="text" aria-label="Search" placeholder="Cerca..." value="{{ $search ?? '' }}"
+                                    name="search" autofocus>
                             </div>
 
                             <div class="p-1">
@@ -76,9 +93,7 @@
                                         </td>
                                         <td class="p-1 md:p-2 w-2">
                                             <div>
-                                                <x-product-status-ball
-                                                    class="w-2 h-2"
-                                                    :status="$product->status"
+                                                <x-product-status-ball class="w-2 h-2" :status="$product->status"
                                                     title="{{ $product->status->description }}" />
                                             </div>
                                         </td>
@@ -94,14 +109,12 @@
                                         </td>
                                         <td class="p-1 text-right hidden md:table-cell">
                                             <div>
-                                                <x-product-quantity-cell class="w-2 h-2"
-                                                    :quantity="$product->ordered"  />
+                                                <x-product-quantity-cell class="w-2 h-2" :quantity="$product->ordered" />
                                             </div>
                                         </td>
                                         <td class="p-1 text-right hidden md:table-cell">
                                             <div>
-                                                <x-product-quantity-cell class="w-2 h-2"
-                                                    :quantity="$product->received"  />
+                                                <x-product-quantity-cell class="w-2 h-2" :quantity="$product->received" />
                                             </div>
                                         </td>
                                     </tr>

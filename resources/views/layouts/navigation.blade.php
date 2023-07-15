@@ -70,9 +70,9 @@
 
                         <x-slot name="content">
                             @if (Auth::user()->companies->count() > 1)
-                            <div class="px-4 text-xs text-gray-400">
-                                Aziende
-                            </div>
+                                <div class="px-4 text-xs text-gray-400">
+                                    Aziende
+                                </div>
                                 @foreach (Auth::user()->companies as $company)
                                     <x-dropdown-link :href="route('company.activate', $company->id)"
                                         class="pl-6 {{ $company->id == Auth::user()->activeCompany->id ? 'text-red-800 font-semibold' : 'text-gray-300' }}">

@@ -84,7 +84,7 @@
                         </div>
 
                         <div
-                            class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800">
+                            class="bg-white shadow-lg rounded-sm border border-gray-200 pl-8 pr-1 dark:bg-gray-900 dark:border-gray-800 py-3">
                             <table class="table-auto w-full mt-2">
                                 <thead
                                     class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
@@ -95,7 +95,7 @@
                                         <th class="p-2 ">
                                             <div class="font-semibold text-left">Ordine</div>
                                         </th>
-                                        <th class="p-2 w-36">
+                                        <th class=" w-36">
                                             <div class="font-semibold text-center">Stato</div>
                                         </th>
                                     </tr>
@@ -118,13 +118,15 @@
                                                     </div>
                                                 </a> --}}
                                             </td>
-                                            <td class="p-2 w-36">
+                                            <td class="py-2 w-36">
                                                 <x-order-status
-                                                    class="rounded-lg text-xs uppercase py-2 px-3 text-center"
+                                                    class="text-xs font-semibold uppercase py-1 border-r-4 text-gray-700 text-right px-2"
                                                     :status="$order->status" />
                                             </td>
-                                            <td class="p-2 w-12">
-                                                @include('order.dropdown')
+                                            <td class="h-6 w-4 pt-2 items-center">
+                                                <div class="pt-2">
+                                                    @include('order.dropdown')
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

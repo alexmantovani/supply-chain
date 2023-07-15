@@ -8,6 +8,13 @@
                     <div class="text-xl font-medium">
                         Gestione produttori
                     </div>
+                    <div>
+                        <a href="{{ route('dealer.create') }}">
+                            <x-secondary-button class="">
+                                <i class="fa-solid fa-plus"></i> &nbsp; Nuovo produttore
+                            </x-secondary-button>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="py-3">

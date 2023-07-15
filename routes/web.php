@@ -50,7 +50,7 @@ Route::middleware('auth', 'has_warehouse')->group(function () {
     Route::patch('/profile/company', [ProfileController::class, 'companyUpdate'])->name('profile.company.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/product/{dealer}/create', [App\Http\Controllers\ProductController::class, 'create'])->name('product.create');
+    // Route::get('/product/{dealer}/create', [App\Http\Controllers\ProductController::class, 'create'])->name('product.create');
 
     // WAREHOUSE
     // Route::resource('/warehouse', App\Http\Controllers\WarehouseController::class);
@@ -90,8 +90,15 @@ Route::middleware('auth', 'has_warehouse')->group(function () {
         // Route::get('/providers', [App\Http\Controllers\ProviderController::class, 'index'])->middleware(['permission:admin site'])->name('admin.providers');
         Route::resource('provider', App\Http\Controllers\ProviderController::class);
         Route::resource('dealer', App\Http\Controllers\DealerController::class)->only([
-            'index'
+            'index', 'create', 'store', 'destroy'
         ]);
+
+        Route::resource('product', App\Http\Controllers\ProductController::class)->only([
+            'create', 'store', 'destroy'
+        ]);
+
+        Route::get('warehouse/{warehouse}/product', [App\Http\Controllers\ProductController::class, 'index'])->name('admin.product.index');
+
     })->middleware(['auth', 'permission:admin site']);
 });
 

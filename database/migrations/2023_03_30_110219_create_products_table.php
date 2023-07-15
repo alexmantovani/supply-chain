@@ -24,11 +24,15 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->string('image_url')->nullable();
+
             $table->unsignedBigInteger('order_code')->nullable();
             $table->string('model')->nullable();
             $table->string('note')->nullable();
 
             // $table->string('refill_quantity')->default(0);
+
+            // Se cancello il dealer allora cancello anche tutti i prodotti ad esso associati
+            $table->foreign('dealer_id')->references('id')->on('dealers')->onDelete('cascade');
 
             $table->timestamps();
         });

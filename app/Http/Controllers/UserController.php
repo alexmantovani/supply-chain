@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invite;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -20,9 +21,19 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        dd($user);
         $user->delete();
 
         return to_route('admin.user.index');
+    }
+
+    public function invite()
+    {
+        $company = Auth::user()->activeCompany;
+        $warehouses = $company->warehouses;
+        return view('user.invite', compact('warehouses', 'company'));
+    }
+
+    public function sendInvite(Request $request)
+    {
     }
 }

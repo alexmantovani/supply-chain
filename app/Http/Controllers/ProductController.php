@@ -67,7 +67,8 @@ class ProductController extends Controller
      */
     public function show(Warehouse $warehouse, Product $product)
     {
-        return view('product.show', compact('warehouse', 'product'));
+        $warehouses = $warehouse->company->warehouses;
+        return view('product.show', compact('warehouse', 'product', 'warehouses'));
     }
 
     /**

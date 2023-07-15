@@ -2,7 +2,7 @@
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="w-full max-w-7xl mx-auto ">
 
-            <form method="post" action="{{ route('provider.store') }}" class="">
+            <form method="post" action="{{ route('dealer.store') }}" class="">
                 @csrf
 
                 <input type="hidden" name="company_id" value="{{ $company->id }}" />
@@ -17,12 +17,12 @@
                         <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     </div>
 
-                    <div class="">
+                    {{-- <div class="">
                         <x-input-label for="description" :value="__('Descrizione')" />
                         <x-text-input id="description" name="description" type="text" class="mt-1 block w-full"
                             :value="old('description')" />
                         <x-input-error class="mt-2" :messages="$errors->get('description')" />
-                    </div>
+                    </div> --}}
 
                     <div class="">
                         <x-input-label for="email" :value="__('Email')" />
@@ -30,6 +30,26 @@
                             :value="old('email')" />
                         <x-input-error class="mt-2" :messages="$errors->get('email')" />
                     </div>
+
+
+                    <div class="">
+                        <x-input-label for="provider_id" :value="__('Fornitore')" />
+                        <select name="provider_id"
+                            class="form-control w-full rounded bg-gray-50 dark:bg-gray-800 mt-1 dark:text-white">
+                            <option value="0">
+                                Seleziona il fornitore...
+                            </option>
+                            @foreach ($providers as $provider)
+                                <option value="{{ $provider->id }}">
+                                    {{ $provider->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <x-input-error class="mt-2" :messages="$errors->get('provider_id')" />
+
+                    </div>
+
+
                 </div>
 
                 <div class="my-4 flex justify-end px-8">

@@ -24,7 +24,9 @@ class ProviderController extends Controller
      */
     public function create()
     {
-        return view('provider.create');
+        $company = Auth::user()->activeCompany;
+
+        return view('provider.create', compact('company'));
     }
 
     /**
@@ -36,6 +38,7 @@ class ProviderController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'email' => $request->email,
+            'company_id' => $request->company_id,
         ]);
 
         return to_route('provider.index');

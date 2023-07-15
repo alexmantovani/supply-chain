@@ -11,7 +11,7 @@ class StoreDealerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreDealerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['email'],
+            'company_id' => ['required', 'integer', 'min:1'],
+            'provider_id' => ['required', 'integer', 'min:1'],
         ];
     }
 }

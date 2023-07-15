@@ -28,7 +28,10 @@ class DealerController extends Controller
      */
     public function create()
     {
-        //
+        $company = Auth::user()->activeCompany;
+        $providers = $company->providers;
+
+        return view('dealer.create', compact('providers', 'company'));
     }
 
     /**
@@ -36,7 +39,14 @@ class DealerController extends Controller
      */
     public function store(StoreDealerRequest $request)
     {
-        //
+        Dealer::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'company_id' => $request->company_id,
+            'provider_id' => $request->provider_id,
+        ]);
+
+        return to_route('dealer.index');
     }
 
     /**
@@ -57,7 +67,7 @@ class DealerController extends Controller
             })
             ->whereIn('status_id', $filter_list)
             ->paginate(100);
-            return view('dealer.show', compact('warehouse', 'dealer', 'products', 'search', 'filters'));
+        return view('dealer.show', compact('warehouse', 'dealer', 'products', 'search', 'filters'));
     }
 
     /**
@@ -81,6 +91,8 @@ class DealerController extends Controller
      */
     public function destroy(Dealer $dealer)
     {
-        //
+        $dealer->delete();
+
+        return to_route('dealer.index');
     }
 }

@@ -36,76 +36,77 @@
 
             </div>
 
-            <div class="md:grid md:grid-cols-2 md:gap-4 h-full pt-8 mx-2">
-                <div>
-                    <div class="md:px-5">
-                        <div class=" text-gray-400 text-xl font-semibold">
-                            Produttore
-                        </div>
-
-                        <div class=" ">
-                            <div class="pb-6">
-                                <div class="font-semibold text-lg py-4 dark:text-gray-200">
-                                    <a href="{{ route('warehouse.dealer.show', [$warehouse, $product->dealer->id]) }}"
-                                        class=" cursor-pointer hover:underline">
-                                        {{ $product->dealer->name }}
-                                    </a>
-                                </div>
-                                <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
-                                    <div class="flex justify-between">
-                                        <div>
-                                            Codice produttore:
-                                        </div>
-                                        <span class=" text-gray-800 font-semibold">
-                                            {{ $product->dealer->code }}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
-                                    <div class="flex justify-between">
-                                        <div>
-                                            Modello produttore:
-                                        </div>
-                                        <span class=" text-gray-800 font-semibold">
-                                            {{ $product->dealer->model }}
-                                        </span>
-                                    </div>
-                                    {{ $product->dealer->address }}
-                                    <p>
-                                        {{ $product->dealer->city }}
-                                    </p>
-                                </div>
+            @if ($product->dealer)
+                <div class="md:grid md:grid-cols-2 md:gap-4 h-full pt-8 mx-2">
+                    <div>
+                        <div class="md:px-5">
+                            <div class=" text-gray-400 text-xl font-semibold">
+                                Produttore
                             </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="border-t-2 md:border-t-0 md:border-l-2 border-gray-200 border-dotted">
-                    <div class="md:px-5 pt-5 md:pt-0">
-                        <div class=" text-gray-400 text-xl font-semibold">
-                            Fornitore
-                        </div>
-
-                        <div class="">
-                            <div class="pb-6">
-
-                                <div class="font-semibold text-xl pt-4 dark:text-gray-200">
-                                    {{ $product->dealer->provider->name }}
-                                </div>
-                                <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
-                                    <a href="mailto:{{ $product->dealer->provider->email }}">
-                                        <i class="fa-regular fa-envelope"></i>
-                                        <span>
-                                            {{ $product->dealer->provider->email }}
-                                        </span>
-                                    </a>
+                            <div class=" ">
+                                <div class="pb-6">
+                                    <div class="font-semibold text-lg py-4 dark:text-gray-200">
+                                        <a href="{{ route('warehouse.dealer.show', [$warehouse, $product->dealer->id]) }}"
+                                            class=" cursor-pointer hover:underline">
+                                            {{ $product->dealer->name }}
+                                        </a>
+                                    </div>
+                                    <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
+                                        <div class="flex justify-between">
+                                            <div>
+                                                Codice produttore:
+                                            </div>
+                                            <span class=" text-gray-800 font-semibold">
+                                                {{ $product->dealer->code }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
+                                        <div class="flex justify-between">
+                                            <div>
+                                                Modello produttore:
+                                            </div>
+                                            <span class=" text-gray-800 font-semibold">
+                                                {{ $product->dealer->model }}
+                                            </span>
+                                        </div>
+                                        {{ $product->dealer->address }}
+                                        <p>
+                                            {{ $product->dealer->city }}
+                                        </p>
+                                    </div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
+
+                    <div class="border-t-2 md:border-t-0 md:border-l-2 border-gray-200 border-dotted">
+                        <div class="md:px-5 pt-5 md:pt-0">
+                            <div class=" text-gray-400 text-xl font-semibold">
+                                Fornitore
+                            </div>
+
+                            <div class="">
+                                <div class="pb-6">
+                                    <div class="font-semibold text-xl pt-4 dark:text-gray-200">
+                                        {{ $product->dealer->provider->name }}
+                                    </div>
+                                    <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
+                                        <a href="mailto:{{ $product->dealer->provider->email }}">
+                                            <i class="fa-regular fa-envelope"></i>
+                                            <span>
+                                                {{ $product->dealer->provider->email }}
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            @endif
 
 
             <div class="md:flex mt-5 mx-2">
@@ -213,7 +214,7 @@
                                 <x-input-label for="warehouse_id" :value="__('Magazzino')" />
                                 <select name="warehouse_id" class="form-control w-full rounded bg-yellow-50 mt-1"
                                     required>
-                                    @foreach (App\Models\Warehouse::all() as $warehouse_item)
+                                    @foreach ($warehouses as $warehouse_item)
                                         <option value="{{ $warehouse_item->id }}"
                                             {{ $warehouse_item->id == $warehouse->id ? 'selected' : '' }}>
                                             {{ $warehouse_item->name }}
