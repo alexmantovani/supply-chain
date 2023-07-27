@@ -78,6 +78,9 @@ Route::middleware('auth', 'has_warehouse')->group(function () {
     Route::get('/order/{order}/completed', [App\Http\Controllers\OrderController::class, 'completed'])->name('order.completed');
     Route::get('/order/{order}/closed', [App\Http\Controllers\OrderController::class, 'closed'])->name('order.closed');
 
+    Route::get('dealer/{dealer}/product/import', [App\Http\Controllers\ProductController::class, 'showImportPage'])->name('product.showImportPage');
+    Route::post('dealer/{dealer}/product/import', [App\Http\Controllers\ProductController::class, 'import'])->name('product.import');
+
     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware(['permission:admin site'])->name('admin');
     Route::prefix('admin')->group(function () {
         Route::resource('user', App\Http\Controllers\UserController::class)->only([

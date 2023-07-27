@@ -23,9 +23,9 @@
                                 </p>
                             </div>
                         </div>
-                        <div>
+                        <div class="">
                             {{-- @can('delete dealer') --}}
-                                @include('dealer.partials.delete-dealer-button')
+                            @include('dealer.partials.delete-dealer-button')
                             {{-- @endcan --}}
                         </div>
                     </div>
@@ -37,10 +37,33 @@
             <div class="w-full max-w-7xl mx-auto pt-5">
                 <div
                     class="px-2 md:px-8 bg-white shadow-lg rounded-sm border border-gray-200 dark:bg-gray-900 dark:border-gray-700">
-                    <div class="pb-6 md:m-5 flex space-x-4 justify-between items-center">
-                        <div class="font-semibold text-xl md:text-2xl pt-4 dark:text-gray-200">
-                            Listino
+                    <div class="pb-6 md:m-5 flex space-x-4 justify-between items-baseline">
+                        <div class="flex space-x-3">
+                            <div class="font-semibold text-xl md:text-2xl pt-4 dark:text-gray-200">
+                                Listino
+                            </div>
+                            <div class="mt-2">
+                                <x-secondary-button :href="route('product.create', $dealer->id)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        title="Aggiunge un nuovo prodotto al listino del costruttore" class="w-6 h-6">
+                                        <path fill-rule="evenodd"
+                                            d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </x-secondary-button>
+                            </div>
+                            <div class="mt-2">
+                                <x-secondary-button :href="route('product.showImportPage', $dealer->id)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        title="Imposta dal CSV del costruttore uno o più articoli" class="w-6 h-6">
+                                        <path fill-rule="evenodd"
+                                            d="M12 2.25a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V3a.75.75 0 01.75-.75zm-9 13.5a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </x-secondary-button>
+                            </div>
                         </div>
+
                         <div>
                             <form method="GET" action="{{ route('warehouse.dealer.show', [$warehouse, $dealer]) }}">
                                 <div class="flex items-center">

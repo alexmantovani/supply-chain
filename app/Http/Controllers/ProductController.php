@@ -10,6 +10,7 @@ use App\Models\ProductStatus;
 use App\Models\Warehouse;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends Controller
 {
@@ -34,7 +35,7 @@ class ProductController extends Controller
             ->whereIn('status_id', $filter_list)
             ->paginate(100);
 
-            return view('product.index', compact('warehouse', 'search', 'products', 'filters'));
+        return view('product.index', compact('warehouse', 'search', 'products', 'filters'));
     }
 
     /**
@@ -93,5 +94,38 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    public function showImportPage(Dealer $dealer)
+    {
+        return view('product.import', compact('dealer'));
+    }
+
+    public function import(Request $request, Dealer $dealer)
+    {
+        $request->validate([
+            'file_csv' => 'required',
+        ]);
+
+        $company = Auth::user()->active_company;
+        $pathFile = $request->file_csv->getPathname();
+
+        if (($handle = fopen($pathFile, "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                $code = $data[0];
+                if ($code == 'Articolo') continue;
+                if (strlen($code) == 0) continue;
+
+                Product::updateOrCreate([
+                    'company_id' => $company->id,
+                    'uuid' => $data[0],
+                ], [
+                    'dealer_id' => $dealer->id,
+                    'status_id' => 1, // OK
+                    'name' => $data[1],
+                ]);
+            }
+            fclose($handle);
+        }
     }
 }

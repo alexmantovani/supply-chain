@@ -75,12 +75,9 @@
                 @if (Route::has('login'))
                     <div class="fixed top-2 sm:right-0 pr-28 text-right">
                         @auth
-                            <a href="{{ url('/dashboard') }}"
-                                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                                <x-secondary-button>
-                                    Entra
-                                </x-secondary-button>
-                            </a>
+                            <x-secondary-button :href="url('/dashboard')">
+                                Entra
+                            </x-secondary-button>
                         @else
                             <a href="{{ route('login') }}"
                                 class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
@@ -157,7 +154,7 @@
         <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
     </nav>
 
-    <div class="pt-24">
+    <div class="pt-24 pb-12">
         {{-- <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center justify-between"> --}}
         <div class="container px-3 mx-auto flex items-center justify-between space-x-5">
             <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
@@ -171,10 +168,8 @@
                 </div>
 
                 @if (Route::has('register'))
-                    <x-secondary-button class="">
-                        <a href="{{ route('register') }}" class="">
-                            {{ __('Registrati ora') }}
-                        </a>
+                    <x-secondary-button :href="route('register')" class="">
+                        {{ __('Registrati ora') }}
                     </x-secondary-button>
                 @endif
             </div>
@@ -184,7 +179,7 @@
             </div>
         </div>
     </div>
-
+{{--
     <div class="relative -mt-12 lg:-mt-24">
         <svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -207,7 +202,7 @@
                 </g>
             </g>
         </svg>
-    </div>
+    </div> --}}
 
     <section class="bg-white border-b py-8">
         <div class="container max-w-5xl mx-auto m-8">
@@ -296,10 +291,8 @@
                     <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
                         <div class="w-full pt-6 text-3xl text-gray-600 font-bold text-center">Gratis</div>
                         <div class="flex items-center justify-center">
-                            <x-secondary-button class="my-6 py-4 px-8 shadow-lg">
-                                <a href="{{ route('register') }}" class="">
-                                    Registrati
-                                </a>
+                            <x-secondary-button :href="route('register')" class="my-6 py-4 px-8 shadow-lg">
+                                Registrati
                             </x-secondary-button>
                         </div>
                     </div>
@@ -322,10 +315,8 @@
                         <div class="w-full pt-6 text-4xl font-bold text-center">€ 6,99 <span class="text-base">/ al
                                 mese</span></div>
                         <div class="flex items-center justify-center">
-                            <x-secondary-button class="my-6 py-4 px-8 shadow-lg">
-                                <a href="{{ route('register') }}" class="">
-                                    Registrati
-                                </a>
+                            <x-secondary-button :href="route('register')" class="my-6 py-4 px-8 shadow-lg">
+                                Registrati
                             </x-secondary-button>
                         </div>
                     </div>
@@ -346,10 +337,8 @@
                         <div class="w-full pt-6 text-3xl text-gray-600 font-bold text-center">€ 20 <span
                                 class="text-base">/ al mese</span></div>
                         <div class="flex items-center justify-center">
-                            <x-secondary-button class="my-6 py-4 px-8 shadow-lg">
-                                <a href="{{ route('register') }}" class="">
-                                    Registrati
-                                </a>
+                            <x-secondary-button :href="route('register')" class="my-6 py-4 px-8 shadow-lg">
+                                Registrati
                             </x-secondary-button>
                         </div>
                     </div>
