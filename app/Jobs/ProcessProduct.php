@@ -11,6 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use RicorocksDigitalAgency\Soap\Facades\Soap;
 
 class ProcessProduct implements ShouldQueue
 {
@@ -32,6 +33,9 @@ class ProcessProduct implements ShouldQueue
     {
         Log::info("ProcessProduct" . $this->product->uuid);
 
+        $productInfo = Soap::to('https://sig-inservices.marchesini.com/mgWSElettronici/WebServiceElettro.asmx')->call('getInfoCode', ['Code' => $this->product->uuid]);
+        Log::info($productInfo);
+
         // TODO: Sistemare
         $this->product->update([
             'name' => Str::uuid(),
@@ -40,6 +44,9 @@ class ProcessProduct implements ShouldQueue
             'order_code' => 0,
             'model' => ''
         ]);
+
+        // TODO: Vedere se è fattibile e ha senso
+        // $this->emit('productUpdated', $this->product);
 
         // TODO: scaricare i dati dal DB altena e inserirli nel DB
         Log::info("Fine");

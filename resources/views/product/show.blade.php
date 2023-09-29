@@ -139,6 +139,9 @@
                         <table class="table-auto w-full">
                             <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
                                 <tr>
+                                    <th class="p-2 w-5">
+                                        <div class="font-semibold text-center"></div>
+                                    </th>
                                     <th class="p-2 w-20">
                                         <div class="font-semibold text-center">Data</div>
                                     </th>
@@ -163,6 +166,12 @@
 
                                 @foreach ($product->orders as $order)
                                     <tr class="">
+                                        <td
+                                            class="p-1 font-sm md:text-md whitespace-nowrap text-gray-400 dark:text-gray-300  ">
+                                            <x-product-arrived :arrived="$order->pivot->received_quantity"
+                                                status="{{ $order->status }}"
+                                                class="text-xs" />
+                                        </td>
                                         <td
                                             class="p-1 font-sm md:text-md whitespace-nowrap text-gray-400 dark:text-gray-300  ">
                                             <div>

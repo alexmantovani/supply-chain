@@ -34,8 +34,6 @@
                                                 <a href="{{ route('warehouse.show', $warehouse->id) }}">
                                                     <div
                                                         class="flex justify-between items-center font-medium text-gray-800 text-lg dark:text-gray-300">
-                                                        {{-- <a href="{{ route('product.show', $stock->product) }}"
-                                                        class=" hover:underline"> --}}
                                                         {{ $warehouse->name }}
                                                     </div>
                                                 </a>

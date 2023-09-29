@@ -14,6 +14,8 @@ class Product extends Model
 
     protected $guarded = [];
 
+    protected $with = ['dealer', 'status'];
+
     public function getReceivedAttribute()
     {
         $quantity = $this->orders
@@ -30,11 +32,6 @@ class Product extends Model
             ->sum('pivot.quantity');
 
         return $quantity;
-    }
-
-    public function stock()
-    {
-        return $this->hasOne(Stock::class);
     }
 
     public function dealer()

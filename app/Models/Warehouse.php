@@ -21,8 +21,4 @@ class Warehouse extends Model
         return $this->hasMany(Refill::class);
     }
 
-    public function stocks()
-    {
-        return $this->hasMany(Stock::class);
-    }
 }

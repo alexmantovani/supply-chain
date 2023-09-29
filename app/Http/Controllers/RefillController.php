@@ -6,7 +6,6 @@ use App\Http\Requests\StoreRefillRequest;
 use App\Http\Requests\UpdateRefillRequest;
 use App\Models\Refill;
 use App\Models\Product;
-use App\Models\Stock;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Warehouse;
@@ -173,6 +172,7 @@ class RefillController extends Controller
     public function putInList(Warehouse $warehouse, $code, $quantity = null)
     {
         $product = Product::firstWhere('uuid', $code);
+
         // Non ho trovato il prodotto nel DB
         if (!$product) {
             // TODO: Non lo devo creare ma devo chiedere ad Altena se esiste
@@ -181,8 +181,8 @@ class RefillController extends Controller
             //     'status_id' => 1,
             // ]);
 
-            // // Chiedo al DB di Altena le info sul prodotto
-            // ProcessProduct::dispatch($product);
+            // Chiedo al DB di Altena le info sul prodotto
+            ProcessProduct::dispatch($product);
 
             return 4; // Non trovato
         }

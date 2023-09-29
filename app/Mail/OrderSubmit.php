@@ -54,8 +54,8 @@ class OrderSubmit extends Mailable
     {
         $filename = storage_path('tempdir') . "/order.csv";
 
-        // TODO: Se il file $filename esiste lo cancello
-        //
+        // Se il file $filename esiste lo cancello
+        unlink($filename);
 
         $file = fopen($filename, 'w');
         foreach ($this->order->products as $product) {

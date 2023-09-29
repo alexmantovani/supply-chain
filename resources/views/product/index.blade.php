@@ -57,6 +57,8 @@
                         <table class="table-auto w-full ">
                             <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
                                 <tr>
+                                    <th class="w-2">
+                                    </th>
                                     <th class="p-2 whitespace-nowrap w-30">
                                         <div class="font-semibold text-left">CODICE</div>
                                     </th>
@@ -81,6 +83,17 @@
                             <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
                                 @foreach ($products as $product)
                                     <tr>
+                                        <td class="pt-1 w-2 ">
+                                            <button class="" title="Copia il codice dell'articolo negli appunti"
+                                                onclick="copyToClipboard('{{ $product->uuid }}')">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"
+                                                    class="w-4 h-4 stroke-red-300">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
+                                                </svg>
+                                            </button>
+                                        </td>
                                         <td class="">
                                             <x-product-uuid-cell>
                                                 {{ $product->uuid }}
@@ -88,9 +101,7 @@
                                         </td>
                                         <td class="p-1 md:p-2 w-2">
                                             <div>
-                                                <x-product-status-ball
-                                                    class="w-2 h-2"
-                                                    :status="$product->status"
+                                                <x-product-status-ball class="w-2 h-2" :status="$product->status"
                                                     title="{{ $product->status->description }}" />
                                             </div>
                                         </td>
@@ -106,14 +117,12 @@
                                         </td>
                                         <td class="p-1 text-right hidden md:table-cell">
                                             <div>
-                                                <x-product-quantity-cell class="w-2 h-2"
-                                                    :quantity="$product->ordered"  />
+                                                <x-product-quantity-cell class="w-2 h-2" :quantity="$product->ordered" />
                                             </div>
                                         </td>
                                         <td class="p-1 text-right hidden md:table-cell">
                                             <div>
-                                                <x-product-quantity-cell class="w-2 h-2"
-                                                    :quantity="$product->received"  />
+                                                <x-product-quantity-cell class="w-2 h-2" :quantity="$product->received" />
                                             </div>
                                         </td>
                                     </tr>
@@ -129,5 +138,13 @@
             </div>
         </div>
     </section>
+
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);
+            // alert("Copiato");
+        }
+    </script>
 
 </x-app-layout>
