@@ -27,6 +27,50 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <style>
+        /* Container holding the image and the text */
+
+        .container-wide {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Centered text */
+        .centered {
+            position: absolute;
+            top: 60%;
+            /* left: 50%;
+            width: 60%;
+            transform: translate(-50%, -50%); */
+        }
+
+        .bottom-right {
+            position: absolute;
+            top: 90%;
+            right: 0%;
+            width: auto;
+            text-align: right;
+            background-color: bg-orange-500;
+            transform: translate(-50%, -50%);
+        }
+
+        .bottom {
+            position: absolute;
+            top: 90%;
+            width: auto;
+        }
+
+        .border-1 {
+            border-width: 1px;
+        }
+    </style>
+
     @livewireStyles
 </head>
 

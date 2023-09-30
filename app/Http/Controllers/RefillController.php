@@ -9,6 +9,7 @@ use App\Models\Product;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Warehouse;
+use Illuminate\Support\Facades\Log;
 
 use App\Jobs\ProcessProduct;
 
@@ -44,6 +45,7 @@ class RefillController extends Controller
      */
     public function store(Warehouse $warehouse, StoreRefillRequest $request)
     {
+
         $codes = explode(" ", $request['codes']);
         $quantity = $request['quantity'] ?? null;
         $warehouse_id = $request['warehouse_id'] ?? $warehouse->id;
@@ -173,6 +175,8 @@ class RefillController extends Controller
     {
         $product = Product::firstWhere('uuid', $code);
 
+        // TODO: Da gestire bene col DB di Altena
+
         // Non ho trovato il prodotto nel DB
         if (!$product) {
             // TODO: Non lo devo creare ma devo chiedere ad Altena se esiste
@@ -182,7 +186,7 @@ class RefillController extends Controller
             // ]);
 
             // Chiedo al DB di Altena le info sul prodotto
-            ProcessProduct::dispatch($product);
+            ProcessProduct::dispatchSync($product);
 
             return 4; // Non trovato
         }

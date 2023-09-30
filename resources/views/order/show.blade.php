@@ -50,7 +50,7 @@
 
                         <div class="my-4 flex items-top align-top">
                             <div class="md:w-40 mt-1">
-                                <x-order-status
+                                <x-order-status-gradient
                                     class="text-xs font-semibold uppercase py-1 border-r-4 text-gray-700 text-right px-2"
                                     :status="$order->status" />
                             </div>

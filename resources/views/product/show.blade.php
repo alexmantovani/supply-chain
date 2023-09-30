@@ -204,7 +204,7 @@
                                         <td
                                             class="p-1 whitespace-nowrap text-xs text-gray-500 dark:text-gray-300 text-right md:w-40 ">
                                             <div class="mt-1">
-                                                <x-order-status
+                                                <x-order-status-gradient
                                                     class="text-xs font-semibold uppercase py-1 border-r-4 text-gray-700 text-right px-2"
                                                     :status="$order->status" />
                                             </div>

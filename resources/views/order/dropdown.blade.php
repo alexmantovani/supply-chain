@@ -1,15 +1,18 @@
-<div class="w-3 md:w-6 h-full">
+<div class="w-3 md:w-6 h-5">
     @if (in_array($order->status, ['waiting', 'pending']))
         <button id="dropdownDefaultButton_{{ $order->id }}" data-dropdown-toggle="dropdown_{{ $order->id }}"
-            class="w-full h-full text-gray-500 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm"
+            class="w-full text-gray-500"
             type="button">
 
-            <svg height="32" xmlns="http://www.w3.org/2000/svg">
+            <svg height="20" xmlns="http://www.w3.org/2000/svg" class="">
                 <g transform="scale(0.35)">
                     <path stroke="null" id="svg_1"
                         d="m20,32a4,4 0 1 1 -4,-4a4.00458,4.00458 0 0 1 4,4zm0,16a4,4 0 1 1 -4,-4a4.00458,4.00458 0 0 1 4,4zm0,-32a4,4 0 1 1 -4,-4a4.00458,4.00458 0 0 1 4,4z" />
                 </g>
             </svg>
+            {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+              </svg> --}}
 
         </button>
         <!-- Dropdown menu -->

@@ -15,40 +15,44 @@
         @include('layouts.nav_right_bar', ['warehouse' => $warehouse])
     </x-slot>
 
-    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
+    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen dark:bg-gray-800">
         <div class="h-full ">
+
+
+
+            <div class="container-wide text-white relative pb-3">
+                <img class="object-cover" style="height: 400px" src="{{ url('images/bulloni.webp') }}">
+                <div class="centered w-screen mx-auto md:px-36 text-center">
+
+                    <form method="GET" action="{{ route('warehouse.product.index', $warehouse) }}">
+                        <div
+                            class="flex py-3 m-3 p-3 text-stone-900 dark:text-stone-100 bg-white dark:bg-stone-800 shadow-sm md:rounded-lg">
+                            <input
+                                class="mr-3 border-0 focus:ring-0 focus:ring-slate-300 focus:outline-none appearance-none w-full leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-3 ring-0 dark:bg-stone-600 dark:text-stone-50"
+                                type="text" aria-label="Search" placeholder="Cerca..." name="search" autofocus>
+
+                            {{-- <a href="" class="py-4 px-5 bg-orange-600 text-white rounded-md text-center">
+                                    <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                                </a> --}}
+                            <x-primary-button class="mx-0">
+                                <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                            </x-primary-button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
             <div class="w-full max-w-7xl mx-auto md:flex">
 
                 <div class="flex-1 ">
-                    <div class="flex justify-between items-baseline">
-                        <div class=" text-gray-900 dark:text-gray-300 text-xl p-3 font-semibold">
-                            Ricerca materiale
-                        </div>
-                    </div>
-
-                    <div
-                        class="bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800">
-
-                        <div class="">
-                            <form method="GET" action="{{ route('warehouse.product.index', $warehouse) }}">
-                                <div class="flex my-4 rounded-md border border-gray-300 items-center">
-                                    <div class="w-full">
-                                        <input
-                                            class="mr-3 bg-transparent border-0 focus:ring-0 focus:ring-slate-300 focus:outline-none appearance-none w-full  text-slate-900 placeholder-slate-400 rounded-md py-2 pl-3 ring-0"
-                                            type="text" aria-label="Search" placeholder="Cerca..."
-                                            value="{{ $search ?? '' }}" name="search" autofocus>
-                                    </div>
-
-                                    <div class="p-1">
-                                        <x-primary-button class="ml-1 h-12 w-12">
-                                            <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
-                                        </x-primary-button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
                     @if ($refills->count())
                         <div class="mt-5 flex justify-between items-baseline">
                             <div class=" text-gray-900 text-xl p-3 font-semibold">
@@ -132,10 +136,10 @@
                                             </td>
                                             <td class="p-2 w-36">
                                                 <x-order-status
-                                                    class="rounded-lg text-xs uppercase py-2 px-3 text-center"
+                                                    class="rounded-lg text-xs uppercase font-semibold py-2 px-3 text-center"
                                                     :status="$order->status" />
                                             </td>
-                                            <td class="p-2 w-12">
+                                            <td class="p-2 w-2">
                                                 @include('order.dropdown')
                                             </td>
                                         </tr>

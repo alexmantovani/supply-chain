@@ -69,7 +69,7 @@
                                                                 </a>
                                                             </div>
 
-                                                            <x-order-status
+                                                            <x-order-status-gradient
                                                                 class="w-30 md:w-40 text-xs font-semibold uppercase border-r-4 text-gray-800 text-right p-2"
                                                                 :status="$order->status" />
                                                         </div>
@@ -113,7 +113,7 @@
                                                 </td>
 
                                                 {{-- <td class="align-top py-3 pl-3 md:w-40 whitespace-nowrap">
-                                                    <x-order-status
+                                                    <x-order-status-gradient
                                                         class="text-xs font-semibold uppercase py-1 border-r-4 text-gray-700 text-right px-2"
                                                         :status="$order->status" />
 

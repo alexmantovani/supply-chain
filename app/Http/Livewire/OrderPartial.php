@@ -52,7 +52,7 @@ class OrderPartial extends Component
 
         $this->order->logs()->create([
             'user_id' => Auth::user()->id,
-            'description' => $isCompleted ? 'Ordine completato' : 'Ordine arrivato parzialmente',
+            'description' => $isCompleted ? 'Ordine completato' : 'Non tutto il materiale ordinato è stato consegnato',
             'type' => 'info',
         ]);
 

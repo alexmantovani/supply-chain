@@ -33,7 +33,7 @@ class ProductController extends Controller
             ->whereIn('status_id', $filter_list)
             ->paginate(100);
 
-            return view('product.index', compact('warehouse', 'search', 'products', 'filters'));
+        return view('product.index', compact('warehouse', 'search', 'products', 'filters'));
     }
 
     /**
