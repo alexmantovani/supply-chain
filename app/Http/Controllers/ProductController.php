@@ -20,16 +20,24 @@ class ProductController extends Controller
         $search = Request()->search ?? '';
         $filters = Request()->filters ?? ['Ordinabili'];
 
-        $filter_list = ProductStatus::whereIn('group', $filters)->pluck('id');
+        $filter_list = ProductStatus::whereIn('group', $filters)->pluck('id')->toArray();
 
-        $products = Product::join('dealers', 'dealers.id', 'dealer_id')
-            ->select('products.*', 'dealers.name as dealer_name')
-            ->where(function ($q) use ($search) {
-                return $q
-                    ->where('products.name', 'like', '%' . $search . '%')
-                    ->orWhere('dealers.name', 'like', '%' . $search . '%')
-                    ->orWhere('uuid', 'like', $search . '%');
-            })
+        // $products = Product::join('dealers', 'dealers.id', 'dealer_id')
+        //     ->select('products.*', 'dealers.name as dealer_name')
+        //     ->where(function ($q) use ($search) {
+        //         return $q
+        //             ->where('products.name', 'like', '%' . $search . '%')
+        //             ->orWhere('dealers.name', 'like', '%' . $search . '%')
+        //             ->orWhere('uuid', 'like', $search . '%');
+        //     })
+        //     ->whereIn('status_id', $filter_list)
+        //     ->paginate(100);
+
+        $products = Product::search($search)
+            // ->query(function ($builder) {
+            //     $builder->join('dealers', 'products.dealer_id', '=', 'dealers.id');
+            // })
+            // ->get()
             ->whereIn('status_id', $filter_list)
             ->paginate(100);
 

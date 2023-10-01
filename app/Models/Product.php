@@ -6,10 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 
+use Laravel\Scout\Searchable;
+
 use DOMDocument;
 
 class Product extends Model
 {
+    use Searchable;
+    // use Searchable {
+    //     Searchable::search as parentSearch;
+    // }
+
     use HasFactory;
 
     protected $guarded = [];
@@ -158,4 +165,23 @@ class Product extends Model
 
         print($uuid . ' ' . $name);
     }
+
+    public function toSearchableArray()
+    {
+        return [
+            // 'id' => (int) $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'uuid' => $this->uuid,
+            'dealer_name' => '',
+            // 'dealers.name' => '',
+        ];
+    }
+
+    // public static function search($query = '', $callback = null)
+    // {
+    //     return static::parentSearch($query, $callback)->query(function ($builder) {
+    //         $builder->join('dealers', 'products.dealer_id', '=', 'dealers.id');
+    //     });
+    // }
 }
