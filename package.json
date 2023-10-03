@@ -15,6 +15,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "chart.js": "^4.4.0",
         "html5-qrcode": "^2.3.8"
     }
 }

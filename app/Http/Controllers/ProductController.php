@@ -71,8 +71,8 @@ class ProductController extends Controller
      */
     public function show(Warehouse $warehouse, Product $product)
     {
-        dd($product->getOrdersByYear());
-        return view('product.show', compact('warehouse', 'product'));
+        $ordersTrend = $product->getOrdersByYear(10);
+        return view('product.show', compact('warehouse', 'product', 'ordersTrend'));
     }
 
     /**

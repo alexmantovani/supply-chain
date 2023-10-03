@@ -13,6 +13,9 @@
                 </x-navbar-title>
             </div>
         </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
     </x-slot>
     <x-slot name="navbar_left_menu">
         @include('layouts.nav_left_bar', ['warehouse' => $warehouse])
@@ -55,7 +58,14 @@
             </div>
 
             <div class="md:grid md:grid-cols-2 md:gap-4 h-full pt-8 mx-2">
-                <div>
+                <div class="bg-white p-5 md:shadow-lg md:rounded-sm md:border border-gray-200">
+                    <div class="font-semibold text-2xl dark:text-gray-200 pb-6 md:mx-5">
+                        Trend ordini
+                    </div>
+                    <canvas id="myChart" width="400" height="150"></canvas>
+                </div>
+
+                <div class="border-t-2 md:border-t-0 md:border-l-2 border-gray-200 border-dotted">
                     <div class="md:px-5">
                         <div class=" text-gray-400 text-xl font-semibold">
                             Produttore
@@ -63,7 +73,7 @@
 
                         <div class=" ">
                             <div class="pb-6">
-                                <div class="font-semibold text-lg py-4 dark:text-gray-200">
+                                <div class="font-semibold text-xl md:text-2xl py-2 dark:text-gray-200">
                                     <a href="{{ route('warehouse.dealer.show', [$warehouse, $product->dealer->id]) }}"
                                         class=" cursor-pointer hover:underline">
                                         {{ $product->dealer->name }}
@@ -96,9 +106,33 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="md:px-5 pt-5">
+                        <div class=" text-gray-400 text-xl md:text-2xl font-semibold">
+                            Fornitore
+                        </div>
+
+                        <div class="">
+                            <div class="pb-2">
+
+                                <div class="font-semibold text-2xl pt-2 dark:text-gray-200">
+                                    {{ $product->dealer->provider->name }}
+                                </div>
+                                <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
+                                    <a href="mailto:{{ $product->dealer->provider->email }}">
+                                        <i class="fa-regular fa-envelope"></i>
+                                        <span>
+                                            {{ $product->dealer->provider->email }}
+                                        </span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="border-t-2 md:border-t-0 md:border-l-2 border-gray-200 border-dotted">
+                {{-- <div class="border-t-2 md:border-t-0 md:border-l-2 border-gray-200 border-dotted">
                     <div class="md:px-5 pt-5 md:pt-0">
                         <div class=" text-gray-400 text-xl font-semibold">
                             Fornitore
@@ -122,9 +156,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
-
 
             <div class="md:flex mt-5 mx-2">
                 <div
@@ -168,8 +201,7 @@
                                     <tr class="">
                                         <td
                                             class="p-1 font-sm md:text-md whitespace-nowrap text-gray-400 dark:text-gray-300  ">
-                                            <x-product-arrived :arrived="$order->pivot->received_quantity"
-                                                status="{{ $order->status }}"
+                                            <x-product-arrived :arrived="$order->pivot->received_quantity" status="{{ $order->status }}"
                                                 class="text-xs" />
                                         </td>
                                         <td
@@ -265,5 +297,48 @@
             </div>
         </div>
     </section>
+
+
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var data = @json($ordersTrend); // Converte l'array PHP in un oggetto JavaScript
+
+        var years = Object.keys(data);
+        var values = Object.values(data);
+
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: 'Ordinati',
+                    data: values,
+                    backgroundColor: '#fee2e2', // Colore delle barre
+                    borderColor: '#dc2626', // Colore dei bordi delle barre
+                    borderWidth: 1 // Spessore dei bordi delle barre
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        display: false, // Imposta a "false" per nascondere l'asse Y
+                    },
+                    x: {
+                        grid: {
+                            display: false // Imposta a "false" per nascondere la griglia sull'asse X
+                        },
+                        ticks: {
+                            display: true, // Imposta a "false" per nascondere i testi sull'asse X
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false // Imposta a "false" per nascondere la legenda
+                    }
+                }
+            }
+        });
+    </script>
 
 </x-app-layout>

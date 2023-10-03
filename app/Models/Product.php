@@ -110,16 +110,6 @@ class Product extends Model
         $currentYear = date('Y');
         $startYear = $currentYear - $numberOfYears;
 
-        // $ordersByYear =$this->orders()
-        //     ->select(DB::raw('YEAR(created_at) as year'), DB::raw('COUNT(*) as total'))
-        //     ->whereBetween(DB::raw('YEAR(created_at)'), [$startYear, $currentYear])
-        //     ->groupBy(DB::raw('YEAR(created_at)'))
-        //     ->get();
-
-        // return $ordersByYear;
-
-
-
         $returnData = array();
         for ($i = $startYear; $i <= $currentYear; $i++) {
             $su = $this->orders()
