@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 use DOMDocument;
 
@@ -102,6 +103,41 @@ class Product extends Model
     // public function received()
     // {
     //     return $this->orders->sum('pivot.received_quantity');
+    // }
+
+    public function getOrdersByYear($numberOfYears = 5)
+    {
+        $currentYear = date('Y');
+        $startYear = $currentYear - $numberOfYears;
+
+        // $ordersByYear =$this->orders()
+        //     ->select(DB::raw('YEAR(created_at) as year'), DB::raw('COUNT(*) as total'))
+        //     ->whereBetween(DB::raw('YEAR(created_at)'), [$startYear, $currentYear])
+        //     ->groupBy(DB::raw('YEAR(created_at)'))
+        //     ->get();
+
+        // return $ordersByYear;
+
+
+
+        $returnData = array();
+        for ($i = $startYear; $i <= $currentYear; $i++) {
+            $su = $this->orders()
+                ->whereYear('orders.created_at', '=', $i)
+                ->sum('received_quantity');
+
+            // array_push($returnData, $su);
+            $returnData[$i] = $su;
+        }
+        return $returnData;
+    }
+
+    // public function orderedInLastYears($numberOfYears = 5)
+    // {
+    //     return $this->orders
+    //         ->groupBy(function ($val) {
+    //             return \Carbon\Carbon::parse($val->created_at)->format('Y');
+    //         });
     // }
 
     public function parseHtml()

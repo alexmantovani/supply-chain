@@ -25,16 +25,15 @@ class ProductController extends Controller
         $products = Product::join('dealers', 'dealers.id', 'dealer_id')
             ->select('products.*', 'dealers.name as dealer_name')
             ->where(function ($q) use ($search) {
-                return $q
-                    ->where('products.name', 'like', '%' . $search . '%')
-                    ->orWhere('dealers.name', 'like', '%' . $search . '%')
-                    ->orWhere('uuid', 'like', $search . '%');
-            })
-            ->orWhere(function ($q) use ($search) {
+                // Cerco innanzitutto per singola parola
                 $parole_chiave = array_filter(explode(' ', $search));
                 foreach ($parole_chiave as $parola) {
                     $q->where('products.name', 'like', '%' . $parola . '%');
                 }
+                return $q
+                    ->orWhere('products.name', 'like', '%' . $search . '%')
+                    ->orWhere('dealers.name', 'like', '%' . $search . '%')
+                    ->orWhere('uuid', 'like', $search . '%');
             })
             ->whereIn('status_id', $filter_list)
             ->paginate(100);
@@ -72,6 +71,7 @@ class ProductController extends Controller
      */
     public function show(Warehouse $warehouse, Product $product)
     {
+        dd($product->getOrdersByYear());
         return view('product.show', compact('warehouse', 'product'));
     }
 

@@ -153,6 +153,7 @@ class CreatePermissionTables extends Migration
 
     private function postCreate()
     {
+        // Creo i permessi di default
         $permissions = [
             'edit warehouse',
             'create warehouse',
@@ -169,6 +170,7 @@ class CreatePermissionTables extends Migration
 
         // Ruoli
         $role = Role::create(['name' => 'super-admin']);
+        $role->givePermissionTo($permissions);
 
         $role = Role::create(['name' => 'admin']);
         $role->givePermissionTo('change warehouse');

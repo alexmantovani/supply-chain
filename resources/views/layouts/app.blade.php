@@ -44,7 +44,7 @@
         /* Centered text */
         .centered {
             position: absolute;
-            top: 60%;
+            top: 10%;
             /* left: 50%;
             width: 60%;
             transform: translate(-50%, -50%); */

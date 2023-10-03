@@ -2,7 +2,7 @@
     <x-slot name="navbar_title">
         <div class="flex md:ml-5 items-center space-x-2 md:space-x-5">
             <div>
-                <x-navbar-title :href="route('warehouse.show', $warehouse->id)">
+                <x-navbar-title :href="route('warehouse.show', $warehouse->id)" title="{{ $warehouse->description }}">
                     {{ $warehouse->name }}
                 </x-navbar-title>
             </div>
@@ -16,37 +16,45 @@
     </x-slot>
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen dark:bg-gray-800">
-        <div class="h-full ">
-
-
+        <div class="h-full">
 
             <div class="container-wide text-white relative pb-3">
                 <img class="object-cover" style="height: 400px" src="{{ url('images/bulloni.webp') }}">
-                <div class="centered w-screen mx-auto md:px-36 text-center">
-
-                    <form method="GET" action="{{ route('warehouse.product.index', $warehouse) }}">
-                        <div
-                            class="flex py-3 m-3 p-3 text-stone-900 dark:text-stone-100 bg-white dark:bg-stone-800 shadow-sm md:rounded-lg">
-                            <input
-                                class="mr-3 border-0 focus:ring-0 focus:ring-slate-300 focus:outline-none appearance-none w-full leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-3 ring-0 dark:bg-stone-600 dark:text-stone-50"
-                                type="text" aria-label="Search" placeholder="Cerca..." name="search" autofocus>
-
-                            {{-- <a href="" class="py-4 px-5 bg-orange-600 text-white rounded-md text-center">
-                                    <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
-                                </a> --}}
-                            <x-primary-button class="mx-0">
-                                <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
-                            </x-primary-button>
+                <div class="centered w-screen mx-auto md:px-36  text-center">
+                    <div class="flex justify-end">
+                        <div class="md:flex-0">
+                            <div
+                                class="mt-5 md:mt-0 md:ml-5 bg-white shadow-lg rounded-xl border border-gray-200 p-3 dark:bg-gray-900 dark:border-gray-800">
+                                <div class="p-3 flex justify-center bg-white"
+                                    title="Inquadra col tuo smartphone il QRCode qui sopra per poter aggiungere nuove richieste di materiale.">
+                                    <a href="{{ url('warehouse/' . $warehouse->id . '/refill/create') }}">
+                                        {!! QrCode::size(150)->generate(url('warehouse/' . $warehouse->id . '/refill/create')) !!}
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="flex mt-10">
+                        <form method="GET" action="{{ route('warehouse.product.index', $warehouse) }}" class="flex-1">
+                            <div
+                                class="flex py-3 p-3 text-stone-900 dark:text-stone-100 bg-white dark:bg-stone-800 shadow-sm md:rounded-lg">
+                                <input
+                                    class="mr-3 border-0 focus:ring-0 focus:ring-slate-300 focus:outline-none appearance-none w-full leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-3 ring-0 dark:bg-stone-600 dark:text-stone-50"
+                                    type="text" aria-label="Search" placeholder="Cerca..." name="search" autofocus>
+
+                                {{-- <a href="" class="py-4 px-5 bg-orange-600 text-white rounded-md text-center">
+                                <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                            </a> --}}
+                                <x-primary-button class="mx-0">
+                                    <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                                </x-primary-button>
+                            </div>
+                        </form>
+
+                    </div>
                 </div>
             </div>
-
-
-
-
-
-
 
 
 
@@ -152,7 +160,7 @@
 
                 </div>
 
-                <div class="md:flex-0">
+                {{-- <div class="md:flex-0">
                     <div
                         class="mt-5 md:mt-0 md:ml-5 bg-white shadow-lg rounded-sm border border-gray-200 p-3 dark:bg-gray-900 dark:border-gray-800">
                         <div class="text-center p-3">
@@ -175,7 +183,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
