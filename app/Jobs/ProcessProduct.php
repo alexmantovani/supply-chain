@@ -28,6 +28,7 @@ class ProcessProduct implements ShouldQueue
 
     /**
      * Execute the job.
+     * Questo processo viene chiamato in modo "Sincrono"
      */
     public function handle(): void
     {
@@ -45,7 +46,8 @@ class ProcessProduct implements ShouldQueue
             'model' => ''
         ]);
 
-        // TODO: Vedere se è fattibile e ha senso
-        // $this->emit('productUpdated', $this->product);
+        // TODO: Aggiornare anche lo stato del prodotto ed eventualmente le info sul dealer
+
+        // TODO: Si potrebbe fare un controllo della risposta ed eventualmente mettere in un log eventuali anomalie presenti nel DB.
     }
 }

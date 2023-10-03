@@ -51,7 +51,7 @@ class WarehouseControllerTest extends TestCase
 
     public function test_warehouse_show_can_be_rendered(): void
     {
-        Permission::create(['name' => 'change warehouse']);
+        Permission::updateOrCreate(['name' => 'change warehouse']);
 
         $response = $this->get('/warehouse/show');
         $response->assertStatus(302);
@@ -62,7 +62,6 @@ class WarehouseControllerTest extends TestCase
 
         // $response = $this->actingAs($user)->get('warehouse.show');
         $response = $this->actingAs($user)->call('GET', '/warehouse/1');
-
 
         $response->assertStatus(200);
     }

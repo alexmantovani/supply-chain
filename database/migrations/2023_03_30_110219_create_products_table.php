@@ -15,7 +15,9 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
 
+            // Costruttore
             $table->foreignId('dealer_id')->nullable();
+            // Stato del prodotto (ordinabile, non ordinabile...)
             $table->foreignId('status_id');
 
             $table->string('uuid')->unique();

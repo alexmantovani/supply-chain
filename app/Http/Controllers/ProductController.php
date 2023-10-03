@@ -30,6 +30,12 @@ class ProductController extends Controller
                     ->orWhere('dealers.name', 'like', '%' . $search . '%')
                     ->orWhere('uuid', 'like', $search . '%');
             })
+            ->orWhere(function ($q) use ($search) {
+                $parole_chiave = array_filter(explode(' ', $search));
+                foreach ($parole_chiave as $parola) {
+                    $q->where('products.name', 'like', '%' . $parola . '%');
+                }
+            })
             ->whereIn('status_id', $filter_list)
             ->paginate(100);
 
