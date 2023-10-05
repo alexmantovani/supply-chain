@@ -31,22 +31,30 @@ class DatabaseSeeder extends Seeder
 
 
         $user = \App\Models\User::factory()->create([
-            'name' => 'Mario Pompeo',
+            'name' => 'Alex Mantovani',
             'email' => 'a@a.a',
             'password' => Hash::make('12345678'),
         ]);
         $user->assignRole(['super-admin', 'admin']);
 
         $user = \App\Models\User::factory()->create([
-            'name' => 'Vincenzo Rossi',
-            'email' => 'b@b.b',
-            'password' => Hash::make('12345678'),
+            'name' => 'Mirko Benni',
+            'email' => 'mirko@mirko.com',
+            'password' => Hash::make('MsrLLu&tD2'),
         ]);
+        $user->assignRole('admin');
 
         $user = \App\Models\User::factory()->create([
-            'name' => 'Luca Favero',
-            'email' => 'luca@luca.com',
-            'password' => Hash::make('qwertyuiop'),
+            'name' => 'Nicolò Cuoghi',
+            'email' => 'nicolo@nicolo.com',
+            'password' => Hash::make('%Z8wPtSJ54'),
+        ]);
+        $user->assignRole('admin');
+
+        $user = \App\Models\User::factory()->create([
+            'name' => 'Giulia Passini',
+            'email' => 'giulia@giulia.com',
+            'password' => Hash::make('i7X&G&FG7D'),
         ]);
         $user->assignRole('admin');
 
