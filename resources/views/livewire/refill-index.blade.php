@@ -63,7 +63,8 @@
                                                 </td>
                                                 <td class="p-2 md:table-cell">
                                                     <div wire:click="delete({{ $refill->id }})"
-                                                        class="hover:text-red-500 cursor-pointer">
+                                                        class="hover:text-red-500 cursor-pointer"
+                                                        title="Elimina questo prodotto dalla lista dei materiali in esaurimento">
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </div>
 

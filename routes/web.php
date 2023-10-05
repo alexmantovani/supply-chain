@@ -69,10 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/{order}/completed', [App\Http\Controllers\OrderController::class, 'completed'])->name('order.completed');
     Route::get('/order/{order}/closed', [App\Http\Controllers\OrderController::class, 'closed'])->name('order.closed');
 
-    Route::get('/admin', function () {
-        return view('admin.welcome');
-    })->middleware(['permission:admin site'])->name('admin');
-
+    Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware(['permission:admin site'])->name('admin');
     Route::prefix('admin')->group(function () {
         Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('admin.users');
         // Route::get('/providers', [App\Http\Controllers\ProviderController::class, 'index'])->middleware(['permission:admin site'])->name('admin.providers');
@@ -80,6 +77,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('dealer', App\Http\Controllers\DealerController::class)->only([
             'index'
         ]);
+        Route::get('/warehouses', [App\Http\Controllers\WarehouseController::class, 'adminIndex'])->name('admin.warehouses');
     })->middleware(['auth', 'permission:admin site']);
 });
 

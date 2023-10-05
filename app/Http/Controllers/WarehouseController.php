@@ -19,6 +19,13 @@ class WarehouseController extends Controller
         return view('warehouse.index', compact('warehouses'));
     }
 
+    public function adminIndex()
+    {
+        $warehouses = Warehouse::all();
+
+        return view('admin.warehouses', compact('warehouses'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -38,7 +45,8 @@ class WarehouseController extends Controller
             'emails' => $request->emails,
         ]);
 
-        return to_route('warehouse.index');
+        $warehouses = Warehouse::all();
+        return to_route('admin.warehouses', compact('warehouses'));
     }
 
     /**
@@ -59,7 +67,8 @@ class WarehouseController extends Controller
 
         $refills = $warehouse->refills()
             ->whereIn('refills.status', ['low', 'urgent'])
-            ->whereNull('quantity')
+            ->whereNot('quantity', '>', 0)
+            // ->whereNull('quantity')
             ->join('products', 'products.id', '=', 'refills.product_id')
             ->join('dealers', 'dealers.id', '=', 'dealer_id')
             ->join('providers', 'providers.id', '=', 'dealers.provider_id')
@@ -93,7 +102,8 @@ class WarehouseController extends Controller
             'emails' => $request->emails,
         ]);
 
-        return to_route('warehouse.index');
+        $warehouses = Warehouse::all();
+        return to_route('admin.warehouses', compact('warehouses'));
     }
 
     /**
@@ -103,6 +113,7 @@ class WarehouseController extends Controller
     {
         $warehouse->delete();
 
-        return to_route('warehouse.index');
+        $warehouses = Warehouse::all();
+        return to_route('admin.warehouses', compact('warehouses'));
     }
 }

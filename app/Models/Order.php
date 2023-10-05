@@ -12,6 +12,8 @@ class Order extends Model
 
     protected $guarded = [];
 
+    protected $with = ['warehouse'];
+
     public function products()
     {
         return $this->belongsToMany(Product::class)
@@ -84,5 +86,28 @@ class Order extends Model
         }
 
         return $isCompleted;
+    }
+
+    public static function getOrdersDoneByYear($numberOfYears = 5)
+    {
+        $currentYear = date('Y');
+        $startYear = $currentYear - $numberOfYears;
+
+        $returnData = array();
+        for ($i = $startYear; $i <= $currentYear; $i++) {
+            // $su = Order::whereNotIn('status', ['aborted'])
+            //     ->whereYear('orders.created_at', '=', $i)
+            //     ->get()
+            //     ->groupBy('warehouse_id');
+            $su = Order::whereNotIn('status', ['aborted'])
+                ->whereYear('orders.created_at', '=', $i)
+                ->groupBy('warehouse_id')
+                ->selectRaw('warehouse_id, COUNT(*) as count')
+                ->get();
+
+            // array_push($returnData, $su);
+            $returnData[$i] = $su->toArray();
+        }
+        return $returnData;
     }
 }

@@ -8,13 +8,13 @@
     </x-slot>
 
     <x-slot name="navbar_right_menu">
-        @can('create warehouse')
+        {{-- @can('create warehouse')
             <a href="{{ route('warehouse.create') }}">
                 <x-secondary-button class="">
                     <i class="fa-solid fa-plus"></i> &nbsp; Magazzino
                 </x-secondary-button>
             </a>
-        @endcan
+        @endcan --}}
     </x-slot>
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
@@ -44,14 +44,14 @@
                                             </div>
                                         </td>
 
-                                        @can('edit warehouse')
+                                        {{-- @can('edit warehouse')
                                             <td class="p-2 w-10 text-center items-center">
                                                 <a href="{{ route('warehouse.edit', $warehouse->id) }}"
                                                     class="font-medium text-gray-400 hover:text-gray-800 text-lg">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
                                             </td>
-                                        @endcan
+                                        @endcan --}}
 
                                         @can('change warehouse')
                                             <td class="p-2 w-20 text-center items-center">

@@ -303,11 +303,12 @@
         var ctx = document.getElementById('myChart').getContext('2d');
         var data = @json($ordersTrend); // Converte l'array PHP in un oggetto JavaScript
 
-        var years = Object.keys(data);
-        var values = Object.values(data);
+        var years = Object.keys(data); // Dati asse X
+        var values = Object.values(data); // Dati asse Y
 
         var chart = new Chart(ctx, {
             type: 'bar',
+            responsive: true,
             data: {
                 labels: years,
                 datasets: [{

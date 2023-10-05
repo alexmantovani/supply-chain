@@ -24,7 +24,7 @@
                     <div class="flex justify-end">
                         <div class="md:flex-0">
                             <div
-                                class="mt-5 md:mt-0 md:ml-5 bg-white shadow-lg rounded-xl border border-gray-200 p-3 dark:bg-gray-900 dark:border-gray-800">
+                                class="mt-5 mr-3 md:mr-0 md:mt-0 md:ml-5 bg-white shadow-lg rounded-xl border border-gray-200 p-3 dark:bg-gray-900 dark:border-gray-800">
                                 <div class="p-3 flex justify-center bg-white"
                                     title="Inquadra col tuo smartphone il QRCode qui sopra per poter aggiungere nuove richieste di materiale.">
                                     <a href="{{ url('warehouse/' . $warehouse->id . '/refill/create') }}">
@@ -56,15 +56,13 @@
                 </div>
             </div>
 
-
-
             <div class="w-full max-w-7xl mx-auto md:flex">
 
                 <div class="flex-1 ">
                     @if ($refills->count())
                         <div class="mt-5 flex justify-between items-baseline">
                             <div class=" text-gray-900 text-xl p-3 font-semibold">
-                                Materiale in esaurimento da verificare
+                                Materiale da ordinare senza quantitativo di default
                             </div>
                         </div>
 
@@ -158,32 +156,21 @@
 
                     @endif
 
+                    @if ($refills->count() == 0 && $orders->count() == 0)
+                        <div class=" text-center py-20">
+                            <div class=" text-gray-800 text-2xl font-medium">
+                                Nessuna segnalazione
+                            </div>
+
+                            <div class=" text-gray-400 text-sm pt-1">
+                                Tutti gli ordini procedono regolarmente
+                            </div>
+                        </div>
+                    @endif
+
+
                 </div>
 
-                {{-- <div class="md:flex-0">
-                    <div
-                        class="mt-5 md:mt-0 md:ml-5 bg-white shadow-lg rounded-sm border border-gray-200 p-3 dark:bg-gray-900 dark:border-gray-800">
-                        <div class="text-center p-3">
-                            <div class="p-3 flex justify-center bg-white">
-                                <a href="{{ url('warehouse/' . $warehouse->id . '/refill/create') }}">
-                                    {!! QrCode::size(150)->generate(url('warehouse/' . $warehouse->id . '/refill/create')) !!}
-                                </a>
-                            </div>
-                            <div class="text-sm min-w-fit pt-2">
-                                Inquadra col tuo smartphone <br> il QRCode qui sopra per poter <br> aggiungere nuove
-                                richieste di <br> materiale.
-                            </div>
-                            <div class="pt-3 text-center">
-                                <x-primary-button class="ml-1" title="Stampa il QR Code del magazzino">
-                                    <i class="fa-regular fa-print"></i>
-                                    &nbsp; Stampa
-                                </x-primary-button>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div> --}}
             </div>
         </div>
     </section>

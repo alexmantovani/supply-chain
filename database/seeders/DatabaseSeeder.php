@@ -57,14 +57,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'orders@stika.com',
         ]);
 
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             \App\Models\Warehouse::create([
                 'name' => 'Magazzino ' . $i,
                 'description' => fake()->sentence(),
             ]);
         }
 
-        \App\Models\User::factory(100)->create();
+        // \App\Models\User::factory(100)->create();
 
         $this->call([
             ProductStatusSeeder::class,

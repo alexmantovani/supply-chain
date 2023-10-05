@@ -57,7 +57,7 @@
                     <div class="">
                         <x-input-label for="emails" :value="__('Emails')" />
                         <x-text-input id="emails" class="block mt-1 w-full" type="text" name="emails"
-                            :value="old('emails', $warehouse->emails)" />
+                            title="Inserisci una o più email separate da una virgola" :value="old('emails', $warehouse->emails)" />
                         <x-input-error class="mt-2" :messages="$errors->get('email_array.*')" />
                     </div>
                 </div>
