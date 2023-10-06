@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('model')->nullable();
             $table->string('note')->nullable();
 
+            // La quantità di riordino di default è stata messa in una tabella a parte "product_defaults"
+            // perchè ogni magazzino avendo dimensioni diverse ha sicuramente quantità di riordino diverse.
             // $table->string('refill_quantity')->default(0);
 
             $table->timestamps();

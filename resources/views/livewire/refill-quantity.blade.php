@@ -1,15 +1,15 @@
 <tr @if ($hideRow) hidden @endif>
-    <td class="p-2 whitespace-nowrap">
+    <td class="p-1 md:p-2 whitespace-nowrap">
         <x-product-uuid-cell>
             {{ $refill->product->uuid }}
         </x-product-uuid-cell>
     </td>
-    <td class="p-2 whitespace-nowrap">
+    <td class="p-1 md:p-2">
         <x-product-name-cell class="" :href="route('warehouse.product.show', [$warehouse, $refill->product])">
             {{ $refill->product->name }}
         </x-product-name-cell>
     </td>
-    <td class="p-2 whitespace-nowrap items-center">
+    <td class="p-1 md:p-2 whitespace-nowrap items-center">
         <div class="text-center">
             <x-text-input id="quantity_{{ $refill->id }}" class="block w-20 text-right h-9 " type="text"
                 name="quantity[{{ $refill->id }}]" wire:model="quantity" :value="$quantity" />

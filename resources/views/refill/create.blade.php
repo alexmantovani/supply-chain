@@ -107,11 +107,11 @@
                 // html5QrcodeScanner.clear();
 
                 window.location.href = '{{ url('warehouse/' . $warehouse->id . '/refill/request') }}?code=' + decodedText;
+                html5QrcodeScanner.clear();
             };
 
             let config = {
                 fps: 5,
-
             };
 
             html5QrCode.start({

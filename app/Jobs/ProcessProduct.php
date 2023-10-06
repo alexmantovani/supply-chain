@@ -36,14 +36,36 @@ class ProcessProduct implements ShouldQueue
         $productInfo = Soap::to('https://sig-inservices.marchesini.com/mgWSElettronici/WebServiceElettro.asmx')->call('getInfoCode', ['Code' => $this->product->uuid]);
         Log::info($productInfo);
 
+        // TODO: da ricavare da $productInfo
+        // Dati relativi al prodotto
+        // $name = $data[1];
+        // $dealer = $data[5];
+        // $status = $data[2];
+        // if ($status == '') $status = 'OK';
+
+        // $productStatus = ProductStatus::firstWhere('code', $status);
+
+        // // Dati relativi al produttore
+        // $dealer_model = $data[6];
+        // $dealer_code = $data[7];
+
+        // $dealer = Dealer::updateOrCreate([
+        //     'provider_id' => 1, // TODO: Per ora lo forso sempre al Magazzino centrale MG
+        //     'name' => $dealer,
+        // ], [
+        //     'model' => $dealer_model,
+        //     'code' => $dealer_code,
+        // ]);
+
         // TODO: scaricare i dati dal DB altena e inserirli nel DB
         // TODO: Sistemare
         $this->product->update([
             'name' => Str::uuid(),
-            'dealer_id' => rand(1,5),
+            'dealer_id' => rand(1, 5),
             // 'refill_quantity' => 0,
             'order_code' => 0,
-            'model' => ''
+            'model' => '',
+            'note' => '',
         ]);
 
         // TODO: Aggiornare anche lo stato del prodotto ed eventualmente le info sul dealer
