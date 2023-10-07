@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -17,7 +18,8 @@ class AdminController extends Controller
             ->selectRaw('*, COUNT(*) as in_progress, warehouses.name as warehouse_name')
             ->get();
 
-        // dd($orders);
-        return view('admin.welcome', compact('orders', 'graphOrders'));
+        $warehouse = Warehouse::find($_COOKIE['warehouse_id']);
+
+        return view('admin.welcome', compact('orders', 'graphOrders', 'warehouse'));
     }
 }

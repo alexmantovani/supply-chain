@@ -1,7 +1,9 @@
 <tr class="">
     <td class="p-2">
         <x-product-name-cell class="text-lg">
-            {{ $dealer->name }}
+            <a href="{{ route('warehouse.dealer.show', [$warehouse, $dealer]) }}">
+                {{ $dealer->name }}
+            </a>
         </x-product-name-cell>
     </td>
 

@@ -30,6 +30,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        setcookie("warehouse_id", Auth::user()->profile->warehouse->id, time() + 86400); // 1gg
+
         Log::debug("Utente loggato " . Auth::user()->name);
 
         return redirect()->intended(RouteServiceProvider::HOME);

@@ -9,6 +9,7 @@ class DealerUpdateRow extends Component
     public $dealer;
     public $providers;
     public $providerId;
+    public $warehouse;
 
     public function mount()
     {

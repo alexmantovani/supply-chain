@@ -19,7 +19,9 @@ class DealerController extends Controller
         $dealers = Dealer::all()->sortBy('name');
         $providers = Provider::all();
 
-        return view('dealer.index', compact('dealers', 'providers'));
+        $warehouse = Warehouse::find($_COOKIE['warehouse_id']);
+
+        return view('dealer.index', compact('dealers', 'providers', 'warehouse'));
     }
 
     /**

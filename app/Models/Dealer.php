@@ -11,6 +11,8 @@ class Dealer extends Model
 
     protected $guarded = [];
 
+    protected $with = ['provider'];
+
     public function provider()
     {
         return $this->belongsTo(Provider::class);

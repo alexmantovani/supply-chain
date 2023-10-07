@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Warehouse;
 
 class UserController extends Controller
 {
@@ -12,6 +13,8 @@ class UserController extends Controller
         $users = User::all();
         $roles = \Spatie\Permission\Models\Role::all();
 
-        return view('admin.users', compact(['users', 'roles']));
+        $warehouse = Warehouse::find($_COOKIE['warehouse_id']);
+
+        return view('admin.users', compact(['users', 'roles', 'warehouse']));
     }
 }

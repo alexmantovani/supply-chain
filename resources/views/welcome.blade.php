@@ -166,7 +166,9 @@
                     modo semplice e veloce.
                 </p>
                 <x-primary-button class="mb-4 ">
-                    {{ __('Registrati ora') }}
+                    <a href="{{ route('register') }}">
+                        {{ __('Registrati ora') }}
+                    </a>
                 </x-primary-button>
             </div>
 

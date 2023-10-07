@@ -23,7 +23,9 @@ class WarehouseController extends Controller
     {
         $warehouses = Warehouse::all();
 
-        return view('admin.warehouses', compact('warehouses'));
+        $warehouse = Warehouse::find($_COOKIE['warehouse_id']);
+
+        return view('admin.warehouses', compact('warehouses', 'warehouse'));
     }
 
     /**

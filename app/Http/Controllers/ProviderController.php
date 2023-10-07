@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProviderRequest;
 use App\Http\Requests\UpdateProviderRequest;
 use App\Models\Provider;
+use App\Models\Warehouse;
 
 class ProviderController extends Controller
 {
@@ -15,7 +16,9 @@ class ProviderController extends Controller
     {
         $providers = Provider::all();
 
-        return view('provider.index', compact('providers'));
+        $warehouse = Warehouse::find($_COOKIE['warehouse_id']);
+
+        return view('provider.index', compact('providers', 'warehouse'));
     }
 
     /**
