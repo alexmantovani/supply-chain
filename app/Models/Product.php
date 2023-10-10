@@ -40,6 +40,11 @@ class Product extends Model
         return $this->belongsTo(Dealer::class);
     }
 
+    public function provider()
+    {
+        return $this->belongsTo(Provider::class);
+    }
+
     public function status()
     {
         return $this->belongsTo(ProductStatus::class);

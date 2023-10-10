@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('dealer_id')->nullable();
             // Stato del prodotto (ordinabile, non ordinabile...)
             $table->foreignId('status_id');
+            $table->foreignId('provider_id')->nullable();
 
             $table->string('uuid')->unique();
             $table->string('name')->nullable();

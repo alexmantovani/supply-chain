@@ -66,6 +66,8 @@ Route::middleware('auth')->group(function () {
     ])->middleware(['permission:handle order']);
     Route::resource('warehouse.refill', App\Http\Controllers\RefillController::class);
 
+    Route::resource('provider', App\Http\Controllers\ProviderController::class);
+
     Route::get('/order/{order}/completed', [App\Http\Controllers\OrderController::class, 'completed'])->name('order.completed');
     Route::get('/order/{order}/closed', [App\Http\Controllers\OrderController::class, 'closed'])->name('order.closed');
 
@@ -73,11 +75,16 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('admin.users');
         // Route::get('/providers', [App\Http\Controllers\ProviderController::class, 'index'])->middleware(['permission:admin site'])->name('admin.providers');
-        Route::resource('provider', App\Http\Controllers\ProviderController::class);
+        Route::resource('provider', App\Http\Controllers\ProviderController::class)->only([
+            'index'
+        ]);
         Route::resource('dealer', App\Http\Controllers\DealerController::class)->only([
             'index'
         ]);
+        Route::get('/products', [App\Http\Controllers\ProductController::class, 'admin'])->name('admin.products');
         Route::get('/warehouses', [App\Http\Controllers\WarehouseController::class, 'adminIndex'])->name('admin.warehouses');
+        Route::get('/labels', [App\Http\Controllers\AdminController::class, 'labels'])->name('admin.labels');
+        Route::post('/print-labels', [App\Http\Controllers\AdminController::class, 'printLabels'])->name('admin.print-labels');
     })->middleware(['auth', 'permission:admin site']);
 });
 

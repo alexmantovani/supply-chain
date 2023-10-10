@@ -23,6 +23,9 @@
                                             <th class="p-2 ">
                                                 <div class="font-semibold text-left">Prodotto</div>
                                             </th>
+                                            <th class="p-2 ">
+                                                <div class="font-semibold text-left">Fornitore</div>
+                                            </th>
                                             <th class="p-2 w-28 hidden md:table-cell">
                                                 <div class="font-semibold text-center"></div>
                                             </th>
@@ -52,6 +55,11 @@
                                                         $refill->product,
                                                     ])">
                                                         {{ $refill->product->name }}
+                                                    </x-product-name-cell>
+                                                </td>
+                                                <td class="p-2">
+                                                    <x-product-name-cell class="" >
+                                                        {{ $refill->product->provider->id ?? '' }}
                                                     </x-product-name-cell>
                                                 </td>
                                                 <td class="p-2  hidden md:table-cell">

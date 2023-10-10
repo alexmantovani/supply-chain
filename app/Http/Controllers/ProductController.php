@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\Dealer;
 use App\Models\ProductStatus;
+use App\Models\Provider;
 use App\Models\Warehouse;
 use Illuminate\Support\Str;
 
@@ -40,6 +41,37 @@ class ProductController extends Controller
 
         return view('product.index', compact('warehouse', 'search', 'products', 'filters'));
     }
+
+    public function admin()
+    {
+        $warehouse = Warehouse::find($_COOKIE['warehouse_id']);
+
+        $search = Request()->search ?? '';
+        $filters = Request()->filters ?? ['Ordinabili'];
+
+        $filter_list = ProductStatus::whereIn('group', $filters)->pluck('id');
+
+        $products = Product::join('dealers', 'dealers.id', 'dealer_id')
+            ->select('products.*', 'dealers.name as dealer_name')
+            ->where(function ($q) use ($search) {
+                // Cerco innanzitutto per singola parola
+                $parole_chiave = array_filter(explode(' ', $search));
+                foreach ($parole_chiave as $parola) {
+                    $q->where('products.name', 'like', '%' . $parola . '%');
+                }
+                return $q
+                    ->orWhere('products.name', 'like', '%' . $search . '%')
+                    ->orWhere('dealers.name', 'like', '%' . $search . '%')
+                    ->orWhere('uuid', 'like', $search . '%');
+            })
+            ->whereIn('status_id', $filter_list)
+            ->paginate(100);
+
+        $providers = Provider::all();
+
+        return view('admin.products', compact('warehouse', 'search', 'products', 'filters', 'providers'));
+    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -45,7 +45,7 @@ class RefillIndex extends Component
             ->whereIn('refills.status', ['low', 'urgent'])
             ->join('products', 'products.id', '=', 'refills.product_id')
             ->join('dealers', 'dealers.id', '=', 'dealer_id')
-            ->join('providers', 'providers.id', '=', 'dealers.provider_id')
+            ->join('providers', 'providers.id', '=', 'products.provider_id')
             ->select('refills.*', 'products.name as product_name', 'products.uuid as product_uuid', 'products.dealer_id', 'dealers.name as dealer_name', 'providers.id as provider_id')
             ->orderBy('provider_id')
             ->get();
@@ -61,6 +61,7 @@ class RefillIndex extends Component
         $this->hydrate();
     }
 
+    //
     public function sendOrder()
     {
         $grouped = $this->refills->groupBy('provider_id');
@@ -106,7 +107,7 @@ class RefillIndex extends Component
                         ]);
                     } else {
                         $ugualeZero = true;
-                        Log::warning("Selezionato prodotto con quantità =0 " .$refill->product->name );
+                        Log::warning("Selezionato prodotto con quantità =0 " . $refill->product->name);
                     }
                 }
             }

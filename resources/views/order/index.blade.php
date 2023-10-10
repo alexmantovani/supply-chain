@@ -52,22 +52,33 @@
                                                     <div class="text-gray-300 items-center">
                                                         <div
                                                             class="flex justify-between text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800 border-l-4 border-red-500">
-                                                            <div class="flex p-2">
+                                                            <div class="flex p-2 space-x-1">
                                                                 <div class="hidden md:flex">
-                                                                    Ordine: &nbsp;
+                                                                    Ordine:
                                                                 </div>
                                                                 <a
                                                                     href="{{ route('warehouse.order.show', [$warehouse, $order->id]) }}">
                                                                     <div
                                                                         class="font-semibold text-gray-800 dark:text-gray-200">
                                                                         {{ $order->uuid }}
-                                                                        <span class="text-gray-400 dark:text-gray-800">
-                                                                            &middot;
-                                                                            {{ $order->created_at->diffForHumans() }}
-                                                                        </span>
                                                                     </div>
                                                                 </a>
-                                                            </div>
+                                                                <div class="hidden md:flex">
+                                                                    &middot;
+                                                                    Fornitore:
+                                                                </div>
+                                                                {{-- <a
+                                                                    href="{{ route('provider.show', [$order->provider->id]) }}"> --}}
+                                                                    <div
+                                                                        class="font-semibold text-gray-800 dark:text-gray-200">
+                                                                        {{ $order->provider->name }}
+                                                                    </div>
+                                                                {{-- </a> --}}
+                                                                <div class="text-gray-400 dark:text-gray-800">
+                                                                    &middot;
+                                                                    {{ $order->created_at->diffForHumans() }}
+                                                                </div>
+                                                    </div>
 
                                                             <x-order-status-gradient
                                                                 class="w-30 md:w-40 text-xs font-semibold uppercase border-r-4 text-gray-800 text-right p-2"

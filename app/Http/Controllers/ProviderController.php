@@ -48,7 +48,11 @@ class ProviderController extends Controller
      */
     public function show(Provider $provider)
     {
-        //
+        $warehouse = Warehouse::find($_COOKIE['warehouse_id']);
+
+        $products = $provider->products()->paginate(100);
+
+        return view('provider.show', compact('provider', 'warehouse', 'products'));
     }
 
     /**

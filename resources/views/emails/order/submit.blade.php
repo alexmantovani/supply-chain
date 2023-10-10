@@ -165,7 +165,7 @@
             Buongiorno,
         </div>
         <div>
-            In allegato potete trovare il file CSV contenente l'elenco del materiale richiesto in data odierna da
+            In allegato è disponibile il file CSV contenente l'elenco del materiale richiesto in data odierna da
             <strong>
                 {{ $order->warehouse->name }}.
             </strong>

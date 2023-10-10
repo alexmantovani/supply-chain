@@ -95,11 +95,7 @@
 
         <script>
             const html5QrCode = new Html5Qrcode("qr-reader", {
-                formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE,
-                    Html5QrcodeSupportedFormats.CODE_39,
-                    Html5QrcodeSupportedFormats.CODE_128,
-                    Html5QrcodeSupportedFormats.EAN_13,
-                    Html5QrcodeSupportedFormats.EAN_8
+                formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE
                 ]
             });
             const qrCodeSuccessCallback = (decodedText, decodedResult) => {
@@ -111,7 +107,11 @@
             };
 
             let config = {
-                fps: 5,
+                fps: 10,
+                useBarCodeDetectorIfSupported: true,
+                qrbox: { width: 90, height: 90 },
+                showTorchButtonIfSupported: true,
+                defaultZoomValueIfSupported: 2
             };
 
             html5QrCode.start({
