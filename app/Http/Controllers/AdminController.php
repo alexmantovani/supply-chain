@@ -27,8 +27,8 @@ class AdminController extends Controller
 
     public function printLabels(Request $request)
     {
-        // $products = Product::whereIn('id', $request['product_ids'])->get();
-        $products = Product::whereIn('id', [1,2,3,4,5,6])->get();
+        $products = Product::whereIn('id', $request['product_ids'])->get();
+        // $products = Product::whereIn('id', [1,2,3,4,5,6])->get();
 
         // $pdf = PDF::loadView('admin.print-labels', compact('products'));
         // return $pdf->download('documento.pdf');
