@@ -81,12 +81,9 @@ class RefillIndex extends Component
 
                         // Verifico se non è impostata per questo prodotto la quantità di refill automatica
                         // ed eventualmente la vado ad impostare
-                        if (!$refill->product->refillQuantity($this->warehouse->id)) {
-                            ProductDefault::updateOrCreate([
-                                'product_id' => $refill->product->id,
-                                'warehouse_id' => $this->warehouse->id,
-                            ], [
-                                'refill_quantity' => $quantity,
+                        if (!$refill->product->refill_quantity) {
+                            $refill->product->update([
+                                'refill_quantity' => $quantity
                             ]);
                         }
 

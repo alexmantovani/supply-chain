@@ -179,15 +179,10 @@ class RefillController extends Controller
 
         // Non ho trovato il prodotto nel DB
         if (!$product) {
-            // TODO: Non lo devo creare ma devo chiedere ad Altena se esiste
-            // $product = Product::create([
-            //     'uuid' => $code,
-            //     'status_id' => 1,
-            // ]);
-
             // Chiedo al DB di Altena le info sul prodotto
             ProcessProduct::dispatchSync($product);
 
+            // TODO: Gestire il ritorno dalla dispatch qui sopra
             return 4; // Non trovato
         }
         if (!$product->isOrdinable()) return 3;
@@ -205,7 +200,7 @@ class RefillController extends Controller
             'user_id' => 1,
             'warehouse_id' => $warehouse->id,
             'product_id' => $product->id,
-            'quantity' => $quantity ?? $product->refillQuantity($warehouse->id),
+            'quantity' => $quantity ?? $product->refill_quantity,
         ]);
 
         return 0; // Done
