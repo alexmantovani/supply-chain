@@ -38,6 +38,7 @@ class ProviderController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'email' => $request->email,
+            'provider_code' => $request->provider_code,
         ]);
 
         return to_route('provider.index');
@@ -72,6 +73,7 @@ class ProviderController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'email' => $request->email,
+            'provider_code' => $request->provider_code,
         ]);
 
         return to_route('provider.index');

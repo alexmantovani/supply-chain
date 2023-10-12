@@ -52,10 +52,17 @@
                     </div>
 
                     <div class="">
-                        <x-input-label for="email" :value="__('Email')" />
+                        <x-input-label for="email" :value="__('Email a cui inviare le notifiche')" />
                         <x-text-input id="email" class="block mt-1 w-full" type="text" name="email"
                             :value="old('email', $provider->email)" />
                         <x-input-error class="mt-2" :messages="$errors->get('email')" />
+                    </div>
+
+                    <div class="">
+                        <x-input-label for="provider_code" :value="__('Codice fornitore')" />
+                        <x-text-input id="provider_code" class="block mt-1 w-full" type="text" name="provider_code"
+                            :value="old('provider_code', $provider->provider_code)" />
+                        <x-input-error class="mt-2" :messages="$errors->get('provider_code')" />
                     </div>
                 </div>
 

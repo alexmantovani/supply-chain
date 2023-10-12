@@ -44,11 +44,11 @@
                                     <thead
                                         class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
                                         <tr>
+                                            <th class="p-2 ">
+                                                <div class="font-semibold text-left">Codice</div>
+                                            </th>
                                             <th class="p-2 whitespace-nowrap">
                                                 <div class="font-semibold text-left">Nome</div>
-                                            </th>
-                                            <th class="p-2 ">
-                                                <div class="font-semibold text-left">Descrizione</div>
                                             </th>
                                             <th class="p-2 ">
                                                 <div class="font-semibold text-left">Email</div>
@@ -60,12 +60,12 @@
                                         @foreach ($providers as $provider)
                                             <tr class="">
                                                 <td class="p-2">
+                                                    {{ $provider->provider_code }}
+                                                </td>
+                                                <td class="p-2">
                                                     <x-product-name-cell class="text-lg">
                                                         {{ $provider->name }}
                                                     </x-product-name-cell>
-                                                </td>
-                                                <td class="p-2">
-                                                    {{ $provider->description }}
                                                 </td>
                                                 <td class="p-2">
                                                     {{ $provider->email }}

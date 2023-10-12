@@ -282,9 +282,16 @@
                             </div>
 
                             <div class="pb-3">
-                                <x-input-label for="quantity" :value="__('Quantity')" />
+                                <div class="flex space-x-1 items-baseline">
+                                    <x-input-label for="quantity" :value="__('Quantità')" />
+                                    @if (strlen($product->unit_of_measure))
+                                        <div class="font-medium text-sm text-gray-700 dark:text-gray-300">
+                                            ({{ $product->unit_of_measure }})
+                                        </div>
+                                    @endif
+                                </div>
                                 <x-text-input id="quantity" class="block mt-1 w-full text-right bg-yellow-50"
-                                    type="number" name="quantity" :value="old('quantity')" required />
+                                    type="number" name="quantity" :value="old('quantity', $product->refill_quantity)" required />
                                 <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
                             </div>
 

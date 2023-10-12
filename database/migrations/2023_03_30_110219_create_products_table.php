@@ -28,10 +28,11 @@ return new class extends Migration
             $table->unsignedBigInteger('order_code')->nullable();
             $table->string('model')->nullable();
             $table->string('note')->nullable();
+            $table->string('unit_of_measure')->nullable();
 
             // La quantità di riordino di default è stata messa in una tabella a parte "product_defaults"
             // perchè ogni magazzino avendo dimensioni diverse ha sicuramente quantità di riordino diverse.
-            // $table->string('refill_quantity')->default(0);
+            $table->string('refill_quantity')->default(0);
 
             $table->timestamps();
         });

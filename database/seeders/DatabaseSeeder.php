@@ -59,11 +59,12 @@ class DatabaseSeeder extends Seeder
         $user->assignRole('admin');
 
 
-        $provider = \App\Models\Provider::create([
-            'name' => 'Marchesini warehouse',
-            'description' => "Magazzino generale Marchesini Group",
-            'email' => 'orders@stika.com',
-        ]);
+        // $provider = \App\Models\Provider::create([
+        //     'name' => 'Marchesini warehouse',
+        //     'description' => "Magazzino generale Marchesini Group",
+        //     'email' => 'orders@stika.com',
+        //     'provider_code' => '1234567'
+        // ]);
 
         for ($i = 1; $i <= 2; $i++) {
             \App\Models\Warehouse::create([

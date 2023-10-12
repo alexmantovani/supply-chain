@@ -67,11 +67,13 @@ class Product extends Model
 
     public function refillQuantity($warehouse_id)
     {
-        $default = ProductDefault::where('warehouse_id', $warehouse_id)
-            ->where('product_id', $this->id)
-            ->first();
+        // $default = ProductDefault::where('warehouse_id', $warehouse_id)
+        //     ->where('product_id', $this->id)
+        //     ->first();
 
-        return $default->refill_quantity ?? 0;
+        // return $default->refill_quantity ?? 0;
+
+        return $this->refill_quantity ?? 0;
     }
 
     public function logs()

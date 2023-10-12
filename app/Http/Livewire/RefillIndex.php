@@ -6,7 +6,6 @@ use App\Models\Order;
 use Livewire\Component;
 use App\Models\Refill;
 use App\Jobs\SendNewOrderEmailJob;
-use App\Models\ProductDefault;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -82,12 +81,16 @@ class RefillIndex extends Component
                         // Verifico se non è impostata per questo prodotto la quantità di refill automatica
                         // ed eventualmente la vado ad impostare
                         if (!$refill->product->refillQuantity($this->warehouse->id)) {
-                            ProductDefault::updateOrCreate([
-                                'product_id' => $refill->product->id,
-                                'warehouse_id' => $this->warehouse->id,
-                            ], [
-                                'refill_quantity' => $quantity,
-                            ]);
+                            // ProductDefault::updateOrCreate([
+                            //     'product_id' => $refill->product->id,
+                            //     'warehouse_id' => $this->warehouse->id,
+                            // ], [
+                            //     'refill_quantity' => $quantity,
+                            // ]);
+
+                            $product = $refill->product;
+                            $product->refill_quantity = $quantity;
+                            $product->save();
                         }
 
                         $products[$refill->product_id] = ['quantity' => $quantity];

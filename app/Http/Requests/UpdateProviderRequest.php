@@ -34,6 +34,10 @@ class UpdateProviderRequest extends FormRequest
             'email' => [
                 'email:rfc'
             ],
+            'provider_code' => [
+                'required',
+                'max:255'
+            ]
         ];
     }
 }
