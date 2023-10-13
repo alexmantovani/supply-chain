@@ -60,7 +60,6 @@ class RefillIndex extends Component
         $this->hydrate();
     }
 
-    //
     public function sendOrder()
     {
         $grouped = $this->refills->groupBy('provider_id');

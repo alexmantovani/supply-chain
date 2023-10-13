@@ -30,8 +30,8 @@ class OrderAborted extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('noreply@example.com', $this->order->warehouse->name),
-            subject: 'Richiesta materiale - Cancellazione ordine ' . $this->order->uuid,
+            from: new Address('noreply@noreply.com', $this->order->warehouse->name),
+            subject: 'REFILLER - Cancellazione ordine ' . $this->order->uuid,
         );
     }
 

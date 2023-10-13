@@ -186,7 +186,9 @@ class RefillController extends Controller
             // ]);
 
             // Chiedo al DB di Altena le info sul prodotto
-            ProcessProduct::dispatchSync($product);
+            // Passo $code perche potrebbe trattarsi di un articolo nuono di cui non ho ancora nessuna info
+            ProcessProduct::dispatchSync($code);
+            // ProcessProduct::dispatchSync($product);
 
             return 4; // Non trovato
         }

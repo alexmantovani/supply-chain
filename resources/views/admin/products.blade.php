@@ -65,6 +65,9 @@
                                                 <th class="p-2 whitespace-nowrap">
                                                     <div class="font-semibold text-left">Produttore</div>
                                                 </th>
+                                                <th class="p-2 w-6 ">
+                                                    <div class="font-semibold text-center">Quantità</div>
+                                                </th>
                                                 <th class="p-2 ">
                                                     <div class="font-semibold text-left">Materiale fornito da</div>
                                                 </th>

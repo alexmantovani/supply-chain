@@ -176,7 +176,7 @@
                 <thead class="small ">
                     <tr>
                         <th style="text-align: left ">
-                            Codice MG
+                            Codice
                         </th>
                         <th style="text-align: left ">
                             Prodotto
@@ -199,7 +199,7 @@
                             {{ $product->name }}
                         </td>
                         <td style="text-align: left ">
-                            {{ $product->dealer->name }}
+                            {{ $product->provider->name }}
                         </td>
                         <td style="text-align: right ">
                             {{ $product->pivot->quantity }}

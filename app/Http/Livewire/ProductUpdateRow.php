@@ -9,11 +9,13 @@ class ProductUpdateRow extends Component
     public $product;
     public $providers;
     public $providerId;
+    public $refillQuantity;
     public $warehouse;
 
     public function mount()
     {
         $this->providerId = $this->product->provider->id ?? 0;
+        $this->refillQuantity = $this->product->refill_quantity;
     }
 
     public function render()
@@ -30,4 +32,12 @@ class ProductUpdateRow extends Component
             'provider_id' => $this->providerId,
         ]);
     }
+
+    public function updatedRefillQuantity()
+    {
+        $this->product->update([
+            'refill_quantity' => $this->refillQuantity,
+        ]);
+    }
+
 }

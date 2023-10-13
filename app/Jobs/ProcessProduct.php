@@ -17,12 +17,16 @@ class ProcessProduct implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $uuid;
+
     /**
      * Create a new job instance.
      */
     public function __construct(
-        public Product $product,
+        // public Product $product,
+        $uuid
     ) {
+        $this->uuid = $uuid;
         //
     }
 
@@ -33,7 +37,7 @@ class ProcessProduct implements ShouldQueue
     public function handle(): void
     {
         // Faccio la richiesta al DB di Altena
-        $productInfo = Soap::to('https://sig-inservices.marchesini.com/mgWSElettronici/WebServiceElettro.asmx')->call('getInfoCode', ['Code' => $this->product->uuid]);
+        $productInfo = Soap::to('https://sig-inservices.marchesini.com/mgWSElettronici/WebServiceElettro.asmx')->call('getInfoCode', ['Code' => $this->uuid]);
         Log::info($productInfo);
 
         // TODO: da ricavare da $productInfo
@@ -59,14 +63,18 @@ class ProcessProduct implements ShouldQueue
 
         // TODO: scaricare i dati dal DB altena e inserirli nel DB
         // TODO: Sistemare
-        $this->product->update([
-            'name' => Str::uuid(),
-            'dealer_id' => rand(1, 5),
-            // 'refill_quantity' => 0,
-            'order_code' => 0,
-            'model' => '',
-            'note' => '',
-        ]);
+        Product::updateOrCreate(
+            [
+                'name' => Str::uuid(),
+            ],
+            [
+                'dealer_id' => rand(1, 5),
+                // 'refill_quantity' => 0,
+                'order_code' => 0,
+                'model' => '',
+                'note' => '',
+            ]
+        );
 
         // TODO: Aggiornare anche lo stato del prodotto ed eventualmente le info sul dealer
 

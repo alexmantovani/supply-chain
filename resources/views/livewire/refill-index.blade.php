@@ -59,7 +59,7 @@
                                                 </td>
                                                 <td class="p-2">
                                                     <x-product-name-cell class="" >
-                                                        {{ $refill->product->provider->id ?? '' }}
+                                                        {{ $refill->product->provider->name ?? '' }}
                                                     </x-product-name-cell>
                                                 </td>
                                                 <td class="p-2  hidden md:table-cell">
