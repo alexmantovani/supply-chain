@@ -36,5 +36,10 @@ class SendNewOrderEmailJob implements ShouldQueue
         Mail::to($this->order->provider->email)
             ->cc($moreUsers ?: [])
             ->send(new OrderSubmit($this->order));
+
+        $this->order->logs()->create([
+            'description' => 'Inviata mail con successo a ' . $this->order->provider->email,
+            'type' => 'info',
+        ]);
     }
 }

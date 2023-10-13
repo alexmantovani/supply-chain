@@ -122,7 +122,7 @@ class RefillIndex extends Component
 
                 $order->logs()->create([
                     'user_id' => Auth::user()->id,
-                    'description' => 'Inviata richiesta a ' . $order->provider->name . ' (' . $order->provider->name . ')',
+                    'description' => 'Inviata richiesta a ' . $order->provider->name . '(' . $order->provider->email . ')',
                     'type' => 'info',
                 ]);
             }
