@@ -1,4 +1,4 @@
-<tr class="">
+<tr class=" {{ $providerId ? "" : "bg-red-200" }}">
     <td class="p-2">
         <x-product-name-cell class="text-lg">
             <input id="checkbox_{{ $product->uuid }}" name="product_ids[]" type="checkbox" value="{{ $product->id }}"

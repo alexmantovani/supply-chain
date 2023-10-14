@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('email')->nullable(); // email a cui spedire gli ordini
             $table->string('provider_code')->nullable(); // codice del fornitore da inserire nell'invio degli ordini
+            $table->string('image_url')->nullable(); // Logo del fornitore
 
             $table->softDeletes();
 

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProviderRequest;
 use App\Http\Requests\UpdateProviderRequest;
 use App\Models\Provider;
 use App\Models\Warehouse;
+use Illuminate\Support\Str;
 
 class ProviderController extends Controller
 {
@@ -34,12 +35,21 @@ class ProviderController extends Controller
      */
     public function store(StoreProviderRequest $request)
     {
-        Provider::create([
+        $provider = Provider::create([
             'name' => $request->name,
             'description' => $request->description,
             'email' => $request->email,
             'provider_code' => $request->provider_code,
         ]);
+
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $filename = Str::random(30);
+            $file->move(public_path('provider_images'), $filename);
+            $provider->update([
+                'image_url' => $filename,
+            ]);
+        }
 
         return to_route('provider.index');
     }
@@ -69,6 +79,15 @@ class ProviderController extends Controller
      */
     public function update(UpdateProviderRequest $request, Provider $provider)
     {
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $filename = Str::random(30);
+            $file->move(public_path('provider_images'), $filename);
+            $provider->update([
+                'image_url' => $filename,
+            ]);
+        }
+
         $provider->update([
             'name' => $request->name,
             'description' => $request->description,

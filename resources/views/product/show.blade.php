@@ -107,22 +107,34 @@
                         </div>
                     </div>
 
-                    <div class="md:px-5 pt-5">
+                    <div class="md:px-5 pt-4">
                         <div class=" text-gray-400 text-xl md:text-2xl font-semibold">
                             Fornitore
                         </div>
 
-                        <div class="">
-                            <div class="pb-2">
-
+                        <div class="pt-2">
+                            @if ($product->provider->image_url)
+                                <img src="/provider_images/{{ $product->provider->image_url }}" alt=""
+                                    class="w-40 mr-2 object-contain">
+                            @else
                                 <div class="font-semibold text-2xl pt-2 dark:text-gray-200">
-                                    {{ $product->dealer->provider->name }}
+                                    {{ $product->provider->name }}
                                 </div>
-                                <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
-                                    <a href="mailto:{{ $product->dealer->provider->email }}">
-                                        <i class="fa-regular fa-envelope"></i>
+                            @endif
+
+                            <div class="pb-2 mt-3">
+                                <div class=" dark:text-gray-400 text-sm text-gray-500">
+                                    Codice fornitore:
+                                    <span>
+                                        {{ $product->provider->provider_code }}
+                                    </span>
+                                </div>
+
+                                <div class=" dark:text-gray-400 text-sm text-gray-500">
+                                    <a href="mailto:{{ $product->provider->email }}">
+                                        Email:
                                         <span>
-                                            {{ $product->dealer->provider->email }}
+                                            {{ $product->provider->email }}
                                         </span>
                                     </a>
                                 </div>
