@@ -2,13 +2,18 @@
 <html>
 
 <head>
-    <title>QR Code Page</title>
     <style>
         .qrcode-container {
             display: inline-block;
             width: 31%;
-            margin: 1%;
+            margin: 1px;
             text-align: left;
+            padding: 4px;
+        }
+
+        .qrcode-container p {
+            font-size: 14px;
+            color: #575757;
         }
 
         .qrcode {
@@ -16,19 +21,22 @@
             height: auto;
         }
 
+        body {
+            padding: 30px;
+        }
+
         @media print {
             .qrcode-container {
                 width: 30%;
-                /* Regola la larghezza delle colonne in base alle tue esigenze */
-                margin: 1%;
+                margin: 0.5%;
                 text-align: left;
                 vertical-align: top;
                 display: inline-block;
             }
 
-            .qrcode-container p{
-                font-size: 6px;
-                color: #5f5f5f
+            .qrcode-container p {
+                font-size: 10px;
+                color: #575757
             }
 
             .qrcode {
@@ -36,11 +44,15 @@
                 height: auto;
             }
 
-            div{
+            div {
                 font-size: 10px;
-                color: #222222
+                color: #111111
             }
 
+            body {
+                margin: 0mm;
+                padding: 0mm;
+            }
         }
     </style>
 </head>
@@ -49,11 +61,11 @@
     @foreach ($products as $product)
         <div class="qrcode-container">
             <img class="qrcode" src="data:image/png;base64,{{ DNS2D::getBarcodePNG($product->uuid, 'QRCODE', 64, 64) }}"
-                alt="barcode" style="width: 40px; height: 40px; float:left; padding:0px 5px;" />
-                <div style="">
-                    {{ $product->name }}
-                    <p style="margin-top: 0;">{{ $product->uuid }}</p>
-                </div>
+                alt="barcode" style="width: 45px; height: 45px; float:left; padding:0px 5px;" />
+            <div style="">
+                {{ $product->name }}
+                <p style="margin-top: 0;">Cod.: {{ $product->uuid }}</p>
+            </div>
         </div>
     @endforeach
 </body>
