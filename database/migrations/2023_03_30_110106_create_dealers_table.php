@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
 
             // Ogni produttore ha UN fornitore al quale fare richiesta di materiale
-            $table->foreignId('provider_id');
+            // Tolto perchè associato al prodotto
+            // $table->foreignId('provider_id');
 
             $table->string('name');
             $table->string('email')->nullable();

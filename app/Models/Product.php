@@ -191,4 +191,16 @@ class Product extends Model
 
         print($uuid . ' ' . $name);
     }
+
+    /*
+     * Riporta la lista dei prodotti a cui manca o il fornitore o il numero di pezzi da ordinare
+     * @return Collection
+    */
+    public static function withMissingInfo()
+    {
+        return Product::whereNot('refill_quantity', '>', 0)
+            ->orWhereNull('provider_id')
+            ->orWhereNotIn('provider_id', Provider::pluck('id'))
+            ->get();
+    }
 }

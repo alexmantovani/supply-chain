@@ -26,11 +26,6 @@ Route::get('/dashboard', function () {
     return redirect('/warehouse');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/rusco', function () {
-//     $product = App\Models\Product::find(5);
-//     $product->parseHtml();
-// })->name('rusco');
-
 
 Route::middleware('auth')->group(function () {
     // Route::get('/refill/simulate', [App\Http\Controllers\RefillController::class, 'generateTestCode'])->name('refill.simulate');
@@ -42,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/product/{dealer}/create', [App\Http\Controllers\ProductController::class, 'create'])->name('product.create');
+    Route::post('/product/discover', [App\Http\Controllers\ProductController::class, 'discover'])->name('product.discover');
 
     // WAREHOUSE
     // Route::resource('/warehouse', App\Http\Controllers\WarehouseController::class);
@@ -76,9 +72,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('admin.users');
         // Route::get('/providers', [App\Http\Controllers\ProviderController::class, 'index'])->middleware(['permission:admin site'])->name('admin.providers');
         Route::resource('provider', App\Http\Controllers\ProviderController::class)->only([
-            'index'
-        ]);
-        Route::resource('dealer', App\Http\Controllers\DealerController::class)->only([
             'index'
         ]);
         Route::get('/products', [App\Http\Controllers\ProductController::class, 'admin'])->name('admin.products');

@@ -143,32 +143,6 @@
                         </div>
                     </div>
                 </div>
-
-                {{-- <div class="border-t-2 md:border-t-0 md:border-l-2 border-gray-200 border-dotted">
-                    <div class="md:px-5 pt-5 md:pt-0">
-                        <div class=" text-gray-400 text-xl font-semibold">
-                            Fornitore
-                        </div>
-
-                        <div class="">
-                            <div class="pb-6">
-
-                                <div class="font-semibold text-xl pt-4 dark:text-gray-200">
-                                    {{ $product->dealer->provider->name }}
-                                </div>
-                                <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
-                                    <a href="mailto:{{ $product->dealer->provider->email }}">
-                                        <i class="fa-regular fa-envelope"></i>
-                                        <span>
-                                            {{ $product->dealer->provider->email }}
-                                        </span>
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
 
             <div class="md:flex mt-5 mx-2">

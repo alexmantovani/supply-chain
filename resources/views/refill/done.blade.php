@@ -19,7 +19,13 @@
         <div class="py-20">
             @if (count($errors))
                 <div class="flex justify-center text-4xl text-red-500 font-medium py-10" style="font-size: 90px">
-                    <i class="fa-regular fa-triangle-exclamation"></i>
+                    {{-- <i class="fa-regular fa-triangle-exclamation"></i> --}}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="w-28 h-28">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                    </svg>
+
                 </div>
 
                 <div class="flex justify-center text-4xl dark:text-gray-200">
@@ -34,8 +40,12 @@
                     @endforeach
                 </div>
             @else
-                <div class="text-center text-4xl text-green-500 font-medium py-10" style="font-size: 90px">
-                    <i class="fa-regular fa-check"></i>
+                <div class="flex justify-center " style="font-size: 90px">
+                    <div class=" text-green-500 font-medium py-10" style="font-size: 90px">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-28 h-28">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                          </svg>
+                    </div>
                 </div>
 
                 <div class="text-center text-4xl pt-10">

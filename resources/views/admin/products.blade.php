@@ -41,8 +41,25 @@
 
                     <div class="flex justify-between items-center">
                         <div class=" text-gray-900 dark:text-gray-300 text-xl py-3 font-semibold">
-                            Gestione prodotti
+                            <div class="flex items-center space-x-2">
+                                <div>
+                                    Gestione prodotti
+                                </div>
+                                @if ($hasCriticals > 0)
+                                    <div
+                                        title="Uno o più articoli non hanno specificato il fornitore o la quantità di riordino.">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6  text-red-600">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                                        </svg>
+                                    </div>
+                                @endif
+
+                            </div>
                         </div>
+
                         <div class="">
                             <form method="GET" action="{{ route('admin.products', $warehouse) }}">
                                 <div class="flex rounded-md border border-gray-300 items-center bg-white">
@@ -60,29 +77,54 @@
                                     </div>
 
                                 </div>
-                                <div class="text-xs text-gray-400 text-right pt-1">
-                                    {{-- Trovati {{ $products->total() }} risultati --}}
-                                </div>
+                                {{-- <div class="text-xs text-gray-400 text-right pt-1">
+                                    Trovati {{ $products->total() }} risultati
+                                </div> --}}
                             </form>
                         </div>
                     </div>
 
                     <div
                         class="bg-white shadow-lg rounded-sm border border-gray-200 mt-2 md:p-4 dark:bg-gray-900 dark:border-gray-800">
-                        <div class="p-1">
+                        <div class="p-1 ">
                             <form method="POST" action="{{ route('admin.print-labels') }}">
                                 @csrf
-                                <div class="flex justify-left pb-2">
-                                    <x-primary-button
-                                        title="Crea una pagina da stampare con i QR Code dei prodotti selezionati dalla lista qui sotto">
-                                        {{-- Stampa selezionati --}}
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
-                                        </svg>
+                                <div class="flex justify-between">
+                                    <div class="flex justify-left pb-2 space-x-3">
+                                        <x-primary-button class="h-11"
+                                            title="Crea una pagina da stampare con i QR Code dei prodotti selezionati dalla lista qui sotto">
+                                            {{-- Stampa selezionati --}}
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
+                                            </svg>
+                                        </x-primary-button>
 
-                                    </x-primary-button>
+                                        {{-- <a href="{{ route('product.discover') }}">
+                                            <x-secondary-button class="">
+                                                <i class="fa-solid fa-plus"></i> &nbsp; Nuovo prodotto
+                                            </x-secondary-button>
+                                        </a> --}}
+
+                                        <form id="discover">
+                                            <x-secondary-button class="" id="apri-modal"
+                                                title="Cerca l'articolo nel DB di Altena e se presente lo aggiunge in Refiller">
+                                                <i class="fa-solid fa-plus"></i> &nbsp; Nuovo prodotto
+                                            </x-secondary-button>
+                                            <div id="modal" style="display: none;">
+                                                <input type="text" id="numero"
+                                                    class="w-40 text-right border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm">
+                                                <x-secondary-button class="h-11" id="invia">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                </x-secondary-button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="text-xs text-gray-400 text-right pt-1">
+                                        Trovati {{ $products->total() }} risultati
+                                    </div>
                                 </div>
 
                                 <div class="overflow-x-auto">
@@ -122,4 +164,40 @@
         </div>
     </section>
 
+    <script>
+        $(document).ready(function() {
+            // Mostra la finestra modale quando il pulsante "Aggiungi" viene premuto
+            $("#apri-modal").click(function(e) {
+                e.preventDefault();
+                $("#modal").show();
+                $("#apri-modal").hide();
+                $("#numero").focus();
+            });
+
+            // Chiudi la finestra modale e mostra nuovamente il pulsante "Aggiungi" quando il pulsante "OK" viene premuto
+            $("#invia").click(function() {
+                var uuid = $("#numero").val();
+                $("#modal").hide();
+                $("#apri-modal").show();
+
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                // Esegui una richiesta POST al backend utilizzando la route Blade e il token CSRF
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+
+                // Esegui una richiesta POST al backend
+                $.post('/product/discover', {
+                    uuid: uuid
+                }, function(data) {
+                    window.location.reload();
+                });
+
+                return false;
+            });
+        });
+    </script>
 </x-app-layout>

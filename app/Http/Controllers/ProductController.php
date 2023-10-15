@@ -9,7 +9,9 @@ use App\Models\Dealer;
 use App\Models\ProductStatus;
 use App\Models\Provider;
 use App\Models\Warehouse;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Request;
 
 class ProductController extends Controller
 {
@@ -67,9 +69,11 @@ class ProductController extends Controller
             ->whereIn('status_id', $filter_list)
             ->paginate(100);
 
+        $hasCriticals = Product::withMissingInfo()->count();
+
         $providers = Provider::all();
 
-        return view('admin.products', compact('warehouse', 'search', 'products', 'filters', 'providers'));
+        return view('admin.products', compact('warehouse', 'search', 'products', 'filters', 'providers', 'hasCriticals'));
     }
 
 
@@ -129,5 +133,34 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    /**
+     * Apre la videata per inserire.
+     */
+    public function discover()
+    {
+        $uuid = Request()->uuid;
+        Log::info('Richiesto inserimento di un nuovo articolo: ' . $uuid);
+
+        $product = Product::firstWhere('uuid', $uuid);
+        if ($product) {
+            Log::info('Articolo ' . $uuid . ' già presente in archivio');
+        } else {
+            // TODO: Lo cerco sul DB di Altena
+
+            // Se esite da Altena lo aggiungo
+            $product = Product::firstOrCreate([
+                'uuid' => $uuid,
+                'name' => 'Nuovo articolo',
+                'description' => 'Descrizione del nuovo articolo',
+                'dealer_id' => 1,
+                'status_id' => 1,
+            ]);
+
+            Log::info('Aggiunto nuovo articolo: ' . $uuid . ' - ' . $product->name);
+        }
+
+        return true;
     }
 }
