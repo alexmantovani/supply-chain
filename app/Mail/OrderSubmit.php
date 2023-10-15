@@ -13,9 +13,6 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Support\Facades\Log;
 
-use Symfony\Component\Mime\Header\Priority;
-use Symfony\Component\Mime\Message;
-
 class OrderSubmit extends Mailable
 {
     use Queueable, SerializesModels;
@@ -33,20 +30,10 @@ class OrderSubmit extends Mailable
      */
     public function envelope(): Envelope
     {
-        // return new Envelope(
-        //     from: new Address('noreply@noreply.com', $this->order->warehouse->name),
-        //     subject: 'REFILLER - Nuovo ordine ' . $this->order->uuid,
-        // );
-
-        $envelope = new Envelope(
+        return new Envelope(
             from: new Address('noreply@noreply.com', $this->order->warehouse->name),
             subject: 'REFILLER - Nuovo ordine ' . $this->order->uuid,
         );
-
-        $message = new Message($envelope);
-        $message->getHeaders()->addTextHeader('X-Priority', '1'); // Imposta la priorità su "1" (urgent)
-
-        return new Envelope($message);
     }
 
     /**
