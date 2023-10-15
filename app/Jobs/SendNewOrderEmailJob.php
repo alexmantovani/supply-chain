@@ -22,6 +22,7 @@ class SendNewOrderEmailJob implements ShouldQueue
      */
     public function __construct(
         public Order $order,
+        public $urgent = false
     ) {
         //
     }
@@ -35,7 +36,7 @@ class SendNewOrderEmailJob implements ShouldQueue
 
         Mail::to($this->order->provider->email)
             ->cc($moreUsers ?: [])
-            ->send(new OrderSubmit($this->order));
+            ->send(new OrderSubmit($this->order, $this->urgent));
 
         $this->order->logs()->create([
             'description' => 'Inviata mail a ' . $this->order->provider->email,

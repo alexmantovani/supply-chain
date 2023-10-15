@@ -124,7 +124,7 @@ class RefillIndex extends Component
                     'type' => 'info',
                 ]);
 
-                SendNewOrderEmailJob::dispatch($order);
+                SendNewOrderEmailJob::dispatch($order, true); // true perchè la mail viene segnata come urgente
             }
         }
 

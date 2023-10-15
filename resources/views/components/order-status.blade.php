@@ -5,8 +5,6 @@
         <div {{ $attributes->merge([
                 'class' => 'border-red-500 dark:bg-red-900 dark:text-white bg-red-50',
             ]) }}>
-            {{-- <i class="fa-solid fa-ban"></i>
-            &nbsp; --}}
             Annullato
         </div>
     @break
@@ -17,8 +15,6 @@
                 'class' => 'border-cyan-500 dark:bg-cyan-900 dark:text-white bg-cyan-50',
                 'title' => 'L\'ordine è stato spedito e si attende il rientro del materiale',
             ]) }}>
-            {{-- <i class="fa-solid fa-hourglass"></i>
-            &nbsp; --}}
             In attesa
         </div>
     @break
@@ -37,8 +33,6 @@
                 'class' => 'border-green-500 dark:bg-green-900 dark:text-white bg-green-50',
                 'title' => 'L\'ordine è stato completato',
             ]) }}>
-            {{-- <i class="fa-solid fa-check"></i>
-            &nbsp; --}}
             Completato
         </div>
     @break

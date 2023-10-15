@@ -122,23 +122,6 @@
                                                         @include('order.dropdown')
                                                     </div>
                                                 </td>
-
-                                                {{-- <td class="align-top py-3 pl-3 md:w-40 whitespace-nowrap">
-                                                    <x-order-status-gradient
-                                                        class="text-xs font-semibold uppercase py-1 border-r-4 text-gray-700 text-right px-2"
-                                                        :status="$order->status" />
-
-                                                    <div class="flex justify-end text-right">
-                                                        @include('order.dropdown')
-                                                    </div>
-                                                </td> --}}
-
-                                                {{-- <td class="text-right px-3 py-3 md:w-10">
-                                                    <a href="{{ route('warehouse.order.show', [$warehouse, $order->id]) }}"
-                                                        class="font-medium text-gray-800 text-lg hover:underline dark:text-gray-300">
-                                                        <i class="fa-solid fa-angle-right"></i>
-                                                    </a>
-                                                </td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>
