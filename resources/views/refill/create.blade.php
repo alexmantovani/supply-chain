@@ -21,7 +21,7 @@
         @include('layouts.nav_right_bar', ['warehouse' => $warehouse])
     </x-slot>
 
-    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
+    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen md:p-4 dark:bg-gray-800">
         <div class="w-full max-w-7xl mx-auto ">
             <div>
                 <div class=" text-gray-900 dark:text-gray-300 text-xl p-3 font-semibold">
@@ -29,12 +29,12 @@
                 </div>
             </div>
             <div
-                class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800 p-8">
+                class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 dark:bg-gray-900 dark:border-gray-800 p-2 md:p-8">
 
                 <div class="pb-4">
                     <div class="flex justify-between items-center">
                         <div>
-                            <div class="text-xl font-medium text-gray-800">
+                            <div class="text-xl font-medium text-gray-800 dark:text-gray-100">
                                 {{ $warehouse->name }}
                             </div>
                             <div class="text-md font-medium text-gray-400">
@@ -56,7 +56,7 @@
             </div>
             <div class="p-4">
                 <div class="flex items-center justify-between gap-4">
-                    <div class=" text-sm text-gray-500">
+                    <div class=" text-sm text-gray-500 dark:text-gray-400">
                         Inquadra con la camera il codice del prodotto da inserire tra i materiali in esaurimento.
                     </div>
                 </div>
@@ -64,12 +64,12 @@
 
 
             <div
-                class="mt-4 w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 px-8 dark:bg-gray-900 dark:border-gray-800 p-8">
+                class="mt-4 w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 dark:bg-gray-900 dark:border-gray-800 p-2 md:p-8">
                 <form method="post" action="{{ route('warehouse.refill.store', $warehouse) }}" class="">
                     @csrf
 
                     <div class="flex items-center">
-                        <div class="flex-0">
+                        <div class="flex-0 text-gray-800 dark:text-gray-100">
                             {{ __('Codice prodotto') }}
                         </div>
 
@@ -85,7 +85,7 @@
 
             <div class="p-4">
                 <div class="flex items-center justify-between gap-4">
-                    <div class=" text-sm text-gray-500">
+                    <div class=" text-sm text-gray-500 dark:text-gray-400">
                         Oppure inserisci manualmente uno o più codici del prodotto da inserire tra i materiali in
                         esaurimento.
                     </div>

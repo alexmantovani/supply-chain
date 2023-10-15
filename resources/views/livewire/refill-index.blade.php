@@ -1,6 +1,6 @@
 <div>
     @if ($refills->count())
-        <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
+        <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen md:p-4 dark:bg-gray-800">
             <div class="h-full ">
                 <div class="w-full max-w-7xl mx-auto ">
                     <div class="flex justify-between items-baseline">
@@ -11,7 +11,7 @@
 
                     <div
                         class="bg-white shadow-lg rounded-sm border border-gray-200 dark:bg-gray-900 dark:border-gray-800">
-                        <div class="p-3">
+                        <div class="p-1 md:p-3">
                             <div>
                                 <table class="table-auto w-full ">
                                     <thead
@@ -23,7 +23,7 @@
                                             <th class="p-2 ">
                                                 <div class="font-semibold text-left">Prodotto</div>
                                             </th>
-                                            <th class="p-2 ">
+                                            <th class="p-2 hidden md:table-cell">
                                                 <div class="font-semibold text-left">Fornitore</div>
                                             </th>
                                             <th class="p-2 w-28 hidden md:table-cell">
@@ -57,7 +57,7 @@
                                                         {{ $refill->product->name }}
                                                     </x-product-name-cell>
                                                 </td>
-                                                <td class="p-2">
+                                                <td class="p-2 hidden md:table-cell">
                                                     <x-product-name-cell class="" >
                                                         {{ $refill->product->provider->name ?? '' }}
                                                     </x-product-name-cell>
@@ -79,7 +79,7 @@
                                                 </td>
                                                 <td class="p-2 whitespace-nowrap items-right">
                                                     <div class="text-center">
-                                                        <x-text-input id="quantity" class="block mt-1 w-24 text-right "
+                                                        <x-text-input id="quantity" class="block mt-1 w-16 md:w-24 text-right "
                                                             type="text" name="quantity[{{ $refill->id }}]"
                                                             {{-- wire:model.defer="refills.{{ $index }}.quantity" --}}
                                                             wire:model.defer="quantity.{{ $refill->id }}"

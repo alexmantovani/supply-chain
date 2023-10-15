@@ -58,7 +58,7 @@
             </div>
 
             <div class="md:grid md:grid-cols-2 md:gap-4 h-full pt-8 mx-2">
-                <div class="bg-white p-5 md:shadow-lg md:rounded-sm md:border border-gray-200">
+                <div class="bg-white p-5 md:shadow-lg md:rounded-sm md:border border-gray-200 dark:bg-gray-900">
                     <div class="font-semibold text-2xl dark:text-gray-200 pb-6 md:mx-5">
                         Trend ordini
                     </div>
@@ -147,7 +147,7 @@
 
             <div class="md:flex mt-5 mx-2">
                 <div
-                    class="flex-1 md:bg-white md:shadow-lg md:rounded-sm md:border border-gray-200 md:px-8 py-8 dark:bg-gray-900 dark:border-gray-700">
+                    class="flex-1 md:bg-white md:shadow-lg md:rounded-sm md:border border-gray-200 md:px-8 py-8 dark:bg-gray-900 dark:md:bg-gray-900 dark:border-gray-700">
                     <div class="pb-6 md:mx-5">
                         <div class="font-semibold text-2xl dark:text-gray-200">
                             Ordini
@@ -256,7 +256,7 @@
 
                             <div class="pb-3">
                                 <x-input-label for="warehouse_id" :value="__('Magazzino')" />
-                                <select name="warehouse_id" class="form-control w-full rounded bg-yellow-50 mt-1"
+                                <select name="warehouse_id" class="form-control w-full rounded bg-yellow-50 dark:bg-transparent dark:text-white mt-1"
                                     required>
                                     @foreach (App\Models\Warehouse::all() as $warehouse_item)
                                         <option value="{{ $warehouse_item->id }}"

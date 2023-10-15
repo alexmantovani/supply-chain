@@ -26,7 +26,7 @@
             <!-- Table -->
             <div class="w-full max-w-7xl mx-auto ">
                 <div
-                    class="md:bg-white md:shadow-lg rounded-sm md:border border-gray-200 md:px-8 dark:bg-gray-900 dark:border-gray-700">
+                    class="md:bg-white md:shadow-lg rounded-sm md:border border-gray-200 md:px-8 dark:bg-gray-900 dark:md:bg-gray-900 dark:border-gray-700">
 
                     <div class="flex justify-between my-2 md:my-4">
                         <div class="pb-6">
