@@ -76,7 +76,7 @@ class ProductSeeder extends Seeder
                 // Per ora li assegno tutti ad un produttore vuoto
                 $dealer = Dealer::firstOrCreate([
                     'name' => '',
-                    'provider_id' => $provider->id,
+                    // 'provider_id' => $provider->id,
                 ]);
 
                 // Gestisco il prodotto
