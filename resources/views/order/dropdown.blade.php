@@ -4,7 +4,7 @@
             class="w-full text-gray-500"
             type="button">
 
-            <svg height="20" xmlns="http://www.w3.org/2000/svg" class="">
+            <svg height="20" xmlns="http://www.w3.org/2000/svg" class=" fill-gray-500 dark:fill-gray-300">
                 <g transform="scale(0.35)">
                     <path stroke="null" id="svg_1"
                         d="m20,32a4,4 0 1 1 -4,-4a4.00458,4.00458 0 0 1 4,4zm0,16a4,4 0 1 1 -4,-4a4.00458,4.00458 0 0 1 4,4zm0,-32a4,4 0 1 1 -4,-4a4.00458,4.00458 0 0 1 4,4z" />

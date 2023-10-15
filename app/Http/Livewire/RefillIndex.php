@@ -118,6 +118,12 @@ class RefillIndex extends Component
             if ($order) {
                 $order->products()->sync($products);
 
+                $order->logs()->create([
+                    'user_id' => Auth::user()->id,
+                    'description' => 'Creato ordine di richiesta materiale a ' . $order->provider->name,
+                    'type' => 'info',
+                ]);
+
                 SendNewOrderEmailJob::dispatch($order);
             }
         }

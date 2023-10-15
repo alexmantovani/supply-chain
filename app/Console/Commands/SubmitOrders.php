@@ -73,7 +73,7 @@ class SubmitOrders extends Command
                 SendNewOrderEmailJob::dispatch($order);
 
                 $order->logs()->create([
-                    'description' => 'Inviata richiesta a ' . $order->provider->name . '(' . $order->provider->email . ')',
+                    'description' => 'Creato ordine e inviata richiesta materiale a ' . $order->provider->name,
                     'type' => 'info',
                 ]);
             }

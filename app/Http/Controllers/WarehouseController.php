@@ -73,9 +73,9 @@ class WarehouseController extends Controller
             // ->whereNull('quantity')
             ->join('products', 'products.id', '=', 'refills.product_id')
             ->join('dealers', 'dealers.id', '=', 'dealer_id')
-            ->join('providers', 'providers.id', '=', 'dealers.provider_id')
+            ->join('providers', 'providers.id', '=', 'products.provider_id')
             ->select('refills.*', 'products.dealer_id', 'dealers.name', 'providers.id as provider_id')
-            ->orderBy('provider_id')
+            ->orderBy('products.provider_id')
             ->get();
 
         $orders = $warehouse->orders

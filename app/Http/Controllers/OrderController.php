@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderSubmit;
 use App\Models\Product;
 use Log;
-use App\Jobs\SendNewOrderEmailJob;
 use App\Jobs\SendAbortOrderEmailJob;
 use GuzzleHttp\Psr7\Request;
 
