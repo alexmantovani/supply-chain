@@ -114,7 +114,7 @@
 
                         <div class="pt-2">
                             @if ($product->provider->image_url)
-                                <img src="/provider_images/{{ $product->provider->image_url }}" alt=""
+                                <img src="{{ asset('/provider_images/' . $product->provider->image_url ) }}" alt=""
                                     class="w-40 mr-2 object-contain">
                             @else
                                 <div class="font-semibold text-2xl pt-2 dark:text-gray-200">
