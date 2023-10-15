@@ -67,7 +67,7 @@ class ProductController extends Controller
                     ->orWhere('uuid', 'like', $search . '%');
             })
             ->whereIn('status_id', $filter_list)
-            ->paginate(100);
+            ->paginate(50);
 
         $hasCriticals = Product::withMissingInfo()->count();
 

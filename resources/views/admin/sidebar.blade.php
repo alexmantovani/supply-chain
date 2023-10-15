@@ -1,7 +1,7 @@
-<div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-1 lg:gap-4">
     <a href="{{ url('admin/users') }}">
         <div
-            class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 p-4 dark:bg-gray-900 dark:border-gray-800 my-3">
+            class="w-full bg-white shadow-lg rounded-sm border-b-8 p-4 dark:bg-gray-900 dark:border-gray-800 {{ $active == 'users' ? 'border-red-500' : 'border-red-100' }}">
             <div class="flex justify-between space-x-10">
                 <svg class="w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
@@ -24,7 +24,7 @@
 
     <a href="{{ url('/admin/warehouses') }}">
         <div
-            class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 p-4 dark:bg-gray-900 dark:border-gray-800 my-3">
+            class="w-full bg-white shadow-lg rounded-sm border-b-8 p-4 dark:bg-gray-900 dark:border-gray-800 {{ $active == 'warehouses' ? 'border-red-500' : 'border-red-100' }}">
             <div class="flex justify-between space-x-10">
                 <svg class="w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -46,7 +46,7 @@
 
     <a href="{{ url('/admin/provider') }}">
         <div
-            class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 p-4 dark:bg-gray-900 dark:border-gray-800 my-3">
+            class="w-full bg-white shadow-lg rounded-sm border-b-8 p-4 dark:bg-gray-900 dark:border-gray-800 {{ $active == 'providers' ? 'border-red-500' : 'border-red-100' }}">
             <div class="flex justify-between space-x-10">
                 <svg class="w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -66,7 +66,7 @@
     </a>
     <a href="{{ url('/admin/products') }}">
         <div
-            class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 p-4 dark:bg-gray-900 dark:border-gray-800 my-3">
+            class="w-full bg-white shadow-lg rounded-sm border-b-8 p-4 dark:bg-gray-900 dark:border-gray-800 {{ $active == 'products' ? 'border-red-500' : 'border-red-100' }}">
             <div class="flex justify-between space-x-10">
                 <svg class="w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

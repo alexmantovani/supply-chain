@@ -18,10 +18,10 @@
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="h-full w-full max-w-7xl mx-auto ">
-            <div class="flex space-x-5">
-                @include('admin.sidebar')
+            <div class="">
+                @include('admin.sidebar', ['active' => 'products'])
 
-                <div class="flex-1 border-l-2 border-gray-200 p-5 border-dotted">
+                <div class="mt-5">
 
                     @if (session('alert'))
                         <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
@@ -101,13 +101,7 @@
                                             </svg>
                                         </x-primary-button>
 
-                                        {{-- <a href="{{ route('product.discover') }}">
-                                            <x-secondary-button class="">
-                                                <i class="fa-solid fa-plus"></i> &nbsp; Nuovo prodotto
-                                            </x-secondary-button>
-                                        </a> --}}
-
-                                        <form id="discover">
+                                        {{-- <form id="discover">
                                             <x-secondary-button class="" id="apri-modal"
                                                 title="Cerca l'articolo nel DB di Altena e se presente lo aggiunge in Refiller">
                                                 <i class="fa-solid fa-plus"></i> &nbsp; Nuovo prodotto
@@ -119,7 +113,7 @@
                                                     <i class="fa-solid fa-plus"></i>
                                                 </x-secondary-button>
                                             </div>
-                                        </form>
+                                        </form> --}}
                                     </div>
 
                                     <div class="text-xs text-gray-400 text-right pt-1">

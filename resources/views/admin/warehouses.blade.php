@@ -18,11 +18,10 @@
 
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
         <div class="h-full w-full max-w-7xl mx-auto ">
-            <div class="flex space-x-5">
-                @include('admin.sidebar')
+            <div class="">
+                @include('admin.sidebar', ['active' => 'warehouses'])
 
-                <div class="flex-1 border-l-2 border-gray-200 p-5 border-dotted">
-
+                <div class="mt-5">
                     <div class="flex justify-between items-center">
                         <div class=" text-gray-900 dark:text-gray-300 text-xl py-3 font-semibold">
                             Gestione magazzini

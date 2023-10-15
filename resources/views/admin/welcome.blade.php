@@ -38,8 +38,8 @@
         {{-- <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 h-full md:mx-28"> --}}
         <div class="h-full w-full max-w-7xl mx-auto ">
 
-            <div class="flex space-x-5">
-                @include('admin.sidebar')
+            <div class="">
+                @include('admin.sidebar', ['active' => 'home'])
 
                 {{-- <div>
                     <a href="{{ url('admin/users') }}">
@@ -128,7 +128,7 @@
                     </a>
                 </div> --}}
 
-                <div class="flex-1 border-l-2 border-gray-200 p-5 border-dotted">
+                <div class="mt-5">
 
                     <div class="p-3">
                         <canvas id="myChart" width="400" height="160"></canvas>
