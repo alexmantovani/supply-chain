@@ -28,7 +28,7 @@
         @media print {
             .qrcode-container {
                 width: 30%;
-                margin: 0.5%;
+                margin: 20px 0.2% 20px 0.2%;
                 text-align: left;
                 vertical-align: top;
                 display: inline-block;
@@ -60,7 +60,7 @@
 <body>
     @foreach ($products as $product)
         <div class="qrcode-container">
-            <img class="qrcode" src="data:image/png;base64,{{ DNS2D::getBarcodePNG($product->uuid, 'QRCODE', 64, 64) }}"
+            <img class="qrcode" src="data:image/png;base64,{{ DNS2D::getBarcodePNG($product->uuid, 'QRCODE', 75, 75) }}"
                 alt="barcode" style="width: 45px; height: 45px; float:left; padding:0px 5px;" />
             <div style="">
                 {{ $product->name }}
