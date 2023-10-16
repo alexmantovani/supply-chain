@@ -88,8 +88,7 @@
                                                 </td>
                                                 <td class="p-4 w-4">
                                                     <div class="flex items-center">
-                                                        <input type="checkbox" {{-- name="refill.{{ $refill->provider_id }}[]" --}}
-                                                            {{-- value="{{ $refill->id }}" --}}
+                                                        <input type="checkbox"
                                                             title="Seleziona qui per includere l'articolo nell'ordine"
                                                             wire:model.defer="selected.{{ $refill->id }}"
                                                             class="w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">

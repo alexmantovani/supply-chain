@@ -31,6 +31,7 @@ class DatabaseTestingSeeder extends Seeder
             ]);
         }
 
+        // TODO: il provider_id non esiste più in dealer
         // Creo i venditori
         \App\Models\Dealer::factory(10)->create([
             'provider_id' => 1,

@@ -47,7 +47,7 @@
                                     </thead>
                                     <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800 items-center">
                                         @foreach ($dealers as $dealer)
-                                            @livewire('dealer-update-row', ['dealer' => $dealer, 'providers' => $providers, 'warehouse' => $warehouse])
+// TODO: per ora non sono gestiti gran che
                                         @endforeach
                                     </tbody>
                                 </table>
