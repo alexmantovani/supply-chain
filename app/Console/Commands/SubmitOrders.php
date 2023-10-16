@@ -43,7 +43,7 @@ class SubmitOrders extends Command
                 ->where('quantity', '>', 0)
                 ->join('products', 'products.id', '=', 'refills.product_id')
                 ->join('dealers', 'dealers.id', '=', 'dealer_id')
-                ->join('providers', 'providers.id', '=', 'dealers.provider_id')
+                ->join('providers', 'providers.id', '=', 'products.provider_id')
                 ->select('refills.*', 'products.dealer_id', 'dealers.name', 'providers.id as provider_id')
                 ->get()
                 ->groupBy('provider_id');

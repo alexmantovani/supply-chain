@@ -116,9 +116,9 @@
                                         </form> --}}
                                     </div>
 
-                                    <div class="text-xs text-gray-400 text-right pt-1">
+                                    {{-- <div class="text-xs text-gray-400 text-right pt-1">
                                         Trovati {{ $products->total() }} risultati
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="overflow-x-auto">
