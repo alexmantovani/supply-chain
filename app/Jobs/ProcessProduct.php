@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Dealer;
 use App\Models\Product;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -36,9 +37,29 @@ class ProcessProduct implements ShouldQueue
      */
     public function handle(): void
     {
+        return; // Per ora salto tutto
+
         // Faccio la richiesta al DB di Altena
-        $productInfo = Soap::to('https://sig-inservices.marchesini.com/mgWSElettronici/WebServiceElettro.asmx')->call('getInfoCode', ['Code' => $this->uuid]);
-        Log::info($productInfo);
+        $response = Soap::to('https://sig-inservices.marchesini.com/mgWSElettronici/WebServiceElettro.asmx')
+            ->call('getInfoCode', ['Code' => $this->uuid]);
+        Log::info($response);
+
+        // Verifica se la chiamata è andata a buon fine
+        if ($response->isSuccessful()) {
+            // Estrai i dati dalla risposta
+            $data = $response->collect();
+
+            // Ora puoi accedere ai dati specifici
+            $productInfo = $data['ResponseData']['getInfoCodeResult'];
+
+            // Puoi fare qualcos'altro con i dati, ad esempio stamparli
+            echo "Nome prodotto: " . $productInfo['ProductName'] . "\n";
+            echo "Descrizione: " . $productInfo['ProductDescription'] . "\n";
+        } else {
+            // Gestisci l'errore in caso di chiamata SOAP non riuscita
+            $error = $response->getErrorMessage();
+            echo "Errore durante la chiamata SOAP: " . $error . "\n";
+        }
 
         // TODO: da ricavare da $productInfo
         // Dati relativi al prodotto
@@ -61,6 +82,39 @@ class ProcessProduct implements ShouldQueue
         //     'code' => $dealer_code,
         // ]);
 
+        // DATI DELLA TABELLA DEALERS
+        // $table->string('name');
+        // $table->string('email')->nullable();
+        // $table->string('model')->nullable();
+        // $table->string('code')->nullable();
+        // $table->string('image_url', 100)->nullable();
+
+        // DATI DELLA TABELLA PRODUCTS
+        //   $table->foreignId('dealer_id')->nullable();
+        //   $table->foreignId('status_id');
+        //   $table->foreignId('provider_id')->nullable();
+        //   $table->string('uuid')->unique();
+        //   $table->string('name')->nullable();
+        //   $table->string('description')->nullable();
+        //   $table->string('image_url')->nullable();
+        //   $table->unsignedBigInteger('order_code')->nullable();
+        //   $table->string('model')->nullable();
+        //   $table->string('note')->nullable();
+        //   Info da ufficio acquisti
+        //   $table->string('unit_of_measure')->nullable();
+        //   $table->string('refill_quantity')->default(0);
+
+        $dealer_name = "|||";
+        $dealer_model = "|||";
+        $dealer_code = "|||";
+
+        $dealer = Dealer::updateOrCreate([
+            'name' => $dealer_name,
+        ],[
+            'model' => $dealer_model,
+            'code' => $dealer_code,
+        ]);
+
         // TODO: scaricare i dati dal DB altena e inserirli nel DB
         // TODO: Sistemare
         Product::updateOrCreate(
@@ -68,8 +122,7 @@ class ProcessProduct implements ShouldQueue
                 'name' => Str::uuid(),
             ],
             [
-                'dealer_id' => rand(1, 5),
-                // 'refill_quantity' => 0,
+                'dealer_id' => $dealer->id,
                 'order_code' => 0,
                 'model' => '',
                 'note' => '',
