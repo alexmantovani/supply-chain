@@ -10,4 +10,9 @@
             {{ __('Ordini') }}
         </x-responsive-nav-link>
     @endcan
+    @can('admin site')
+        <x-responsive-nav-link :href="route('admin')">
+            {{ __('Admin') }}
+        </x-responsive-nav-link>
+    @endcan
 </div>

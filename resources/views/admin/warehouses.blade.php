@@ -16,13 +16,13 @@
     <x-slot name="navbar_right_menu">
     </x-slot>
 
-    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
+    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen md:p-4 dark:bg-gray-800">
         <div class="h-full w-full max-w-7xl mx-auto ">
             <div class="">
                 @include('admin.sidebar', ['active' => 'warehouses'])
 
                 <div class="mt-5">
-                    <div class="flex justify-between items-center">
+                    <div class="flex justify-between items-center p-2 md:p-0">
                         <div class=" text-gray-900 dark:text-gray-300 text-xl py-3 font-semibold">
                             Gestione magazzini
                         </div>
@@ -37,7 +37,7 @@
 
                     <div
                         class="bg-white shadow-lg rounded-sm border border-gray-200 mt-2 md:p-4 dark:bg-gray-900 dark:border-gray-800">
-                        <div class="p-1">
+                        <div class="md:p-1">
 
                             <div class="overflow-x-auto">
                                 <table class="table-auto w-full">
@@ -47,7 +47,7 @@
                                             <th class="p-2 whitespace-nowrap">
                                                 <div class="font-semibold text-left">Nome</div>
                                             </th>
-                                            <th class="p-2 ">
+                                            <th class="p-2 hidden md:table-cell">
                                                 <div class="font-semibold text-left">Descrizione</div>
                                             </th>
                                             <th class="p-2 ">
@@ -64,7 +64,7 @@
                                                         {{ $warehouse->name }}
                                                     </x-product-name-cell>
                                                 </td>
-                                                <td class="p-2">
+                                                <td class="p-2 hidden md:table-cell">
                                                     {{ $warehouse->description }}
                                                 </td>
                                                 <td class="p-2">

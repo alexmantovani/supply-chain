@@ -21,7 +21,7 @@
             </div>
         </td>
     @endforeach
-    <td class="p-2 w-48">
+    <td class="p-2 w-52">
         <div class="">
             <select wire:model="warehouseId"
                 class="form-control w-full rounded bg-gray-50 dark:bg-gray-800 mt-1 dark:text-white">

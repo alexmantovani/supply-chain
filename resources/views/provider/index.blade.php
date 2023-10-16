@@ -16,14 +16,14 @@
 
     </x-slot>
 
-    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4 dark:bg-gray-800">
+    <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen md:p-4 dark:bg-gray-800">
         <div class="h-full w-full max-w-7xl mx-auto ">
             <div class="">
                 @include('admin.sidebar', ['active' => 'providers'])
 
                 <div class="mt-5">
                     <div class="flex justify-between items-center">
-                        <div class=" text-gray-900 dark:text-gray-300 text-xl py-3 font-semibold">
+                        <div class=" text-gray-900 dark:text-gray-300 text-xl py-3 font-semibold  p-2 md:p-0">
                             Gestione fornitori
                         </div>
                         <div>
@@ -37,7 +37,7 @@
 
                     <div
                         class="bg-white shadow-lg rounded-sm border border-gray-200 mt-2 md:p-4 dark:bg-gray-900 dark:border-gray-800">
-                        <div class="p-1">
+                        <div class="md:p-1">
                             <div class="overflow-x-auto">
                                 <table class="table-auto w-full">
                                     <thead
