@@ -39,9 +39,9 @@ class ProductSeeder extends Seeder
         //         $dealer = Dealer::updateOrCreate([
         //             'provider_id' => 1, // TODO: Per ora lo forso sempre al Magazzino centrale MG
         //             'name' => $dealer,
-        //         ], [
-        //             'model' => $dealer_model,
-        //             'code' => $dealer_code,
+        //  //       ], [
+        //  //           'model' => $dealer_model,
+        //  //           'code' => $dealer_code,
         //         ]);
 
         //         Product::create([
@@ -49,6 +49,8 @@ class ProductSeeder extends Seeder
         //             'name' => $name,
         //             'dealer_id' => $dealer->id,
         //             'status_id' => $productStatus->id,
+        //             'model' => $dealer_model,
+        //             'code' => $dealer_code,
         //         ]);
         //     }
         //     fclose($handle);

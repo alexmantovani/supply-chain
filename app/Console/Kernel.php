@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('orders:submit')
             ->timezone('Europe/Rome')
             ->days([Schedule::MONDAY, Schedule::THURSDAY])
-            ->at('14:00');
+            ->at('13:00');
     }
 
     /**

@@ -126,6 +126,14 @@
                                         <thead
                                             class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 dark:bg-gray-800">
                                             <tr>
+                                                <th class="p-2">
+                                                    <div class=""></div>
+                                                    {{-- <input id="checkbox_all" type="checkbox"
+                                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"> --}}
+                                                </th>
+                                                <th class="p-2 whitespace-nowrap hidden md:table-cell">
+                                                    <div class="text-left">Codice</div>
+                                                </th>
                                                 <th class="p-2 whitespace-nowrap">
                                                     <div class="font-semibold text-left">Prodotto</div>
                                                 </th>

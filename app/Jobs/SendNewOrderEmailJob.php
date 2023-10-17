@@ -39,7 +39,7 @@ class SendNewOrderEmailJob implements ShouldQueue
             ->send(new OrderSubmit($this->order, $this->urgent));
 
         $this->order->logs()->create([
-            'description' => 'Inviata mail a ' . $this->order->provider->email,
+            'description' => 'Inviata mail di richiesta materiale a ' . $this->order->provider->email,
             'type' => 'info',
         ]);
     }

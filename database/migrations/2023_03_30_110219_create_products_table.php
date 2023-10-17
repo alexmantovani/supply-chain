@@ -25,8 +25,10 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->string('image_url')->nullable();
-            $table->unsignedBigInteger('order_code')->nullable();
+
             $table->string('model')->nullable();
+            $table->string('code')->nullable();
+
             $table->string('note')->nullable();
             $table->string('unit_of_measure')->nullable();
 

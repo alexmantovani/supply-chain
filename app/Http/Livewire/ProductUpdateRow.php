@@ -14,7 +14,7 @@ class ProductUpdateRow extends Component
 
     public function mount()
     {
-        $this->providerId = $this->product->provider->id ?? 0;
+        $this->providerId = $this->product->provider_id ?? 0;
         $this->refillQuantity = $this->product->refill_quantity;
     }
 

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->nullable();
 
+            // TODO: Verificare se voglio qui o nel prodotto
             $table->string('model')->nullable();
             $table->string('code')->nullable();
 

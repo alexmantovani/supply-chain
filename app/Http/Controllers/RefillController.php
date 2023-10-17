@@ -24,7 +24,7 @@ class RefillController extends Controller
             ->whereIn('refills.status', ['low', 'urgent'])
             ->join('products', 'products.id', '=', 'refills.product_id')
             ->join('dealers', 'dealers.id', '=', 'dealer_id')
-            ->join('providers', 'providers.id', '=', 'products.provider_id')
+            ->leftJoin('providers', 'providers.id', '=', 'products.provider_id')
             ->select('refills.*', 'products.name as product_name', 'products.uuid as product_uuid', 'products.dealer_id', 'dealers.name as dealer_name', 'providers.id as provider_id')
             ->orderBy('provider_id')
             ->get();
@@ -175,22 +175,20 @@ class RefillController extends Controller
     {
         $product = Product::firstWhere('uuid', $code);
 
-        // TODO: Da gestire bene col DB di Altena
-
-        // Non ho trovato il prodotto nel DB
+        // Non ho trovato il prodotto nel mio DB
         if (!$product) {
-            // TODO: Non lo devo creare ma devo chiedere ad Altena se esiste
-            // $product = Product::create([
-            //     'uuid' => $code,
-            //     'status_id' => 1,
-            // ]);
-
             // Chiedo al DB di Altena le info sul prodotto
-            // Passo $code perche potrebbe trattarsi di un articolo nuono di cui non ho ancora nessuna info
+            // Passo $code perche potrebbe trattarsi di un articolo nuovo di cui non ho ancora nessuna info
             ProcessProduct::dispatchSync($code);
-            // ProcessProduct::dispatchSync($product);
 
-            return 4; // Non trovato
+            // Lo torno a cercare nella speranza di averlo trovato nel DB di Altena
+            $product = Product::firstWhere('uuid', $code);
+            if (!$product) {
+                Log::error("Prodotto $code non trovato neanche nel DB di Altena");
+                return 4; // Non trovato
+            }
+
+            Log::debug("Product $code not found in DB, but found in Altena DB");
         }
         if (!$product->isOrdinable()) return 3;
 
@@ -203,12 +201,15 @@ class RefillController extends Controller
 
             return 1;
         }
-        $warehouse->refills()->create([
-            'user_id' => 1,
+
+        Refill::create([
+            'user_id' => Auth::user()->id,
             'warehouse_id' => $warehouse->id,
             'product_id' => $product->id,
             'quantity' => $quantity ?? $product->refillQuantity($warehouse->id),
         ]);
+
+        Log::debug("Aggiunto nei refills $product->id per magazzino $warehouse->id");
 
         return 0; // Done
 

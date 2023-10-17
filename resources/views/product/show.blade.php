@@ -76,7 +76,7 @@
                                 <div class="font-semibold text-xl md:text-2xl py-2 dark:text-gray-200">
                                     <a href="{{ route('warehouse.dealer.show', [$warehouse, $product->dealer->id]) }}"
                                         class=" cursor-pointer hover:underline">
-                                        {{ $product->dealer->name }}
+                                        {{ $product->dealer->name ?? ''}}
                                     </a>
                                 </div>
                                 <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
@@ -85,7 +85,7 @@
                                             Codice produttore:
                                         </div>
                                         <span class=" text-gray-800 font-semibold">
-                                            {{ $product->dealer->code }}
+                                            {{ $product->code }}
                                         </span>
                                     </div>
                                 </div>
@@ -113,33 +113,36 @@
                         </div>
 
                         <div class="pt-2">
-                            @if ($product->provider->image_url)
-                                <img src="{{ asset('/provider_images/' . $product->provider->image_url ) }}" alt=""
-                                    class="w-40 mr-2 object-contain">
-                            @else
-                                <div class="font-semibold text-2xl pt-2 dark:text-gray-200">
-                                    {{ $product->provider->name }}
+                            @if ($product->provider)
+                                @if ($product->provider->image_url)
+                                    <img src="{{ asset('/provider_images/' . $product->provider->image_url) }}"
+                                        alt="" class="w-40 mr-2 object-contain">
+                                @else
+                                    <div class="font-semibold text-2xl pt-2 dark:text-gray-200">
+                                        {{ $product->provider->name }}
+                                    </div>
+                                @endif
+
+                                <div class="pb-2 mt-3">
+                                    <div class=" dark:text-gray-400 text-sm text-gray-500">
+                                        Codice fornitore:
+                                        <span>
+                                            {{ $product->provider->provider_code }}
+                                        </span>
+                                    </div>
+
+                                    <div class=" dark:text-gray-400 text-sm text-gray-500">
+                                        <a href="mailto:{{ $product->provider->email }}">
+                                            Email:
+                                            <span>
+                                                {{ $product->provider->email }}
+                                            </span>
+                                        </a>
+                                    </div>
+
                                 </div>
                             @endif
 
-                            <div class="pb-2 mt-3">
-                                <div class=" dark:text-gray-400 text-sm text-gray-500">
-                                    Codice fornitore:
-                                    <span>
-                                        {{ $product->provider->provider_code }}
-                                    </span>
-                                </div>
-
-                                <div class=" dark:text-gray-400 text-sm text-gray-500">
-                                    <a href="mailto:{{ $product->provider->email }}">
-                                        Email:
-                                        <span>
-                                            {{ $product->provider->email }}
-                                        </span>
-                                    </a>
-                                </div>
-
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -256,7 +259,8 @@
 
                             <div class="pb-3">
                                 <x-input-label for="warehouse_id" :value="__('Magazzino')" />
-                                <select name="warehouse_id" class="form-control w-full rounded bg-yellow-50 dark:bg-transparent dark:text-white mt-1"
+                                <select name="warehouse_id"
+                                    class="form-control w-full rounded bg-yellow-50 dark:bg-transparent dark:text-white mt-1"
                                     required>
                                     @foreach (App\Models\Warehouse::all() as $warehouse_item)
                                         <option value="{{ $warehouse_item->id }}"

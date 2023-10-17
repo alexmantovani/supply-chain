@@ -7,7 +7,7 @@
             cursor-pointer">
                 <a onclick="window.history.back();"><i class="fa fa-angle-left"></i></a>
             </div>
-            <div>
+            <div class="text-gray-800 dark:text-gray-200">
                 Nuovo fornitore
             </div>
         </div>

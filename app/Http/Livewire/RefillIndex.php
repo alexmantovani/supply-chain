@@ -6,6 +6,7 @@ use App\Models\Order;
 use Livewire\Component;
 use App\Models\Refill;
 use App\Jobs\SendNewOrderEmailJob;
+use App\Models\Provider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -44,7 +45,7 @@ class RefillIndex extends Component
             ->whereIn('refills.status', ['low', 'urgent'])
             ->join('products', 'products.id', '=', 'refills.product_id')
             ->join('dealers', 'dealers.id', '=', 'dealer_id')
-            ->join('providers', 'providers.id', '=', 'products.provider_id')
+            ->leftJoin('providers', 'providers.id', '=', 'products.provider_id')
             ->select('refills.*', 'products.name as product_name', 'products.uuid as product_uuid', 'products.dealer_id', 'dealers.name as dealer_name', 'providers.id as provider_id')
             ->orderBy('provider_id')
             ->get();
@@ -64,12 +65,21 @@ class RefillIndex extends Component
     {
         $grouped = $this->refills->groupBy('provider_id');
 
+        // Variabili d'errore
         $ugualeZero = false;
+        $noProvider = false;
 
         // Spazzolo i refills in base ai fornitori
         foreach ($grouped as $providerId => $refills) {
             $products = [];
             $order = null;
+
+            // Per prima cosa vado a vedere se l'articolo ha un fornitore a cui inviare l'ordine
+            $provider = Provider::find($providerId);
+            if (!$provider) {
+                $noProvider = true;
+                continue;
+            }
 
             foreach ($refills as $refill) {
                 $selected = $this->selected[$refill->id];
@@ -128,6 +138,12 @@ class RefillIndex extends Component
             }
         }
 
+        if ($noProvider) {
+            session()->flash('message', "Uno o più prodotti selezionati non hanno specificato il fornitore. Conttata l'ufficio acquisti");
+            // TODO: Eventualmente inviare una mail a uno dell'ufficio acquisti
+
+            return;
+        }
         if ($ugualeZero) {
             session()->flash('message', 'Uno o più prodotti selezionati hanno quantità uguale a zero.');
 
