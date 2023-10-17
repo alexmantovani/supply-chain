@@ -46,8 +46,8 @@ class ProcessProduct implements ShouldQueue
      */
     public function getCodeInfoFromAltena($uuid)
     {
-        // $url = "https://sig-inservices.marchesini.com/mgWSElettronici/WebServiceElettro.asmx";
-        $url = "http://127.0.0.1:81/tempconvert.asmx";
+        $url = "https://sig-inservices.marchesini.com/mgWSElettronici/WebServiceElettro.asmx";
+        // $url = "http://127.0.0.1:81/tempconvert.asmx";
 
         $xml_data = '<?xml version="1.0" encoding="utf-8"?>
         <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -59,7 +59,6 @@ class ProcessProduct implements ShouldQueue
         </soap12:Envelope>';
 
         $ch = curl_init();
-
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -101,7 +100,7 @@ class ProcessProduct implements ShouldQueue
         // Se la richiesta fallisce, non vado oltre
         if (!$response) return;
 
-        $response["ITEM"];
+        // $response["ITEM"];
         $name = $response["DESCRIPTION"];
         $dealer_name = $response["BRAND"] ?? '';
         $code = $response["PRODUCT_CODE"] ?? '';
@@ -131,5 +130,7 @@ class ProcessProduct implements ShouldQueue
                 'note' => '',
             ]
         );
+
+        Log::info("Prodotto aggiornato in base ai dati del DB di Altena: $this->uuid");
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Jobs\ProcessProduct;
 use App\Models\Product;
 use App\Models\Dealer;
 use App\Models\ProductStatus;
@@ -50,6 +51,12 @@ class ProductController extends Controller
 
         $search = Request()->search ?? '';
         $filters = Request()->filters ?? ['Ordinabili'];
+
+        // Innanzi tutto se la parola da cercare è di 10 caratteri, do un'occhiata anche ad DB di Altena prima di mostrare i risultati
+        if (strlen($search) >= 10) {
+            // Chiedo al DB di Altena se esiste un utente con questo uuid
+            ProcessProduct::dispatchSync($search);
+        }
 
         $filter_list = ProductStatus::whereIn('group', $filters)->pluck('id');
 

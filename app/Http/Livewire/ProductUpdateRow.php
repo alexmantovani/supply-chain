@@ -35,9 +35,13 @@ class ProductUpdateRow extends Component
 
     public function updatedRefillQuantity()
     {
-        $this->product->update([
-            'refill_quantity' => $this->refillQuantity,
-        ]);
+        if ((is_numeric($this->refillQuantity)) || ($this->refillQuantity == '')) {
+            $this->product->update([
+                'refill_quantity' => $this->refillQuantity,
+            ]);
+        } else {
+            $this->refillQuantity = $this->product->refill_quantity;
+        }
     }
 
 }

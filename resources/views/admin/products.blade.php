@@ -75,7 +75,6 @@
                                             <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
                                         </x-primary-button>
                                     </div>
-
                                 </div>
                                 {{-- <div class="text-xs text-gray-400 text-right pt-1">
                                     Trovati {{ $products->total() }} risultati

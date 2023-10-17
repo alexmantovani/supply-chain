@@ -1,4 +1,4 @@
-<tr class=" {{ $providerId ? '' : 'bg-red-200' }}">
+<tr class=" {{ ($providerId && $refillQuantity) ? '' : 'bg-red-200' }}">
     <td class="p-2 w-2">
         <input id="checkbox_{{ $product->uuid }}" name="product_ids[]" type="checkbox" value="{{ $product->id }}"
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
