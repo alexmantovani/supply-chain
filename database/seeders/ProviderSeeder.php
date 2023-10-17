@@ -12,6 +12,16 @@ class ProviderSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\Provider::create([
+            'name' => 'FABBI IMOLA',
+            'email' => 'orders@stika.com',
+            'provider_code' => '120035'
+        ]);
+
+        \App\Models\Provider::create([
+            'name' => 'TECO',
+            'email' => 'orders@stika.com',
+            'provider_code' => '101895'
+        ]);
     }
 }

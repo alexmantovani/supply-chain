@@ -69,7 +69,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware(['permission:admin site'])->name('admin');
     Route::prefix('admin')->group(function () {
-        Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('admin.users');
+        Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->middleware(['permission:edit user'])->name('admin.users');
         // Route::get('/providers', [App\Http\Controllers\ProviderController::class, 'index'])->middleware(['permission:admin site'])->name('admin.providers');
         Route::resource('provider', App\Http\Controllers\ProviderController::class)->only([
             'index'

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProviderRequest;
 use App\Http\Requests\UpdateProviderRequest;
 use App\Models\Provider;
 use App\Models\Warehouse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class ProviderController extends Controller
@@ -17,7 +18,7 @@ class ProviderController extends Controller
     {
         $providers = Provider::all();
 
-        $warehouse = Warehouse::find($_COOKIE['warehouse_id']);
+        $warehouse = Auth::user()->warehouse;
 
         return view('provider.index', compact('providers', 'warehouse'));
     }
@@ -59,7 +60,7 @@ class ProviderController extends Controller
      */
     public function show(Provider $provider)
     {
-        $warehouse = Warehouse::find($_COOKIE['warehouse_id']);
+        $warehouse = Auth::user()->warehouse;
 
         $products = $provider->products()->paginate(100);
 

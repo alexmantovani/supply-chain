@@ -44,11 +44,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function refills() {
+    public function refills()
+    {
         return $this->hasMany(Refill::class);
     }
 
-    public function logs() {
+    public function logs()
+    {
         return $this->hasMany(Log::class);
     }
 
@@ -66,4 +68,13 @@ class User extends Authenticatable
         });
     }
 
+    public function getWarehouseAttribute()
+    {
+        // TODO: Migliorare perchè ora in caso di utente sconosciuto lo assegno al magazzino 1
+        if (!$this->profile) {
+            return Warehouse::find(1);
+        }
+
+        return $this->profile->warehouse;
+    }
 }

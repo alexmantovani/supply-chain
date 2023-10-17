@@ -10,6 +10,7 @@ use App\Models\Dealer;
 use App\Models\ProductStatus;
 use App\Models\Provider;
 use App\Models\Warehouse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Request;
@@ -47,7 +48,7 @@ class ProductController extends Controller
 
     public function admin()
     {
-        $warehouse = Warehouse::find($_COOKIE['warehouse_id']);
+        $warehouse = Auth::user()->warehouse;
 
         $search = Request()->search ?? '';
         $filters = Request()->filters ?? ['Ordinabili'];

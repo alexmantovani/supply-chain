@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class AdminController extends Controller
@@ -20,7 +21,7 @@ class AdminController extends Controller
             ->selectRaw('*, COUNT(*) as in_progress, warehouses.name as warehouse_name')
             ->get();
 
-        $warehouse = Warehouse::find($_COOKIE['warehouse_id']);
+            $warehouse = Auth::user()->warehouse;
 
         return view('admin.welcome', compact('orders', 'graphOrders', 'warehouse'));
     }
@@ -35,10 +36,6 @@ class AdminController extends Controller
         // $products = Product::whereIn('id', [1,2,3,4,5,6])->get();
         // $products = Product::whereIn('id', Product::take(50)->pluck('id'))->get();
 
-        // $pdf = PDF::loadView('admin.print-labels', compact('products'));
-        // return $pdf->download('documento.pdf');
-
-        // $warehouse = Warehouse::find($_COOKIE['warehouse_id']);
         return view('admin.print-labels', compact('products'));
     }
 }

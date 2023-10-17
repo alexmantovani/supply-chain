@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('description')->nullable();
             $table->string('email')->nullable(); // email a cui spedire gli ordini
+            // TODO: togliere email e mettere emails
+            // $table->string('emails')->nullable(); // emails (una o più separate da ',') di chi gestisce il magazzino
             $table->string('provider_code')->nullable(); // codice del fornitore da inserire nell'invio degli ordini
             $table->string('image_url')->nullable(); // Logo del fornitore
 

@@ -12,6 +12,9 @@ class WarehouseSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\Warehouse::create([
+            'name' => 'Rep. Elettrico HQ',
+            'description' => "Capannone A - Pianoro",
+        ]);
     }
 }
