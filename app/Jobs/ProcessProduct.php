@@ -106,6 +106,10 @@ class ProcessProduct implements ShouldQueue
         $code = $response["PRODUCT_CODE"] ?? '';
         $model = $response["MODEL"] ?? '';
 
+        // Controlli di sicurezza sulla risposta
+        if (strlen($name) < 1) return; // Devo avere il nome dell'articolo
+        if (strlen($response["ITEM"]) < 1) return; // Deve esserci l'UUID
+
         $status = $response["STATE"] ?? '';
         if ($status == '') $status = 'OK';
         $productStatus = ProductStatus::firstWhere('code', $status);
