@@ -26,13 +26,15 @@
                         <div class=" text-gray-900 dark:text-gray-300 text-xl py-3 font-semibold">
                             Gestione magazzini
                         </div>
-                        <div>
-                            <a href="{{ route('warehouse.create') }}">
-                                <x-secondary-button class="">
-                                    <i class="fa-solid fa-plus"></i> &nbsp; Nuovo magazzino
-                                </x-secondary-button>
-                            </a>
-                        </div>
+                        @can('create warehouse')
+                            <div>
+                                <a href="{{ route('warehouse.create') }}">
+                                    <x-secondary-button class="">
+                                        <i class="fa-solid fa-plus"></i> &nbsp; Nuovo magazzino
+                                    </x-secondary-button>
+                                </a>
+                            </div>
+                        @endcan
                     </div>
 
                     <div
@@ -71,10 +73,12 @@
                                                     {{ $warehouse->emails }}
                                                 </td>
                                                 <td class="p-2 w-10 text-center items-center">
-                                                    <a href="{{ route('warehouse.edit', $warehouse->id) }}"
-                                                        class="text-gray-600 hover:text-gray-600">
-                                                        <i class="fa-regular fa-pen-to-square"></i>
-                                                    </a>
+                                                    @can('edit warehouse')
+                                                        <a href="{{ route('warehouse.edit', $warehouse->id) }}"
+                                                            class="text-gray-600 hover:text-gray-600">
+                                                            <i class="fa-regular fa-pen-to-square"></i>
+                                                        </a>
+                                                    @endcan
                                                 </td>
                                             </tr>
                                         @endforeach
