@@ -161,9 +161,7 @@ class CreatePermissionTables extends Migration
             'change warehouse',
 
             'edit user',
-
             'handle order',
-
             'admin site', // Tab "Admin"
         ];
         foreach ($permissions as $permission) {
@@ -175,6 +173,9 @@ class CreatePermissionTables extends Migration
         $role->givePermissionTo($permissions);
 
         $role = Role::create(['name' => 'RUA']);
+        $role->givePermissionTo('edit warehouse');
+        $role->givePermissionTo('create warehouse');
+        $role->givePermissionTo('delete warehouse');
         $role->givePermissionTo('change warehouse');
         $role->givePermissionTo('handle order');
         $role->givePermissionTo('admin site');

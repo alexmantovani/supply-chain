@@ -21,20 +21,23 @@ class AdminController extends Controller
             ->selectRaw('*, COUNT(*) as in_progress, warehouses.name as warehouse_name')
             ->get();
 
-            $warehouse = Auth::user()->warehouse;
+        $warehouse = Auth::user()->warehouse;
 
         return view('admin.welcome', compact('orders', 'graphOrders', 'warehouse'));
     }
 
     public function printLabels(Request $request)
     {
-        if (!isset($request['product_ids'])) {
-            return redirect()->back()->with('alert', 'Nessun articolo è stato selezionato.');
-        }
+        if (isset($request['print'])) {
+            $product_ids = explode(',', $request->print);
+        } else {
+            if (!isset($request['product_ids'])) {
+                return redirect()->back()->with('alert', 'Nessun articolo è stato selezionato.');
+            }
 
-        $products = Product::whereIn('id', $request['product_ids'])->get();
-        // $products = Product::whereIn('id', [1,2,3,4,5,6])->get();
-        // $products = Product::whereIn('id', Product::take(50)->pluck('id'))->get();
+            $product_ids = $request['product_ids'];
+        }
+        $products = Product::whereIn('id', $product_ids)->get();
 
         return view('admin.print-labels', compact('products'));
     }
