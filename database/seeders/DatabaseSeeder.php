@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
         $user = \App\Models\User::factory()->create([
             'name' => 'Lorenzo Miti',
             'email' => 'lorenzo@lorenzo.com',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('HJGj7&hy1'),
         ]);
         $user->assignRole('RUA');
 
