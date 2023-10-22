@@ -94,16 +94,19 @@
         </div>
 
         <script>
+            lastSent = "";
+
             const html5QrCode = new Html5Qrcode("qr-reader", {
-                formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE
-                ]
+                formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE]
             });
             const qrCodeSuccessCallback = (decodedText, decodedResult) => {
                 // console.log(`Scan result: ${decodedText}`, decodedResult);
-                // html5QrcodeScanner.clear();
+                if (decodedText != lastSent) {
+                    lastSent = decodedText;
 
-                window.location.href = '{{ url('warehouse/' . $warehouse->id . '/refill/request') }}?code=' + decodedText;
-                html5QrcodeScanner.clear();
+                    window.location.href = '{{ url('warehouse/' . $warehouse->id . '/refill/request') }}?code=' + decodedText;
+                    html5QrcodeScanner.clear();
+                }
             };
 
             let config = {
