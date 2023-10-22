@@ -19,6 +19,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('refill_quantity')->nullable();
             $table->foreignId('provider_id')->nullable();
+            $table->unsignedBigInteger('step')->default(1); // Passi di incremento nella quantità da ordinare
 
             $table->unique(['product_id', 'warehouse_id']);
 

@@ -27,6 +27,7 @@ class Warehouse extends Model
             ->withPivot([
                 'refill_quantity',
                 'provider_id',
+                'step',
             ])
             ->withTimestamps();
     }
