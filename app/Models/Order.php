@@ -56,12 +56,7 @@ class Order extends Model
     }
 
     public function getProviderEmailsAttribute() {
-        // Se nell'ordine non è noto il fornitore, riporto la mail di fallback del relativo magazzino
-        if (!$this->provider) {
-            return $this->warehouse->fallback_emails;
-        }
-
-        return $this->provider->emails ?? 'sconosciuto';
+        return $this->provider->emails ?? $this->warehouse->fallback_emails ?? abort(403, 'La mail del fornitore o del magazzino non è stata impostata');
     }
 
     public static function uuid($length = 12)
