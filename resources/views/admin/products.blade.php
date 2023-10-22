@@ -61,7 +61,7 @@
                             </div>
                         </div>
 
-                        <div class="">
+                        <div class="w-1/2 ">
                             <form method="GET" action="{{ route('admin.products', $warehouse) }}">
                                 <div class="flex rounded-md border border-gray-300 items-center bg-white">
                                     <div class="w-full">

@@ -128,31 +128,68 @@
                     </a>
                 </div> --}}
 
-                <div class="mt-5">
+                <div class="mt-5 grid  lg:grid-cols-2">
 
-                    <div class="p-3">
-                        <canvas id="myChart" width="400" height="160"></canvas>
+                    <div class="p-3 w-full h-full">
+                        <canvas id="myChart"></canvas>
                     </div>
 
-                    <div class="font-semibold text-2xl dark:text-gray-200">
-                        Ordini pendenti
+                    <div class="bg-white p-5 rounded-md">
+                        <div class="font-semibold text-2xl dark:text-gray-200">
+                            Ordini pendenti
+                        </div>
+                        <div>
+
+                            <table class="table-auto w-full mt-5 text-sm">
+                                @foreach ($orders as $groupOrder)
+                                    <tr>
+                                        <td colspan="4">
+                                            <div class="mt-5 mb-1 p-1 text-lg rounded-sm font-semibold text-gray-900 bg-gradient-to-r from-red-100 dark:from-red-900">
+                                                {{ $groupOrder->first()->warehouse->name }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @foreach ($groupOrder as $order)
+                                        <tr class="h-8">
+
+                                            <td>
+                                                <div class=" lg:pl-3">
+                                                    <a
+                                                        href="{{ route('warehouse.order.show', [$warehouse, $order->id]) }}">
+                                                        <div class="font-medium text-gray-800 dark:text-gray-200 ">
+                                                            {{ $order->uuid }}
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </td>
+
+                                            <td>
+
+                                                <div
+                                                    class="text-gray-700 dark:text-gray-200 hidden md:flex">
+                                                    {{ $order->provider_name }}
+                                                </div>
+                                            </td>
+
+
+                                            <td>
+                                                <div class="text-gray-700 dark:text-gray-700">
+                                                    {{ $order->created_at->diffForHumans() }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <x-order-status-gradient
+                                                class="w-30 text-xs font-semibold uppercase border-r-4 text-gray-700 text-right p-2"
+                                                :status="$order->status" />
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            </table>
+                        </div>
                     </div>
-                    <table class="table-auto w-full mt-5">
-                        @foreach ($orders as $order)
-                            <tr class="h-10">
-                                <td>
-                                    <div>
-                                        {{ $order->warehouse->name }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        {{ $order->in_progress }}
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </table>
+
                 </div>
             </div>
         </div>
