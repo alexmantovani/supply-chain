@@ -7,11 +7,14 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Jobs\ProcessProduct;
 use App\Models\Product;
 use App\Models\Dealer;
+use App\Models\Order;
 use App\Models\ProductStatus;
 use App\Models\Provider;
 use App\Models\Warehouse;
+use GuzzleHttp\Psr7\Request as Psr7Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Str;
 use Request;
 
@@ -177,5 +180,68 @@ class ProductController extends Controller
         }
 
         return true;
+    }
+
+    /*
+     * Apre la pagina per acquisire il qrcode di un prodotto
+    */
+    public function checkin(Warehouse $warehouse)
+    {
+        return view('product.checkin', compact('warehouse'));
+    }
+
+    public function delivered(Warehouse $warehouse)
+    {
+        $codes = explode(" ", Request()['codes']);
+
+        $errors = [];
+        foreach ($codes as $code) {
+            // Cerco il prodotto in base al suo UUID
+            $product = Product::firstWhere('uuid', $code);
+
+            // Ricavo il relativo ordine in base al magazzino in cui mi trovo
+            $order = $product->openOrders->firstWhere('warehouse_id', $warehouse->id);
+
+            if ($order) {
+                $product = $order->products()->firstWhere('products.id', $product->id);
+
+                // Ricavo la quantità del prodotto in base al relativo ordine
+                $quantity = $product->pivot->quantity;
+
+                // Aggiorna la quantità nella tabella pivot "order_product"
+                $order->products()->updateExistingPivot($product, ['received_quantity' => $quantity]);
+
+                // Aggiorno anche in refill per far si che questo articolo possa essere riordinato nuovamente
+                $refill = $order->refills()->firstWhere('product_id', $product->id);
+                $refill->update([
+                    'status' => 'completed',
+                ]);
+
+                $order->logs()->create([
+                    'user_id' => Auth::user()->id,
+                    'description' => 'Consegnato: ' . $product->name . ' ' .
+                        trans_choice('messages.ordered', $product->pivot->quantity) . ' ' .
+                        trans_choice('messages.received', $product->pivot->received_quantity),
+                    'type' => 'info',
+                ]);
+
+                // Faccio il find() per ricaricare i dati che ho cambiato qui sopra nelle tabelle pivot
+                $isCompleted = Order::find($order->id)->updateStatus();
+                if ($isCompleted) {
+                    $order->logs()->create([
+                        'user_id' => Auth::user()->id,
+                        'description' => $isCompleted ? 'Ordine completato' : 'Non tutto il materiale ordinato è stato consegnato',
+                        'type' => 'info',
+                    ]);
+                }
+            } else {
+                // Non trovato
+                array_push($errors, ['code' => $code, 'error' => 'L\'articolo "' . $code . '" non è presente in nessun ordine']);
+
+                Log::error('Articolo ' . $code . ' non trovato');
+            }
+        }
+
+        return view("product.checkin_done", compact('warehouse', 'errors', 'codes'));
     }
 }

@@ -102,6 +102,17 @@ class Product extends Model
             ->withTimestamps();
     }
 
+    public function openOrders()
+    {
+        return $this->belongsToMany(Order::class)
+            ->whereIn('orders.status', ['waiting', 'pending'])
+            ->withPivot([
+                'quantity',
+                'received_quantity',
+            ])
+            ->withTimestamps();
+    }
+
     public function warehouses()
     {
         return $this->belongsToMany(Warehouse::class)

@@ -55,6 +55,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/warehouse/{warehouse}/refill/error', [App\Http\Controllers\RefillController::class, 'requestError'])->name('refill.error');
     Route::get('/warehouse/{warehouse}/refill/request', [App\Http\Controllers\RefillController::class, 'request'])->name('refill.request');
 
+    Route::get('/warehouse/{warehouse}/product/checkin', [App\Http\Controllers\ProductController::class, 'checkin'])->name('product.checkin');
+    Route::get('/warehouse/{warehouse}/product/delivered', [App\Http\Controllers\ProductController::class, 'delivered'])->name('product.delivered');
+
     Route::resource('warehouse.dealer', App\Http\Controllers\DealerController::class)->only(['show']);
     Route::resource('warehouse.product', App\Http\Controllers\ProductController::class);
     Route::resource('warehouse.order', App\Http\Controllers\OrderController::class)->only([

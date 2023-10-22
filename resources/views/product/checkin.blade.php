@@ -25,7 +25,7 @@
         <div class="w-full max-w-7xl mx-auto ">
             <div>
                 <div class=" text-gray-900 dark:text-gray-300 text-xl p-3 font-semibold">
-                    Aggiungi al materiale in esaurimento
+                    Materiale ricevuto
                 </div>
             </div>
             <div
@@ -57,7 +57,7 @@
             <div class="p-4">
                 <div class="flex items-center justify-between gap-4">
                     <div class=" text-sm text-gray-500 dark:text-gray-400">
-                        Inquadra con la camera il codice del prodotto da inserire tra i materiali in esaurimento.
+                        Inquadra con la camera il qrcode del prodotto che hai ricevuto.
                     </div>
                 </div>
             </div>
@@ -65,8 +65,8 @@
 
             <div
                 class="mt-4 w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 dark:bg-gray-900 dark:border-gray-800 p-2 md:p-8">
-                <form method="post" action="{{ route('warehouse.refill.store', $warehouse) }}" class="">
-                    @csrf
+                <form method="GET" action="{{ route('product.delivered', $warehouse) }}" class="">
+                    {{-- @csrf --}}
 
                     <div class="flex items-center">
                         <div class="flex-0 text-gray-800 dark:text-gray-100">
@@ -86,8 +86,7 @@
             <div class="p-4">
                 <div class="flex items-center justify-between gap-4">
                     <div class=" text-sm text-gray-500 dark:text-gray-400">
-                        Oppure inserisci manualmente uno o più codici del prodotto da inserire tra i materiali in
-                        esaurimento.
+                        Oppure inserisci manualmente uno o più codici del prodotto da inserire tra i materiali ricevuti.
                     </div>
                 </div>
             </div>
@@ -104,12 +103,7 @@
                 if (decodedText != lastSent) {
                     lastSent = decodedText;
 
-                    if ("vibrate" in navigator) {
-                        navigator.vibrate(100); // 100 millisecondi di vibrazione
-                    }
-
-                    window.location.href = '{{ url('warehouse/' . $warehouse->id . '/refill/request') }}?code=' +
-                        decodedText;
+                    window.location.href = '{{ url('warehouse/' . $warehouse->id . '/product/delivered') }}?codes=' + decodedText;
                     html5QrcodeScanner.clear();
                 }
             };
@@ -117,10 +111,7 @@
             let config = {
                 fps: 10,
                 useBarCodeDetectorIfSupported: true,
-                qrbox: {
-                    width: 90,
-                    height: 90
-                },
+                qrbox: { width: 90, height: 90 },
                 showTorchButtonIfSupported: true,
                 defaultZoomValueIfSupported: 2
             };
