@@ -39,7 +39,7 @@ class ProviderController extends Controller
         $provider = Provider::create([
             'name' => $request->name,
             'description' => $request->description,
-            'email' => $request->email,
+            'emails' => $request->emails,
             'provider_code' => $request->provider_code,
         ]);
 
@@ -92,7 +92,7 @@ class ProviderController extends Controller
         $provider->update([
             'name' => $request->name,
             'description' => $request->description,
-            'email' => $request->email,
+            'emails' => $request->emails,
             'provider_code' => $request->provider_code,
         ]);
 

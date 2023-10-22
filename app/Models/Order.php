@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Models\Log;
 
 class Order extends Model
 {
@@ -50,6 +51,19 @@ class Order extends Model
         ]);
     }
 
+    public function getProviderNameAttribute() {
+        return $this->provider->name ?? 'sconosciuto';
+    }
+
+    public function getProviderEmailsAttribute() {
+        // Se nell'ordine non è noto il fornitore, riporto la mail di fallback del relativo magazzino
+        if (!$this->provider) {
+            return $this->warehouse->fallback_emails;
+        }
+
+        return $this->provider->emails ?? 'sconosciuto';
+    }
+
     public static function uuid($length = 12)
     {
         $unique = strtoupper(Str::random($length));
@@ -68,7 +82,7 @@ class Order extends Model
         $isCompleted = true;
 
         foreach ($this->products as $product) {
-            if ($product->pivot->received_quantity != $product->pivot->quantity) {
+            if ($product->pivot->received_quantity !== $product->pivot->quantity) {
                 // Log::info('DIVERSI ' . $product->pivot->received_quantity . '!=' . $product->pivot->quantity );
                 $isCompleted = false;
                 break;
@@ -109,5 +123,17 @@ class Order extends Model
             $returnData[$i] = $su->toArray();
         }
         return $returnData;
+    }
+
+    // Riporta true nel caso nell'ordine siano presenti prodotti con quantità uguale a 0
+    public function hasMissingQuantity()
+    {
+        foreach ($this->products as $product) {
+            if (!$product->pivot->quantity) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

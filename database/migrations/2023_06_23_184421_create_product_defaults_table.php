@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreignId('product_id');
             $table->foreignId('warehouse_id');
 
-            $table->unsignedBigInteger('refill_quantity')->default(0);
+            $table->unsignedBigInteger('refill_quantity')->nullable();
+            $table->foreignId('provider_id')->nullable();
 
             $table->unique(['product_id', 'warehouse_id']);
 

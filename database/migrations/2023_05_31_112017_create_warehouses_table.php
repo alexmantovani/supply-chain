@@ -19,6 +19,9 @@ return new class extends Migration
 
             $table->string('emails')->nullable(); // emails (una o più separate da ',') di chi gestisce il magazzino
 
+            // Email a cui verranno inviati gli ordini nel caso nel prodotto non sia stato specificato il fornitore
+            $table->string('fallback_emails'); // emails (una o più separate da ',') di chi gestisce il magazzino
+
             $table->timestamps();
         });
     }

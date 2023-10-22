@@ -17,7 +17,9 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'provider_id' => fake()->optional()->numberBetween(1, 2),
+            'warehouse_id' => fake()->numberBetween(1, 2),
+            'uuid' => fake()->uuid(),
         ];
     }
 }

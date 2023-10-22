@@ -20,6 +20,7 @@ class WarehouseFactory extends Factory
             'name' => fake()->unique()->company(),
             'description' => fake()->sentence(),
             'emails' => fake()->optional()->email(),
+            'fallback_emails' => fake()->email(),
         ];
     }
 }

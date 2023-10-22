@@ -19,7 +19,8 @@ return new class extends Migration
             $table->foreignId('dealer_id')->nullable();
             // Stato del prodotto (ordinabile, non ordinabile...)
             $table->foreignId('status_id');
-            $table->foreignId('provider_id')->nullable();
+            // $table->foreignId('provider_id')->nullable();
+            // $table->foreignId('default_provider_id')->nullable();
 
             $table->string('uuid')->unique();
             $table->string('name')->nullable();
@@ -32,9 +33,11 @@ return new class extends Migration
             $table->string('note')->nullable();
             $table->string('unit_of_measure')->nullable();
 
-            // La quantità di riordino di default è stata messa in una tabella a parte "product_defaults"
+            // La quantità di riordino di default è stata messa in una tabella a parte "product_warehouse"
             // perchè ogni magazzino avendo dimensioni diverse ha sicuramente quantità di riordino diverse.
-            $table->string('refill_quantity')->default(0);
+            // Questo campo è il default che viene utilizzato nel caso la tabella pivot sia vuota.
+            // $table->string('refill_quantity')->nullable();
+            // $table->string('default_refill_quantity')->nullable();
 
             $table->timestamps();
         });

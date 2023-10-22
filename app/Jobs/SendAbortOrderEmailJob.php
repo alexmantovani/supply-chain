@@ -22,8 +22,7 @@ class SendAbortOrderEmailJob implements ShouldQueue
      */
     public function __construct(
         public Order $order,
-    )
-    {
+    ) {
         //
     }
 
@@ -33,9 +32,15 @@ class SendAbortOrderEmailJob implements ShouldQueue
     public function handle(): void
     {
         $moreUsers = array_filter(array_map('trim', explode(',', $this->order->warehouse->emails)));
+        $providerEmails = array_filter(array_map('trim', explode(',', $this->order->provider_emails)));
 
-        Mail::to($this->order->provider->email)
-            ->cc($moreUsers)
+        Mail::to($providerEmails)
+            ->cc($moreUsers ?: [])
             ->send(new OrderAborted($this->order));
+
+        $this->order->logs()->create([
+            'description' => 'Inviata mail di annullamento ordine a ' . $this->order->provider_emails,
+            'type' => 'info',
+        ]);
     }
 }

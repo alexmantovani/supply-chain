@@ -33,13 +33,14 @@ class SendNewOrderEmailJob implements ShouldQueue
     public function handle(): void
     {
         $moreUsers = array_filter(array_map('trim', explode(',', $this->order->warehouse->emails)));
+        $providerEmails = array_filter(array_map('trim', explode(',', $this->order->provider_emails)));
 
-        Mail::to($this->order->provider->email)
+        Mail::to($providerEmails)
             ->cc($moreUsers ?: [])
             ->send(new OrderSubmit($this->order, $this->urgent));
 
         $this->order->logs()->create([
-            'description' => 'Inviata mail di richiesta materiale a ' . $this->order->provider->email,
+            'description' => 'Inviata mail di richiesta materiale a ' . $this->order->provider_emails,
             'type' => 'info',
         ]);
     }

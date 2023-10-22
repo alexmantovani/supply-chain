@@ -14,8 +14,8 @@ class ProductUpdateRow extends Component
 
     public function mount()
     {
-        $this->providerId = $this->product->provider_id ?? 0;
-        $this->refillQuantity = $this->product->refill_quantity;
+        $this->providerId = $this->product->providerId($this->warehouse->id);
+        $this->refillQuantity = $this->product->refillQuantity($this->warehouse->id);
     }
 
     public function render()
@@ -25,23 +25,54 @@ class ProductUpdateRow extends Component
 
     public function updatedProviderId()
     {
-        // Se non ho selezionato nulla non salvo
-        if ($this->providerId == 0) return;
-
-        $this->product->update([
-            'provider_id' => $this->providerId,
+        // Se ho selezionato un fornitore, allora salvo il valore
+        // Qualsiasi esso sia e mi dimentico di usare i default presenti nel provider
+        $this->product->warehouses()->syncWithoutDetaching([
+            $this->warehouse->id => ['provider_id' => $this->providerId]
         ]);
+
+        // // Se non ho selezionato nulla non salvo
+        // if ($this->providerId == 0) return;
+
+        // // Se nel prodotto non ho il fornitore, allora questo valore lo imposto come default,
+        // // le volte successive invece le considero come personalizzazioni e vado ad agire solo sul singolo magazzino
+        // if ($this->product->default_provider_id > 0) {
+        //     $this->product->warehouses()->syncWithoutDetaching([
+        //         $this->warehouse->id => ['provider_id' => $this->providerId]
+        //     ]);
+        // } else {
+        //     $this->product->update([
+        //         'default_provider_id' => $this->providerId,
+        //     ]);
+        // }
     }
 
     public function updatedRefillQuantity()
     {
+        // Se ho selezionato una quantità, allora salvo il valore
+        // Qualsiasi esso sia e mi dimentico di usare i default presenti nel provider
         if ((is_numeric($this->refillQuantity)) || ($this->refillQuantity == '')) {
-            $this->product->update([
-                'refill_quantity' => $this->refillQuantity,
+            $this->product->warehouses()->syncWithoutDetaching([
+                $this->warehouse->id => ['refill_quantity' => $this->refillQuantity]
             ]);
-        } else {
-            $this->refillQuantity = $this->product->refill_quantity;
         }
-    }
 
+        // if ((is_numeric($this->refillQuantity)) || ($this->refillQuantity == '')) {
+
+        //     // Se nel prodotto non ho il fornitore, allora questo valore lo imposto come default,
+        //     // le volte successive invece le considero come personalizzazioni e vado ad agire solo sul singolo magazzino
+        //     if ($this->product->default_refill_quantity >= 0) {
+        //         $this->product->warehouses()->syncWithoutDetaching([
+        //             $this->warehouse->id => ['refill_quantity' => $this->refillQuantity]
+        //         ]);
+        //     } else {
+        //         // TODO: Testare che con null, cada qui dentro
+        //         $this->product->update([
+        //             'default_refill_quantity' => $this->refillQuantity,
+        //         ]);
+        //     }
+        // } else {
+        //     $this->refillQuantity = $this->product->default_refill_quantity;
+        // }
+    }
 }

@@ -67,18 +67,15 @@
                                                                     &middot;
                                                                     Fornitore:
                                                                 </div>
-                                                                {{-- <a
-                                                                    href="{{ route('provider.show', [$order->provider->id]) }}"> --}}
-                                                                    <div
-                                                                        class="font-semibold text-gray-800 dark:text-gray-200 hidden md:flex">
-                                                                        {{ $order->provider->name }}
-                                                                    </div>
-                                                                {{-- </a> --}}
+                                                                <div
+                                                                    class="font-semibold text-gray-800 dark:text-gray-200 hidden md:flex">
+                                                                    {{ $order->provider_name }}
+                                                                </div>
                                                                 <div class="text-gray-400 dark:text-gray-800">
                                                                     &middot;
                                                                     {{ $order->created_at->diffForHumans() }}
                                                                 </div>
-                                                    </div>
+                                                            </div>
 
                                                             <x-order-status-gradient
                                                                 class="w-30 md:w-40 text-xs font-semibold uppercase border-r-4 text-gray-800 text-right p-2"
@@ -102,9 +99,16 @@
                                                                         </x-product-name-cell>
                                                                     </td>
                                                                     <td class="px-1 text-right">
-                                                                        <div class=" text-gray-400 text-sm py-1">
-                                                                            {{ $product->pivot->quantity }}
-                                                                        </div>
+                                                                        @if ($product->pivot->quantity > 0)
+                                                                            <div class=" text-gray-400 text-sm py-1">
+                                                                                {{ $product->pivot->quantity }}
+                                                                            </div>
+                                                                        @else
+                                                                            {{-- TODO: Al RUA permettere di inserire la quantità --}}
+                                                                            <div class="text-red-600 text-sm py-1">
+                                                                                {{ $product->pivot->quantity }}
+                                                                            </div>
+                                                                        @endif
                                                                     </td>
                                                                     <td class="pr-1 w-4 text-left">
                                                                         <x-product-arrived :arrived="$product->isArrived()"

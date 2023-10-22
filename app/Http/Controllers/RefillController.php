@@ -22,13 +22,8 @@ class RefillController extends Controller
     {
         $refills = $warehouse->refills()
             ->whereIn('refills.status', ['low', 'urgent'])
-            ->join('products', 'products.id', '=', 'refills.product_id')
-            ->join('dealers', 'dealers.id', '=', 'dealer_id')
-            ->leftJoin('providers', 'providers.id', '=', 'products.provider_id')
-            ->select('refills.*', 'products.name as product_name', 'products.uuid as product_uuid', 'products.dealer_id', 'dealers.name as dealer_name', 'providers.id as provider_id')
-            ->orderBy('provider_id')
             ->get();
-        // dd($refills);
+
         return view('refill.index', compact(['refills', 'warehouse']));
     }
 
@@ -45,7 +40,6 @@ class RefillController extends Controller
      */
     public function store(Warehouse $warehouse, StoreRefillRequest $request)
     {
-
         $codes = explode(" ", $request['codes']);
         $quantity = $request['quantity'] ?? null;
         $warehouse_id = $request['warehouse_id'] ?? $warehouse->id;
@@ -102,31 +96,7 @@ class RefillController extends Controller
      */
     public function destroy(Warehouse $warehouse, Refill $refill)
     {
-        dd($refill);
     }
-
-    // public function ask(Request $request, Warehouse $warehouse)
-    // {
-    //     $productId = $request->input('product_id');
-    //     $quantity = $request->input('quantity');
-    //     $warehouseId = $request->input('warehouse_id');
-
-    //     $warehouse = Warehouse::find($warehouseId);
-    //     $product = Product::find($productId);
-
-    //     if ($product->isLow($warehouse)) {
-    //         return abort(403, 'Questo articolo è già in ordine');
-    //     }
-
-    //     Refill::create([
-    //         'warehouse_id' => $warehouseId,
-    //         'user_id' => Auth::user()->id,
-    //         'product_id' => $productId,
-    //         'quantity' => $quantity,
-    //     ]);
-
-    //     return redirect(route("refill.done", compact('warehouse')));
-    // }
 
     public function request(Warehouse $warehouse)
     {
@@ -197,6 +167,7 @@ class RefillController extends Controller
             ->whereIn('status', ['low', 'urgent', 'ordered'])
             ->first();
         if ($present) {
+            // E' già stato ordinato
             if ($present->status == 'ordered') return 2;
 
             return 1;
@@ -206,10 +177,11 @@ class RefillController extends Controller
             'user_id' => Auth::user()->id,
             'warehouse_id' => $warehouse->id,
             'product_id' => $product->id,
+            'provider_id' => $product->providerId($warehouse->id),
             'quantity' => $quantity ?? $product->refillQuantity($warehouse->id),
         ]);
 
-        Log::debug("Aggiunto nei refills $product->id per magazzino $warehouse->id");
+        Log::debug("Aggiunto da $warehouse->name l'articolo $product->uuid alla lista dei materiali da ordinare");
 
         return 0; // Done
 

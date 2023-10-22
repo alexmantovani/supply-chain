@@ -1,8 +1,7 @@
 <div class="w-3 md:w-6 h-5">
     @if (in_array($order->status, ['waiting', 'pending']))
         <button id="dropdownDefaultButton_{{ $order->id }}" data-dropdown-toggle="dropdown_{{ $order->id }}"
-            class="w-full text-gray-500"
-            type="button">
+            class="w-full text-gray-500" type="button">
 
             <svg height="20" xmlns="http://www.w3.org/2000/svg" class=" fill-gray-500 dark:fill-gray-300">
                 <g transform="scale(0.35)">

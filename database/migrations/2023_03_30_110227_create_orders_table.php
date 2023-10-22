@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             // L'ordine lo si invia sempre al fornitore e non al produttore
-            $table->foreignId('provider_id');
+            $table->foreignId('provider_id')->nullable();
             $table->foreignId('warehouse_id');
 
             $table->string('uuid')->unique();

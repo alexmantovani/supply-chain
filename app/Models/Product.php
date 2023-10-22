@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
 use DOMDocument;
+use Illuminate\Support\Facades\Auth;
+
+use function PHPUnit\Framework\isNull;
 
 class Product extends Model
 {
@@ -15,7 +18,41 @@ class Product extends Model
 
     protected $guarded = [];
 
-    protected $with = ['dealer', 'status'];
+    protected $with = ['dealer', 'status', 'provider'];
+
+    // public function getRefillQuantityAttribute()
+    // {
+    //     // Questo prodotto ha delle customizzazioni a livello di magazzino
+    //     if ($this->warehouses()) {
+    //         $refillQuantity = $this->warehouses()->firstWhere('warehouses.id', Auth::user()->profile->warehouse_id);
+    //         if ($refillQuantity) {
+    //             $refillQuantity = $refillQuantity->pivot->refill_quantity;
+    //             if ($refillQuantity) {
+    //                 return $refillQuantity;
+    //             }
+    //         }
+    //     }
+
+    //     // Questo prodotto non ha delle customizzazioni a livello di magazzino
+    //     return $this->attributes['refill_quantity'] ?? 0;
+    // }
+
+    // public function getProviderIdAttribute()
+    // {
+    //     // Questo prodotto ha delle customizzazioni a livello di magazzino
+    //     if ($this->warehouses()) {
+    //         $provider = $this->warehouses()->firstWhere('warehouses.id', Auth::user()->profile->warehouse_id);
+    //         if ($provider) {
+    //             $provider_id = $provider->pivot->provider_id;
+    //             if ($provider_id) {
+    //                 return $provider_id;
+    //             }
+    //         }
+    //     }
+
+    //     // Questo prodotto non ha delle customizzazioni a livello di magazzino
+    //     return $this->attributes['provider_id'] ?? 0;
+    // }
 
     public function getReceivedAttribute()
     {
@@ -65,15 +102,50 @@ class Product extends Model
             ->withTimestamps();
     }
 
+    public function warehouses()
+    {
+        return $this->belongsToMany(Warehouse::class)
+            ->withPivot([
+                'refill_quantity',
+                'provider_id',
+            ])
+            ->withTimestamps();
+    }
+
     public function refillQuantity($warehouse_id)
     {
-        // $default = ProductDefault::where('warehouse_id', $warehouse_id)
-        //     ->where('product_id', $this->id)
-        //     ->first();
+        if ($this->warehouses()) {
+            $refillQuantity = $this->warehouses()->firstWhere('warehouses.id', $warehouse_id);
+            if ($refillQuantity) {
+                $refillQuantity = $refillQuantity->pivot->refill_quantity;
+                if ($refillQuantity) {
+                    return $refillQuantity;
+                }
+            }
+        }
 
-        // return $default->refill_quantity ?? 0;
+        return 0;
+    }
 
-        return $this->refill_quantity ?? 0;
+    public function providerId($warehouse_id)
+    {
+        if ($this->warehouses()) {
+            $provider = $this->warehouses()->firstWhere('warehouses.id', $warehouse_id);
+            if ($provider) {
+                $provider_id = $provider->pivot->provider_id;
+                if ($provider_id) {
+                    return $provider_id;
+                }
+            }
+        }
+
+        return 0;
+    }
+
+    public function providerName($warehouse_id)
+    {
+        $provider = Provider::find($this->providerId($warehouse_id));
+        return $provider->name ?? '???';
     }
 
     public function logs()
@@ -100,7 +172,7 @@ class Product extends Model
     // Riporta true se il prodotto è stato consegnato
     public function isArrived()
     {
-        if ($this->pivot->received_quantity == $this->pivot->quantity) {
+        if ($this->pivot->received_quantity === $this->pivot->quantity) {
             return true;
         }
 

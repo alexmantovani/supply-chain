@@ -11,6 +11,8 @@ class Refill extends Model
 
     protected $guarded = [];
 
+    protected $with = ['user', 'product', 'order', 'warehouse', 'provider'];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
@@ -23,13 +25,17 @@ class Refill extends Model
         return $this->belongsTo(Order::class);
     }
 
-    public function dealer() {
-        return $this->product->dealer;
-    }
-
     public function warehouse()
     {
         return $this->belongsTo(Warehouse::class);
+    }
+
+    public function provider() {
+        return $this->belongsTo(Provider::class);
+    }
+
+    public function dealer() {
+        return $this->product->dealer;
     }
 
 }

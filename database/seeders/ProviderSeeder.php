@@ -14,13 +14,13 @@ class ProviderSeeder extends Seeder
     {
         \App\Models\Provider::create([
             'name' => 'FABBI IMOLA',
-            'email' => 'orders@stika.com',
+            'emails' => 'orders@stika.com',
             'provider_code' => '120035'
         ]);
 
         \App\Models\Provider::create([
             'name' => 'TECO',
-            'email' => 'orders@stika.com',
+            'emails' => 'orders@stika.com',
             'provider_code' => '101895'
         ]);
     }

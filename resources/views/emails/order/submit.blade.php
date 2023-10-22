@@ -11,16 +11,6 @@
             font-family: "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
         }
 
-        /*
-        img {
-            max-width: 100%;
-        }
-
-        .collapse {
-            margin: 0;
-            padding: 0;
-        } */
-
         body {
             -webkit-font-smoothing: antialiased;
             -webkit-text-size-adjust: none;
@@ -99,35 +89,9 @@
             line-height: 1.6;
         }
 
-        /*
-        p.lead {
-            font-size: 22px;
-        }
-
-        p.last {
-            margin-bottom: 0px;
-        }
-
-        ul li {
-            margin-left: 24px;
-            list-style-position: inside;
-            margin-bottom: 14px;
-        }
-
-        ol li {
-            margin-left: 32px;
-            list-style-position: outside;
-            margin-bottom: 14px;
-        } */
-
         .small {
             font-size: 12px;
         }
-
-        /* .grey {
-            color: #224a85;
-        } */
-
 
         .container {
             display: block !important;
@@ -165,12 +129,24 @@
             Buongiorno,
         </div>
         <div>
-            In allegato è disponibile il file CSV contenente l'elenco del materiale richiesto in data odierna da
+            Di seguito l'elenco del materiale richiesto da
             <strong>
                 {{ $order->warehouse->name }}.
             </strong>
 
             <br>
+
+            @if ($order->hasMissingQuantity())
+                <br>
+                <strong>
+                    <h3 style="color: red">
+                        ⚠️ Sono stati ordinati articoli con informazioni mancanti pertanto il file tracciato non è stato
+                        allegato.
+                        ⚠️
+                    </h3>
+                </strong>
+                <br>
+            @endif
 
             <table>
                 <thead class="small ">
@@ -199,7 +175,8 @@
                             {{ $product->name }}
                         </td>
                         <td style="text-align: left ">
-                            {{ $product->provider->name }}
+                            {{-- {{ $product->provider}}   {{ $product->provider_name }} --}}
+                            {{ $order->provider_name }}
                         </td>
                         <td style="text-align: right ">
                             {{ $product->pivot->quantity }}
@@ -207,8 +184,8 @@
                     </tr>
                 @endforeach
             </table>
-
         </div>
+
         <div>
             Cordiali saluti<br>
         </div>

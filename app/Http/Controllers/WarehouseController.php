@@ -67,16 +67,18 @@ class WarehouseController extends Controller
             'warehouse_id' => $warehouse->id,
         ]);
 
-        $refills = $warehouse->refills()
-            ->whereIn('refills.status', ['low', 'urgent'])
-            ->whereNot('quantity', '>', 0)
-            // ->whereNull('quantity')
-            ->join('products', 'products.id', '=', 'refills.product_id')
-            ->join('dealers', 'dealers.id', '=', 'dealer_id')
-            ->join('providers', 'providers.id', '=', 'products.provider_id')
-            ->select('refills.*', 'products.dealer_id', 'dealers.name', 'providers.id as provider_id')
-            ->orderBy('provider_id')
-            ->get();
+        // $refills = $warehouse->refills()
+        //     ->whereIn('refills.status', ['low', 'urgent'])
+        //     ->whereNot('quantity', '>', 0)
+        //     // ->whereNull('quantity')
+        //     ->join('products', 'products.id', '=', 'refills.product_id')
+        //     ->join('dealers', 'dealers.id', '=', 'dealer_id')
+        //     ->join('providers', 'providers.id', '=', 'products.provider_id')
+        //     ->select('refills.*', 'products.dealer_id', 'dealers.name', 'providers.id as provider_id')
+        //     // ->orderBy('refills.provider_id')
+        //     ->get();
+        // TODO: Ripensare a cosa mostrare
+        $refills = collect();
 
         $orders = $warehouse->orders
             ->whereIn('status', ['waiting', 'pending'])

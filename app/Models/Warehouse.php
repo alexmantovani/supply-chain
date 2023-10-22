@@ -21,4 +21,13 @@ class Warehouse extends Model
         return $this->hasMany(Refill::class);
     }
 
+    public function products()
+    {
+        return $this->belongsToMany(Product::class)
+            ->withPivot([
+                'refill_quantity',
+                'provider_id',
+            ])
+            ->withTimestamps();
+    }
 }

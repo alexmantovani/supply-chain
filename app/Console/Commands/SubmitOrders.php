@@ -27,7 +27,7 @@ class SubmitOrders extends Command
      *
      * @var string
      */
-    protected $description = 'Invia mail per richiedere materiale in esaurimento.';
+    protected $description = 'Invia mail per ordinare materiale in esaurimento.';
 
     /**
      * Execute the console command.
@@ -37,14 +37,11 @@ class SubmitOrders extends Command
         $this->info('- Start job orders:submit');
 
         $warehouses = Warehouse::all();
+        // Spazzolo tutti i magazzini
         foreach ($warehouses as $warehouse) {
+            // Raggruppo tutte le richieste per fornitore
             $groups = $warehouse->refills()
                 ->whereIn('status', ['low', 'urgent'])
-                ->where('quantity', '>', 0)
-                ->join('products', 'products.id', '=', 'refills.product_id')
-                ->join('dealers', 'dealers.id', '=', 'dealer_id')
-                ->join('providers', 'providers.id', '=', 'products.provider_id')
-                ->select('refills.*', 'products.dealer_id', 'dealers.name', 'providers.id as provider_id')
                 ->get()
                 ->groupBy('provider_id');
 
@@ -69,11 +66,10 @@ class SubmitOrders extends Command
                 }
                 $order->products()->sync($products);
 
-                // Mail::to($order->provider->email)->send(new OrderSubmit($order));
                 SendNewOrderEmailJob::dispatch($order);
 
                 $order->logs()->create([
-                    'description' => 'Creato ordine e inviata richiesta materiale a ' . $order->provider->name,
+                    'description' => 'Creato ordine e inviata richiesta materiale a ' . $order->provider_name,
                     'type' => 'info',
                 ]);
             }

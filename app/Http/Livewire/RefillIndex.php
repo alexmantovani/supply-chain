@@ -18,15 +18,12 @@ class RefillIndex extends Component
 
     public $quantity = [];
     public $selected = [];
-    // public $submitButtonEnabled = false;
 
     public function mount()
     {
         foreach ($this->refills as $refill) {
             $this->quantity[$refill->id] = $refill->quantity;
-            $this->selected[$refill->id] = ($refill->quantity > 0);
-            // array_push($this->quantity, [$refill->id => 7] );
-            // $this->updateQuantity($refill->id, (bool)($refill->quantity > 0));
+            $this->selected[$refill->id] = true; // Di default li seleziono tutti (anche quelli senza quantità)
         }
     }
 
@@ -43,11 +40,6 @@ class RefillIndex extends Component
     {
         $this->refills = $this->warehouse->refills()
             ->whereIn('refills.status', ['low', 'urgent'])
-            ->join('products', 'products.id', '=', 'refills.product_id')
-            ->join('dealers', 'dealers.id', '=', 'dealer_id')
-            ->leftJoin('providers', 'providers.id', '=', 'products.provider_id')
-            ->select('refills.*', 'products.name as product_name', 'products.uuid as product_uuid', 'products.dealer_id', 'dealers.name as dealer_name', 'providers.id as provider_id')
-            ->orderBy('provider_id')
             ->get();
     }
 
@@ -63,91 +55,49 @@ class RefillIndex extends Component
 
     public function sendOrder()
     {
+        // Raggruppo il materiale mancante in base al fornitore
         $grouped = $this->refills->groupBy('provider_id');
-
-        // Variabili d'errore
-        $ugualeZero = false;
-        $noProvider = false;
 
         // Spazzolo i refills in base ai fornitori
         foreach ($grouped as $providerId => $refills) {
             $products = [];
             $order = null;
 
-            // Per prima cosa vado a vedere se l'articolo ha un fornitore a cui inviare l'ordine
-            $provider = Provider::find($providerId);
-            if (!$provider) {
-                $noProvider = true;
-                continue;
-            }
-
             foreach ($refills as $refill) {
                 $selected = $this->selected[$refill->id];
                 if ($selected) {
-                    if ($this->quantity[$refill->id] > 0) {
-                        $quantity = $this->quantity[$refill->id];
+                    $quantity = $this->quantity[$refill->id];
 
-                        // Verifico se non è impostata per questo prodotto la quantità di refill automatica
-                        // ed eventualmente la vado ad impostare
-                        if (!$refill->product->refillQuantity($this->warehouse->id)) {
-                            // ProductDefault::updateOrCreate([
-                            //     'product_id' => $refill->product->id,
-                            //     'warehouse_id' => $this->warehouse->id,
-                            // ], [
-                            //     'refill_quantity' => $quantity,
-                            // ]);
+                    $products[$refill->product_id] = ['quantity' => $quantity];
 
-                            $product = $refill->product;
-                            $product->refill_quantity = $quantity;
-                            $product->save();
-                        }
-
-                        $products[$refill->product_id] = ['quantity' => $quantity];
-
-                        if ($order == null) {
-                            $order = Order::create([
-                                'provider_id' => $providerId,
-                                'warehouse_id' => $this->warehouse->id,
-                                'uuid' => Order::uuid(),
-                            ]);
-                        }
-
-                        // Segno questi prodotti come ordinati
-                        $refill->update([
-                            'status' => 'ordered',
-                            'order_id' => $order->id,
+                    if ($order == null) {
+                        $order = Order::create([
+                            'provider_id' => $providerId,
+                            'warehouse_id' => $this->warehouse->id,
+                            'uuid' => Order::uuid(),
                         ]);
-                    } else {
-                        $ugualeZero = true;
-                        Log::warning("Selezionato prodotto con quantità =0 " . $refill->product->name);
                     }
+
+                    // Segno questi prodotti come ordinati
+                    $refill->update([
+                        'status' => 'ordered',
+                        'order_id' => $order->id,
+                    ]);
                 }
             }
 
-            // Se è stato generato un ordine allora lo invio
+            // Se è stato generato un ordine allora aggiungo i prodotti e lo invio
             if ($order) {
                 $order->products()->sync($products);
 
                 $order->logs()->create([
                     'user_id' => Auth::user()->id,
-                    'description' => 'Creato ordine di richiesta materiale a ' . $order->provider->name,
+                    'description' => 'Creato ordine di richiesta materiale a ' . $order->provider_name,
                     'type' => 'info',
                 ]);
 
                 SendNewOrderEmailJob::dispatch($order, true); // true perchè la mail viene segnata come urgente
             }
-        }
-
-        if ($noProvider) {
-            session()->flash('message', "Uno o più prodotti selezionati non hanno specificato il fornitore. Conttata l'ufficio acquisti");
-            // TODO: Eventualmente inviare una mail a uno dell'ufficio acquisti
-
-            return;
-        }
-        if ($ugualeZero) {
-            session()->flash('message', 'Uno o più prodotti selezionati hanno quantità uguale a zero.');
-
-            return;
         }
 
         return redirect()->to('/warehouse/' . $this->warehouse->id . '/refill');

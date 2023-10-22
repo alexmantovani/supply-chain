@@ -50,7 +50,7 @@
                                                 <div class="font-semibold text-left">Nome</div>
                                             </th>
                                             <th class="p-2 ">
-                                                <div class="font-semibold text-left">Email</div>
+                                                <div class="font-semibold text-left">Emails</div>
                                             </th>
                                             <th></th>
                                         </tr>
@@ -67,7 +67,7 @@
                                                     </x-product-name-cell>
                                                 </td>
                                                 <td class="p-2">
-                                                    {{ $provider->email }}
+                                                    {{ $provider->emails }}
                                                 </td>
                                                 <td class="p-2 w-10 text-center items-center">
                                                     <a href="{{ route('provider.edit', $provider->id) }}"

@@ -17,9 +17,9 @@ class ProviderFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->company(),
+            'name' => fake()->unique()->company(),
             'description' => fake()->sentence(),
-            'email' => fake()->companyEmail(),
+            'emails' => fake()->companyEmail(),
         ];
     }
 }

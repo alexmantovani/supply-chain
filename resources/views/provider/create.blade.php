@@ -41,10 +41,10 @@
                     </div>
 
                     <div class="">
-                        <x-input-label for="email" :value="__('Email')" />
-                        <x-text-input id="email" class="block mt-1 w-full" type="text" name="email"
-                            :value="old('email')" />
-                        <x-input-error class="mt-2" :messages="$errors->get('email')" />
+                        <x-input-label for="emails" :value="__('Email')" />
+                        <x-text-input id="emails" class="block mt-1 w-full" type="text" name="emails"
+                            :value="old('emails')" />
+                        <x-input-error class="mt-2" :messages="$errors->get('emails')" />
                     </div>
 
                     <div class="">

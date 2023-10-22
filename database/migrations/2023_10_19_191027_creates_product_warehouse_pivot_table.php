@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_product', function (Blueprint $table) {
+        Schema::create('product_warehouse', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('order_id');
             $table->foreignId('product_id');
+            $table->foreignId('warehouse_id');
 
-            $table->unsignedBigInteger('quantity')->default(1);
+            $table->unsignedBigInteger('refill_quantity')->nullable();
+            $table->foreignId('provider_id')->nullable();
 
-            // $table->unsignedBigInteger('received_quantity')->default(0);
-            $table->unsignedBigInteger('received_quantity')->nullable();
+            $table->unique(['product_id', 'warehouse_id']);
 
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_product');
+        Schema::dropIfExists('product_warehouse');
     }
 };

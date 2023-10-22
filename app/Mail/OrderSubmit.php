@@ -30,9 +30,10 @@ class OrderSubmit extends Mailable
      */
     public function envelope(): Envelope
     {
+        $warning = $this->order->hasMissingQuantity();
         return new Envelope(
             from: new Address('noreply@noreply.com', $this->order->warehouse->name),
-            subject: ($this->urgent ? "🔥 " : '') . 'REFILLER - Nuovo ordine ' . $this->order->uuid,
+            subject: ($warning ? "⚠️ " : ($this->urgent ? "🔥 " : '')) . 'REFILLER - Nuovo ordine ' . $this->order->uuid,
         );
     }
 
@@ -53,20 +54,10 @@ class OrderSubmit extends Mailable
      */
     public function attachments(): array
     {
-        // $filename = storage_path('tempdir') . "/order.csv";
-
-        // // Se il file $filename esiste lo cancello
-        // @unlink($filename);
-
-        // // Stringa da generare
-        // // 107578   M02                                                         C030000040        001000000000000000000000
-
-        // $file = fopen($filename, 'w');
-        // foreach ($this->order->products as $product) {
-        //     $row = [$product->uuid, $product->name, $product->dealer->name, $product->pivot->quantity];
-        //     fputcsv($file, $row);
-        // }
-        // fclose($file);
+        // Senza il provider_code non genero il file tracciato.txt
+        if (!$this->order->provider_id) {
+            return [];
+        }
 
         $filename = storage_path('tempdir') . "/order.txt";
         if (is_file($filename)) {
@@ -91,7 +82,7 @@ class OrderSubmit extends Mailable
             //         ->as('order_' . $this->order->uuid. '.csv')
             //         ->withMime('application/csv'),
             Attachment::fromPath($filename)
-                ->as('order_' . $this->order->uuid . '.txt')
+                ->as('Order_' . $this->order->uuid . '.txt')
                 ->withMime('text/plain'),
         ];
     }

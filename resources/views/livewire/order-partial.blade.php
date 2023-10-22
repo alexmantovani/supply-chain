@@ -20,7 +20,7 @@
 
             <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
                 @foreach ($order->products as $product)
-                    @if ($product->pivot->received_quantity == $product->pivot->quantity)
+                    @if ($product->pivot->received_quantity === $product->pivot->quantity)
                         @continue
                     @endif
 

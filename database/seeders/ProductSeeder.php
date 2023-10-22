@@ -86,11 +86,10 @@ class ProductSeeder extends Seeder
                     'uuid' => $uuid,
                     'name' => $name,
                     'status_id' => $productStatus->id,
-                    'provider_id' => $provider->id,
                     'dealer_id' => $dealer->id,
                     'unit_of_measure' => $udm,
-                    'refill_quantity' => $qty,
                 ]);
+
             }
             fclose($handle);
         }

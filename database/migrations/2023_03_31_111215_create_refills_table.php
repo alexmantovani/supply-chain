@@ -19,6 +19,9 @@ return new class extends Migration
             $table->foreignId('warehouse_id');
             $table->foreignId('order_id')->nullable();
 
+            // Siccome faccio troppa fatica a recuperarlo dalla tabella pivot lo tengo anche qui
+            $table->foreignId('provider_id')->nullable(); // TODO: Capire se nullable() o default(0)
+
             $table->unsignedBigInteger('quantity')->nullable();
             $table->enum('status', ['low', 'urgent', 'ordered', 'completed', 'aborted'])->default('low');
 

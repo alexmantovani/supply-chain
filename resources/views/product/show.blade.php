@@ -281,7 +281,7 @@
                                     @endif
                                 </div>
                                 <x-text-input id="quantity" class="block mt-1 w-full text-right bg-yellow-50"
-                                    type="number" name="quantity" :value="old('quantity', $product->refill_quantity)" required />
+                                    type="number" name="quantity" :value="old('quantity', $product->refillQuantity($warehouse->id))" required />
                                 <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
                             </div>
 

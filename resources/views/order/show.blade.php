@@ -26,7 +26,7 @@
             <!-- Table -->
             <div class="w-full max-w-7xl mx-auto ">
                 <div
-                class="md:bg-white md:shadow-lg rounded-sm md:border border-gray-200 md:px-8 dark:bg-gray-900 dark:md:bg-gray-900 dark:border-gray-700">
+                    class="md:bg-white md:shadow-lg rounded-sm md:border border-gray-200 md:px-8 dark:bg-gray-900 dark:md:bg-gray-900 dark:border-gray-700">
 
                     <div class="flex justify-between my-2 md:my-4">
                         <div class="pb-6">
@@ -137,9 +137,11 @@
                                     </div>
                                 </td>
                                 <td class="p-2 ">
-                                    <div class="text-center text-xs text-gray-400">
-                                        {{ round((100 * $total_received) / $total, 1) }}%
-                                    </div>
+                                    @if ($total > 0)
+                                        <div class="text-center text-xs text-gray-400">
+                                            {{ round((100 * $total_received) / $total, 1) }}%
+                                        </div>
+                                    @endif
                                     {{--
                                     <div class="text-center text-sm md:text-base">
                                         {{ $total_received }}
@@ -196,7 +198,8 @@
                                             {{ $log->description }}
                                         </div>
                                     </td>
-                                    <td class="p-2 whitespace-nowrap text-gray-500 dark:text-gray-300 text-right hidden md:table-cell">
+                                    <td
+                                        class="p-2 whitespace-nowrap text-gray-500 dark:text-gray-300 text-right hidden md:table-cell">
                                         <div>
                                             {{ $log->user->name ?? '' }}
                                         </div>

@@ -53,7 +53,10 @@
                                                 <div class="font-semibold text-left">Descrizione</div>
                                             </th>
                                             <th class="p-2 ">
-                                                <div class="font-semibold text-left">Email</div>
+                                                <div class="font-semibold text-left">Email reparto</div>
+                                            </th>
+                                            <th class="p-2 ">
+                                                <div class="font-semibold text-left">Email ordini</div>
                                             </th>
                                             <th></th>
                                         </tr>
@@ -71,6 +74,9 @@
                                                 </td>
                                                 <td class="p-2">
                                                     {{ $warehouse->emails }}
+                                                </td>
+                                                <td class="p-2 hidden md:table-cell">
+                                                    {{ $warehouse->fallback_emails }}
                                                 </td>
                                                 <td class="p-2 w-10 text-center items-center">
                                                     @can('edit warehouse')
