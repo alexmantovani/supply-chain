@@ -61,9 +61,10 @@
                             </div>
                         </div>
 
-                        <div class="w-1/2 ">
+                        <div class="md:w-1/2 ">
                             <form method="GET" action="{{ route('admin.products', $warehouse) }}">
-                                <div class="flex rounded-md border border-gray-300 items-center bg-white">
+                                <div class="flex rounded-md border border-gray-300 items-center bg-white mx-auto shadow-lg dark:bg-gray-900 dark:border-gray-800">
+
                                     <div class="w-full">
                                         <input
                                             class="mr-3 bg-transparent border-0 focus:ring-0 focus:ring-slate-300 focus:outline-none appearance-none w-full  text-slate-900 placeholder-slate-400 rounded-md py-2 pl-3 ring-0"
