@@ -67,6 +67,14 @@ class OrderController extends Controller
     }
 
     /**
+     * Mostra il form per completare l'ordine inserendo i dati mancanti (quantità, fornitore).
+     */
+    public function complete(Warehouse $warehouse, Order $order)
+    {
+        return view('order.complete', compact('order', 'warehouse'));
+    }
+
+    /**
      * Update the specified resource in storage.
      */
     public function update(UpdateOrderRequest $request, Order $order)

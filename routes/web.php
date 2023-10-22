@@ -60,6 +60,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('warehouse.order', App\Http\Controllers\OrderController::class)->only([
         'index', 'show', 'destroy', 'edit'
     ])->middleware(['permission:handle order']);
+    Route::get('/warehouse/{warehouse}/order/{order}/complete', [App\Http\Controllers\OrderController::class, 'complete'])->name('order.complete');
+
     Route::resource('warehouse.refill', App\Http\Controllers\RefillController::class);
 
     Route::resource('provider', App\Http\Controllers\ProviderController::class);
