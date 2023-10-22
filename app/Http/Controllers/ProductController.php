@@ -199,6 +199,14 @@ class ProductController extends Controller
             // Cerco il prodotto in base al suo UUID
             $product = Product::firstWhere('uuid', $code);
 
+            // Non trovo il prodotto inserito
+            if (!$product) {
+                array_push($errors, ['code' => $code, 'error' => 'L\'articolo "' . $code . '" non è a listino']);
+
+                Log::error('Articolo ' . $code . ' non trovato');
+                continue;
+            }
+
             // Ricavo il relativo ordine in base al magazzino in cui mi trovo
             $order = $product->openOrders->firstWhere('warehouse_id', $warehouse->id);
 
