@@ -30,7 +30,8 @@
                 @include('provider.partials.delete-button')
             </div>
 
-            <form method="post" action="{{ route('provider.update', $provider) }}" class="" enctype="multipart/form-data">
+            <form method="post" action="{{ route('provider.update', $provider) }}" class=""
+                enctype="multipart/form-data">
                 @csrf
                 @method('patch')
 
@@ -54,7 +55,7 @@
                     <div class="">
                         <x-input-label for="emails" :value="__('Emails a cui inviare le notifiche')" />
                         <x-text-input id="emails" class="block mt-1 w-full" type="text" name="emails"
-                            :value="old('emails', $provider->emails)" />
+                            title="Inserisci una o più email separate da una virgola" :value="old('emails', $provider->emails)" />
                         <x-input-error class="mt-2" :messages="$errors->get('emails')" />
                     </div>
 

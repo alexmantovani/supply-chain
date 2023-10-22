@@ -30,4 +30,15 @@ class Warehouse extends Model
             ])
             ->withTimestamps();
     }
+
+    public function productsWithMissingInfo()
+    {
+        return Product::whereDoesntHave('warehouses', function ($query) {
+            $query->where('warehouses.id', $this->id);
+        })
+            ->orWhere(function ($query) {
+                $query->where('refill_quantity', null)
+                    ->orWhere('provider_id', null);
+            });
+    }
 }

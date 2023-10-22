@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Dealer;
 use App\Models\ProductStatus;
 use App\Models\Provider;
+use App\Models\Warehouse;
 
 class ProductSeeder extends Seeder
 {
@@ -56,6 +57,8 @@ class ProductSeeder extends Seeder
         //     fclose($handle);
         // }
 
+        $warehouses = Warehouse::all();
+
         if (($handle = fopen(resource_path('extras/codici_kanban_elettrico_v2.csv'), "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                 $code = $data[0];
@@ -82,7 +85,7 @@ class ProductSeeder extends Seeder
                 ]);
 
                 // Gestisco il prodotto
-                Product::create([
+                $product = Product::create([
                     'uuid' => $uuid,
                     'name' => $name,
                     'status_id' => $productStatus->id,
@@ -90,6 +93,16 @@ class ProductSeeder extends Seeder
                     'unit_of_measure' => $udm,
                 ]);
 
+                // Riempio la tabella pivot che conterrà per tutti i magazzini, lo stesso numero di
+                // quantità di prodotti da ordinare e il relativo fornitore
+                foreach ($warehouses as $warehouse) {
+                    $product->warehouses()->syncWithoutDetaching([
+                        $warehouse->id => [
+                            'refill_quantity' => $qty,
+                            'provider_id' => $provider->id,
+                            ]
+                    ]);
+                }
             }
             fclose($handle);
         }

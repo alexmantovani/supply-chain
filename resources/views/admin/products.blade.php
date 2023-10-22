@@ -47,9 +47,8 @@
                                 </div>
                                 @if ($hasCriticals > 0)
                                     <div
-                                        title="Uno o più articoli non hanno specificato il fornitore o la quantità di riordino.">
-                                        {{-- TODO: Gestire sta cosa --}}
-                                        <a href="">
+                                        title="Ci sono {{ $hasCriticals }} articoli che non hanno specificato il fornitore o la quantità di riordino.">
+                                        <a href="{{ route('admin.products', ['show_criticals' => true]) }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6  text-red-600">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -167,7 +166,7 @@
                     </div>
 
                     <div class="w-full max-w-7xl mx-auto pt-6">
-                        <?php echo $products->appends(['search' => $search ?? ''])->links(); ?>
+                        <?php echo $products->appends(['search' => $search ?? '', 'show_criticals' => $show_criticals])->links(); ?>
                     </div>
                 </div>
             </div>

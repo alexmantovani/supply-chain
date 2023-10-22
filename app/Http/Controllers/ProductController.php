@@ -52,6 +52,7 @@ class ProductController extends Controller
 
         $search = Request()->search ?? '';
         $filters = Request()->filters ?? ['Ordinabili'];
+        $show_criticals = Request()->show_criticals ?? false;
 
         // Innanzi tutto se la parola da cercare è di 10 caratteri, do un'occhiata anche ad DB di Altena prima di mostrare i risultati
         if (strlen($search) >= 10) {
@@ -78,11 +79,14 @@ class ProductController extends Controller
             ->orderBy('provider_id')
             ->paginate(50);
 
-        $hasCriticals = Product::withMissingInfo()->count();
+        $hasCriticals = $warehouse->productsWithMissingInfo()->count();
+        if ($show_criticals && $hasCriticals) {
+            $products = $warehouse->productsWithMissingInfo()->paginate(50);
+        }
 
         $providers = Provider::all();
 
-        return view('admin.products', compact('warehouse', 'search', 'products', 'filters', 'providers', 'hasCriticals'));
+        return view('admin.products', compact('warehouse', 'search', 'products', 'filters', 'providers', 'hasCriticals', 'show_criticals'));
     }
 
 
@@ -117,7 +121,9 @@ class ProductController extends Controller
     public function show(Warehouse $warehouse, Product $product)
     {
         $ordersTrend = $product->getOrdersByYear(10);
-        return view('product.show', compact('warehouse', 'product', 'ordersTrend'));
+
+        $provider = Provider::find($product->providerId($warehouse->id));
+        return view('product.show', compact('warehouse', 'product', 'ordersTrend', 'provider'));
     }
 
     /**

@@ -76,7 +76,7 @@
                                 <div class="font-semibold text-xl md:text-2xl py-2 dark:text-gray-200">
                                     <a href="{{ route('warehouse.dealer.show', [$warehouse, $product->dealer->id]) }}"
                                         class=" cursor-pointer hover:underline">
-                                        {{ $product->dealer->name ?? ''}}
+                                        {{ $product->dealer->name ?? '' }}
                                     </a>
                                 </div>
                                 <div class="mt-1 dark:text-gray-400 text-sm text-gray-500">
@@ -113,13 +113,13 @@
                         </div>
 
                         <div class="pt-2">
-                            @if ($product->provider)
-                                @if ($product->provider->image_url)
-                                    <img src="{{ asset('/provider_images/' . $product->provider->image_url) }}"
-                                        alt="" class="w-40 mr-2 object-contain">
+                            @if ($provider)
+                                @if ($provider->image_url)
+                                    <img src="{{ asset('/provider_images/' . $provider->image_url) }}" alt=""
+                                        class="w-40 mr-2 object-contain">
                                 @else
                                     <div class="font-semibold text-2xl pt-2 dark:text-gray-200">
-                                        {{ $product->provider->name }}
+                                        {{ $provider->name }}
                                     </div>
                                 @endif
 
@@ -127,15 +127,15 @@
                                     <div class=" dark:text-gray-400 text-sm text-gray-500">
                                         Codice fornitore:
                                         <span>
-                                            {{ $product->provider->provider_code }}
+                                            {{ $provider->provider_code }}
                                         </span>
                                     </div>
 
                                     <div class=" dark:text-gray-400 text-sm text-gray-500">
-                                        <a href="mailto:{{ $product->provider->email }}">
+                                        <a href="mailto:{{ $provider->email }}">
                                             Email:
                                             <span>
-                                                {{ $product->provider->email }}
+                                                {{ $provider->email }}
                                             </span>
                                         </a>
                                     </div>
@@ -213,7 +213,7 @@
                                         <td
                                             class="p-1 font-sm md:text-md text-gray-600 dark:text-gray-300 whitespace-nowrap hidden md:table-cell">
                                             <x-product-name-cell class="">
-                                                {{ $order->warehouse->name }}
+                                                {{ $order->warehouse->name ?? '' }}
                                             </x-product-name-cell>
                                         </td>
                                         <td
@@ -261,7 +261,7 @@
                                 <x-input-label for="warehouse_id" :value="__('Magazzino')" />
                                 <select name="warehouse_id"
                                     class="form-control w-full rounded bg-yellow-50 dark:bg-transparent dark:text-white mt-1"
-                                    required>
+                                    required disabled>
                                     @foreach (App\Models\Warehouse::all() as $warehouse_item)
                                         <option value="{{ $warehouse_item->id }}"
                                             {{ $warehouse_item->id == $warehouse->id ? 'selected' : '' }}>

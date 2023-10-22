@@ -45,6 +45,7 @@ class WarehouseController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'emails' => $request->emails,
+            'fallback_emails' => $request->fallback_emails,
         ]);
 
         $warehouses = Warehouse::all();
@@ -104,6 +105,7 @@ class WarehouseController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'emails' => $request->emails,
+            'fallback_emails' => $request->fallback_emails,
         ]);
 
         $warehouses = Warehouse::all();

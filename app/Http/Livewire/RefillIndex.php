@@ -92,7 +92,7 @@ class RefillIndex extends Component
 
                 $order->logs()->create([
                     'user_id' => Auth::user()->id,
-                    'description' => 'Creato ordine di richiesta materiale a ' . $order->provider_name,
+                    'description' => 'Creato da ' . $this->warehouse->name . ' ordine di richiesta materiale a ' . $order->provider_name,
                     'type' => 'info',
                 ]);
 

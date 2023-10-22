@@ -54,11 +54,11 @@
                     <div class="">
                         <x-input-label for="fallback_emails" :value="__('Email per ordini senza fornitore')" />
                         <x-text-input id="fallback_emails" class="block mt-1 w-full" type="text" name="fallback_emails"
-                            title="Inserisci una o più email separate da una virgola" :value="old('fallback_emails') />
-                        <x-input-error class="mt-2" :messages="$errors->get('email_array.*')" />
-                            <div class="text-xs text-gray-600 py-2">
-                                Nel caso di ordini in cui nel prodotto ordinato non sia presente il fornitore, l'ordine verrà inviato a questo indirizzo email.
-                            </div>
+                            title="Inserisci una o più email separate da una virgola" :value="old('fallback_emails')" required />
+                        <div class="text-xs text-gray-600 py-2">
+                            Nel caso di ordini in cui nel prodotto ordinato non sia presente il fornitore, l'ordine
+                            verrà inviato a questo indirizzo email.
+                        </div>
                     </div>
                 </div>
 
