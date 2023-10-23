@@ -148,6 +148,9 @@
                                                 <th class="p-2 w-6 ">
                                                     <div class="font-semibold text-center">Quantità</div>
                                                 </th>
+                                                <th class="p-2 w-6 hidden md:table-cell ">
+                                                    <div class="font-semibold text-center">Confezione</div>
+                                                </th>
                                                 <th class="p-2 ">
                                                     <div class="font-semibold text-left">Fornitore</div>
                                                 </th>

@@ -32,6 +32,7 @@ return new class extends Migration
 
             $table->string('note')->nullable();
             $table->string('unit_of_measure')->nullable();
+            $table->string('package')->default(1); // Confezione
 
             // La quantità di riordino di default è stata messa in una tabella a parte "product_warehouse"
             // perchè ogni magazzino avendo dimensioni diverse ha sicuramente quantità di riordino diverse.

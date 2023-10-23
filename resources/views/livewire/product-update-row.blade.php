@@ -30,6 +30,12 @@
             wire:model="refillQuantity" type="text">
     </td>
 
+    <td class="p-2 w-6 hidden md:table-cell">
+        <input
+            class="w-20 text-right border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
+            wire:model="package" type="text">
+    </td>
+
     <td class="p-2 w-38">
         <div class="">
             <select wire:model="providerId"

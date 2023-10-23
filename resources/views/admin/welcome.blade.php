@@ -57,7 +57,8 @@
                                 @foreach ($orders as $groupOrder)
                                     <tr>
                                         <td colspan="4">
-                                            <div class="mt-1 md:mt-5 mb-1 p-1 text-lg rounded-sm font-semibold text-gray-900 dark:text-gray-300 border-b border-gray-200 dark:border-gray-600">
+                                            <div
+                                                class="mt-1 md:mt-5 mb-1 p-1 text-lg rounded-sm font-semibold text-gray-900 dark:text-gray-300 border-b border-gray-200 dark:border-gray-600">
                                                 {{ $groupOrder->first()->warehouse->name }}
                                             </div>
                                         </td>
@@ -77,8 +78,7 @@
 
                                             <td>
 
-                                                <div
-                                                    class="text-gray-700 dark:text-gray-200 hidden md:flex">
+                                                <div class="text-gray-700 dark:text-gray-200 hidden md:flex">
                                                     {{ $order->provider_name }}
                                                 </div>
                                             </td>
@@ -91,8 +91,8 @@
                                             </td>
                                             <td>
                                                 <x-order-status-gradient
-                                                class="w-30 text-xs font-semibold uppercase border-r-4 text-gray-700 text-right p-2"
-                                                :status="$order->status" />
+                                                    class="w-30 text-xs font-semibold uppercase border-r-4 text-gray-700 text-right p-2"
+                                                    :status="$order->status" />
                                             </td>
 
                                         </tr>
@@ -119,7 +119,7 @@
 
         uniqueWarehouseIds.forEach(warehouseId => {
             const dataset = {
-                label: `Warehouse ${warehouseId}`,
+                label: `${warehouseId}`,
                 data: labels.map(year => {
                     const yearData = data[year];
                     const entry = yearData.find(entry => entry.warehouse_id === warehouseId);
