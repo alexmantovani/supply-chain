@@ -27,6 +27,9 @@ return new class extends Migration
             // closed: quando l'ordine è stato chiuso malgrado non sia arrivato tutto il materiale
             $table->enum('status', ['aborted', 'waiting', 'pending', 'completed', 'closed'])->default('waiting');
 
+            // L'ordine è stato fatto con urgenza
+            $table->boolean('urgent')->default(false);
+
             $table->timestamps();
         });
     }

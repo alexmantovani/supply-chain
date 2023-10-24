@@ -75,6 +75,7 @@ class RefillIndex extends Component
                             'provider_id' => $providerId,
                             'warehouse_id' => $this->warehouse->id,
                             'uuid' => Order::uuid(),
+                            'urgent' => true, // Gli ordini fatti partire manualmente sono di default considerati urgenti
                         ]);
                     }
 
@@ -96,7 +97,7 @@ class RefillIndex extends Component
                     'type' => 'info',
                 ]);
 
-                SendNewOrderEmailJob::dispatch($order, true); // true perchè la mail viene segnata come urgente
+                SendNewOrderEmailJob::dispatch($order);
             }
         }
 

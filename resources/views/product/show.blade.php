@@ -170,8 +170,10 @@
                                     <th class="p-2 hidden md:w-20">
                                         <div class="font-semibold text-center">Ora</div>
                                     </th>
+                                    <th>
+                                    </th>
                                     <th class="p-2">
-                                        <div class="font-semibold text-center">Identificativo</div>
+                                        <div class="font-semibold text-left">Identificativo</div>
                                     </th>
                                     <th class="p-2 hidden md:table-cell">
                                         <div class="font-semibold text-left">Magazzino</div>
@@ -205,7 +207,14 @@
                                                 {{ $order->created_at->translatedFormat('H:i') }}
                                             </div>
                                         </td>
-                                        <td class="p-1 text-center">
+                                        <td class=" text-right">
+                                            @if ($order->urgent)
+                                                <div title="Ordine urgente">
+                                                    🔥
+                                                </div>
+                                            @endif
+                                        </td>
+                                        <td class="p-1 text-left">
                                             <x-product-name-cell class="" :href="route('warehouse.order.show', [$warehouse, $order])">
                                                 {{ $order->uuid }}
                                             </x-product-name-cell>
@@ -271,6 +280,16 @@
                                 </select>
                             </div>
 
+
+                            <div class="pb-3">
+                                <div class="flex space-x-1 items-baseline">
+                                    <x-input-label for="package" :value="__('Confezioni')" />
+                                </div>
+                                <x-text-input id="package" class="block mt-1 w-full text-right bg-yellow-50"
+                                    type="text" name="package" :value="old('package', $product->package)" disabled required />
+                                <x-input-error :messages="$errors->get('package')" class="mt-2" />
+                            </div>
+
                             <div class="pb-3">
                                 <div class="flex space-x-1 items-baseline">
                                     <x-input-label for="quantity" :value="__('Quantità')" />
@@ -311,9 +330,9 @@
                 datasets: [{
                     label: 'Ordinati',
                     data: values,
-                    backgroundColor: '#fee2e2', // Colore delle barre
-                    borderColor: '#dc2626', // Colore dei bordi delle barre
-                    borderWidth: 1 // Spessore dei bordi delle barre
+                    backgroundColor: '#dc2626', // Colore delle barre
+                    borderRadius: 10, // Imposta il raggio desiderato per arrotondare gli angoli delle barre
+                    barThickness: 10 // Imposta la larghezza desiderata delle barre
                 }]
             },
             options: {

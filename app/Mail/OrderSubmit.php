@@ -21,7 +21,7 @@ class OrderSubmit extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public Order $order, public $urgent = false
+        public Order $order
     ) {
     }
 
@@ -33,7 +33,7 @@ class OrderSubmit extends Mailable
         $warning = $this->order->hasMissingQuantity();
         return new Envelope(
             from: new Address('noreply@noreply.com', $this->order->warehouse->name),
-            subject: ($warning ? "⚠️ " : ($this->urgent ? "🔥 " : '')) . 'REFILLER - Nuovo ordine ' . $this->order->uuid,
+            subject: ($warning ? "⚠️ " : ($this->order->urgent ? "🔥 " : '')) . 'REFILLER - Nuovo ordine ' . $this->order->uuid,
         );
     }
 

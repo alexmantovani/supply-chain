@@ -35,6 +35,12 @@
                                 <span class="font-semibold text-gray-700 dark:text-gray-100">
                                     {{ $order->uuid }}
                                 </span>
+                                @if ($order->urgent)
+                                <span title="Ordine urgente">
+                                    🔥
+                                </span>
+                            @endif
+
                             </div>
                             <div class="text-sm md:text-base text-gray-400">
                                 effettuato il
