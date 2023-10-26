@@ -34,12 +34,21 @@ class Warehouse extends Model
 
     public function productsWithMissingInfo()
     {
-        return Product::whereDoesntHave('warehouses', function ($query) {
+        $presentButIncomplete = $this->products()
+            ->where(function ($query) {
+                $query->where('refill_quantity', 0)
+                    ->orWhere('provider_id', 0)
+                    ->orWhere('provider_id', null)
+                    ->orWhere('refill_quantity', null);
+            })
+            // ;
+            ->get();
+
+        $notPresent = Product::whereDoesntHave('warehouses', function ($query) {
             $query->where('warehouses.id', $this->id);
         })
-            ->orWhere(function ($query) {
-                $query->where('refill_quantity', null)
-                    ->orWhere('provider_id', null);
-            });
+            ->get();
+
+        return Product::whereIn('id', $presentButIncomplete->merge($notPresent)->pluck('id'));
     }
 }

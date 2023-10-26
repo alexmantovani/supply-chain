@@ -20,40 +20,6 @@ class Product extends Model
 
     protected $with = ['dealer', 'status', 'provider'];
 
-    // public function getRefillQuantityAttribute()
-    // {
-    //     // Questo prodotto ha delle customizzazioni a livello di magazzino
-    //     if ($this->warehouses()) {
-    //         $refillQuantity = $this->warehouses()->firstWhere('warehouses.id', Auth::user()->profile->warehouse_id);
-    //         if ($refillQuantity) {
-    //             $refillQuantity = $refillQuantity->pivot->refill_quantity;
-    //             if ($refillQuantity) {
-    //                 return $refillQuantity;
-    //             }
-    //         }
-    //     }
-
-    //     // Questo prodotto non ha delle customizzazioni a livello di magazzino
-    //     return $this->attributes['refill_quantity'] ?? 0;
-    // }
-
-    // public function getProviderIdAttribute()
-    // {
-    //     // Questo prodotto ha delle customizzazioni a livello di magazzino
-    //     if ($this->warehouses()) {
-    //         $provider = $this->warehouses()->firstWhere('warehouses.id', Auth::user()->profile->warehouse_id);
-    //         if ($provider) {
-    //             $provider_id = $provider->pivot->provider_id;
-    //             if ($provider_id) {
-    //                 return $provider_id;
-    //             }
-    //         }
-    //     }
-
-    //     // Questo prodotto non ha delle customizzazioni a livello di magazzino
-    //     return $this->attributes['provider_id'] ?? 0;
-    // }
-
     public function getReceivedAttribute()
     {
         $quantity = $this->orders
