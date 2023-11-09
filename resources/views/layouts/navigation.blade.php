@@ -5,9 +5,13 @@
             <div class="flex flex-1">
                 <!-- Logo -->
                 <div class="shrink-0 items-center hidden md:flex">
-                    <a href="{{ route('warehouse.index') }}">
+                    @can('change warehouse')
+                        <a href="{{ route('warehouse.index') }}">
+                            <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        </a>
+                    @else
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
+                    @endcan
                 </div>
 
                 @if (isset($navbar_title))

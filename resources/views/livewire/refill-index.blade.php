@@ -168,19 +168,23 @@
                 Non è stata fatta alcuna richiesta di materiale da ordinare
             </div>
 
-            <div class="text-lg text-gray-400 dark:text-gray-500 py-16">
-                Clicca
-                <a href="{{ route('warehouse.order.index', $warehouse) }}"
-                    class=" text-gray-500 dark:text-gray-300 font-medium hover:underline">qui</a>
-                per andare a controllare lo stato degli ordini
-            </div>
-            <div>
-                <a href="{{ route('warehouse.refill.create', $warehouse) }}"
-                    class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
-                    <i class="fa-solid fa-plus" title="Aggiungi tra i materiali in esaurimento"></i>&nbsp;
-                    {{ __('Aggiungi materiale in via di esaurimento') }}
-                </a>
-            </div>
+            @can('handle order')
+                <div class="text-lg text-gray-400 dark:text-gray-500 py-16">
+                    Clicca
+                    <a href="{{ route('warehouse.order.index', $warehouse) }}"
+                        class=" text-gray-500 dark:text-gray-300 font-medium hover:underline">qui</a>
+                    per andare a controllare lo stato degli ordini
+                </div>
+            @endcan
+            @can('add refill request')
+                <div>
+                    <a href="{{ route('warehouse.refill.create', $warehouse) }}"
+                        class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                        <i class="fa-solid fa-plus" title="Aggiungi tra i materiali in esaurimento"></i>&nbsp;
+                        {{ __('Aggiungi materiale in via di esaurimento') }}
+                    </a>
+                </div>
+            @endcan
         </div>
     @endif
 

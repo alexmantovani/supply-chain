@@ -36,10 +36,10 @@
                                     {{ $order->uuid }}
                                 </span>
                                 @if ($order->urgent)
-                                <span title="Ordine urgente">
-                                    🔥
-                                </span>
-                            @endif
+                                    <span title="Ordine urgente">
+                                        🔥
+                                    </span>
+                                @endif
 
                             </div>
                             <div class="text-sm md:text-base text-gray-400">
@@ -112,16 +112,18 @@
                                         <div class="text-right dark:text-gray-300 text-sm md:text-base">
                                             {{ $product->pivot->quantity }}
                                             @php
-                                                $total += $product->pivot->quantity;
+                                                $total++;
                                             @endphp
                                         </div>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
                                         <div class="text-center dark:text-gray-300 text-sm md:text-base">
                                             <x-product-arrived :arrived="$product->isArrived()" :status="$order->status" class="text-xs" />
-                                            @php
-                                                $total_received += $product->pivot->received_quantity;
-                                            @endphp
+                                            @if ($product->isArrived())
+                                                @php
+                                                    $total_received++;
+                                                @endphp
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -145,7 +147,7 @@
                                 <td class="p-2 ">
                                     @if ($total > 0)
                                         <div class="text-center text-xs text-gray-400">
-                                            {{ round((100 * $total_received) / $total, 1) }}%
+                                            {{ $total_received }} di {{ $total }}
                                         </div>
                                     @endif
                                     {{--

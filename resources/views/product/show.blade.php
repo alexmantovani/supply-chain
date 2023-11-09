@@ -253,63 +253,66 @@
 
                 </div>
 
-                @if ($product->isOrdinable())
-                    <div
-                        class=" bg-yellow-100 shadow-lg md:ml-4 rounded-sm border border-gray-200 px-8 my-4 md:my-0 py-8 dark:bg-gray-900 dark:border-gray-700 max-h-min">
-                        <div class="pb-4 mx-5">
-                            <div class="font-semibold text-2xl dark:text-gray-200">
-                                Ordina al volo
+                @can('add refill request')
+
+                    @if ($product->isOrdinable())
+                        <div
+                            class=" bg-yellow-100 shadow-lg md:ml-4 rounded-sm border border-gray-200 px-8 my-4 md:my-0 py-8 dark:bg-gray-900 dark:border-gray-700 max-h-min">
+                            <div class="pb-4 mx-5">
+                                <div class="font-semibold text-2xl dark:text-gray-200">
+                                    Ordina al volo
+                                </div>
                             </div>
+
+                            <form method="POST" action="{{ route('warehouse.refill.store', $warehouse) }}">
+                                @csrf
+                                <input type="hidden" name="codes" value="{{ $product->uuid }}">
+
+                                <div class="pb-3">
+                                    <x-input-label for="warehouse_id" :value="__('Magazzino')" />
+                                    <select name="warehouse_id"
+                                        class="form-control w-full rounded bg-yellow-50 dark:bg-transparent dark:text-white mt-1"
+                                        required disabled>
+                                        @foreach (App\Models\Warehouse::all() as $warehouse_item)
+                                            <option value="{{ $warehouse_item->id }}"
+                                                {{ $warehouse_item->id == $warehouse->id ? 'selected' : '' }}>
+                                                {{ $warehouse_item->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+
+                                <div class="pb-3">
+                                    <div class="flex space-x-1 items-baseline">
+                                        <x-input-label for="package" :value="__('Confezioni')" />
+                                    </div>
+                                    <x-text-input id="package" class="block mt-1 w-full text-right bg-yellow-50"
+                                        type="text" name="package" :value="old('package', $product->package)" disabled required />
+                                    <x-input-error :messages="$errors->get('package')" class="mt-2" />
+                                </div>
+
+                                <div class="pb-3">
+                                    <div class="flex space-x-1 items-baseline">
+                                        <x-input-label for="quantity" :value="__('Quantità')" />
+                                        @if (strlen($product->unit_of_measure))
+                                            <div class="font-medium text-sm text-gray-700 dark:text-gray-300">
+                                                ({{ $product->unit_of_measure }})
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <x-text-input id="quantity" class="block mt-1 w-full text-right bg-yellow-50"
+                                        type="number" name="quantity" :value="old('quantity', $product->refillQuantity($warehouse->id))" required />
+                                    <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
+                                </div>
+
+                                <x-primary-button class="w-full justify-center">
+                                    {{ __('Ordina') }}
+                                </x-primary-button>
+                            </form>
                         </div>
-
-                        <form method="POST" action="{{ route('warehouse.refill.store', $warehouse) }}">
-                            @csrf
-                            <input type="hidden" name="codes" value="{{ $product->uuid }}">
-
-                            <div class="pb-3">
-                                <x-input-label for="warehouse_id" :value="__('Magazzino')" />
-                                <select name="warehouse_id"
-                                    class="form-control w-full rounded bg-yellow-50 dark:bg-transparent dark:text-white mt-1"
-                                    required disabled>
-                                    @foreach (App\Models\Warehouse::all() as $warehouse_item)
-                                        <option value="{{ $warehouse_item->id }}"
-                                            {{ $warehouse_item->id == $warehouse->id ? 'selected' : '' }}>
-                                            {{ $warehouse_item->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-
-                            <div class="pb-3">
-                                <div class="flex space-x-1 items-baseline">
-                                    <x-input-label for="package" :value="__('Confezioni')" />
-                                </div>
-                                <x-text-input id="package" class="block mt-1 w-full text-right bg-yellow-50"
-                                    type="text" name="package" :value="old('package', $product->package)" disabled required />
-                                <x-input-error :messages="$errors->get('package')" class="mt-2" />
-                            </div>
-
-                            <div class="pb-3">
-                                <div class="flex space-x-1 items-baseline">
-                                    <x-input-label for="quantity" :value="__('Quantità')" />
-                                    @if (strlen($product->unit_of_measure))
-                                        <div class="font-medium text-sm text-gray-700 dark:text-gray-300">
-                                            ({{ $product->unit_of_measure }})
-                                        </div>
-                                    @endif
-                                </div>
-                                <x-text-input id="quantity" class="block mt-1 w-full text-right bg-yellow-50"
-                                    type="number" name="quantity" :value="old('quantity', $product->refillQuantity($warehouse->id))" required />
-                                <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
-                            </div>
-
-                            <x-primary-button class="w-full justify-center">
-                                {{ __('Ordina') }}
-                            </x-primary-button>
-                        </form>
-                    </div>
-                @endif
+                    @endif
+                @endcan
             </div>
         </div>
     </section>

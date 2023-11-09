@@ -163,6 +163,8 @@ class CreatePermissionTables extends Migration
             'edit user',
             'handle order',
             'admin site', // Tab "Admin"
+
+            'add refill request', // Possibilità di inserire richieste di materiale
         ];
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
@@ -179,10 +181,11 @@ class CreatePermissionTables extends Migration
         $role->givePermissionTo('change warehouse');
         $role->givePermissionTo('handle order');
         $role->givePermissionTo('admin site');
+        $role->givePermissionTo('add refill request');
 
         $role = Role::create(['name' => 'RRE']);
         $role->givePermissionTo('change warehouse');
         $role->givePermissionTo('handle order');
-
+        $role->givePermissionTo('add refill request');
     }
 }
