@@ -54,7 +54,7 @@ class ProductController extends Controller
         $warehouse = Auth::user()->warehouse;
 
         $search = Request()->search ?? '';
-        $filters = Request()->filters ?? ['Ordinabili'];
+        $filters = Request()->filters ?? ['Ordinabili', 'In test', 'Annullati', 'In esaurimento', 'Poca fornitura'];
         $show_criticals = Request()->show_criticals ?? false;
 
         // Innanzi tutto se la parola da cercare è di 10 caratteri, do un'occhiata anche ad DB di Altena prima di mostrare i risultati
@@ -79,14 +79,13 @@ class ProductController extends Controller
                     ->orWhere('uuid', 'like', $search . '%');
             })
             ->whereIn('status_id', $filter_list)
-            ->orderBy('products.uuid')
+//            ->orderBy('provider_id')
             ->paginate(50);
 
-        $hasCriticals = $warehouse->productsWithMissingInfo();
-        if ($show_criticals && $hasCriticals->count()) {
-            $products = $hasCriticals->paginate(50);
+        $hasCriticals = $warehouse->productsWithMissingInfo()->count();
+        if ($show_criticals && $hasCriticals) {
+            $products = $warehouse->productsWithMissingInfo()->paginate(50);
         }
-        $hasCriticals = $hasCriticals->count();
 
         $providers = Provider::all();
 

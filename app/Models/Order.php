@@ -108,11 +108,10 @@ class Order extends Model
             //     ->whereYear('orders.created_at', '=', $i)
             //     ->get()
             //     ->groupBy('warehouse_id');
-            $su = Order::leftJoin('warehouses', 'warehouses.id', 'orders.warehouse_id')
-            ->whereNotIn('status', ['aborted'])
+            $su = Order::whereNotIn('status', ['aborted'])
                 ->whereYear('orders.created_at', '=', $i)
                 ->groupBy('warehouse_id')
-                ->selectRaw('warehouse_id, COUNT(*) as count, warehouses.name as warehouse_name' )
+                ->selectRaw('warehouse_id, COUNT(*) as count')
                 ->get();
 
             // array_push($returnData, $su);

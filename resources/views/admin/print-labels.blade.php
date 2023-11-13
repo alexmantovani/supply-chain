@@ -70,7 +70,7 @@
             {{-- alt="barcode" style="width: 45px; height: 45px; float:left; padding:0px 5px;" /> --}}
             <div style="">
                 {{ $product->name }}
-                <p style="margin-top: 0;">Cod.: {{ $product->uuid }}</p>
+                <p style="margin-top: 5px;font-size: 16px;">Cod.: {{ $product->uuid }}</p>
             </div>
         </div>
     @endforeach

@@ -18,10 +18,10 @@ class WarehouseSeeder extends Seeder
             'fallback_emails' => 'info@uff-acquisti-HQ.com',
         ]);
 
-        \App\Models\Warehouse::create([
-            'name' => 'Rep. Elettrico Neri',
-            // 'description' => "Capannone A - Pianoro",
-            'fallback_emails' => 'info@uff-acquisti-NERI.com',
-        ]);
+//        \App\Models\Warehouse::create([
+//            'name' => 'Rep. Elettrico Neri',
+//            // 'description' => "Capannone A - Pianoro",
+//            'fallback_emails' => 'info@uff-acquisti-NERI.com',
+//        ]);
     }
 }

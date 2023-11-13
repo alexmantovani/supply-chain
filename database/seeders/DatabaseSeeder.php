@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
     {
         $user = \App\Models\User::factory()->create([
             'name' => 'Alex Mantovani',
-            'email' => 'a@a.a',
-            'password' => Hash::make('12345678'),
+            'email' => 'alex.mantovani@marchesini.com',
+            'password' => Hash::make('MsrLLu&tA2'),
         ]);
-        $user->assignRole(['super-admin', 'RUA']);
-
+        $user->assignRole(['super-admin', 'RUA', 'RRE']);
+/*
         $user = \App\Models\User::factory()->create([
             'name' => 'Mirko Benni',
             'email' => 'mirko@mirko.com',
@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('HJGj7&hy1'),
         ]);
         $user->assignRole('RUA');
-
+*/
         // $provider = \App\Models\Provider::create([
         //     'name' => 'Marchesini warehouse',
         //     'description' => "Magazzino generale Marchesini Group",

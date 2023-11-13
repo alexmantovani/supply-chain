@@ -79,9 +79,8 @@ class ProcessProduct implements ShouldQueue
 
         // Parsing the response as a SimpleXMLElement
         $responseXml = new SimpleXMLElement($response);
-        $jsonString = $responseXml->children('http://www.w3.org/2003/05/soap-envelope')->Body->children()->getInfoCodeResponse->getInfoCodeResult->__toString();
-        $data = json_decode($jsonString, true)[0];
-
+        $jsonString = str_replace("\n","",$responseXml->children('http://www.w3.org/2003/05/soap-envelope')->Body->children()->getInfoCodeResponse->getInfoCodeResult->__toString());
+        $data = json_decode($jsonString)[0];
         return collect($data);
     }
 
@@ -95,16 +94,16 @@ class ProcessProduct implements ShouldQueue
         // $response = Soap::to('https://sig-inservices.marchesini.com/mgWSElettronici/WebServiceElettro.asmx')
         //     ->call('getInfoCode', ['Code' => $this->uuid]);
 
-        $response = $this->getCodeInfoFromAltena($this->uuid);
+        $response = $this->getCodeInfoFromAltena(trim($this->uuid));
 
         // Se la richiesta fallisce, non vado oltre
         if (!$response) return;
 
         // $response["ITEM"];
-        $name = $response["DESCRIPTION"];
-        $dealer_name = $response["BRAND"] ?? '';
-        $code = $response["PRODUCT_CODE"] ?? '';
-        $model = $response["MODEL"] ?? '';
+        $name = trim($response["DESCRIPTION"]);
+        $dealer_name = trim($response["BRAND"]) ?? '';
+        $code = trim($response["PRODUCT_CODE"]) ?? '';
+        $model = trim($response["MODEL"]) ?? '';
 
         // Controlli di sicurezza sulla risposta
         if (strlen($name) < 1) return; // Devo avere il nome dell'articolo
