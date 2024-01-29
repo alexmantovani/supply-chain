@@ -80,6 +80,12 @@ class ProcessProduct implements ShouldQueue
         // Parsing the response as a SimpleXMLElement
         $responseXml = new SimpleXMLElement($response);
         $jsonString = str_replace("\n","",$responseXml->children('http://www.w3.org/2003/05/soap-envelope')->Body->children()->getInfoCodeResponse->getInfoCodeResult->__toString());
+
+        // Verifica se la risposta contiene l'elemento "ERROR"
+        if (str_starts_with($jsonString, 'ERROR')) {
+            return null;
+        }
+
         $data = json_decode($jsonString)[0];
         return collect($data);
     }
