@@ -18,7 +18,7 @@ class ProductUpdateRow extends Component
     {
         $this->providerId = $this->product->providerId($this->warehouse->id);
         $this->refillQuantity = $this->product->refillQuantity($this->warehouse->id);
-        $this->package = $this->product->package;
+        $this->package = $this->product->pieces_in_package;
     }
 
     public function render()
@@ -50,7 +50,7 @@ class ProductUpdateRow extends Component
     {
         if ((is_numeric($this->package)) || ($this->package == '')) {
             $this->product->update([
-                'package' => $this->package,
+                'pieces_in_package' => $this->package,
             ]);
         }
     }

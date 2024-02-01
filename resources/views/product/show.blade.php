@@ -282,15 +282,14 @@
                                     </select>
                                 </div>
 
-
-                                <div class="pb-3">
+                                {{-- <div class="pb-3">
                                     <div class="flex space-x-1 items-baseline">
                                         <x-input-label for="package" :value="__('Confezioni')" />
                                     </div>
                                     <x-text-input id="package" class="block mt-1 w-full text-right bg-yellow-50"
                                         type="text" name="package" :value="old('package', $product->package)" disabled required />
                                     <x-input-error :messages="$errors->get('package')" class="mt-2" />
-                                </div>
+                                </div> --}}
 
                                 <div class="pb-3">
                                     <div class="flex space-x-1 items-baseline">
@@ -301,9 +300,17 @@
                                             </div>
                                         @endif
                                     </div>
-                                    <x-text-input id="quantity" class="block mt-1 w-full text-right bg-yellow-50"
+
+                                    <x-text-input id="quantity" class="block mt-1 w-full text-right bg-yellow-50" min="{{ $product->refillQuantity($warehouse->id) }}" step="{{ $product->pieces_in_package }}"
                                         type="number" name="quantity" :value="old('quantity', $product->refillQuantity($warehouse->id))" required />
                                     <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
+
+                                    <div class="flex space-x-1 items-baseline justify-center text-xs pt-1">
+                                        <div>
+                                            Pezzi per confezione:
+                                            {{ $product->pieces_in_package }}
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <x-primary-button class="w-full justify-center">
