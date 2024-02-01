@@ -305,7 +305,7 @@
                                         type="number" name="quantity" :value="old('quantity', $product->refillQuantity($warehouse->id))" required />
                                     <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
 
-                                    <div class="flex space-x-1 items-baseline justify-center text-xs pt-1">
+                                    <div class="flex space-x-1 items-baseline justify-center text-xs pt-1 text-gray-700 dark:text-gray-300">
                                         <div>
                                             Pezzi per confezione:
                                             {{ $product->pieces_in_package }}
