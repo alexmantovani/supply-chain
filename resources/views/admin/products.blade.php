@@ -145,11 +145,11 @@
                                                 <th class="p-2 whitespace-nowrap">
                                                     <div class="font-semibold text-left">Prodotto</div>
                                                 </th>
-                                                <th class="p-2 w-6 ">
-                                                    <div class="font-semibold text-center" title="Quantità minima ordinabile">Quantità</div>
-                                                </th>
                                                 <th class="p-2 w-6 hidden md:table-cell ">
                                                     <div class="font-semibold text-center" title="Pezzi per confezione">Pz. x CONF.</div>
+                                                </th>
+                                                <th class="p-2 w-6 ">
+                                                    <div class="font-semibold text-center" title="Quantità minima ordinabile">Quantità</div>
                                                 </th>
                                                 <th class="p-2 ">
                                                     <div class="font-semibold text-left">Fornitore</div>

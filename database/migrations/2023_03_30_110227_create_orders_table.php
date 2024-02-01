@@ -22,7 +22,7 @@ return new class extends Migration
 
             // aborted: quando l'ordine è stato annullato
             // waiting: quando l'ordine è stato inviato e si sta aspettando l'arrivo del materiale
-            // pending: quando parte del matriale è rientrato ma ne manca ancora una parte
+            // pending: quando parte del materiale è rientrato ma ne manca ancora una parte
             // completed: quando l'ordine è stato completato
             // closed: quando l'ordine è stato chiuso malgrado non sia arrivato tutto il materiale
             $table->enum('status', ['aborted', 'waiting', 'pending', 'completed', 'closed'])->default('waiting');
