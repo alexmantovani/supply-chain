@@ -13,12 +13,14 @@ class ProductUpdateRow extends Component
     public $refillQuantity;
     public $warehouse;
     public $package;
+    public $unitOfMeasure;
 
     public function mount()
     {
         $this->providerId = $this->product->providerId($this->warehouse->id);
         $this->refillQuantity = $this->product->refillQuantity($this->warehouse->id);
         $this->package = $this->product->pieces_in_package;
+        $this->unitOfMeasure = $this->product->unit_of_measure;
     }
 
     public function render()
@@ -44,6 +46,13 @@ class ProductUpdateRow extends Component
                 $this->warehouse->id => ['refill_quantity' => $this->refillQuantity]
             ]);
         }
+    }
+
+    public function updatedUnitOfMeasure()
+    {
+        $this->product->update([
+            'unit_of_measure' => $this->unitOfMeasure,
+        ]);
     }
 
     public function updatedPackage()
