@@ -30,6 +30,18 @@ class ProductController extends Controller
 
         $filter_list = ProductStatus::whereIn('group', $filters)->pluck('id');
 
+        $sort_by = Request()->sort_by ?? 'name';
+        switch ($sort_by) {
+            case 'dealer':
+                $sortField = 'dealer_name';
+                break;
+            case 'uuid':
+                $sortField = 'products.uuid';
+                break;
+            default:
+                $sortField = 'products.name';
+                break;
+        }
         $products = Product::join('dealers', 'dealers.id', 'dealer_id')
             ->select('products.*', 'dealers.name as dealer_name')
             ->where(function ($q) use ($search) {
@@ -44,9 +56,10 @@ class ProductController extends Controller
                     ->orWhere('uuid', 'like', $search . '%');
             })
             ->whereIn('status_id', $filter_list)
+            ->orderBy($sortField)
             ->paginate(100);
 
-        return view('product.index', compact('warehouse', 'search', 'products', 'filters'));
+        return view('product.index', compact('warehouse', 'search', 'products', 'filters', 'sort_by'));
     }
 
     public function admin()
@@ -79,7 +92,6 @@ class ProductController extends Controller
                     ->orWhere('uuid', 'like', $search . '%');
             })
             ->whereIn('status_id', $filter_list)
-//            ->orderBy('provider_id')
             ->paginate(50);
 
         $hasCriticals = $warehouse->productsWithMissingInfo()->count();

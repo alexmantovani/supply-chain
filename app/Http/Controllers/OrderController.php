@@ -15,6 +15,7 @@ use App\Models\Product;
 use Log;
 use App\Jobs\SendAbortOrderEmailJob;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -27,11 +28,25 @@ class OrderController extends Controller
 
         $query = ($show === 'all') ? ['aborted', 'waiting', 'pending', 'completed', 'closed'] : ['waiting', 'pending'];
 
+        // $statusCounters = ['aborted' => 0, 'waiting' => 0, 'pending' => 0, 'completed' => 0, 'closed' => 0];
+        $statusCounters = ['aborted' => 0, 'waiting' => 0, 'closed' => 0, 'completed' => 0];
+        $ordersByStatus = $warehouse->orders()
+            ->select('status', DB::raw('COUNT(*) as count'))
+            ->groupBy('status')
+            ->get();
+
+        foreach ($ordersByStatus as $order) {
+            $status = $order->status;
+            if ($status=='pending') $status = 'waiting';
+
+            $statusCounters[$status] += $order->count;
+        }
+
         $orders = $warehouse->orders()
             ->whereIn('status', $query)
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        return view('order.index', compact('warehouse', 'orders', 'show'));
+        return view('order.index', compact('warehouse', 'orders', 'show', 'statusCounters'));
     }
 
     /**

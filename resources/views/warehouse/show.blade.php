@@ -19,9 +19,10 @@
         <div class="h-full">
 
             <div class="container-wide text-white relative pb-3">
-                <img class="object-cover" style="height: 400px" src="{{ url('images/bulloni.webp') }}">
+                {{-- <img class="object-cover" style="height: 400px" src="{{ url('images/bulloni.webp') }}"> --}}
+                <img class="object-cover" style="height: 400px" src="{{ url('images/bulloni3.jpg') }}">
                 <div class="centered w-screen mx-auto md:px-36  text-center">
-                    <div class="flex justify-end">
+                    {{-- <div class="flex justify-end">
                         <div class="md:flex-0">
                             <div
                                 class="mt-5 mr-3 md:mr-0 md:mt-0 md:ml-5 bg-white shadow-lg rounded-xl border border-gray-200 p-3 dark:bg-gray-900 dark:border-gray-800">
@@ -33,9 +34,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="flex mt-10">
+                    <div class="flex mt-60">
                         <form method="GET" action="{{ route('warehouse.product.index', $warehouse) }}" class="flex-1">
                             <div
                                 class="flex py-3 p-3 text-stone-900 dark:text-stone-100 bg-white dark:bg-stone-800 shadow-sm md:rounded-lg">

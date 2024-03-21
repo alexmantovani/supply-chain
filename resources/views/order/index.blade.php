@@ -18,6 +18,27 @@
     <section class="justify-center antialiased bg-gray-100 text-gray-600 min-h-screen md:p-4 dark:bg-gray-900">
         <div class="h-full ">
             <div class="w-full max-w-7xl mx-auto">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+                    @foreach ($statusCounters as $status => $count)
+                        <div href="#"
+                            class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+
+                            <div class="flex justify-end">
+                                <div class="pb-3">
+                                    <img src="{{ url('/images/' . $status . '.png') }}" class="h-16 object-scale-down">
+                                </div>
+                            </div>
+                            <h5 class="mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white ">
+                                {{ $count }}
+                            </h5>
+                            <p class="font-normal text-gray-700 dark:text-gray-400 uppercase">
+                                {{ trans_choice('statuses.' . $status, $count) }}
+                            </p>
+                        </div>
+                    @endforeach
+
+                </div>
                 <div class="flex justify-between items-baseline">
                     <div class=" text-gray-900 dark:text-gray-300 text-xl p-3 font-semibold">
                         Elenco ordini

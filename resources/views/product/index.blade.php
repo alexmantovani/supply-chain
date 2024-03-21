@@ -60,16 +60,25 @@
                                     <th class="w-2">
                                     </th>
                                     <th class="p-2 whitespace-nowrap w-30">
-                                        <div class="font-semibold text-left">CODICE</div>
+                                        <a
+                                            href="{{ route('warehouse.product.index', ['warehouse' => $warehouse, 'sort_by' => 'uuid']) }}">
+                                            <div class="font-semibold text-left">CODICE</div>
+                                        </a>
                                     </th>
                                     <th class="p-2 w-2">
                                         <div class="font-semibold text-left"></div>
                                     </th>
                                     <th class="p-2 ">
-                                        <div class="font-semibold text-left">Articolo</div>
+                                        <a
+                                            href="{{ route('warehouse.product.index', ['warehouse' => $warehouse, 'sort_by' => 'name']) }}">
+                                            <div class="font-semibold text-left">Articolo</div>
+                                        </a>
                                     </th>
                                     <th class="p-2 hidden md:table-cell">
+                                        <a
+                                        href="{{ route('warehouse.product.index', ['warehouse' => $warehouse, 'sort_by' => 'dealer']) }}">
                                         <div class="font-semibold text-left">Produttore</div>
+                                        </a>
                                     </th>
                                     <th class=" hidden md:table-cell">
                                         <div class="font-semibold text-right">Ordinati</div>
